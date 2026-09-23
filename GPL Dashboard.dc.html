@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<meta name="ext-resource-dependency" content="./GPL Bills and Payments.dc.html" data-resource-id="./GPL%20Bills%20and%20Payments.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Report an Issue.dc.html" data-resource-id="./GPL%20Report%20an%20Issue.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Help Chat.dc.html" data-resource-id="./GPL%20Help%20Chat.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Service Requests.dc.html" data-resource-id="./GPL%20Service%20Requests.dc.html" />
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  .gpl-rail-tip { opacity: 0; transform: translateX(-5px); pointer-events: none; transition: opacity 140ms cubic-bezier(0.2,0.8,0.3,1), transform 180ms cubic-bezier(0.2,0.8,0.3,1); }
+  .gpl-rail-item:hover .gpl-rail-tip, .gpl-rail-item:focus-visible .gpl-rail-tip { opacity: 1; transform: translateX(0); }
+  @media (prefers-reduced-motion: reduce) { .gpl-rail-tip { transition: none; } }
+  .gpl-info-tip { opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity 140ms cubic-bezier(0.2,0.8,0.3,1), transform 180ms cubic-bezier(0.2,0.8,0.3,1); }
+  .gpl-info-ico:hover .gpl-info-tip, .gpl-info-ico:focus-visible .gpl-info-tip { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .gpl-info-tip { transition: none; } }
+  body { background: #eef2f8; font-family: Inter, system-ui, sans-serif; }
+  a { color: #404293; text-decoration: none; }
+  a:hover { color: #323373; }
+  label { font-size: 14px !important; }
+  /* Where the wrapper's overflow is opened up so the table can scroll, it can no
+     longer clip its own corners — so the frame moves onto the table itself and
+     the corner cells clip to match. */
+  .gpl-flat-table .sc-host-x > div { box-shadow: none !important; border: none !important; border-radius: 0 !important; background: transparent !important; }
+  .gpl-flat-table table { border: 1px solid rgba(19,28,46,0.12); border-radius: 14px; border-collapse: separate !important; border-spacing: 0; }
+  .gpl-flat-table thead th:first-child { border-top-left-radius: 13px; }
+  .gpl-flat-table thead th:last-child { border-top-right-radius: 13px; }
+  .gpl-flat-table tbody tr:last-child td { border-bottom: none !important; }
+  .gpl-flat-table tbody tr:last-child td:first-child { border-bottom-left-radius: 13px; }
+  .gpl-flat-table tbody tr:last-child td:last-child { border-bottom-right-radius: 13px; }
+  .gpl-mobile-scroll .sc-host-x > div { overflow: visible !important; }
+  .gpl-mobile-scroll table { min-width: 520px; }
+  .gpl-scroll-light::-webkit-scrollbar:horizontal { height: 8px; }
+  .gpl-scroll-light { scrollbar-width: thin; scrollbar-color: rgba(8,24,30,0.22) transparent; }
+  .gpl-scroll-light::-webkit-scrollbar { width: 8px; }
+  .gpl-scroll-light::-webkit-scrollbar-track { background: transparent; }
+  .gpl-scroll-light::-webkit-scrollbar-thumb { background: rgba(8,24,30,0.18); border-radius: 999px; }
+  .gpl-mobile-scroll thead th { position: sticky; top: -1px; z-index: 2; background: #ffffff; box-shadow: inset 0 -1px 0 rgba(8,24,30,0.10); }
+  .gpl-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.28) transparent; }
+  .gpl-scroll::-webkit-scrollbar { width: 10px; }
+  .gpl-scroll::-webkit-scrollbar-track { background: transparent; margin: 10px 0; }
+  .gpl-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.22); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+  .gpl-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.40); background-clip: content-box; }
+</style>
+</helmet>
+
+<div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; min-height:100vh; background:#eef2f8; color:var(--fg-1); font-family:var(--font-sans);">
+
+  <a href="#gpl-main" style="position:absolute; left:-9999px; top:0; z-index:200; padding:12px 18px; background:var(--agency-accent); color:#ffffff; border-radius:0 0 12px 0; font-size:14px; font-weight:600;" style-focus="left:0;">Skip to main content</a>
+
+  <div style="position:fixed; top:0; left:0; right:0; z-index:60; height:64px; background:rgb(255,255,255); box-shadow:{{ shadowBar }}; display:flex; flex-direction:row; padding:8px 16px; justify-content:space-between; align-items:center; font-family:Inter, system-ui, sans-serif;">
+    <div style="display:flex; flex-direction:row; gap:32px; align-items:center; align-self:stretch; min-width:0;">
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center; flex-shrink:0;">
+        <span style="width:38px; height:38px; border-radius:10px; background:#404293; display:inline-flex; justify-content:center; align-items:center; flex-shrink:0; overflow:hidden;">
+          <img src="assets/gpl-logo.jpg" alt="Guyana Power &amp; Light" style="width:100%; height:100%; object-fit:cover;">
+        </span>
+        <div style="display:{{ brandTextDisplay }}; flex-direction:column; gap:1px; min-width:0;">
+          <span style="font-weight:800; font-size:14px; line-height:16.1px; letter-spacing:-0.14px; color:rgb(19,28,46); white-space:nowrap;">Guyana Power &amp; Light</span>
+          <span style="display:{{ taglineDisplay }}; font-weight:600; font-size:11px; line-height:12.65px; color:rgb(78,93,117); white-space:nowrap;">One front door to every service</span>
+        </div>
+      </div>
+      <div onClick="{{ onMenu }}" tabIndex="{{ zero }}" role="button" aria-label="{{ toggleLabel }}" title="{{ toggleLabel }}" style="width: 38px; height: 38px; border-radius: 4px; box-shadow: 0px 0px 0px 1px #B9C4D600; display: {{ desktopMenuDisplay }}; justify-content: center; align-items: center; flex-shrink: 0; cursor: pointer; outline: none; color: rgb(19,28,46); transition: background 180ms cubic-bezier(0.2,0.8,0.3,1); background-color: #FFFFFF00" style-hover="background:rgb(228,234,242);" style-focus="background:rgb(228,234,242);" style-active="background:rgb(210,219,232);">
+        <span style="display:inline-flex; align-items:center; justify-content:center;">
+          <sc-if value="{{ isMenuIconExpand }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; transform:{{ desktopMenuFlip }}; color:var(--fg-3);"><svg width="20" height="20" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M109.632 673.664h519.68c25.152 0 45.568-22.016 45.568-48.896 0-26.88-20.416-48.896-45.568-48.896h-519.68c-25.216 0-45.632 22.016-45.632 48.896 0 26.88 20.48 48.896 45.632 48.896z m0-228.096h519.68c25.152 0 45.568-21.952 45.568-48.896 0-26.88-20.416-48.896-45.568-48.896h-519.68c-25.216 0-45.632 22.016-45.632 48.896 0 26.88 20.48 48.896 45.632 48.896z m3.264-219.904h795.776c26.88 0 50.56-20.352 51.328-47.168A48.896 48.896 0 0 0 911.104 128H115.328c-26.88 0-50.56 20.416-51.328 47.168a48.896 48.896 0 0 0 48.896 50.56z m619.776 447.232V348.672L960 510.784l-227.328 162.112c0 0.768 0 0.768 0 0z m178.432 122.944H115.328c-26.88 0-50.56 20.48-51.328 47.232a48.896 48.896 0 0 0 48.896 50.496h795.776c26.88 0 50.56-20.416 51.328-47.232a48.896 48.896 0 0 0-48.896-50.496z" fill="currentColor"></path></svg></span></sc-if>
+          <sc-if value="{{ isMenuIconX }}"><i data-lucide="x" style="width:20px;height:20px"></i></sc-if>
+        </span>
+      </div>
+      <div style="position:relative; width:600px; max-width:100%; display:{{ headerSearchDisplay }}; align-self:stretch; flex-shrink:1;">
+        <div style="width:100%; height:100%; overflow:hidden; border-radius:12px; background:rgb(244,248,249); box-shadow:inset 0 0 0 1px rgb(185,196,214); display:flex; flex-direction:row; gap:10px; padding:12px 15px; align-items:center; box-sizing:border-box;">
+          <input value="{{ searchQuery }}" onChange="{{ onSearchInput }}" onFocus="{{ onSearchFocus }}" onBlur="{{ onSearchBlur }}" onKeyDown="{{ onSearchKey }}" role="combobox" aria-expanded="{{ sugOpen }}" aria-autocomplete="list" placeholder="Search bills, outages, requests" aria-label="Search the portal" style="flex:1; min-width:0; border:none; outline:none; background:transparent; font-family:Inter, sans-serif; font-weight:400; font-size:14px; line-height:100%; color:rgb(19,28,46);">
+          <span onClick="{{ clearSearch }}" role="button" tabIndex="{{ zero }}" aria-label="Clear search" title="Clear search" style="display:{{ clearDisplay }}; width:28px; height:28px; border-radius:999px; align-items:center; justify-content:center; color:var(--fg-3); cursor:pointer; flex-shrink:0;" style-hover="background:rgba(19,28,46,0.08);"><i data-lucide="x" style="width:16px;height:16px"></i></span>
+          <span style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:rgb(138,163,172); flex-shrink:0;"><i data-lucide="search" style="width:20px;height:20px"></i></span>
+        </div>
+        <div role="listbox" aria-label="Search suggestions" style="display:{{ sugDisplay }}; position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:70; background:#fff; border-radius:14px; box-shadow:0 1px 0 rgba(19,28,46,0.08), 0 18px 34px rgba(8,24,30,0.16); padding:6px; max-height:340px; overflow-y:auto;">
+          <sc-for list="{{ suggestions }}" as="sug" hint-placeholder-count="3">
+            <div onClick="{{ sug.onSelect }}" role="option" aria-selected="{{ sug.selected }}" tabIndex="{{ zero }}" style="display:flex; align-items:flex-start; gap:11px; padding:10px 11px; border-radius:10px; cursor:pointer; background:{{ sug.bg }}; outline:none;" style-hover="background:rgb(244,248,249);" style-focus="background:rgb(244,248,249);">
+              <span style="width:22px; height:22px; flex:none; display:inline-flex; align-items:center; justify-content:center; color:#404293;"><i data-lucide="{{ sug.icon }}" style="width:18px;height:18px"></i></span>
+              <span style="min-width:0; display:flex; flex-direction:column; gap:2px;">
+                <span style="font-size:13.5px; font-weight:600; color:var(--fg-1);">{{ sug.label }}</span>
+                <span style="font-size:12px; line-height:1.4; color:var(--fg-3);">{{ sug.hint }}</span>
+              </span>
+            </div>
+          </sc-for>
+          <sc-if value="{{ sugNoResults }}">
+            <div style="padding:12px 11px; font-size:13px; line-height:1.5; color:var(--fg-3);">Nothing matched that. Try “bill”, “outage” or “request”.</div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:16px; align-items:center; height:38px; flex-shrink:0;">
+      <div data-gpl-notif="1" style="position:relative; display:flex; align-items:center;">
+        <span onClick="{{ toggleNotifs }}" role="button" tabIndex="{{ zero }}" aria-label="Notifications" aria-expanded="{{ notifsOpen }}" style="width:38px; height:38px; border-radius:19px; background:{{ bellBg }}; border:1px solid rgba(19,28,46,0.12); display:inline-flex; justify-content:center; align-items:center; cursor:pointer; position:relative; outline:none;" style-hover="background:rgb(244,248,249);">
+          <i data-lucide="bell" style="width:18px;height:18px; color:rgb(19,28,46)"></i>
+          <sc-if value="{{ hasUnread }}">
+            <span style="position:absolute; top:-3px; right:-3px; min-width:17px; height:17px; padding:0 4px; border-radius:999px; background:#c43d3d; border:1.5px solid #fff; display:inline-flex; align-items:center; justify-content:center; font-size:10.5px; font-weight:700; color:#ffffff;">{{ unreadCount }}</span>
+          </sc-if>
+        </span>
+
+        <sc-if value="{{ notifsMobile }}">
+          <div onClick="{{ closeNotifs }}" style="position:fixed; inset:0; z-index:1400; background:rgba(8,24,30,0.42);"></div>
+        </sc-if>
+
+        <sc-if value="{{ notifsOpen }}">
+          <div style="position:{{ notifPos }}; right:{{ notifRight }}; left:{{ notifLeft }}; top:{{ notifTop }}; transform:{{ notifTransform }}; z-index:1500; width:{{ notifWidth }}; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:14px; box-shadow:0 16px 40px rgba(19,28,46,0.18); overflow:hidden; display:flex; flex-direction:column;">
+            <div style="padding:13px 16px; border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface-2);">
+              <span style="font-weight:800; font-size:14px; letter-spacing:-0.01em; color:rgb(8,24,30);">Notifications</span>
+              <sc-if value="{{ hasUnread }}">
+                <span onClick="{{ markAllRead }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; font-size:12.5px; font-weight:600; color:var(--agency-accent);">Mark all as read</span>
+              </sc-if>
+            </div>
+            <div class="gpl-scroll-light" style="max-height:min(420px, 62vh); overflow-y:auto; display:flex; flex-direction:column;">
+              <sc-for list="{{ notifications }}" as="n" hint-placeholder-count="3">
+                <sc-if value="{{ n.startsGroup }}">
+                  <div style="padding:9px 16px; background:var(--surface-2); border-bottom:1px solid rgba(19,28,46,0.08); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-3);">{{ n.group }}</div>
+                </sc-if>
+                <div onClick="{{ n.onOpen }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; gap:12px; padding:14px 16px; border-bottom:1px solid rgba(19,28,46,0.06); background:{{ n.rowBg }}; transition:background 180ms cubic-bezier(0.2,0.8,0.3,1);" style-hover="background:var(--surface-2);">
+                  <span style="flex:none; width:36px; height:36px; border-radius:11px; background:{{ n.chipBg }}; color:{{ n.chipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ n.icon }}" style="width:18px;height:18px"></i></span>
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                    <span style="display:flex; align-items:center; gap:8px;">
+                      <span style="flex:1; min-width:0; font-size:14px; font-weight:{{ n.titleWeight }}; color:var(--fg-1);">{{ n.title }}</span>
+                      <sc-if value="{{ n.unread }}">
+                        <span style="flex:none; width:8px; height:8px; border-radius:999px; background:var(--agency-accent);"></span>
+                      </sc-if>
+                    </span>
+                    <span style="font-size:13px; line-height:1.5; color:var(--fg-2);">{{ n.body }}</span>
+                    <span style="font-size:12px; color:var(--fg-4);">{{ n.when }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="padding:11px 16px; display:flex; justify-content:center; background:var(--surface-2);">
+              <span onClick="{{ closeNotifs }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; font-size:13px; font-weight:600; color:var(--fg-2);">Close</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div onClick="{{ onMenu }}" tabIndex="{{ zero }}" role="button" aria-label="{{ toggleLabel }}" title="{{ toggleLabel }}" style="display:{{ mobileMenuDisplay }}; width:38px; height:38px; border-radius:10px; justify-content:center; align-items:center; flex-shrink:0; cursor:pointer; outline:none; color:rgb(19,28,46);" style-hover="background:rgb(228,234,242);" style-focus="background:rgb(228,234,242);">
+        <span style="display:inline-flex; align-items:center; justify-content:center;">
+          <sc-if value="{{ isMenuIconExpand }}" hint-placeholder-val="{{ true }}"><svg width="22" height="22" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="none" style="color:var(--fg-3);"><path d="M109.632 673.664h519.68c25.152 0 45.568-22.016 45.568-48.896 0-26.88-20.416-48.896-45.568-48.896h-519.68c-25.216 0-45.632 22.016-45.632 48.896 0 26.88 20.48 48.896 45.632 48.896z m0-228.096h519.68c25.152 0 45.568-21.952 45.568-48.896 0-26.88-20.416-48.896-45.568-48.896h-519.68c-25.216 0-45.632 22.016-45.632 48.896 0 26.88 20.48 48.896 45.632 48.896z m3.264-219.904h795.776c26.88 0 50.56-20.352 51.328-47.168A48.896 48.896 0 0 0 911.104 128H115.328c-26.88 0-50.56 20.416-51.328 47.168a48.896 48.896 0 0 0 48.896 50.56z m619.776 447.232V348.672L960 510.784l-227.328 162.112c0 0.768 0 0.768 0 0z m178.432 122.944H115.328c-26.88 0-50.56 20.48-51.328 47.232a48.896 48.896 0 0 0 48.896 50.496h795.776c26.88 0 50.56-20.416 51.328-47.232a48.896 48.896 0 0 0-48.896-50.496z" fill="currentColor"></path></svg></sc-if>
+          <sc-if value="{{ isMenuIconX }}"><i data-lucide="x" style="width:22px;height:22px"></i></sc-if>
+        </span>
+      </div>
+
+      <div onClick="{{ toggleProfile }}" tabIndex="{{ zero }}" role="button" aria-expanded="{{ profileOpen }}" style="display:{{ profileDisplay }}; flex-direction:row; gap:8px; align-items:center; cursor:pointer; position:relative; outline:none;">
+        <span style="width:38px; height:38px; border-radius:19px; background:#404293; display:inline-flex; justify-content:center; align-items:center; flex-shrink:0; font-weight:700; font-size:13px; line-height:100%; color:rgb(255,255,255);">RB</span>
+        <div style="display:flex; flex-direction:column; gap:1px;">
+          <span style="font-weight:800; font-size:14px; line-height:16.1px; letter-spacing:-0.14px; color:rgb(8,24,30); white-space:nowrap;">Rennica Barnwell</span>
+          <span style="font-weight:600; font-size:11px; line-height:12.65px; color:rgb(61,91,102); white-space:nowrap;">Citizen</span>
+        </div>
+        <span style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:rgb(8,24,30); transform:{{ profileChevron }}; transition:transform 180ms cubic-bezier(0.2,0.8,0.3,1);"><i data-lucide="chevron-down" style="width:20px;height:20px"></i></span>
+
+        <sc-if value="{{ profileOpen }}">
+          <div onClick="{{ stopClick }}" style="position:absolute; right:0; top:calc(100% + 12px); z-index:1000; width:312px; max-height:min(78vh, 620px); overflow-y:auto; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:12px; box-shadow:0 12px 30px rgba(19,28,46,0.16); display:flex; flex-direction:column;">
+            <div style="padding:12px 14px; border-bottom:1px solid rgba(19,28,46,0.08); background:var(--surface-2);">
+              <div style="font-weight:800; font-size:14px; line-height:16.1px; letter-spacing:-0.14px; color:rgb(8,24,30); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Rennica Barnwell</div>
+              <div style="font-weight:600; font-size:11px; line-height:12.65px; color:rgb(61,91,102); margin-top:3px;">{{ portalEmail }}</div>
+            </div>
+
+            <div style="padding:12px 14px; border-bottom:1px solid rgba(19,28,46,0.08); display:flex; flex-direction:column; gap:6px;">
+              <div style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Current connection</div>
+              <div style="font-size:14px; font-weight:700; color:var(--fg-1);">Customer {{ connCust }}</div>
+              <div style="display:flex; flex-direction:column; gap:2px; font-size:12px; line-height:1.5; color:var(--fg-3);">
+                <span>Account {{ connAcct }} · Meter {{ connMeter }}</span>
+                <span>Zone — {{ connZone }}</span>
+              </div>
+            </div>
+
+            <div style="padding:8px 8px 6px; border-bottom:1px solid rgba(19,28,46,0.08); display:flex; flex-direction:column; gap:2px;">
+              <div style="padding:2px 6px 6px; font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Switch connection</div>
+              <sc-for list="{{ connSwitch }}" as="cn" hint-placeholder-count="2">
+                <div onClick="{{ cn.onPick }}" role="button" tabIndex="{{ zero }}" title="{{ cn.rowTitle }}" style="cursor:{{ cn.rowCursor }}; opacity:{{ cn.rowOpacity }}; display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:12px; background:{{ cn.rowBg }};" style-hover="background:var(--surface-2);">
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:{{ cn.rowFg }};">
+                      {{ cn.cust }}
+                      <sc-if value="{{ cn.isPrimary }}">
+                        <span style="font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:2px 6px; border-radius:999px; background:var(--surface-4); color:var(--fg-2);">Primary</span>
+                      </sc-if>
+                    </span>
+                    <span style="font-size:11.5px; color:var(--fg-4);">{{ cn.zoneLine }}</span>
+                  </span>
+                  <span style="display:{{ cn.tickDisplay }}; width:18px; height:18px; align-items:center; justify-content:center; color:var(--agency-accent);"><i data-lucide="check" style="width:16px;height:16px"></i></span>
+                  <span style="display:{{ cn.lockDisplay }}; width:18px; height:18px; align-items:center; justify-content:center; color:var(--fg-4);"><i data-lucide="lock" style="width:14px;height:14px"></i></span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ switchLocked }}">
+                <div style="display:flex; align-items:flex-start; gap:8px; margin:2px 4px 4px; padding:9px 10px; border-radius:12px; background:var(--surface-2); font-size:11.5px; line-height:1.5; color:var(--fg-3);"><i data-lucide="lock" style="width:14px;height:14px;flex:none;margin-top:1px"></i> {{ switchLockedHint }} — so your payment stays on the account you started it on.</div>
+              </sc-if>
+            </div>
+
+            <div style="padding:6px; display:flex; flex-direction:column; gap:2px;">
+              <sc-if value="{{ canAdd }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ openAdd }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; font-weight:600; font-size:14px; color:var(--agency-accent);" style-hover="background:var(--agency-accent-soft);"><i data-lucide="plus" style="width:17px;height:17px"></i> Add connection</div>
+              </sc-if>
+              <sc-if value="{{ atLimit }}">
+                <div style="display:flex; align-items:flex-start; gap:10px; padding:10px 12px; border-radius:12px; background:var(--surface-2); font-size:12.5px; line-height:1.5; color:var(--fg-4);"><i data-lucide="info" style="width:16px;height:16px;flex:none;margin-top:1px"></i> {{ limitText }}</div>
+              </sc-if>
+              <div onClick="{{ goConnections }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; font-weight:500; font-size:14px; color:var(--fg-2);" style-hover="background:var(--surface-2);"><i data-lucide="list" style="width:17px;height:17px"></i> Manage connections</div>
+              <div style="height:1px; background:rgba(19,28,46,0.08); margin:4px 6px;"></div>
+              <div onClick="{{ goPrefs }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; font-weight:500; font-size:14px; color:var(--fg-2);" style-hover="background:var(--surface-2);"><i data-lucide="user-round" style="width:17px;height:17px"></i> Account and notifications</div>
+              <div style="height:1px; background:rgba(19,28,46,0.08); margin:4px 6px;"></div>
+              <a href="GPL Login Final.dc.html" style="display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; font-weight:600; font-size:14px; color:var(--status-error);" style-hover="background:var(--status-error-bg);"><i data-lucide="log-out" style="width:17px;height:17px"></i> Sign out</a>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+  <div style="height:64px;"></div>
+
+  <sc-if value="{{ mobileNavOpen }}">
+    <div onClick="{{ closeMobileNav }}" style="position:fixed; inset:64px 0 0; z-index:58; background:rgba(8,24,30,0.42);"></div>
+    <div style="position:fixed; top:64px; left:0; right:0; z-index:59; max-height:calc(100vh - 80px); overflow-y:auto; background:rgb(8,24,30); box-shadow:0 16px 34px rgba(8,24,30,0.34); padding:10px; display:flex; flex-direction:column; gap:4px; font-family:Inter, system-ui, sans-serif;">
+      <div style="flex-shrink:0; display:flex; align-items:center; gap:12px; padding:12px 14px 14px; border-bottom:1px solid rgb(22,51,61); margin-bottom:6px;">
+        <span style="flex:none; width:42px; height:42px; border-radius:999px; background:#404293; display:inline-flex; justify-content:center; align-items:center; font-weight:700; font-size:14px; color:rgb(255,255,255);">RB</span>
+        <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+          <span style="font-weight:800; font-size:15px; letter-spacing:-0.14px; color:rgb(255,255,255); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Rennica Barnwell</span>
+          <span style="font-weight:600; font-size:12px; color:rgba(255,255,255,0.62);">Citizen · Account 40 2938 1</span>
+        </span>
+      </div>
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+        <div onClick="{{ item.onSelect }}" role="button" aria-current="{{ item.current }}" tabIndex="{{ zero }}" style="flex-shrink:0; min-height:52px; border-radius:12px; box-sizing:border-box; background-color:{{ item.bg }}; border-style:solid; border-width:0; border-left-width:3px; border-color:{{ item.borderColor }}; display:flex; flex-direction:row; gap:12px; padding:0 14px; align-items:center; cursor:pointer; outline:none; transition:background-color 180ms cubic-bezier(0.2,0.8,0.3,1), border-color 180ms cubic-bezier(0.2,0.8,0.3,1), transform 120ms cubic-bezier(0.2,0.8,0.3,1);" style-hover="background-color:rgb(22,51,61); border-color:rgb(48,169,199);" style-active="background-color:rgb(8,24,30); border-color:rgb(48,169,199); transition:none; transform:scale(0.98);" style-focus="border-color:rgb(48,169,199);">
+          <span style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:{{ item.fg }}; flex-shrink:0;"><i data-lucide="{{ item.icon }}" style="width:22px;height:22px"></i></span>
+          <span style="flex-grow:1; min-width:0; font-weight:{{ item.weight }}; font-size:15px; color:{{ item.fg }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ item.label }}</span>
+          <sc-if value="{{ item.badge }}">
+            <span style="min-width:24px; height:20px; border-radius:100px; background:rgb(255,255,255); display:inline-flex; padding:2px 8px; justify-content:center; align-items:center; flex-shrink:0; font-weight:700; font-size:11px; color:rgb(8,24,30);">{{ item.badge }}</span>
+          </sc-if>
+        </div>
+      </sc-for>
+      <div style="flex-shrink:0; height:1px; background:rgb(22,51,61); margin:8px 4px;"></div>
+      <div onClick="{{ goPrefs }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex-shrink:0; display:flex; align-items:center; gap:12px; padding:14px; border-radius:12px; font-weight:500; font-size:15px; color:rgba(255,255,255,0.88);" style-hover="background:#16333D;"><i data-lucide="user-round" style="width:20px;height:20px"></i> Account and notifications</div>
+      <a href="GPL Login Final.dc.html" style="flex-shrink:0; display:flex; align-items:center; gap:12px; padding:14px; border-radius:12px; font-weight:600; font-size:15px; color:#f08c8c;" style-hover="background:#16333D;"><i data-lucide="log-out" style="width:20px;height:20px"></i> Sign out</a>
+    </div>
+  </sc-if>
+
+  <div style="display:flex; align-items:flex-start; gap:0;">
+
+    <div style="flex:0 0 {{ railWidth }}; width:{{ railWidth }}; position:sticky; top:64px; z-index:55; height:calc(100vh - 64px); background:rgb(8,24,30); display:{{ railDisplay }}; flex-direction:column; justify-content:space-between; padding:{{ railPadding }}; align-items:{{ railAlign }}; gap:{{ railGap }}; overflow:{{ railOverflow }}; transition:width 420ms cubic-bezier(0.32,0.72,0,1), padding 420ms cubic-bezier(0.32,0.72,0,1); font-family:Inter, system-ui, sans-serif;">
+
+      <div style="flex:1 1 auto; min-height:0; display:flex; flex-direction:column; gap:12px; align-items:{{ railAlign }}; align-self:stretch; min-width:0;">
+
+        <div style="flex:1 1 auto; min-height:0; overflow-y:{{ navOverflowY }}; overflow-x:{{ navOverflowX }}; display:flex; flex-direction:column; gap:{{ railGap }}; align-items:{{ railAlign }}; align-self:stretch; min-width:0; padding-bottom:4px;">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="7">
+            <div onClick="{{ item.onSelect }}" class="gpl-rail-item" role="button" aria-current="{{ item.current }}" tabIndex="{{ zero }}" title="{{ item.tooltipTitle }}" style="position:relative; width:{{ item.width }}; height:48px; max-width:208px; border-radius:12px; box-sizing:border-box; background-color:{{ item.bg }}; border-style:solid; border-width:0; border-left-width:3px; border-color:{{ item.borderColor }}; display:flex; flex-direction:row; gap:12px; padding:{{ item.padding }}; justify-content:{{ item.justify }}; align-items:center; cursor:pointer; flex-shrink:0; outline:none; transition:background-color 180ms cubic-bezier(0.2,0.8,0.3,1), border-color 180ms cubic-bezier(0.2,0.8,0.3,1), transform 120ms cubic-bezier(0.2,0.8,0.3,1);" style-hover="background-color:rgb(22,51,61); border-color:rgb(48,169,199);" style-active="background-color:rgb(8,24,30); border-color:rgb(48,169,199); transition:none; transform:scale(0.97);" style-focus="border-color:rgb(48,169,199);">
+              <span style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:{{ item.fg }}; flex-shrink:0;"><i data-lucide="{{ item.icon }}" style="width:22px;height:22px"></i></span>
+              <span style="display:flex; flex-grow:{{ labelGrow }}; min-width:0; max-width:{{ labelMax }}; opacity:{{ labelOpacity }}; font-weight:{{ item.weight }}; font-size:14.5px; line-height:100%; color:{{ item.fg }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:opacity 260ms ease, max-width 420ms cubic-bezier(0.32,0.72,0,1);">{{ item.label }}</span>
+              <sc-if value="{{ item.showBadge }}">
+                <span style="min-width:24px; height:19px; overflow:hidden; border-radius:100px; background:rgb(255,255,255); display:inline-flex; padding:2px 8px; justify-content:center; align-items:center; flex-shrink:0; font-weight:700; font-size:11px; line-height:100%; color:rgb(8,24,30);">{{ item.badge }}</span>
+              </sc-if>
+              <span class="gpl-rail-tip" role="tooltip" style="display:{{ tipDisplay }}; position:absolute; left:calc(100% + 12px); top:50%; margin-top:-16px; z-index:80; height:32px; align-items:center; gap:8px; padding:0 12px; border-radius:8px; background:#131C2E; box-shadow:0 8px 20px rgba(8,24,30,0.32); white-space:nowrap;">
+                <span style="position:absolute; left:-3px; top:50%; margin-top:-5px; width:10px; height:10px; background:#131C2E; transform:rotate(45deg); border-radius:2px;"></span>
+                <span style="position:relative; font-size:13px; font-weight:600; line-height:100%; color:#ffffff;">{{ item.label }}</span>
+                <sc-if value="{{ item.tipBadge }}">
+                  <span style="position:relative; min-width:20px; height:18px; border-radius:100px; background:rgba(255,255,255,0.16); display:inline-flex; padding:0 6px; justify-content:center; align-items:center; font-weight:700; font-size:10.5px; color:#ffffff;">{{ item.badge }}</span>
+                </sc-if>
+              </span>
+            </div>
+          </sc-for>
+
+          <div ref="{{ dropRef }}" style="display:{{ oneCitizenDisplay }}; align-self:stretch; min-width:0; display:flex; flex-direction:column; gap:6px; flex-shrink:0; position:relative;">
+            <div onClick="{{ toggleDropdown }}" tabIndex="{{ zero }}" role="button" aria-expanded="{{ dropdownOpen }}" title="One Citizen" style="width: {{ toggleWidth }}; height: 48px; max-width: 208px; border-radius: 0px; background: {{ dropdownBg }}; border-left: 2.5px solid {{ dropdownBorder }}; display: none; flex-direction: row; gap: 12px; padding: {{ togglePadding }}; justify-content: {{ toggleJustify }}; align-items: center; cursor: pointer; flex-shrink: 0; outline: none; transition: background 180ms cubic-bezier(0.2,0.8,0.3,1), border-color 180ms cubic-bezier(0.2,0.8,0.3,1)" style-hover="background:#16333D; border-left-color:#30A9C7;" style-focus="background:#16333D; border-left-color:#30A9C7;">
+              <span style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:rgb(255,255,255); flex-shrink:0;"><i data-lucide="layout-grid" style="width:22px;height:22px"></i></span>
+              <span style="display:flex; flex-grow:{{ labelGrow }}; min-width:0; max-width:{{ labelMax }}; opacity:{{ labelOpacity }}; font-weight:500; font-size:14.5px; line-height:100%; color:rgb(255,255,255); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:opacity 260ms ease, max-width 420ms cubic-bezier(0.32,0.72,0,1);">One Citizen</span>
+              <span style="display:inline-flex; width:24px; max-width:{{ labelMax }}; height:24px; opacity:{{ labelOpacity }}; align-items:center; justify-content:center; color:rgb(255,255,255); flex-shrink:0; overflow:hidden; transform:{{ chevronTransform }}; transition:transform 180ms cubic-bezier(0.2,0.8,0.3,1), opacity 260ms ease, max-width 420ms cubic-bezier(0.32,0.72,0,1);"><i data-lucide="chevron-down" style="width:22px;height:22px"></i></span>
+              <span style="display:{{ collapsedChevronDisplay }}; position:absolute; right:-3px; top:50%; margin-top:-11px; width:22px; height:22px; align-items:center; justify-content:center; color:rgba(255,255,255,0.72); pointer-events:none;"><i data-lucide="chevron-right" style="width:16px;height:16px"></i></span>
+            </div>
+
+            <sc-if value="{{ dropdownOpen }}">
+              <div style="position:{{ subPosition }}; left:{{ subLeft }}; top:{{ subTop }}; bottom:{{ subBottom }}; z-index:1000; width:{{ subWidth }}; align-self:stretch; min-width:0; max-height:{{ subMaxHeight }}; overflow:hidden; background:{{ subBg }}; border:{{ subBorder }}; border-radius:12px; box-shadow:{{ subShadow }}; display:flex; flex-direction:column;">
+                <div style="align-self:stretch; min-width:0; flex:0 0 auto; display:flex; flex-direction:row; gap:10px; align-items:center; padding:12px 14px; border-bottom:1px solid rgb(22,51,61); background:{{ subTitleBg }};">
+                  <span style="width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; color:#30A9C7; flex-shrink:0;"><i data-lucide="layout-grid" style="width:16px;height:16px"></i></span>
+                  <span style="flex-grow:1; min-width:0; font-weight:700; font-size:13px; line-height:100%; letter-spacing:0.02em; color:rgb(255,255,255); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">One Citizen</span>
+                </div>
+                <div class="gpl-scroll" style="flex:1 1 auto; min-height:0; align-self:stretch; min-width:0; overflow-y:auto; overflow-x:hidden; display:flex; flex-direction:column; gap:4px; padding:8px;">
+                  <sc-for list="{{ subItems }}" as="sub" hint-placeholder-count="4">
+                    <div onClick="{{ sub.onSelect }}" tabIndex="{{ zero }}" title="{{ sub.label }}" style="align-self:stretch; min-width:0; height:40px; border-radius:12px; background:{{ sub.bg }}; border-left:2.5px solid {{ sub.borderLeft }}; display:flex; flex-direction:row; gap:10px; padding:0 12px; align-items:center; cursor:pointer; flex-shrink:0; outline:none; transition:background 180ms cubic-bezier(0.2,0.8,0.3,1), border-color 180ms cubic-bezier(0.2,0.8,0.3,1);" style-hover="background:#16333D; border-left-color:#30A9C7;" style-focus="background:#16333D; border-left-color:#30A9C7;">
+                      <span style="width:6px; height:6px; border-radius:999px; background:rgba(255,255,255,0.45); flex-shrink:0;"></span>
+                      <span style="flex-grow:1; min-width:0; font-weight:500; font-size:13.5px; line-height:100%; color:rgba(255,255,255,0.88); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sub.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="flex:0 0 48px; margin:{{ bottomMargin }}; width:{{ bottomWidth }}; min-width:0; display:flex; flex-direction:column;">
+        <div onClick="{{ toggleRail }}" tabIndex="{{ zero }}" role="button" aria-label="{{ toggleLabel }}" title="{{ toggleLabel }}" style="width: 100%; height: 48px; border-radius: 0; background: rgb(14,36,44); display: flex; flex-direction: row-reverse; gap: 12px; padding: 12px; justify-content: {{ toggleJustify }}; align-items: center; cursor: pointer; flex-shrink: 0; outline: none; box-sizing: border-box; transition: background 180ms cubic-bezier(0.2,0.8,0.3,1)" style-hover="background:#16333D;" style-focus="background:#16333D;">
+          <span style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:rgb(255,255,255); flex-shrink:0;"><i data-lucide="{{ toggleIcon }}" style="width:22px;height:22px"></i></span>
+          
+        </div>
+      </div>
+    </div>
+
+    <div id="gpl-main" style="flex:1; min-width:0; display:flex; flex-direction:column; min-height:calc(100vh - 64px);">
+
+      <div style="width:100%; min-width:0; background:#ffffff; border-bottom:1px solid rgba(19,28,46,0.10); padding:20px 16px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+        <div style="min-width:0; display:flex; flex-direction:column; gap:4px;">
+          <h1 style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--fg-1); min-width: 0; display:flex; align-items:center; gap:8px;">{{ pageTitle }}<sc-if value="{{ pageTooltip }}"><span class="gpl-info-ico" tabIndex="{{ zero }}" style="position:relative; display:inline-flex; color:var(--fg-4); cursor:help;"><i data-lucide="info" style="width:17px;height:17px"></i><span class="gpl-info-tip" role="tooltip" style="display:flex; position:absolute; left:0; top:calc(100% + 10px); z-index:80; width:260px; max-width:260px; align-items:center; gap:8px; padding:10px 13px; border-radius:8px; background:#131C2E; box-shadow:0 8px 20px rgba(8,24,30,0.32); white-space:normal;"><span style="position:absolute; left:14px; top:-4px; width:10px; height:10px; background:#131C2E; transform:rotate(45deg); border-radius:2px;"></span><span style="position:relative; font-size:13px; font-weight:500; line-height:1.45; color:#ffffff; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ pageTooltip }}</span></span></span></sc-if></h1>
+          <p style="font-size:14px; line-height:1.5; color:var(--fg-3);">{{ connLine }}</p>
+        </div>
+        <div style="display:{{ bodySearchDisplay }}; position:relative; width:100%; min-width:0; flex-direction:column;">
+          <div style="width:100%; min-width:0; border-radius:12px; background:rgb(244,248,249); box-shadow:inset 0 0 0 1px rgb(185,196,214); display:flex; flex-direction:row; gap:10px; padding:12px 15px; align-items:center; box-sizing:border-box;">
+            <input value="{{ searchQuery }}" onChange="{{ onSearchInput }}" onFocus="{{ onSearchFocus }}" onBlur="{{ onSearchBlur }}" onKeyDown="{{ onSearchKey }}" role="combobox" aria-expanded="{{ sugOpen }}" aria-autocomplete="list" placeholder="Search bills, outages, requests" aria-label="Search the portal" style="flex:1; min-width:0; border:none; outline:none; background:transparent; font-family:Inter, sans-serif; font-weight:400; font-size:14px; line-height:100%; color:rgb(19,28,46);">
+            <span onClick="{{ clearSearch }}" role="button" tabIndex="{{ zero }}" aria-label="Clear search" title="Clear search" style="display:{{ clearDisplay }}; width:28px; height:28px; border-radius:999px; align-items:center; justify-content:center; color:var(--fg-3); cursor:pointer; flex-shrink:0;" style-hover="background:rgba(19,28,46,0.08);"><i data-lucide="x" style="width:16px;height:16px"></i></span>
+          <span style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; color:rgb(138,163,172); flex-shrink:0;"><i data-lucide="search" style="width:20px;height:20px"></i></span>
+          </div>
+          <div role="listbox" aria-label="Search suggestions" style="display:{{ sugDisplay }}; position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:70; background:#fff; border-radius:14px; box-shadow:0 1px 0 rgba(19,28,46,0.08), 0 18px 34px rgba(8,24,30,0.16); padding:6px; max-height:320px; overflow-y:auto;">
+            <sc-for list="{{ suggestions }}" as="sug" hint-placeholder-count="3">
+              <div onClick="{{ sug.onSelect }}" role="option" aria-selected="{{ sug.selected }}" tabIndex="{{ zero }}" style="display:flex; align-items:flex-start; gap:11px; padding:11px; border-radius:10px; cursor:pointer; background:{{ sug.bg }}; outline:none; min-height:48px;" style-hover="background:rgb(244,248,249);" style-focus="background:rgb(244,248,249);">
+                <span style="width:22px; height:22px; flex:none; display:inline-flex; align-items:center; justify-content:center; color:#404293;"><i data-lucide="{{ sug.icon }}" style="width:18px;height:18px"></i></span>
+                <span style="min-width:0; display:flex; flex-direction:column; gap:2px;">
+                  <span style="font-size:13.5px; font-weight:600; color:var(--fg-1);">{{ sug.label }}</span>
+                  <span style="font-size:12px; line-height:1.4; color:var(--fg-3);">{{ sug.hint }}</span>
+                </span>
+              </div>
+            </sc-for>
+            <sc-if value="{{ sugNoResults }}">
+              <div style="padding:12px 11px; font-size:13px; line-height:1.5; color:var(--fg-3);">Nothing matched that. Try “bill”, “outage” or “request”.</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+
+      <sc-if value="{{ isUnderConstruction }}">
+        <div style="width:100%; min-width:0; padding:clamp(28px,5vw,56px) 16px 72px; display:flex; justify-content:center;">
+          <div style="max-width:520px; width:100%; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:{{ shadowSm }}; padding:clamp(24px,4vw,34px); display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px;">
+            <span style="width:52px; height:52px; border-radius:16px; background:rgba(196,125,18,0.14); color:var(--status-warning); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="hard-hat" style="width:26px;height:26px"></i></span>
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Badge" tone="warning" hint-size="auto,26px">Under construction</x-import>
+            <h2 style="font-size:20px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">{{ ucTitle }} is being built</h2>
+            <p style="font-size:14.5px; line-height:1.6; color:var(--fg-2);">{{ ucText }}</p>
+            <span onClick="{{ goOverview }}" role="button" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600; margin-top:4px;" style-hover="background:var(--agency-accent-strong);"><i data-lucide="arrow-left" style="width:17px;height:17px"></i> Back to account overview</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isBillsView }}">
+        <dc-import name="GPL Bills and Payments" on-pay-state="{{ onPayState }}" reset-pay-nonce="{{ payResetNonce }}" rail-width="{{ railWidth }}" open-tab="{{ billsTab }}" open-nonce="{{ billsNonce }}" conn-account="{{ connCust }}" conn-meter="{{ connMeter }}" conn-address="{{ connAddress }}" conn-month="{{ connMonth }}" conn-due="{{ connDueDate }}" conn-amount="{{ connAmount }}" conn-kwh="{{ connKwh }}" conn-issued="{{ connIssued }}" conn-history="{{ connHistory }}" hint-size="100%,900px"></dc-import>
+      </sc-if>
+
+      <sc-if value="{{ isUsageView }}">
+        <dc-import name="GPL Consumption" meter-type="{{ connMeterType }}" conn-cust="{{ connCust }}" conn-acct="{{ connAcct }}" conn-meter="{{ connMeter }}" conn-address="{{ connAddress }}" conn-zone="{{ connZone }}" conn-kwh="{{ connKwh }}" conn-avg="{{ connAvg }}" on-view-bill="{{ goUsageBill }}" hint-size="100%,900px"></dc-import>
+      </sc-if>
+
+      <sc-if value="{{ isReportView }}">
+        <dc-import name="GPL Report an Issue" embedded="{{ true }}" rail-width="{{ railWidth }}" intent="{{ reportIntent }}" conn-zone="{{ connZone }}" conn-address="{{ connAddress }}" hint-size="100%,760px"></dc-import>
+      </sc-if>
+
+      <sc-if value="{{ isOutagesView }}">
+        <dc-import name="GPL Outages and Faults" embedded="{{ true }}" intent="{{ outagesIntent }}" report-intent="{{ reportIntent }}" rail-width="{{ railWidth }}" hint-size="100%,900px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isServicesView }}">
+        <dc-import name="GPL Service Requests" embedded="{{ true }}" intent="{{ servicesIntent }}" report-intent="{{ reportIntent }}" rail-width="{{ railWidth }}" hint-size="100%,900px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isFaqView }}">
+        <dc-import name="GPL Service Requests" embedded="{{ true }}" mode="faq" rail-width="{{ railWidth }}" hint-size="100%,900px"></dc-import>
+      </sc-if>
+
+      <sc-if value="{{ isPrefs }}">
+        <div style="width: 100%; min-width: 0; padding: clamp(20px,3vw,28px) 32px 72px; display: flex; flex-direction: column; gap: 20px; align-items: stretch; padding-right: 16px; padding-left: 16px">
+
+          <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:stretch; width:100%;">
+
+            <section data-screen-label="Your details" style="flex:3 1 min(420px, 100%); min-width:0; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); overflow:hidden; display:flex; flex-direction:column; box-shadow:{{ shadowMd }};">
+              <div style="padding:clamp(18px,3vw,22px) clamp(20px,3vw,26px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                <h2 style="font-size:18px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Your details</h2>
+                <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">The account GPL holds for this connection.</p>
+              </div>
+              <div style="flex:1 1 auto; display:flex; flex-direction:column;">
+                <sc-for list="{{ details }}" as="d" hint-placeholder-count="5">
+                  <div style="display:flex; flex-wrap:wrap; gap:6px 24px; align-items:baseline; justify-content:space-between; padding:clamp(16px,2.6vw,20px) clamp(20px,3vw,26px); border-bottom:1px solid rgba(19,28,46,0.06);">
+                    <span style="flex:none; font-size:14px; color:var(--fg-3);">{{ d.label }}</span>
+                    <span style="flex:1 1 200px; min-width:0; text-align:right; font-size:16px; font-weight:600; color:var(--fg-1);">{{ d.value }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding:clamp(16px,2.6vw,20px) clamp(20px,3vw,26px); background:var(--surface-2); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+                <div style="flex:1 1 220px; min-width:0; display:flex; gap:11px; align-items:flex-start;">
+                  <span style="flex:none; color:var(--fg-3); margin-top:1px;"><i data-lucide="file-badge" style="width:17px;height:17px"></i></span>
+                  <p style="flex:1; min-width:0; font-size:13.5px; line-height:1.55; color:var(--fg-2);">A name or address change needs proof of ownership or tenancy. Bring it to a GPL office or attach it to your request.</p>
+                </div>
+                <span onClick="{{ goRequests }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);">Request a change <i data-lucide="arrow-right" style="width:16px;height:16px"></i></span>
+              </div>
+            </section>
+
+            <section data-screen-label="Notification preferences" style="flex:2 1 min(320px, 100%); min-width:0; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); overflow:hidden; display:flex; flex-direction:column; box-shadow:{{ shadowMd }};">
+              <div style="padding:clamp(18px,3vw,22px) clamp(20px,3vw,26px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                <h2 style="font-size:18px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Notification preferences</h2>
+                <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Choose what GPL notifies you about. You set the channels below.</p>
+              </div>
+
+              <div style="flex:1 1 auto; padding:10px 6px 14px;">
+                <sc-for list="{{ topics }}" as="tp" hint-placeholder-count="3">
+                  <div style="padding:10px 16px;">
+                    <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Checkbox" checked="{{ tp.on }}" on-change="{{ tp.onChange }}" label="{{ tp.label }}" hint-size="100%,24px"></x-import>
+                    <p style="font-size:12.5px; line-height:1.45; color:var(--fg-3); margin:4px 0 0 30px;">{{ tp.hint }}</p>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:12px; padding:14px clamp(18px,3vw,22px); border-top:1px solid rgba(19,28,46,0.08);">
+                <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--surface-4); color:var(--fg-2); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="bell-ring" style="width:18px;height:18px"></i></span>
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                  <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">Remind me before a bill falls due</span>
+                  <span style="font-size:12.5px; line-height:1.45; color:var(--fg-3);">{{ dueReminderHint }}</span>
+                </span>
+                <span style="flex:none;"><x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Toggle" checked="{{ dueReminderOn }}" on-change="{{ toggleDueReminder }}" hint-size="48px,28px"></x-import></span>
+              </div>
+              <sc-if value="{{ dueReminderOn }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:0 clamp(18px,3vw,22px) 16px; display:flex; flex-direction:column; gap:9px;">
+                  <div role="group" aria-label="Reminder timing" style="display:flex; gap:4px; padding:4px; border-radius:999px; background:var(--surface-4);">
+                    <sc-for list="{{ reminderLeads }}" as="rl" hint-placeholder-count="3">
+                      <span onClick="{{ rl.onPick }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ rl.on }}" style="cursor:pointer; flex:1; min-width:0; min-height:40px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; font-size:13.5px; font-weight:600; background:{{ rl.bg }}; color:{{ rl.fg }}; box-shadow:{{ rl.shadow }}; transition:var(--tr-control);">{{ rl.label }}</span>
+                    </sc-for>
+                  </div>
+                  <p style="font-size:12.5px; line-height:1.5; color:var(--fg-3);">{{ dueReminderExample }}</p>
+                </div>
+              </sc-if>
+
+              <div style="padding:13px clamp(18px,3vw,22px); background:var(--surface-2); display:flex; gap:10px; align-items:flex-start;">
+                <span style="flex:none; color:var(--fg-3); margin-top:1px;"><i data-lucide="triangle-alert" style="width:16px;height:16px"></i></span>
+                <p style="flex:1; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fg-2);">Disconnection notices and emergency safety messages are always sent, whatever you choose here.</p>
+              </div>
+            </section>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:stretch; width:100%;">
+
+            <section data-screen-label="Contact preferences" style="flex:3 1 min(420px, 100%); min-width:0; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); overflow:hidden; display:flex; flex-direction:column; box-shadow:{{ shadowSm }};">
+              <div style="padding:16px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                <h2 style="font-size:16px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">How GPL contacts you</h2>
+                <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">Turn a channel off and GPL stops sending to it. Disconnection notices go by every channel you have.</p>
+              </div>
+              <div style="flex:1 1 auto; display:flex; flex-direction:column;">
+                <sc-for list="{{ channels }}" as="ch" hint-placeholder-count="3">
+                  <div style="display:flex; align-items:center; gap:12px; padding:14px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.06);">
+                    <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--surface-4); color:var(--fg-2); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ ch.icon }}" style="width:18px;height:18px"></i></span>
+                    <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                      <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ ch.label }}</span>
+                      <span style="font-size:12.5px; line-height:1.45; color:var(--fg-3);">{{ ch.detail }}</span>
+                    </span>
+                    <span style="flex:none;"><x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Toggle" checked="{{ ch.on }}" on-change="{{ ch.onChange }}" hint-size="48px,28px"></x-import></span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding:13px clamp(18px,3vw,22px); background:var(--surface-2); display:flex; gap:10px; align-items:flex-start;">
+                <span style="flex:none; color:var(--fg-3); margin-top:1px;"><i data-lucide="shield-check" style="width:16px;height:16px"></i></span>
+                <p style="flex:1; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fg-2);">GPL uses your number and email only for your account. WhatsApp needs your consent, which you can withdraw here at any time.</p>
+              </div>
+            </section>
+
+            <section data-screen-label="Sign-in and security" style="flex:2 1 min(320px, 100%); min-width:0; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); overflow:hidden; display:flex; flex-direction:column; box-shadow:{{ shadowSm }};">
+              <div style="padding:16px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                <h2 style="font-size:16px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Sign-in and security</h2>
+                <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">Changing your email or mobile needs a code, the same as when you registered.</p>
+              </div>
+              <div style="flex:1 1 auto; display:flex; flex-direction:column;">
+                <sc-for list="{{ security }}" as="sec" hint-placeholder-count="3">
+                  <div onClick="{{ sec.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:12px; padding:14px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.06); transition:var(--tr-control);" style-hover="background:var(--surface-2);">
+                    <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--surface-4); color:var(--fg-2); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ sec.icon }}" style="width:18px;height:18px"></i></span>
+                    <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                      <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ sec.label }}</span>
+                      <span style="font-size:12.5px; line-height:1.45; color:var(--fg-3);">{{ sec.detail }}</span>
+                    </span>
+                    <span style="flex:none; color:var(--fg-4);"><i data-lucide="chevron-right" style="width:17px;height:17px"></i></span>
+                  </div>
+                </sc-for>
+                <div style="display:flex; align-items:center; gap:12px; padding:14px clamp(18px,3vw,22px);">
+                  <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--surface-4); color:var(--fg-2); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="shield-check" style="width:18px;height:18px"></i></span>
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">Ask for a code at sign-in</span>
+                    <span style="font-size:12.5px; line-height:1.45; color:var(--fg-3);">A one-time code every time you sign in</span>
+                  </span>
+                  <span style="flex:none;"><x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Toggle" checked="{{ twoStepOn }}" on-change="{{ toggleTwoStep }}" hint-size="48px,28px"></x-import></span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </sc-if>
+
+      <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#404293"></rect><text x="50" y="62" font-family="Inter, sans-serif" font-size="30" font-weight="700" fill="#ffffff" text-anchor="middle">GPL</text></svg></template>
+
+      <sc-if value="{{ isConnections }}">
+      <div style="width:100%; min-width:0; padding:clamp(20px,3vw,28px) 16px 72px; padding-top:16px; display:flex; flex-direction:column; gap:16px; max-width:860px;">
+
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <p style="flex:1 1 300px; min-width:0; font-size:14.5px; line-height:1.6; color:var(--fg-2);">Every connection keeps its own bills, services, consumption and outage information. Pick which one the portal shows from your profile menu.</p>
+          <sc-if value="{{ canAdd }}" hint-placeholder-val="{{ true }}">
+            <span onClick="{{ openAdd }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;"><i data-lucide="plus" style="width:17px;height:17px"></i> Add connection</span>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ atLimit }}">
+          <div style="display:flex; align-items:flex-start; gap:12px; padding:14px 16px; border-radius:14px; background:var(--surface-2); border:1px solid rgba(19,28,46,0.08); font-size:13.5px; line-height:1.55; color:var(--fg-2);"><i data-lucide="info" style="width:18px;height:18px;flex:none;margin-top:1px"></i> {{ limitText }} To link another, remove one you no longer need.</div>
+        </sc-if>
+
+        <sc-for list="{{ manageList }}" as="cn" hint-placeholder-count="2">
+          <section style="background:#ffffff; border:1px solid {{ cn.cardBorder }}; border-radius:clamp(16px,3vw,20px); box-shadow:{{ shadowSm }}; overflow:hidden;">
+            <div style="padding:16px clamp(16px,3vw,22px); display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap; border-bottom:1px solid rgba(19,28,46,0.08);">
+              <div style="flex:1 1 240px; min-width:0; display:flex; flex-direction:column; gap:5px;">
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                  <h2 style="font-size:17px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">{{ cn.cust }}</h2>
+                  <span style="display:{{ cn.primaryDisplay }}; align-items:center; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:var(--agency-accent-soft); color:var(--agency-accent);">Primary</span>
+                  <span style="display:{{ cn.activeDisplay }}; align-items:center; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:var(--status-success-bg); color:var(--status-success);">Viewing</span>
+                </div>
+                <p style="font-size:13.5px; line-height:1.5; color:var(--fg-3);">{{ cn.address }} · Zone — {{ cn.zone }}</p>
+              </div>
+              <div style="flex:none; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span onClick="{{ cn.onView }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:38px; padding:0 14px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); font-size:13px; font-weight:600; color:var(--fg-2);" style-hover="background:var(--surface-2);">View in portal</span>
+                <span onClick="{{ cn.onPrimary }}" role="button" tabIndex="{{ zero }}" style="display:{{ cn.setPrimaryDisplay }}; cursor:pointer; align-items:center; height:38px; padding:0 14px; border-radius:999px; border:1px solid var(--agency-accent); font-size:13px; font-weight:600; color:var(--agency-accent);" style-hover="background:var(--agency-accent-soft);">Set as primary</span>
+                <span onClick="{{ cn.onRemove }}" role="button" tabIndex="{{ zero }}" title="Remove connection" style="cursor:pointer; width:38px; height:38px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); display:inline-flex; align-items:center; justify-content:center; color:var(--status-error);" style-hover="background:var(--status-error-bg); border-color:var(--status-error);"><i data-lucide="trash-2" style="width:16px;height:16px"></i></span>
+              </div>
+            </div>
+            <div style="padding:14px clamp(16px,3vw,22px); display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:14px 20px;">
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Account number</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ cn.acct }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Meter number</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ cn.meter }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Mobile</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ cn.mobile }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Email</span><span style="font-size:14px; font-weight:600; color:var(--fg-1); overflow-wrap:anywhere;">{{ cn.email }}</span></div>
+              <div style="grid-column:1 / -1; font-size:12.5px; color:var(--fg-4);">{{ cn.contactNote }}</div>
+            </div>
+          </section>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+      <div style="width: 100%; min-width: 0; padding: clamp(20px,3vw,28px) 32px 72px; padding-top: 16px; padding-right: 16px; padding-left: 16px">
+
+        <sc-if value="{{ showVerified }}">
+          <section data-screen-label="Verified" style="margin-bottom:20px; background:var(--status-success-bg); border:1px solid rgba(14,141,138,0.30); border-radius:clamp(16px,3vw,20px); padding:16px clamp(18px,3vw,22px); display:flex; gap:14px; align-items:center;">
+            <span style="flex:none; width:38px; height:38px; border-radius:12px; background:var(--status-success); color:#ffffff; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="check" style="width:20px;height:20px"></i></span>
+            <div style="flex:1 1 auto; min-width:0;">
+              <div style="font-size:15.5px; font-weight:700; color:var(--fg-1);">Account verified</div>
+              <p style="font-size:14px; line-height:1.5; color:var(--fg-2); margin-top:2px;">{{ verifiedDetail }}</p>
+            </div>
+            <span onClick="{{ dismissVerified }}" role="button" tabIndex="{{ zero }}" title="Dismiss" style="flex:none; cursor:pointer; width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; color:var(--fg-3);" style-hover="background:rgba(19,28,46,0.07);"><i data-lucide="x" style="width:17px;height:17px"></i></span>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ hasNotice }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:stretch; margin-bottom:20px; min-width:0;">
+        <sc-if value="{{ hasLiveOutage }}" hint-placeholder-val="{{ true }}">
+        <section data-screen-label="Live outage" style="flex:1 1 calc(50% - 10px); min-width:280px; max-width:none; display:flex; flex-direction:column; gap:16px; background:rgb(242,235,235); box-shadow:inset 0 0 0 1px rgba(196,61,61,0.35); border-radius:clamp(16px,3vw,20px); padding:clamp(18px,3vw,22px) clamp(18px,3vw,24px);">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--status-error); white-space:nowrap;">Reported in your area</span>
+              <span style="font-size:13px; font-weight:600; color:var(--status-error); white-space:nowrap;">{{ activeOutage.ref }}</span>
+            </div>
+            <p style="font-size:14px; line-height:1.55; color:var(--fg-1); margin:0;">{{ activeOutage.status }} · supply expected back <strong style="font-weight:700;">{{ activeOutage.eta }}</strong>.</p>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:14px; margin-top:auto;">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:12.5px; font-weight:600; color:var(--status-error);">{{ activeOutage.status }}</span>
+              <div style="height:6px; border-radius:999px; background:rgba(196,61,61,0.14); overflow:hidden;">
+                <div style="height:100%; width:{{ activeOutage.stagePercent }}; border-radius:999px; background:var(--status-error);"></div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+              <sc-if value="{{ hasMultipleOutages }}">
+                <div style="flex:none; display:inline-flex; align-items:center; gap:8px;">
+                  <span onClick="{{ prevOutage }}" role="button" tabIndex="{{ zero }}" aria-label="Previous outage" style="cursor:pointer; width:34px; height:34px; border-radius:999px; background:#ffffff; box-shadow:inset 0 0 0 1px rgb(217,219,224); display:inline-flex; align-items:center; justify-content:center; color:var(--fg-2);" style-hover="color:var(--status-error); border-color:var(--status-error);"><i data-lucide="chevron-left" style="width:16px;height:16px"></i></span>
+                  <span style="font-size:14px; font-weight:600; color:var(--fg-1); white-space:nowrap;">{{ liveOutagePos }} of {{ liveOutageCount }}</span>
+                  <span onClick="{{ nextOutage }}" role="button" tabIndex="{{ zero }}" aria-label="Next outage" style="cursor:pointer; width:34px; height:34px; border-radius:999px; background:#ffffff; box-shadow:inset 0 0 0 1px rgb(217,219,224); display:inline-flex; align-items:center; justify-content:center; color:var(--fg-2);" style-hover="color:var(--status-error); border-color:var(--status-error);"><i data-lucide="chevron-right" style="width:16px;height:16px"></i></span>
+                </div>
+              </sc-if>
+              <div style="flex:1; display:flex; align-items:center; justify-content:flex-end; gap:10px; flex-wrap:wrap; min-width:0;">
+                <div onClick="{{ confirmAffected }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ affectedConfirmed }}" title="{{ affectedTitle }}" style="cursor:{{ affectedCursor }}; display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 14px; border-radius:999px; background:{{ affectedBg }}; color:{{ affectedFg }}; transition:var(--tr-control);" style-hover="background:{{ affectedBgHover }}" style-active="transform:scale(0.97)">
+                  <i data-lucide="{{ affectedIcon }}" style="width:16px;height:16px"></i>
+                  <span style="font-size:13.5px; font-weight:600; white-space:nowrap;">{{ affectedLabel }} {{ affectedCount }}</span>
+                </div>
+                <span onClick="{{ goOutageStatus }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:7px; height:38px; padding:0 16px; border-radius:999px; background:#ffffff; box-shadow:inset 0 0 0 1px rgb(217,219,224); color:var(--fg-2); font-size:13.5px; font-weight:600; white-space:nowrap;" style-hover="color:var(--status-error); box-shadow:inset 0 0 0 1px var(--status-error);">View all outages <i data-lucide="arrow-right" style="width:16px;height:16px"></i></span>
+              </div>
+            </div>
+          </div>
+        </section>
+        </sc-if>
+
+        <sc-if value="{{ hasOutage }}" hint-placeholder-val="{{ true }}">
+        <section data-screen-label="Service status" style="flex:1 1 calc(50% - 10px); min-width:280px; max-width:none; display:flex; flex-direction:column; gap:16px; background:rgb(242,239,233); box-shadow:inset 0 0 0 1px rgba(196,125,18,0.35); border-radius:clamp(16px,3vw,20px); padding:clamp(18px,3vw,22px) clamp(18px,3vw,24px);">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--status-warning); white-space:nowrap;">{{ outageKind }}</span>
+              <span style="font-size:13px; font-weight:600; color:var(--status-warning); white-space:nowrap;">{{ outageBadge }}</span>
+            </div>
+            <p style="font-size:14px; line-height:1.55; color:var(--fg-1); margin:0;">Power out <strong style="font-weight:700;">{{ outageWhen }}</strong> {{ outageRest }}</p>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:14px; margin-top:auto;">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:12.5px; font-weight:600; color:var(--status-warning);">Scheduled</span>
+              <div style="height:6px; border-radius:999px; background:rgba(196,125,18,0.15); overflow:hidden;">
+                <div style="height:100%; width:{{ plannedPercent }}; border-radius:999px; background:var(--status-warning);"></div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+              <sc-if value="{{ hasMultiplePlanned }}">
+                <div style="flex:none; display:inline-flex; align-items:center; gap:8px;">
+                  <span onClick="{{ prevPlanned }}" role="button" tabIndex="{{ zero }}" aria-label="Previous planned outage" style="cursor:pointer; width:34px; height:34px; border-radius:999px; background:#ffffff; box-shadow:inset 0 0 0 1px rgb(217,219,224); display:inline-flex; align-items:center; justify-content:center; color:var(--fg-2);" style-hover="color:var(--status-warning); border-color:var(--status-warning);"><i data-lucide="chevron-left" style="width:16px;height:16px"></i></span>
+                  <span style="font-size:14px; font-weight:600; color:var(--fg-1); white-space:nowrap;">{{ plannedOutagePos }} of {{ plannedOutageCount }}</span>
+                  <span onClick="{{ nextPlanned }}" role="button" tabIndex="{{ zero }}" aria-label="Next planned outage" style="cursor:pointer; width:34px; height:34px; border-radius:999px; background:#ffffff; box-shadow:inset 0 0 0 1px rgb(217,219,224); display:inline-flex; align-items:center; justify-content:center; color:var(--fg-2);" style-hover="color:var(--status-warning); border-color:var(--status-warning);"><i data-lucide="chevron-right" style="width:16px;height:16px"></i></span>
+                </div>
+              </sc-if>
+              <div style="flex:1; display:flex; align-items:center; justify-content:flex-end; gap:10px; flex-wrap:wrap; min-width:0;">
+                <span onClick="{{ goOutageStatus }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:7px; height:38px; padding:0 16px; border-radius:999px; background:#ffffff; box-shadow:inset 0 0 0 1px rgb(217,219,224); color:var(--fg-2); font-size:13.5px; font-weight:600; white-space:nowrap;" style-hover="color:var(--status-warning); box-shadow:inset 0 0 0 1px var(--status-warning);">View outage <i data-lucide="arrow-right" style="width:16px;height:16px"></i></span>
+                <span onClick="{{ openNationalMap }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:7px; height:38px; padding:0 16px; border-radius:999px; background:#ffffff; box-shadow:inset 0 0 0 1px rgb(217,219,224); color:var(--fg-2); font-size:13.5px; font-weight:600; white-space:nowrap;" style-hover="color:var(--status-warning); box-shadow:inset 0 0 0 1px var(--status-warning);"><i data-lucide="map" style="width:16px;height:16px"></i> View outage map</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        </sc-if>
+        </div>
+        </sc-if>
+
+        <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start; min-width:0;">
+
+          
+
+          <div style="flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+            <section data-screen-label="Amount due" style="background:rgb(8,24,30); border-radius:clamp(16px,3vw,20px); padding:clamp(18px,2.4vw,22px) clamp(18px,2.4vw,24px); box-shadow:{{ shadowLg }}; display:flex; flex-wrap:wrap; gap:16px 28px; align-items:center; justify-content:space-between;">
+              <div style="flex:1 1 260px; min-width:0; display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;">
+                  <span style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.72);">Amount due</span>
+                  <span style="font-size:12.5px; color:rgba(255,255,255,0.55);">{{ billMonth }}</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                  <span style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; color: #ffffff; line-height: 1">{{ amountDue }}</span>
+                  <span style="display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:999px; background:rgba(196,125,18,0.20); color:#f0b866; font-size:13px; font-weight:600;"><i data-lucide="clock" style="width:14px;height:14px"></i> {{ dueChip }}</span>
+                </div>
+              </div>
+              <div style="flex:{{ btnRowFlex }}; min-width:0; display:flex; flex-direction:row; flex-wrap:wrap; gap:10px; align-items:center; justify-content:{{ btnRowJustify }};">
+                <span style="flex:{{ dlBtnFlex }}; min-width:0; display:flex;"><x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" size="lg" icon="download" aria-label="Download bill" dc-props="{{ dlBtnProps }}" on-click="{{ goBills }}" hint-size="100%,48px">{{ downloadLabel }}</x-import></span>
+              </div>
+            </section>
+
+            <section data-screen-label="Recent bills" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:{{ shadowSm }}; overflow:hidden;">
+              <div style="padding:14px clamp(16px,4vw,22px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+                <h2 style="font-size:15px; font-weight:600; letter-spacing:-0.01em; color:var(--fg-2);">Recent bills</h2>
+                <span onClick="{{ goBillHistory }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; font-size:13.5px; font-weight:600; color:var(--agency-accent);">View all bills</span>
+              </div>
+              <div class="gpl-flat-table {{ tableScrollClass }}" style="padding:{{ tablePadTop }} clamp(16px,4vw,22px) clamp(14px,3vw,18px); max-height:{{ tableMaxH }}; overflow:{{ tableOverflow }};">
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.DataTable" columns="{{ billColumns }}" rows="{{ billRows }}" hint-size="100%,200px"></x-import>
+              </div>
+            </section>
+
+            <section data-screen-label="Recent requests" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:{{ shadowSm }}; overflow:hidden;">
+              <div style="padding:14px clamp(16px,4vw,22px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+                <h2 style="font-size:15px; font-weight:600; letter-spacing:-0.01em; color:var(--fg-2);">Recent requests</h2>
+                <span onClick="{{ goRequests }}" role="button" style="cursor:pointer; font-size:13.5px; font-weight:600; color:var(--agency-accent);">View all requests</span>
+              </div>
+              <div style="display:flex; flex-direction:column;">
+                <sc-for list="{{ requestItems }}" as="req" hint-placeholder-count="3">
+                  <div style="display:flex; align-items:center; gap:16px; padding:14px clamp(16px,4vw,22px); border-top:1px solid rgba(19,28,46,0.06);">
+                    <span style="flex:none; width:34px; height:34px; border-radius:10px; background:{{ req.chipBg }}; display:inline-flex; align-items:center; justify-content:center; color:{{ req.chipFg }};"><i data-lucide="{{ req.icon }}" style="width:17px;height:17px"></i></span>
+                    <span style="flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                      <span style="font-size:15px; font-weight:600; color:var(--fg-1);">{{ req.title }}</span>
+                      <span style="font-size:13px; color:var(--fg-3);">{{ req.reference }}</span>
+                    </span>
+                    <span style="flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+                      <span style="display:inline-flex; align-items:center; padding:3px 10px; border-radius:999px; background:{{ req.chipBg }}; color:{{ req.chipFg }}; font-size:12px; font-weight:700; letter-spacing:0.01em;">{{ req.status }}</span>
+                      <span style="font-size:12.5px; color:var(--fg-4);">{{ req.date }}</span>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+            </section>
+          </div><div style="flex:1 1 320px; min-width:0; max-width:100%; display:flex; flex-direction:column; gap:20px;">
+
+            <section data-screen-label="Monthly consumption" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:{{ shadowSm }}; overflow:hidden;">
+              <div style="padding:14px clamp(16px,3vw,20px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                <h2 style="font-size:15px; font-weight:600; letter-spacing:-0.01em; color:var(--fg-2);">Monthly consumption</h2>
+              </div>
+              <div style="padding:clamp(16px,3vw,20px);">
+                <div style="display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;">
+                  <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; color: var(--fg-1)">{{ usageKwh }}</span>
+                  <span style="font-size:13px; font-weight:600; color:var(--fg-3);">this month</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                  <span style="display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:999px; background:{{ trendBg }}; color:{{ trendFg }}; font-size:12.5px; font-weight:600;"><i data-lucide="{{ trendIcon }}" style="width:13px;height:13px"></i> {{ trendLabel }}</span>
+                  <span style="font-size:13px; color:var(--fg-3);">348 kWh average/month</span>
+                </div>
+                <div style="display:flex; align-items:stretch; gap:6px; height:112px; margin-top:18px;">
+                  <sc-for list="{{ usageBars }}" as="bar" hint-placeholder-count="6">
+                    <div style="flex:1 1 0; min-width:0; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:6px;">
+                      <div style="width:100%; border-radius:5px 5px 0 0; background:{{ bar.color }}; height:{{ bar.height }}; flex:none;"></div>
+                      <span style="font-size:11px; font-weight:600; color:{{ bar.valueColor }};">{{ bar.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <p style="font-size:12.5px; color:var(--fg-4); margin-top:12px;">Relative usage over the last six billing months.</p>
+              </div>
+            </section>
+
+            <sc-if value="{{ hasRecent }}">
+              <section data-screen-label="Recently used" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(18px,3vw,24px); box-shadow:{{ shadowSm }}; overflow:hidden;">
+                <div style="padding:16px clamp(16px,3vw,20px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                  <h2 style="display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; color: var(--fg-1)"><span style="display:inline-flex; color:var(--fg-3);"><i data-lucide="history" style="width:17px;height:17px"></i></span> Recently used</h2>
+                </div>
+                <div style="padding:8px;">
+                  <sc-for list="{{ recentActions }}" as="act" hint-placeholder-count="2">
+                    <div onClick="{{ act.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; transition:background 180ms cubic-bezier(0.2,0.8,0.3,1);" style-hover="background:var(--surface-2);">
+                      <span data-gpl-icon="{{ act.icon }}" style="flex:none; width:40px; height:40px; border-radius:12px; background:{{ act.chipBg }}; display:inline-flex; align-items:center; justify-content:center; color:{{ act.chipFg }};"><i data-lucide="{{ act.icon }}" style="width:19px;height:19px"></i></span>
+                      <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                        <span style="font-size:15px; font-weight:600; color:var(--fg-1);">{{ act.title }}</span>
+                        <span style="font-size:13px; line-height:1.45; color:var(--fg-3);">{{ act.hint }}</span>
+                      </span>
+                      <span onClick="{{ act.onToggle }}" role="button" tabIndex="{{ zero }}" title="{{ act.pinTitle }}" style="flex:none; width:32px; height:32px; border-radius:10px; cursor:{{ act.pinCursor }}; display:inline-flex; align-items:center; justify-content:center; background:{{ act.pinBg }}; color:{{ act.pinColor }};" style-hover="background:var(--agency-accent-soft);"><i data-lucide="pin" style="width:16px;height:16px"></i></span>
+                    </div>
+                  </sc-for>
+                </div>
+              </section>
+            </sc-if>
+
+            <section data-screen-label="Quick actions" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(18px,3vw,24px); box-shadow:{{ shadowMd }}; overflow:hidden;">
+              <div style="padding:16px clamp(16px,3vw,20px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                <div style="min-width:0;">
+                  <h2 style="font-size: 15px; font-weight: 700; letter-spacing: -0.01em; color: var(--fg-1)">Quick actions</h2>
+                  <p style="font-size: 13px; line-height: 1.45; color: var(--fg-3); margin-top: 2px; display: none">{{ pinHint }}</p>
+                </div>
+                <sc-if value="{{ hasPins }}">
+                  <span onClick="{{ clearPins }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; font-size:13px; font-weight:600; color:var(--agency-accent);">Clear pins</span>
+                </sc-if>
+              </div>
+              <div style="padding:8px;">
+                <sc-for list="{{ actions }}" as="act" hint-placeholder-count="3">
+                  <div onClick="{{ act.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; background:{{ act.rowBg }}; margin-bottom:{{ act.rowGap }}; transition:background 180ms cubic-bezier(0.2,0.8,0.3,1);" style-hover="filter:brightness(0.97); background:var(--surface-2);">
+                    <span data-gpl-icon="{{ act.icon }}" style="flex:none; width:40px; height:40px; border-radius:12px; background:{{ act.chipBg }}; display:inline-flex; align-items:center; justify-content:center; color:{{ act.chipFg }};"><i data-lucide="{{ act.icon }}" style="width:19px;height:19px"></i></span>
+                    <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                      <span style="font-size:15px; font-weight:600; color:var(--fg-1);">{{ act.title }}</span>
+                      <span style="font-size:13px; line-height:1.45; color:var(--fg-3);">{{ act.hint }}</span>
+                    </span>
+                    <span onClick="{{ act.onToggle }}" role="button" tabIndex="{{ zero }}" title="{{ act.pinTitle }}" style="flex:none; width:32px; height:32px; border-radius:10px; cursor:{{ act.pinCursor }}; display:inline-flex; align-items:center; justify-content:center; background:{{ act.pinBg }}; color:{{ act.pinColor }};" style-hover="background:var(--agency-accent-soft);"><i data-lucide="pin" style="width:16px;height:16px"></i></span>
+                  </div>
+                </sc-for>
+              </div>
+            </section>
+
+
+          </div>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <dc-import name="GPL Help Chat" hint-size="60px,60px"></dc-import>
+</div>
+
+  <sc-if value="{{ secOpen }}">
+    <div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; position:fixed; inset:0; z-index:1500; background:rgba(8,24,30,0.46); display:flex; align-items:center; justify-content:center; padding:clamp(14px,3vw,28px);">
+      <div role="dialog" aria-modal="{{ true }}" aria-label="{{ secTitle }}" style="width:100%; max-width:460px; background:#ffffff; border-radius:20px; box-shadow:0 24px 60px rgba(8,24,30,0.34); overflow:hidden; display:flex; flex-direction:column;">
+        <div style="padding:18px clamp(18px,3vw,24px); border-bottom:1px solid rgba(19,28,46,0.10); display:flex; align-items:flex-start; gap:14px;">
+          <span style="flex:none; width:38px; height:38px; border-radius:12px; background:var(--agency-accent-soft); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="shield-check" style="width:19px;height:19px"></i></span>
+          <div style="flex:1; min-width:0;">
+            <h2 style="font-size:17px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">{{ secTitle }}</h2>
+            <p style="font-size:13.5px; line-height:1.5; color:var(--fg-3); margin-top:3px;">{{ secLead }}</p>
+          </div>
+          <span onClick="{{ secClose }}" role="button" tabIndex="{{ zero }}" title="Close" aria-label="Close" style="flex:none; cursor:pointer; width:36px; height:36px; border-radius:11px; display:inline-flex; align-items:center; justify-content:center; color:var(--fg-3);" style-hover="background:rgba(19,28,46,0.07); color:var(--fg-1);"><i data-lucide="x" style="width:18px;height:18px"></i></span>
+        </div>
+
+        <sc-if value="{{ secDone }}">
+          <div style="padding:clamp(20px,3vw,26px); display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; gap:13px; align-items:flex-start;">
+              <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="circle-check" style="width:20px;height:20px"></i></span>
+              <p style="flex:1; min-width:0; font-size:14.5px; line-height:1.6; color:var(--fg-2);">{{ secConfirmLine }}</p>
+            </div>
+            <span onClick="{{ secClose }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-end;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" on-click="{{ secClose }}" hint-size="auto,44px">Done</x-import>
+            </span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ secCodeStep }}">
+          <div style="padding:clamp(20px,3vw,26px); display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; flex-direction:column; gap:7px;">
+              <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Enter the code GPL sent you</label>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" value="{{ secCode }}" on-change="{{ secCodeChange }}" placeholder="6-digit code" inputMode="numeric" hint-size="100%,46px"></x-import>
+              <span style="font-size:12.5px; color:var(--fg-4);">The code lasts ten minutes. GPL never asks for it by phone.</span>
+            </div>
+            <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" on-click="{{ secClose }}" hint-size="auto,44px">Cancel</x-import>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" on-click="{{ secPrimary }}" hint-size="auto,44px">{{ secPrimaryLabel }}</x-import>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ secFormStep }}">
+          <div style="padding:clamp(20px,3vw,26px); display:flex; flex-direction:column; gap:16px;">
+            <sc-for list="{{ secFields }}" as="sf" hint-placeholder-count="2">
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">{{ sf.label }}</label>
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" type="{{ sf.type }}" placeholder="{{ sf.placeholder }}" hint-size="100%,46px"></x-import>
+              </div>
+            </sc-for>
+            <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" on-click="{{ secClose }}" hint-size="auto,44px">Cancel</x-import>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" on-click="{{ secPrimary }}" hint-size="auto,44px">{{ secPrimaryLabel }}</x-import>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showOutageMap }}">
+    <div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; position:fixed; inset:0; z-index:1500; background:rgba(8,24,30,0.46); display:flex; align-items:center; justify-content:center; padding:{{ mapPadding }};">
+      <div role="dialog" aria-modal="{{ true }}" aria-label="Outage map" style="width:100%; max-width:{{ mapMaxWidth }}; height:{{ mapHeight }}; background:#ffffff; border-radius:{{ mapRadius }}; box-shadow:0 24px 60px rgba(8,24,30,0.34); overflow:hidden; display:flex; flex-direction:column; transition:max-width 260ms cubic-bezier(0.2,0.8,0.3,1);">
+        <div style="flex:none; padding:14px clamp(16px,3vw,20px); border-bottom:1px solid rgba(19,28,46,0.10); display:flex; align-items:center; gap:14px;">
+          <span style="flex:none; width:38px; height:38px; border-radius:12px; background:var(--agency-accent-soft); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="map" style="width:19px;height:19px"></i></span>
+          <div style="flex:1; min-width:0;">
+            <h2 style="font-size:16.5px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">{{ mapTitle }}</h2>
+            <p style="font-size:12.5px; color:var(--fg-3); margin-top:1px;">{{ mapLead }}</p>
+          </div>
+          <span onClick="{{ toggleMapWide }}" role="button" tabIndex="{{ zero }}" title="{{ mapWideTitle }}" aria-label="{{ mapWideTitle }}" aria-pressed="{{ mapWide }}" style="flex:none; cursor:pointer; width:36px; height:36px; border-radius:11px; display:inline-flex; align-items:center; justify-content:center; color:var(--fg-3);" style-hover="background:rgba(19,28,46,0.07); color:var(--fg-1);"><i data-lucide="{{ mapWideIcon }}" style="width:18px;height:18px"></i></span>
+          <span onClick="{{ closeOutageMap }}" role="button" tabIndex="{{ zero }}" title="Close" aria-label="Close" style="flex:none; cursor:pointer; width:36px; height:36px; border-radius:11px; display:inline-flex; align-items:center; justify-content:center; color:var(--fg-3);" style-hover="background:rgba(19,28,46,0.07); color:var(--fg-1);"><i data-lucide="x" style="width:18px;height:18px"></i></span>
+        </div>
+        <iframe src="{{ mapSrc }}" title="GPL outage map" style="flex:1; min-height:0; width:100%; border:0; display:block;"></iframe>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ askSwitchOpen }}">
+    <div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; position:fixed; inset:0; z-index:1500; background:rgba(8,24,30,0.46); display:flex; align-items:center; justify-content:center; padding:20px;">
+      <div role="dialog" aria-modal="{{ true }}" style="width:100%; max-width:440px; background:#ffffff; border-radius:20px; box-shadow:0 24px 60px rgba(8,24,30,0.34); padding:clamp(20px,4vw,26px); display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Switch connection and clear this payment?</h2>
+        <p style="font-size:14px; line-height:1.6; color:var(--fg-2);">You have a payment part-filled for {{ askSwitchFrom }}. Moving to {{ askSwitchName }} will clear the amount and payment method you chose, so nothing is paid to the wrong account. Nothing has been charged yet.</p>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px; flex-wrap:wrap;">
+          <span onClick="{{ cancelSwitch }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 18px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); font-size:14px; font-weight:600; color:var(--fg-2);" style-hover="background:var(--surface-2);">Keep paying this account</span>
+          <span onClick="{{ confirmSwitch }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;">Switch and clear</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ lockNoteOpen }}">
+    <div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; position:fixed; inset:0; z-index:1500; background:rgba(8,24,30,0.46); display:flex; align-items:center; justify-content:center; padding:20px;">
+      <div role="dialog" aria-modal="{{ true }}" style="width:100%; max-width:420px; background:#ffffff; border-radius:20px; box-shadow:0 24px 60px rgba(8,24,30,0.34); padding:clamp(20px,4vw,26px); display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Your payment is still processing</h2>
+        <p style="font-size:14px; line-height:1.6; color:var(--fg-2);">You cannot change connection while a payment is being processed. Wait for the receipt — it usually takes a few seconds — then switch.</p>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px;">
+          <span onClick="{{ closeLockNote }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;">Got it</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ askPrimaryOpen }}">
+    <div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; position:fixed; inset:0; z-index:1500; background:rgba(8,24,30,0.46); display:flex; align-items:center; justify-content:center; padding:20px;">
+      <div role="dialog" aria-modal="{{ true }}" style="width:100%; max-width:420px; background:#ffffff; border-radius:20px; box-shadow:0 24px 60px rgba(8,24,30,0.34); padding:clamp(20px,4vw,26px); display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Make this your primary connection?</h2>
+        <p style="font-size:14px; line-height:1.6; color:var(--fg-2);">{{ askPrimaryName }} will be the connection GPL uses for letters and the one the portal opens on. Your other connections stay linked.</p>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px; flex-wrap:wrap;">
+          <span onClick="{{ cancelPrimary }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 18px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); font-size:14px; font-weight:600; color:var(--fg-2);" style-hover="background:var(--surface-2);">Cancel</span>
+          <span onClick="{{ confirmPrimary }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;">Confirm</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ askRemoveOpen }}">
+    <div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; position:fixed; inset:0; z-index:1500; background:rgba(8,24,30,0.46); display:flex; align-items:center; justify-content:center; padding:20px;">
+      <div role="dialog" aria-modal="{{ true }}" style="width:100%; max-width:440px; background:#ffffff; border-radius:20px; box-shadow:0 24px 60px rgba(8,24,30,0.34); padding:clamp(20px,4vw,26px); display:flex; flex-direction:column; gap:12px;">
+        <sc-if value="{{ canRemove }}" hint-placeholder-val="{{ true }}">
+          <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Remove this connection?</h2>
+          <p style="font-size:14px; line-height:1.6; color:var(--fg-2);">{{ askRemoveName }} will be unlinked from this login. Bills and cases already raised stay with GPL, and you can link the connection again later.</p>
+          <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px; flex-wrap:wrap;">
+            <span onClick="{{ cancelRemove }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 18px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); font-size:14px; font-weight:600; color:var(--fg-2);" style-hover="background:var(--surface-2);">Cancel</span>
+            <span onClick="{{ confirmRemove }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--status-error); color:#ffffff; font-size:14px; font-weight:600;">Remove connection</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ onlyOne }}">
+          <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">This is your only connection</h2>
+          <p style="font-size:14px; line-height:1.6; color:var(--fg-2);">A portal login needs at least one connection. Link another connection first, then remove this one.</p>
+          <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px;">
+            <span onClick="{{ cancelRemove }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;">Close</span>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ addOpen }}">
+    <div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-tint:#404293; --agency-contrast:#ffffff; position:fixed; inset:0; z-index:1600; background:rgba(8,24,30,0.46); display:flex; align-items:flex-start; justify-content:center; padding:clamp(12px,4vh,40px) 16px; overflow-y:auto;">
+      <div role="dialog" aria-modal="{{ true }}" aria-label="Add a connection" style="width:100%; max-width:560px; background:#ffffff; border-radius:20px; box-shadow:0 24px 60px rgba(8,24,30,0.34); overflow:hidden; display:flex; flex-direction:column;">
+
+        <div style="padding:16px clamp(18px,4vw,24px); border-bottom:1px solid rgba(19,28,46,0.08); background:var(--surface-2); display:flex; align-items:center; gap:12px;">
+          <div style="flex:1; min-width:0;">
+            <div style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">{{ stepLabel }}</div>
+            <h2 style="font-size:18px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:3px;">Add a connection</h2>
+          </div>
+          <span onClick="{{ closeAdd }}" role="button" tabIndex="{{ zero }}" aria-label="Close" title="Close" style="cursor:pointer; flex:none; width:36px; height:36px; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; color:var(--fg-3);" style-hover="background:rgba(19,28,46,0.06);"><i data-lucide="x" style="width:18px;height:18px"></i></span>
+        </div>
+
+        <sc-if value="{{ isDetails }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:clamp(18px,4vw,24px); display:flex; flex-direction:column; gap:18px;">
+
+            <sc-if value="{{ hasAddErr }}">
+              <div style="display:flex; gap:12px; padding:14px 16px; border-radius:14px; background:var(--status-error-bg); border:1px solid rgba(194,54,95,0.28);">
+                <span style="flex:none; color:var(--status-error); margin-top:1px;"><i data-lucide="triangle-alert" style="width:18px;height:18px"></i></span>
+                <div style="min-width:0;">
+                  <div style="font-size:14px; font-weight:700; color:var(--status-error);">{{ addErrTitle }}</div>
+                  <p style="font-size:13px; line-height:1.55; color:var(--fg-2); margin-top:3px;">{{ addErrText }}</p>
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Account details</div>
+              <p style="font-size:13px; line-height:1.55; color:var(--fg-3); margin-top:-4px;">You will find all three numbers on a recent bill for that connection.</p>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Customer number" required="{{ true }}" hint-size="100%,28px">
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" value="{{ fCust }}" onChange="{{ onCust }}" placeholder="40 1234 5" hint-size="100%,44px"></x-import>
+              </x-import>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Account number" required="{{ true }}" hint-size="100%,28px">
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" value="{{ fAcct }}" onChange="{{ onAcct }}" placeholder="1234-5678" hint-size="100%,44px"></x-import>
+              </x-import>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Meter number" required="{{ true }}" hint-size="100%,28px">
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" value="{{ fMeter }}" onChange="{{ onMeter }}" placeholder="MTR-00 0000" hint-size="100%,44px"></x-import>
+              </x-import>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:14px; font-weight:600; color:var(--fg-1);">Zone</span>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <sc-for list="{{ zoneOptions }}" as="z" hint-placeholder-count="3">
+                    <span onClick="{{ z.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:40px; padding:0 16px; border-radius:999px; background:{{ z.bg }}; color:{{ z.fg }}; border:1px solid {{ z.border }}; font-size:13.5px; font-weight:600;">{{ z.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="height:1px; background:rgba(19,28,46,0.08);"></div>
+
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Contact details for this connection</div>
+              <p style="font-size:13px; line-height:1.55; color:var(--fg-3); margin-top:-4px;">GPL sends the code and future alerts for this connection here. Choosing your portal details does not change your login.</p>
+
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:14px; font-weight:600; color:var(--fg-1);">Mobile number</span>
+                <div onClick="{{ pickMyMobile }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ useMyMobile }}" style="cursor:pointer; display:flex; align-items:center; gap:11px; padding:12px 14px; border-radius:14px; background:{{ mobileRowBg }}; border:1px solid rgba(19,28,46,0.10);">
+                  <span style="flex:none; width:20px; height:20px; border-radius:999px; border:1px solid rgba(19,28,46,0.22); display:inline-flex; align-items:center; justify-content:center;"><sc-if value="{{ useMyMobile }}"><span style="width:10px; height:10px; border-radius:999px; background:var(--agency-accent);"></span></sc-if></span>
+                  <span style="flex:1; min-width:0; font-size:13.5px; color:var(--fg-1);">Use my portal mobile number, {{ portalMobile }}</span>
+                </div>
+                <div onClick="{{ pickNewMobile }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ useNewMobile }}" style="cursor:pointer; display:flex; align-items:center; gap:11px; padding:12px 14px; border-radius:14px; background:{{ newMobileRowBg }}; border:1px solid rgba(19,28,46,0.10);">
+                  <span style="flex:none; width:20px; height:20px; border-radius:999px; border:1px solid rgba(19,28,46,0.22); display:inline-flex; align-items:center; justify-content:center;"><sc-if value="{{ useNewMobile }}"><span style="width:10px; height:10px; border-radius:999px; background:var(--agency-accent);"></span></sc-if></span>
+                  <span style="flex:1; min-width:0; font-size:13.5px; color:var(--fg-1);">Use a different number for this connection</span>
+                </div>
+                <sc-if value="{{ useNewMobile }}">
+                  <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" value="{{ altMobile }}" onChange="{{ onAltMobile }}" placeholder="+592 000 0000" hint-size="100%,44px"></x-import>
+                </sc-if>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:14px; font-weight:600; color:var(--fg-1);">Email address</span>
+                <div onClick="{{ pickMyEmail }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ useMyEmail }}" style="cursor:pointer; display:flex; align-items:center; gap:11px; padding:12px 14px; border-radius:14px; background:{{ emailRowBg }}; border:1px solid rgba(19,28,46,0.10);">
+                  <span style="flex:none; width:20px; height:20px; border-radius:999px; border:1px solid rgba(19,28,46,0.22); display:inline-flex; align-items:center; justify-content:center;"><sc-if value="{{ useMyEmail }}"><span style="width:10px; height:10px; border-radius:999px; background:var(--agency-accent);"></span></sc-if></span>
+                  <span style="flex:1; min-width:0; font-size:13.5px; color:var(--fg-1); overflow-wrap:anywhere;">Use my portal email, {{ portalEmail }}</span>
+                </div>
+                <div onClick="{{ pickNewEmail }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ useNewEmail }}" style="cursor:pointer; display:flex; align-items:center; gap:11px; padding:12px 14px; border-radius:14px; background:{{ newEmailRowBg }}; border:1px solid rgba(19,28,46,0.10);">
+                  <span style="flex:none; width:20px; height:20px; border-radius:999px; border:1px solid rgba(19,28,46,0.22); display:inline-flex; align-items:center; justify-content:center;"><sc-if value="{{ useNewEmail }}"><span style="width:10px; height:10px; border-radius:999px; background:var(--agency-accent);"></span></sc-if></span>
+                  <span style="flex:1; min-width:0; font-size:13.5px; color:var(--fg-1);">Use a different email for this connection</span>
+                </div>
+                <sc-if value="{{ useNewEmail }}">
+                  <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" value="{{ altEmail }}" onChange="{{ onAltEmail }}" placeholder="name@example.gy" hint-size="100%,44px"></x-import>
+                </sc-if>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+              <span onClick="{{ closeAdd }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:48px; padding:0 20px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); font-size:15px; font-weight:600; color:var(--fg-2);" style-hover="background:var(--surface-2);">Cancel</span>
+              <span onClick="{{ submitDetails }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 22px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:15px; font-weight:600;">Find this connection <i data-lucide="arrow-right" style="width:17px;height:17px"></i></span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isValidating }}">
+          <div style="padding:clamp(32px,7vw,56px) clamp(18px,4vw,24px); display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center;">
+            <span style="width:52px; height:52px; border-radius:999px; background:var(--agency-accent-soft); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="loader" style="width:26px;height:26px"></i></span>
+            <div style="font-size:17px; font-weight:700; color:var(--fg-1);">Checking GPL records</div>
+            <p style="font-size:14px; line-height:1.6; color:var(--fg-2); max-width:40ch;">Matching the customer, account and meter number you entered. This takes a moment.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isVerify }}">
+          <div style="padding:clamp(18px,4vw,24px); display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; gap:12px; align-items:center; padding:13px 15px; border-radius:14px; background:var(--surface-2);">
+              <span style="flex:none; width:38px; height:38px; border-radius:12px; background:var(--agency-accent); color:#ffffff; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="shield-check" style="width:19px;height:19px"></i></span>
+              <div style="min-width:0;">
+                <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Code sent to</div>
+                <div style="font-size:15px; font-weight:700; color:var(--fg-1); overflow-wrap:anywhere;">{{ otpDest }}</div>
+              </div>
+            </div>
+
+            <div>
+              <h3 style="font-size:16px; font-weight:700; color:var(--fg-1);">Verify it is you</h3>
+              <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">Enter the six-digit code to link this connection to your login.</p>
+            </div>
+
+            <div style="display:flex; gap:8px;">
+              <sc-for list="{{ otpDigits }}" as="d" hint-placeholder-count="6">
+                <input class="otp-box" inputMode="numeric" maxLength="1" aria-label="Code digit" value="{{ d.value }}" onChange="{{ d.onChange }}" onPaste="{{ d.onPaste }}" style="width:100%; max-width:56px; height:56px; border-radius:14px; border:1px solid rgba(19,28,46,0.18); background:var(--surface-2); text-align:center; font-family:inherit; font-size:22px; font-weight:700; color:var(--fg-1);">
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ hasOtpErr }}">
+              <div style="display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.5; color:var(--status-error); font-weight:600;"><i data-lucide="circle-x" style="width:16px;height:16px;flex:none;margin-top:1px"></i> {{ otpErrText }}</div>
+            </sc-if>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:13px;">
+              <sc-if value="{{ countingAdd }}" hint-placeholder-val="{{ true }}">
+                <span style="color:var(--fg-3); font-weight:600;">You can ask for a new code in {{ otpLeft }}s</span>
+              </sc-if>
+              <sc-if value="{{ canResendAdd }}">
+                <span onClick="{{ resendAdd }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; font-weight:700; color:var(--agency-accent);">Send a new code</span>
+              </sc-if>
+              <sc-if value="{{ resentAdd }}">
+                <span style="display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--status-success);"><i data-lucide="check" style="width:15px;height:15px"></i> A new code is on its way</span>
+              </sc-if>
+            </div>
+
+            <div style="background:var(--surface-2); border:1px dashed rgba(19,28,46,0.18); border-radius:12px; padding:11px 13px; display:flex; align-items:center; gap:9px;">
+              <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Prototype</span>
+              <span style="font-size:13px; color:var(--fg-2);">Your code is <strong style="font-variant-numeric:tabular-nums; letter-spacing:0.14em;">{{ demoCode }}</strong></span>
+            </div>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+              <span onClick="{{ backToDetails }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:48px; padding:0 20px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); font-size:15px; font-weight:600; color:var(--fg-2);" style-hover="background:var(--surface-2);">Back</span>
+              <span onClick="{{ verifyAdd }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:48px; padding:0 22px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:15px; font-weight:600;">Verify and link</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDone }}">
+          <div style="padding:clamp(20px,4vw,26px); display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;">
+              <span style="width:52px; height:52px; border-radius:999px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="check" style="width:26px;height:26px"></i></span>
+              <h3 style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Connection linked</h3>
+              <p style="font-size:14px; line-height:1.6; color:var(--fg-2); max-width:42ch;">You can switch to it any time from your profile menu. Its bills, services and outage information stay separate from your other connections.</p>
+            </div>
+            <div style="border:1px solid rgba(19,28,46,0.10); border-radius:16px; padding:16px; display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:14px 20px;">
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Customer number</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ newCust }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Account number</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ newAcct }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Meter number</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ newMeter }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Zone</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ newZone }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Mobile</span><span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ newMobile }}</span></div>
+              <div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Email</span><span style="font-size:14px; font-weight:600; color:var(--fg-1); overflow-wrap:anywhere;">{{ newEmail }}</span></div>
+            </div>
+            <div style="display:flex; justify-content:flex-end;">
+              <span onClick="{{ finishAdd }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 22px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:15px; font-weight:600;">Continue <i data-lucide="arrow-right" style="width:17px;height:17px"></i></span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;cardShadow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Surfaces&quot;},&quot;billRowCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:4,&quot;min&quot;:2,&quot;max&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;requestRowCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;min&quot;:1,&quot;max&quot;:3,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const MAX_PINS = 4;
+
+const NAV = [
+  { id: 'overview', label: 'Dashboard', icon: 'layout-dashboard' },
+  { id: 'outages', label: 'Outages & faults', icon: 'zap-off' },
+  { id: 'services', label: 'My services', icon: 'briefcase' },
+  { id: 'bills', label: 'Billing', icon: 'file-text' },
+  { id: 'usage', label: 'Consumption', icon: 'chart-column', jumpTo: 'Monthly consumption' },
+  { id: 'faq', label: 'FAQ', icon: 'circle-help' }
+];
+
+const SEARCH = [
+  { label: 'Bills and payments', hint: 'See your latest bill and balance', icon: 'file-text', section: 'bills', kw: 'bill bills billing payment payments pay invoice statement balance arrears due amount owing' },
+  { label: 'Billing history', hint: 'Past bills and receipts', icon: 'receipt-text', section: 'bills', tab: 'history', kw: 'bill history past previous receipt download statement pdf' },
+  { label: 'Report an outage', hint: 'Your power is out', icon: 'zap', family: 'outage', kw: 'report outage issue no power blackout fault electricity off light out' },
+  { label: 'Report a hazard', hint: 'Sagging wires or a fallen pole', icon: 'triangle-alert', family: 'danger', kw: 'hazard danger emergency wire wires line pole fallen sagging streetlight safety damaged' },
+  { label: 'Meter or prepaid problem', hint: 'Broken meter, keypad or credit', icon: 'gauge', family: 'meter', kw: 'meter prepaid keypad credit token broken problem' },
+  { label: 'Track my requests', hint: 'Case numbers, progress and updates', icon: 'list-checks', section: 'services', kw: 'my services request requests report status track case reference ticket progress restored history closed' },
+  { label: 'Apply for a new connection', hint: 'Residential, commercial or industrial', icon: 'house-plug', section: 'services', kw: 'new connection apply application supply residential commercial industrial upgrade three phase' },
+  { label: 'Query a bill', hint: 'A bill that looks wrong or a missing payment', icon: 'receipt-text', section: 'services', kw: 'bill billing query dispute high wrong payment missing adjustment credit refund' },
+  { label: 'FAQ', hint: 'Answers GPL representatives work from', icon: 'circle-help', section: 'faq', kw: 'help faq answers article knowledge how do i guide prepaid token error reconnection' },
+  { label: 'Monthly consumption', hint: 'Units used against your average', icon: 'chart-column', section: 'overview', scrollTo: 'Monthly consumption', kw: 'consumption usage kwh units meter reading electricity how much energy' },
+  { label: 'Notification settings', hint: 'Channels, topics and quiet hours', icon: 'bell', section: 'prefs', kw: 'notification notifications preference preferences settings sms email whatsapp contact consent alert alerts paperless' },
+  { label: 'Account and notifications', hint: 'Your details, contact channels and alerts', icon: 'user-round', section: 'prefs', kw: 'account details name address contact number email meter customer profile notifications alerts settings' }
+];
+
+// The customer's own cases and bills are searchable by reference — people type
+// the number on their notice, not the name of a menu.
+const RECORDS = [
+  { label: 'RPT-2210 — streetlight out, Lot 22', hint: 'In progress · reported 02 Aug 2026', icon: 'wrench', family: null, kw: 'rpt-2210 rpt 2210 streetlight lot 22 reference case request' },
+  { label: 'OUT-4821 — no power, Sheriff Street', hint: 'Resolved · 09 Aug 2026', icon: 'zap', family: null, kw: 'out-4821 out 4821 no power sheriff street reference case outage' },
+  { label: 'BIL-0914 — billing query', hint: 'Resolved · 18 Jul 2026', icon: 'file-text', family: null, kw: 'bil-0914 bil 0914 billing query reference case' },
+  { label: 'July 2026 bill — G$ 17,728', hint: 'Due 27 August 2026', icon: 'receipt-text', section: 'bills', tab: 'current', kw: 'july 2026 bill 17728 17,728 due statement amount' }
+];
+
+const UNDER_CONSTRUCTION = {};
+
+function byId(list, id) { return list.filter(x => x.id === id)[0]; }
+
+const DEMO_CODE = '481920';
+
+// Credential changes handled on the account page itself. Email and mobile are
+// confirmed by the same one-time code the portal uses at registration.
+const SECURITY_FORMS = {
+  password: {
+    title: 'Change your password',
+    lead: 'Your new password needs at least eight characters, with one number.',
+    needsCode: false,
+    confirm: 'Your password has been changed. You stay signed in on this device.',
+    fields: [
+      { key: 'current', label: 'Current password', type: 'password', placeholder: 'Your password now' },
+      { key: 'next', label: 'New password', type: 'password', placeholder: 'At least eight characters' }
+    ]
+  },
+  email: {
+    title: 'Change your sign-in email',
+    lead: 'GPL sends a code to the new address to confirm it belongs to you.',
+    needsCode: true,
+    confirm: 'Your sign-in email has been changed. Use it the next time you sign in.',
+    fields: [{ key: 'next', label: 'New email address', type: 'email', placeholder: 'name@example.com' }]
+  },
+  mobile: {
+    title: 'Change your sign-in mobile',
+    lead: 'GPL sends a code by text to the new number to confirm it.',
+    needsCode: true,
+    confirm: 'Your sign-in mobile has been changed. Use it the next time you sign in.',
+    fields: [{ key: 'next', label: 'New mobile number', type: 'tel', placeholder: '+592 000 0000' }]
+  }
+};
+const PORTAL_MOBILE = '+592 612 7744';
+const PORTAL_EMAIL = 'rennica.b@example.gy';
+const MAX_CONNS = 5;
+const ZONES = ['Berbice', 'Demerara', 'Essequibo'];
+
+// Each connection carries its own bills, usage, outage and cases. Nothing on a
+// screen is ever summed across connections.
+const START_CONNS = [
+  { id: 'c1', cust: '40 2938 1', acct: '2938-4471', meter: 'MTR-77 4193', zone: 'Demerara',
+    address: 'Lot 22 Sheriff Street, Georgetown', mobile: PORTAL_MOBILE, email: PORTAL_EMAIL,
+    portalContact: true, primary: true, meterType: 'postpaid',
+    due: 'G$ 17,728', month: 'July 2026', dueDate: '27 August 2026', dueShort: '27 August',
+    kwh: 351, avg: 348,
+    // An outage already open on this connection's feeder, with the running
+    // count of customer reports linked to it.
+    liveOutages: [
+      { ref: 'OUT-4903', area: 'Sheriff Street and Lamaha Street, Georgetown', status: 'Crew on site', eta: 'between 18:00 and 20:00 today', stage: 2, reports: 12 },
+      { ref: 'OUT-4907', area: 'Camp Street, Georgetown', status: 'Investigating', eta: 'Not yet available', stage: 0, reports: 27 }
+    ],
+    outages: [
+      { badge: '14 August', kind: 'Planned outage', title: 'Planned maintenance in your area',
+        when: '09:00 to 14:00 on 14 August 2026',
+        rest: 'while a feeder on the Diamond line is replaced. Affects Diamond Housing Scheme and surrounding streets.' },
+      { badge: '20 August', kind: 'Planned outage', title: 'Planned maintenance in your area',
+        when: '08:00 to 12:00 on 20 August 2026',
+        rest: 'while transformers are upgraded on the Ministry line. Affects Non Pariel and surrounding streets.' }
+    ],
+    bills: [
+      { month: 'July 2026', issued: '04 August 2026', amount: 'G$ 17,728', status: 'Due' },
+      { month: 'June 2026', issued: '04 July 2026', amount: 'G$ 19,559', status: 'Paid' },
+      { month: 'May 2026', issued: '05 June 2026', amount: 'G$ 16,204', status: 'Paid' },
+      { month: 'April 2026', issued: '04 May 2026', amount: 'G$ 15,880', status: 'Paid' }
+    ],
+    history: [
+      { month: 'June 2026', paid: '18 July 2026', amount: 'G$ 19,559', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+      { month: 'May 2026', paid: '20 June 2026', amount: 'G$ 16,204', method: 'Visa •••• 4417', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+      { month: 'April 2026', paid: '17 May 2026', amount: 'G$ 15,880', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+      { month: 'April 2026', paid: '12 May 2026', amount: 'G$ 11,742', method: 'Visa •••• 4417', paidFor: 'Sharon Persaud', payeeAccount: '40 5512 8', self: false },
+      { month: 'March 2026', paid: '19 April 2026', amount: 'G$ 14,930', method: 'Bank transfer', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+      { month: 'February 2026', paid: '16 March 2026', amount: 'G$ 15,412', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 2938 1', self: true }
+    ],
+    requests: [
+      { title: 'No power — Sheriff Street', reference: 'OUT-4821', status: 'Resolved', date: '09 Aug 2026', icon: 'circle-check', chipBg: 'var(--status-success-bg)', chipFg: 'var(--status-success)' },
+      { title: 'Streetlight out — Lot 22', reference: 'RPT-2210', status: 'In progress', date: '02 Aug 2026', icon: 'clock', chipBg: 'var(--status-info-bg)', chipFg: 'var(--status-info)' },
+      { title: 'Billing query', reference: 'BIL-0914', status: 'Resolved', date: '18 Jul 2026', icon: 'circle-check', chipBg: 'var(--status-success-bg)', chipFg: 'var(--status-success)' }
+    ] },
+  { id: 'c2', cust: '40 5517 3', acct: '5517-8820', meter: 'MTR-81 0552', zone: 'Berbice',
+    address: 'Lot 8 Water Street, New Amsterdam', mobile: '+592 655 2210', email: PORTAL_EMAIL,
+    portalContact: false, primary: false, meterType: 'prepaid',
+    due: 'G$ 6,420', month: 'July 2026', dueDate: '29 August 2026', dueShort: '29 August',
+    kwh: 188, avg: 204,
+    outage: null,
+    bills: [
+      { month: 'July 2026', issued: '06 August 2026', amount: 'G$ 6,420', status: 'Due' },
+      { month: 'June 2026', issued: '05 July 2026', amount: 'G$ 7,115', status: 'Paid' },
+      { month: 'May 2026', issued: '06 June 2026', amount: 'G$ 6,988', status: 'Paid' },
+      { month: 'April 2026', issued: '05 May 2026', amount: 'G$ 7,402', status: 'Paid' }
+    ],
+    history: [
+      { month: 'June 2026', paid: '21 July 2026', amount: 'G$ 7,115', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 5517 3', self: true },
+      { month: 'May 2026', paid: '19 June 2026', amount: 'G$ 6,988', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 5517 3', self: true },
+      { month: 'April 2026', paid: '18 May 2026', amount: 'G$ 7,402', method: 'Cash — New Amsterdam office', paidFor: 'My account', payeeAccount: '40 5517 3', self: true }
+    ],
+    requests: [
+      { title: 'Meter reading query', reference: 'BIL-1183', status: 'In progress', date: '20 Aug 2026', icon: 'clock', chipBg: 'var(--status-info-bg)', chipFg: 'var(--status-info)' }
+    ] }
+];
+
+const ADD_ERRORS = {
+  required: { title: 'Fill in every field', text: 'Customer, account and meter number and the zone are all needed to find the connection.' },
+  notfound: { title: 'Connection not found', text: 'No GPL record matches those numbers. Check them against a recent bill and try again.' },
+  invalid: { title: 'Those numbers do not match', text: 'The customer, account and meter number belong to different records.' },
+  linked: { title: 'Already on this login', text: 'This connection is already linked to your portal account. Switch to it from your profile menu.' },
+  other: { title: 'Linked to another login', text: 'This connection is already on a different portal account. Contact GPL on 0800‑475‑2000 to move it.' },
+  mismatch: { title: 'Contact details do not match GPL records', text: 'GPL holds a different mobile number and email for this connection. For your security, visit a GPL office or call 0800‑475‑2000 to link it.' }
+};
+
+const PAGE_TITLES = {
+  overview: 'Account overview',
+  usage: 'Consumption',
+  connections: 'Manage connections',
+  reports: 'Report an issue',
+  bills: 'Bills and payments',
+  services: 'My services',
+  outages: 'Outages & faults',
+  faq: 'FAQ',
+  prefs: 'Account and notifications'
+};
+
+const PAGE_TOOLTIPS = {
+  overview: 'Your balance, live outages and recent activity at a glance.',
+  usage: 'Your electricity consumption against your monthly average.',
+  connections: 'Every connection linked to your profile, and how to add another.',
+  bills: 'Your current bill, payment history and ways to pay.',
+  services: 'Requests you have raised with GPL, open and closed, by case number.',
+  outages: 'Report a fault, check outage status, and track outages you have reported.',
+  faq: "Answers GPL's representatives work from, matching what you are told on the phone.",
+  prefs: 'Your contact details, notification channels and sign-in security.'
+};
+
+const SUB = [
+  'Guyana NIS',
+  'Guyana Revenue Authority',
+  'Passport Office',
+  'General Register Office',
+  'Human Services',
+  'Housing and Water'
+];
+
+class Component extends DCLogic {
+  dropRef = React.createRef();
+  state = { recent: ['bill', 'requests', 'meter'], collapsed: false, dropdown: false, flyUp: false, flyMax: 320, profile: false, active: 'overview', activeSub: 'One Citizen', paperless: true, alerts: true, whatsapp: false, requestCount: 3,
+    conns: START_CONNS, activeConn: 'c1', addOpen: false, addStep: 'details', addErr: '',
+    payLocked: false, payDirty: false, askSwitch: null, lockNote: false, payResetNonce: 0,
+    form: { cust: '', acct: '', meter: '', zone: '' }, useMyMobile: true, useMyEmail: true,
+    altMobile: '', altEmail: '', otp: '', otpErr: '', otpLeft: 30, resent: false,
+    newConn: null, askPrimary: null, askRemove: null, liveOutageIdx: 0, plannedOutageIdx: 0 };
+
+  componentDidMount() {
+    try {
+      const pins = JSON.parse(localStorage.getItem('gpl.pinnedActions') || '[]');
+      if (pins && pins.length) this.setState({ pins: pins });
+      const recent = JSON.parse(localStorage.getItem('gpl.recentActions') || '[]');
+      if (recent && recent.length) this.setState({ recent: recent });
+    } catch (e) {}
+    // Set by the verification screen so the customer sees the step land.
+    try {
+      const ch = sessionStorage.getItem('gpl.justVerified');
+      if (ch) {
+        this.setState({ verifiedVia: ch });
+        sessionStorage.removeItem('gpl.justVerified');
+      }
+    } catch (e) {}
+    // Below this width the rail becomes a dropdown off the menu icon.
+    this.onResize = () => {
+      const mobile = window.innerWidth < 860;
+      if (mobile !== this.state.mobile) this.setState({ mobile: mobile, mobileNav: false });
+    };
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+    this.onRequestCount = (e) => { if (e.detail && e.detail.count) this.setState({ requestCount: e.detail.count }); };
+    window.addEventListener('gpl-requests-count', this.onRequestCount);
+    // My services asks the shell to open the map overlay it owns.
+    this.onOpenMap = (e) => this.setState({ outageMap: (e.detail && e.detail.scope) || 'mine' });
+    window.addEventListener('gpl-open-outage-map', this.onOpenMap);
+    // Bills, Consumption and Report an issue all route into the one canonical
+    // Services and requests module rather than keeping their own copies.
+    this.onOpenRequests = (e) => this.setState(prev => prev.active === 'outages' ? {
+      active: 'outages',
+      outagesIntent: { view: 'track', ref: (e.detail && e.detail.ref) || null, n: Date.now() }
+    } : {
+      active: 'services',
+      servicesIntent: { view: 'track', ref: (e.detail && e.detail.ref) || null, n: Date.now() }
+    });
+    window.addEventListener('gpl-open-my-requests', this.onOpenRequests);
+    this.onOpenServiceReq = (e) => this.setState({
+      active: 'services',
+      servicesIntent: { view: 'form', type: (e.detail && e.detail.type) || null, n: Date.now() }
+    });
+    window.addEventListener('gpl-open-service-request', this.onOpenServiceReq);
+    this.onGotoOutages = () => this.setState({ active: 'outages', outagesIntent: { view: 'problem', n: Date.now() } });
+    window.addEventListener('gpl-goto-outages', this.onGotoOutages);
+    this.cleanupResize = () => window.removeEventListener('resize', this.onResize);
+    // Any click outside the bell or its panel dismisses notifications.
+    this.onDocClick = (e) => {
+      if (!this.state.notifs) return;
+      const inPanel = e.target && e.target.closest && e.target.closest('[data-gpl-notif]');
+      if (!inPanel) this.setState({ notifs: false });
+    };
+    document.addEventListener('click', this.onDocClick, true);
+    // Every div carrying role="button"/"option" answers to Enter and Space.
+    this.onKeyActivate = (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+      const t = e.target;
+      if (!t || !t.closest || !t.matches) return;
+      if (t.matches('input, textarea, select, button, a')) return;
+      const hit = t.closest('[role="button"], [role="option"]');
+      if (!hit) return;
+      e.preventDefault();
+      hit.click();
+    };
+    document.addEventListener('keydown', this.onKeyActivate);
+    let tries = 0;
+    const hydrate = () => {
+      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+      if (++tries < 12) setTimeout(hydrate, 250);
+    };
+    hydrate();
+  }
+  componentWillUnmount() {
+    if (this.cleanupResize) this.cleanupResize();
+    if (this.onDocClick) document.removeEventListener('click', this.onDocClick, true);
+    if (this.onKeyActivate) document.removeEventListener('keydown', this.onKeyActivate);
+    if (this.onRequestCount) window.removeEventListener('gpl-requests-count', this.onRequestCount);
+    if (this.onOpenMap) window.removeEventListener('gpl-open-outage-map', this.onOpenMap);
+    if (this.onGotoOutages) window.removeEventListener('gpl-goto-outages', this.onGotoOutages);
+  }
+  openServiceRequest(type) {
+    this.setState({ active: 'services', servicesIntent: { view: 'form', type, n: Date.now() } });
+  }
+  componentDidUpdate() { if (window.lucide) window.lucide.createIcons(); this.refreshActionIcons(); this.syncLauncher(); }
+
+  // The help launcher must not float over the open mobile nav.
+  syncLauncher() {
+    try {
+      // Hidden behind the mobile nav, and on the preferences screen where the
+      // launcher's corridor overlaps the channel toggles (consent must stay reachable).
+      const hide = this.state.mobileNav || this.state.active === 'prefs';
+      document.documentElement.style.setProperty('--gpl-launcher-vis', hide ? 'hidden' : 'visible');
+    } catch (e) {}
+  }
+
+  // Lucide swaps <i> for <svg>, so a reordered row keeps its old glyph.
+  // Rewrite any chip whose rendered icon no longer matches its action.
+  refreshActionIcons() {
+    if (!window.lucide) return;
+    let stale = false;
+    document.querySelectorAll('[data-gpl-icon]').forEach(chip => {
+      const want = chip.getAttribute('data-gpl-icon');
+      const svg = chip.querySelector('svg');
+      if (svg && svg.classList.contains('lucide-' + want)) return;
+      if (chip.querySelector('i[data-lucide="' + want + '"]')) return;
+      const size = chip.getAttribute('data-gpl-icon-size') || '19px';
+      chip.innerHTML = '<i data-lucide="' + want + '" style="width:' + size + ';height:' + size + '"></i>';
+      stale = true;
+    });
+    if (stale) window.lucide.createIcons();
+  }
+
+  // Frequently used actions the customer can pin to the top of the card.
+  // Four keeps the Pinned card scannable at a glance.
+  baseActions() {
+    const conn = this.activeConn() || {};
+    return [
+      { id: 'outage', icon: 'zap', title: 'Report an outage', hint: 'Your power is out', onPick: () => this.openReports('outage'), chipBg: 'var(--agency-accent-soft)', chipFg: 'var(--agency-accent)' },
+      { id: 'hazard', icon: 'triangle-alert', title: 'Report a hazard', hint: 'Sagging wires or a fallen pole', onPick: () => this.openReports('danger'), chipBg: 'var(--status-error-bg)', chipFg: 'var(--status-error)' },
+      { id: 'meter', icon: 'gauge', title: 'Meter or prepaid problem', hint: 'Broken meter, keypad or credit', onPick: () => this.openServiceRequest('meter'), chipBg: 'var(--surface-4)', chipFg: 'var(--fg-2)' },
+      { id: 'bill', icon: 'download', title: 'Download your bill', hint: conn.month + ' statement', onPick: () => this.openBills('current'), chipBg: 'var(--surface-4)', chipFg: 'var(--fg-2)' },
+      { id: 'usage', icon: 'chart-column', title: 'Check your consumption', hint: conn.kwh + ' kWh this month', onPick: () => { this.setState({ active: 'overview' }); setTimeout(() => this.scrollToCard('Monthly consumption'), 60); }, chipBg: 'var(--surface-4)', chipFg: 'var(--fg-2)' },
+      { id: 'requests', icon: 'list-checks', title: 'Track your requests', hint: (conn.requests || []).length + ' with GPL on this connection', onPick: () => this.openReports(null), chipBg: 'var(--agency-accent-soft)', chipFg: 'var(--agency-accent)' }
+    ];
+  }
+
+  actionList() {
+    const pins = this.state.pins || [];
+    const full = pins.length >= MAX_PINS;
+    const list = this.baseActions().map(a => Object.assign({}, a, {
+      pinned: pins.indexOf(a.id) !== -1,
+      pinTitle: pins.indexOf(a.id) !== -1
+        ? 'Unpin this action'
+        : (full ? 'You can pin up to four actions — unpin one first' : 'Pin to the top'),
+      pinColor: pins.indexOf(a.id) !== -1 ? '#ffffff' : (full ? 'rgba(19,28,46,0.22)' : 'var(--fg-4)'),
+      pinBg: pins.indexOf(a.id) !== -1 ? 'var(--agency-accent)' : 'transparent',
+      pinCursor: (pins.indexOf(a.id) !== -1 || !full) ? 'pointer' : 'not-allowed',
+      rowBg: pins.indexOf(a.id) !== -1 ? 'var(--agency-accent-soft)' : 'transparent',
+      rowGap: pins.indexOf(a.id) !== -1 ? '6px' : '0px',
+      onToggle: (e) => {
+        e.stopPropagation();
+        if (pins.indexOf(a.id) !== -1) { this.savePins(pins.filter(p => p !== a.id)); return; }
+        if (pins.length >= MAX_PINS) return;
+        this.savePins(pins.concat([a.id]));
+      },
+      onPick: () => { this.noteUse(a.id); a.onPick(); },
+      onPin: (e) => {
+        e.stopPropagation();
+        if (pins.length >= MAX_PINS) return;
+        this.savePins(pins.concat([a.id]));
+      },
+      onUnpin: (e) => { e.stopPropagation(); this.savePins(pins.filter(p => p !== a.id)); }
+    }));
+    // Pinned rows follow the order the customer pinned them in.
+    list.sort((x, y) => (x.pinned && y.pinned) ? pins.indexOf(x.id) - pins.indexOf(y.id) : 0);
+    return list;
+  }
+
+  savePins(pins) {
+    this.setState({ pins: pins });
+    try { localStorage.setItem('gpl.pinnedActions', JSON.stringify(pins)); } catch (e) {}
+  }
+
+  // Recently opened actions, newest first. Falls back to a sensible starter set
+  // so the card is never empty, and never repeats what is already pinned.
+  recentList() {
+    const all = this.actionList();
+    const pick = (ids) => ids.map(id => all.filter(a => a.id === id)[0]).filter(a => a && !a.pinned);
+    const used = pick(this.state.recent || []);
+    if (used.length) return used.slice(0, 3);
+    return pick(['bill', 'requests', 'meter', 'usage', 'outage']).slice(0, 3);
+  }
+
+  // Most recently opened actions, newest first, kept to three.
+  noteUse(id) {
+    const recent = [id].concat((this.state.recent || []).filter(r => r !== id)).slice(0, 3);
+    this.setState({ recent: recent });
+    try { localStorage.setItem('gpl.recentActions', JSON.stringify(recent)); } catch (e) {}
+  }
+
+  // Three things GPL tells a customer about: money, a request they raised, and
+  // power at their address. Each one opens the page that can act on it.
+  notifList() {
+    const read = this.state.readNotifs || [];
+    const base = [
+      { id: 'pay', icon: 'credit-card', title: 'Payment reminder', body: 'Your July bill of G$ 17,728 is due on 27 August 2026.', when: 'Today, 08:15', group: 'Today',
+        chipBg: 'var(--status-warning-bg)', chipFg: 'var(--status-warning)', open: () => this.openBills('current') },
+      { id: 'req', icon: 'wrench', title: 'Service request update', body: 'RPT-2210 — a crew has been assigned to the streetlight at Lot 22.', when: 'Yesterday, 16:40', group: 'Earlier',
+        chipBg: 'var(--status-info-bg)', chipFg: 'var(--status-info)', open: () => this.openReports(null) },
+      { id: 'outage', icon: 'zap-off', title: 'Planned outage update', body: 'Maintenance on the Diamond line moved to 09:00–14:00 on 14 August.', when: '12 Aug 2026', group: 'Earlier',
+        chipBg: 'rgba(196,125,18,0.14)', chipFg: 'var(--status-warning)', open: () => this.openReports(null) }
+    ];
+    return base.map((n, i) => ({
+      id: n.id, icon: n.icon, title: n.title, body: n.body, when: n.when,
+      group: n.group,
+      startsGroup: i === 0 || base[i - 1].group !== n.group,
+      chipBg: n.chipBg, chipFg: n.chipFg,
+      unread: read.indexOf(n.id) === -1,
+      titleWeight: read.indexOf(n.id) === -1 ? 700 : 600,
+      rowBg: read.indexOf(n.id) === -1 ? 'var(--agency-accent-soft)' : '#ffffff',
+      onOpen: () => {
+        this.setState(p => ({ readNotifs: (p.readNotifs || []).concat([n.id]), notifs: false }));
+        n.open();
+      }
+    }));
+  }
+
+  // Switch to Bills and payments, optionally landing on a particular tab.
+  openBills(tab) {
+    // Passed as a prop, not an event: the child mounts asynchronously and would
+    // miss anything dispatched on a timer. The nonce forces a fresh read on repeat clicks.
+    this.setState(p => ({ active: 'bills', billsTab: tab || 'current', billsNonce: (p.billsNonce || 0) + 1 }));
+  }
+
+  // Switch to Outages and faults and tell it which category the customer meant.
+  // The intent is handed over as a prop rather than a timed event: the report
+  // page may not have mounted yet, and a one-shot event fired on a guessed
+  // delay is dispatched into the void. The seq makes each hand-over distinct so
+  // the same intent twice still registers.
+  openReports(family, extra) {
+    // Outages and hazards are network faults (Outages & faults); meter/prepaid
+    // and any other report family are account-side issues (My services).
+    const isOutageFamily = family === 'outage' || family === 'danger';
+    this.setState(prev => ({
+      active: !family ? 'services' : (isOutageFamily ? 'outages' : 'services'),
+      servicesIntent: !family ? { view: 'track', n: Date.now() } : (isOutageFamily ? prev.servicesIntent : { view: 'problem', n: Date.now() }),
+      outagesIntent: (family && isOutageFamily) ? { view: 'problem', n: Date.now() } : prev.outagesIntent,
+      reportIntent: Object.assign({ family: family, seq: ((prev.reportIntent && prev.reportIntent.seq) || 0) + 1 }, extra || {})
+    }));
+  }
+
+  matches() {
+    const q = (this.state.query || '').trim().toLowerCase();
+    if (!q) return [];
+    const words = q.split(/\s+/);
+    return SEARCH.concat(RECORDS).filter(e => {
+      const hay = (e.label + ' ' + e.hint + ' ' + e.kw).toLowerCase();
+      return words.every(w => hay.indexOf(w) !== -1);
+    }).slice(0, 6);
+  }
+
+  goSearch(m) {
+    if (!m) return;
+    this.setState({ mobileNav: false, query: '', sugOpen: false, sugIndex: 0 });
+    if (m.hasOwnProperty('family')) { this.openReports(m.family); return; }
+    if (m.section === 'bills') { this.openBills(m.tab || 'current'); return; }
+    this.setState({ active: m.section });
+    if (m.scrollTo) { setTimeout(() => this.scrollToCard(m.scrollTo), 60); return; }
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+
+  // ---- Linked connections -------------------------------------------------
+  // One portal login, many connections. Nothing here touches registration:
+  // the flow only ever runs for a signed-in user.
+  activeConn() {
+    const list = this.state.conns || [];
+    return list.filter(c => c.id === this.state.activeConn)[0] || list[0];
+  }
+
+  openAdd() {
+    this.setState({
+      profile: false,
+      addOpen: true,
+      addStep: 'details',
+      addErr: '',
+      form: { cust: '', acct: '', meter: '', zone: '' },
+      useMyMobile: true,
+      useMyEmail: true,
+      altMobile: '',
+      altEmail: '',
+      otp: '',
+      otpErr: '',
+      otpLeft: 30,
+      resent: false,
+      newConn: null
+    });
+  }
+
+  closeAdd() { this.setState({ addOpen: false }); }
+
+  setForm(key, value) {
+    this.setState(p => ({ form: Object.assign({}, p.form, { [key]: value }) }));
+  }
+
+  // Prototype validation. The real check is a GPL records lookup — the states
+  // below are the ones the backend needs to distinguish.
+  submitDetails() {
+    const f = this.state.form || {};
+    if (!f.cust || !f.acct || !f.meter || !f.zone) {
+      this.setState({ addErr: 'required' });
+      return;
+    }
+    this.setState({ addStep: 'validating', addErr: '' });
+    clearTimeout(this.valTimer);
+    this.valTimer = setTimeout(() => {
+      const already = (this.state.conns || []).filter(c => c.cust.replace(/\s/g, '') === f.cust.replace(/\s/g, ''))[0];
+      const first = f.cust.trim().charAt(0);
+      if (already) { this.setState({ addStep: 'details', addErr: 'linked' }); return; }
+      if (first === '9') { this.setState({ addStep: 'details', addErr: 'other' }); return; }
+      if (first === '8') { this.setState({ addStep: 'details', addErr: 'notfound' }); return; }
+      if (first === '7') { this.setState({ addStep: 'details', addErr: 'mismatch' }); return; }
+      this.setState({ addStep: 'verify', otp: '', otpErr: '', otpLeft: 30, resent: false });
+      this.startOtpClock();
+    }, 1100);
+  }
+
+  startOtpClock() {
+    clearInterval(this.otpClock);
+    this.otpClock = setInterval(() => {
+      if (this.state.addStep !== 'verify') { clearInterval(this.otpClock); return; }
+      this.setState(p => ({ otpLeft: p.otpLeft > 0 ? p.otpLeft - 1 : 0 }));
+    }, 1000);
+  }
+
+  verifyAdd() {
+    const code = (this.state.otp || '').trim();
+    if (code.length < 6) { this.setState({ otpErr: 'Enter the six digits from the message.' }); return; }
+    if (code !== DEMO_CODE) { this.setState({ otp: '', otpErr: 'That code is not right. Check the message and try again.' }); return; }
+    const f = this.state.form;
+    const conn = {
+      id: 'c' + Date.now(),
+      cust: f.cust,
+      acct: f.acct,
+      meter: f.meter,
+      zone: f.zone,
+      address: 'Address on GPL record',
+      mobile: this.state.useMyMobile ? PORTAL_MOBILE : this.state.altMobile,
+      email: this.state.useMyEmail ? PORTAL_EMAIL : this.state.altEmail,
+      portalContact: this.state.useMyMobile && this.state.useMyEmail,
+      primary: false
+    };
+    clearInterval(this.otpClock);
+    this.setState(p => ({ conns: p.conns.concat([conn]), addStep: 'done', newConn: conn }));
+  }
+
+  finishAdd() {
+    const c = this.state.newConn;
+    this.setState({ addOpen: false, activeConn: c ? c.id : this.state.activeConn });
+  }
+
+  // A connection switch re-scopes every balance on screen. While a payment is
+  // in flight it is refused; while a payment is half-filled it is confirmed
+  // first, then the pay form is reset onto the new account.
+  switchConn(id) {
+    if (id === this.state.activeConn) return this.setState({ profile: false });
+    if (this.state.payLocked) return this.setState({ lockNote: true, profile: false });
+    if (this.state.payDirty) return this.setState({ askSwitch: id, profile: false });
+    this.applySwitch(id);
+  }
+  applySwitch(id) { this.setState({ activeConn: id, profile: false, askSwitch: null }); }
+  confirmSwitch() {
+    const id = this.state.askSwitch;
+    if (!id) return;
+    this.setState(p => ({ activeConn: id, profile: false, askSwitch: null, payResetNonce: p.payResetNonce + 1 }));
+  }
+
+  setPrimary(id) {
+    this.setState(p => ({
+      conns: p.conns.map(c => Object.assign({}, c, { primary: c.id === id })),
+      askPrimary: null
+    }));
+  }
+
+  removeConn(id) {
+    this.setState(p => {
+      const left = p.conns.filter(c => c.id !== id);
+      const wasPrimary = (p.conns.filter(c => c.id === id)[0] || {}).primary;
+      if (wasPrimary && left.length) left[0] = Object.assign({}, left[0], { primary: true });
+      return {
+        conns: left,
+        askRemove: null,
+        activeConn: p.activeConn === id ? (left[0] ? left[0].id : null) : p.activeConn
+      };
+    });
+  }
+
+  // Bring a named card into view without scrollIntoView.
+  scrollToCard(label) {
+    const el = document.querySelector('[data-screen-label="' + label + '"]');
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - 88;
+    try { window.scrollTo({ top: top, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, top); }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const c = s.collapsed;
+    const conns = s.conns || [];
+    const conn = this.activeConn() || { cust: '', acct: '', meter: '', zone: '', address: '', mobile: '', email: '' };
+    const zoneIndex = ZONES.indexOf(conn.zone) + 1;
+    const sh = this.props.cardShadow ?? true;
+    const billN = this.props.billRowCount ?? 4;
+    const reqN = this.props.requestRowCount ?? 3;
+    return {
+      zero: 0,
+      shadowSm: sh ? '0 2px 8px rgba(19,28,46,0.06)' : 'none',
+      shadowMd: sh ? '0 6px 18px rgba(19,28,46,0.09)' : 'none',
+      shadowLg: sh ? '0 12px 30px rgba(19,28,46,0.16)' : 'none',
+      shadowBar: sh ? '0px 3px 11px 0px rgba(0,0,0,0.1)' : '0 1px 0 rgba(19,28,46,0.10)',
+      bottomMargin: c ? '16px -4px -16px' : '16px -16px -16px',
+      bottomWidth: c ? 'calc(100% + 8px)' : 'calc(100% + 32px)',
+      notifsOpen: s.notifs,
+      bellBg: s.notifs ? 'rgb(244,248,249)' : 'rgba(255,255,255,0.9)',
+      toggleNotifs: () => this.setState(p => ({ notifs: !p.notifs, profile: false })),
+      closeNotifs: () => this.setState({ notifs: false }),
+      notifsMobile: !!(s.notifs && s.mobile),
+      downloadLabel: s.mobile ? '' : 'Download bill',
+      tableScrollClass: s.mobile ? 'gpl-scroll-light gpl-mobile-scroll' : '',
+      tablePadTop: s.mobile ? '0' : 'clamp(10px,2vw,14px)',
+      tableMaxH: s.mobile ? '196px' : 'none',
+      tableOverflow: s.mobile ? 'auto' : 'visible',
+      dlBtnFlex: '0 0 auto',
+      payBtnFlex: s.mobile ? '1 1 auto' : '0 0 auto',
+      payBtnMax: s.mobile ? '100%' : 'none',
+      btnRowFlex: s.mobile ? '1 1 100%' : '0 0 auto',
+      btnRowJustify: s.mobile ? 'center' : 'flex-end',
+      dlBtnProps: s.mobile ? { style: { padding: '0', width: '52px', minWidth: '52px', height: '48px', flex: '0 0 auto', gap: '0', justifyContent: 'center' } } : {},
+      notifPos: s.mobile ? 'fixed' : 'absolute',
+      notifRight: s.mobile ? 'auto' : '0',
+      notifLeft: s.mobile ? '50%' : 'auto',
+      notifTop: s.mobile ? '76px' : 'calc(100% + 12px)',
+      notifTransform: s.mobile ? 'translateX(-50%)' : 'none',
+      notifWidth: s.mobile ? 'min(400px, 92vw)' : 'min(370px, 88vw)',
+      unreadCount: this.notifList().filter(n => n.unread).length,
+      hasUnread: this.notifList().some(n => n.unread),
+      markAllRead: () => this.setState({ readNotifs: this.notifList().map(n => n.id) }),
+      notifications: this.notifList(),
+
+      profileOpen: s.profile,
+      profileChevron: s.profile ? 'rotate(180deg)' : 'rotate(0deg)',
+      toggleProfile: () => this.setState(p => ({ profile: !p.profile })),
+
+      // ---- connections ----------------------------------------------------
+      connCust: conn.cust,
+      connAcct: conn.acct,
+      connMeter: conn.meter,
+      connZone: conn.zone,
+      connMobile: conn.mobile,
+      connEmail: conn.email,
+      connLine: 'Account ' + conn.cust + ' · ' + conn.address + ' · Zone ' + zoneIndex + ' — ' + conn.zone,
+      connCount: conns.length,
+      amountDue: conn.due,
+      connAddress: conn.address,
+      connMonth: conn.month,
+      connDueDate: conn.dueDate,
+      connAmount: Number((conn.due || '').replace(/[^0-9]/g, '')),
+      connKwh: conn.kwh,
+      connHistory: conn.history || [],
+      connIssued: (conn.bills && conn.bills[0] ? conn.bills[0].issued : ''),
+      billMonth: 'Billing month ' + conn.month,
+      dueChip: 'Due ' + conn.dueDate,
+      usageKwh: conn.kwh + ' kWh',
+      // An outage already open on this connection's feeder. Surfacing it here is
+      // what stops a duplicate report being raised at all (BR-PRT-002), and the
+      // report count is the figure GPL prioritises on (BR-INT-014).
+      // Dismissing hides the dashboard notice only — the outage stays on My
+      // services, so the citizen can always find it again.
+      hasLiveOutage: !!(conn.liveOutages && conn.liveOutages.length) && !s.liveOutageHidden,
+      // The notices share one wrapping row — two abreast when both apply, one
+      // full width when only one does, and no empty row when neither does.
+      hasNotice: (!!(conn.liveOutages && conn.liveOutages.length) && !s.liveOutageHidden) || !!(conn.outages && conn.outages.length),
+      dismissLiveOutage: () => this.setState({ liveOutageHidden: true }),
+      liveOutageCount: (conn.liveOutages || []).length,
+      liveOutagePos: Math.min(s.liveOutageIdx, Math.max(0, (conn.liveOutages || []).length - 1)) + 1,
+      hasMultipleOutages: (conn.liveOutages || []).length > 1,
+      activeOutage: (() => {
+        const OUTAGE_STAGE_LABELS = ['Reported', 'Confirmed', 'Crew assigned', 'Restored'];
+        const list = conn.liveOutages || [];
+        const o = list[Math.min(s.liveOutageIdx, Math.max(0, list.length - 1))];
+        if (!o) return { ref: '', status: '', eta: '', stages: [] };
+        return Object.assign({}, o, {
+          stagePercent: Math.round(((o.stage + 1) / OUTAGE_STAGE_LABELS.length) * 100) + '%',
+          stages: OUTAGE_STAGE_LABELS.map((label, i, arr) => {
+            const state = i < o.stage ? 'done' : (i === o.stage ? 'active' : 'wait');
+            return {
+              label,
+              icon: state === 'done' ? 'check' : (state === 'active' ? 'loader-circle' : 'circle'),
+              dotBg: state === 'done' ? 'var(--status-success-bg)' : (state === 'active' ? 'rgba(190,42,52,0.14)' : 'var(--surface-4)'),
+              dotFg: state === 'done' ? 'var(--status-success)' : (state === 'active' ? 'var(--status-error)' : 'var(--fg-4)'),
+              lineBefore: i === 0 ? 'transparent' : (i <= o.stage ? 'var(--status-success)' : 'rgba(19,28,46,0.12)'),
+              line: i === arr.length - 1 ? 'transparent' : (i < o.stage ? 'var(--status-success)' : 'rgba(19,28,46,0.12)'),
+              weight: state === 'active' ? '700' : '500',
+              fg: state === 'wait' ? 'var(--fg-4)' : 'var(--fg-2)'
+            };
+          })
+        });
+      })(),
+      prevOutage: () => this.setState(p => ({ liveOutageIdx: (p.liveOutageIdx - 1 + (conn.liveOutages || []).length) % (conn.liveOutages || []).length, affectedConfirmed: false })),
+      nextOutage: () => this.setState(p => ({ liveOutageIdx: (p.liveOutageIdx + 1) % (conn.liveOutages || []).length, affectedConfirmed: false })),
+      // Confirming is not a report: it adds this customer to the count on the
+      // open case (BR-INT-014) without raising a case or a work order.
+      affectedConfirmed: !!s.affectedConfirmed,
+      affectedLabel: (conn.liveOutages && conn.liveOutages[Math.min(s.liveOutageIdx, Math.max(0, conn.liveOutages.length - 1))])
+        ? (s.affectedConfirmed ? 'Confirmed' : "I'm affected too")
+        : '',
+      affectedCount: (conn.liveOutages && conn.liveOutages[Math.min(s.liveOutageIdx, Math.max(0, conn.liveOutages.length - 1))])
+        ? (() => { const o = conn.liveOutages[Math.min(s.liveOutageIdx, Math.max(0, conn.liveOutages.length - 1))]; return s.affectedConfirmed ? o.reports + 1 : o.reports; })()
+        : 0,
+      affectedIcon: s.affectedConfirmed ? 'check' : 'hand',
+      // Confirming is the action GPL most wants, so it is the only filled
+      // control on the card — the map link stays a quiet outline beside it.
+      affectedBg: s.affectedConfirmed ? 'var(--status-success-bg)' : 'var(--status-error-bg)',
+      affectedBgHover: s.affectedConfirmed ? 'var(--status-success-bg)' : 'rgba(190,42,52,0.16)',
+      affectedFg: s.affectedConfirmed ? 'var(--status-success)' : 'var(--status-error)',
+      affectedBorder: s.affectedConfirmed ? 'rgba(14,141,138,0.34)' : 'rgba(190,42,52,0.28)',
+      affectedShadow: 'none',
+      affectedCursor: s.affectedConfirmed ? 'default' : 'pointer',
+      affectedTitle: s.affectedConfirmed
+        ? 'GPL has your confirmation for this outage'
+        : 'Tell GPL your supply is off too — no new request is raised',
+      confirmAffected: () => { if (!s.affectedConfirmed) this.setState({ affectedConfirmed: true }); },
+      // GPL posts planned work network-wide, so its map opens on the whole
+      // system. The customer-reported card stays local — confirming is its
+      // action, not browsing.
+      // Planned work is posted network-wide, so its map opens on the whole
+      // system; the customer's own outage opens framed on their address.
+      openNationalMap: () => this.setState({ outageMap: 'all' }),
+      openLocalMap: () => this.setState({ outageMap: 'mine' }),
+      closeOutageMap: () => this.setState({ outageMap: false, mapWide: false }),
+      // The map reads better edge to edge, so the window can go full width
+      // and back without leaving the page underneath.
+      mapWide: !!s.mapWide,
+      toggleMapWide: () => this.setState(p => ({ mapWide: !p.mapWide })),
+      mapWideIcon: s.mapWide ? 'minimize-2' : 'maximize-2',
+      mapWideTitle: s.mapWide ? 'Restore window size' : 'Expand to full width',
+      mapMaxWidth: s.mapWide ? 'none' : '1080px',
+      mapHeight: s.mapWide ? '100%' : 'min(720px, 100%)',
+      mapPadding: s.mapWide ? '0' : 'clamp(12px,2vw,24px)',
+      mapRadius: s.mapWide ? '0' : '20px',
+      showOutageMap: !!s.outageMap,
+      mapSrc: s.outageMap === 'all'
+        ? './GPL%20Outage%20Map.html?scope=all'
+        : './GPL%20Outage%20Map.html',
+      mapTitle: s.outageMap === 'all' ? 'Outages across GPL' : 'Outages near you',
+      mapLead: s.outageMap === 'all'
+        ? 'Planned and unplanned work in every zone. Tap a marker for its status and expected restoration.'
+        : 'Centred on your address. Tap a marker for its status and expected restoration.',
+      goAddReport: () => this.openReports('outage', { known: true }),
+      hasOutage: !!(conn.outages && conn.outages.length),
+      hasMultiplePlanned: (conn.outages || []).length > 1,
+      plannedOutagePos: Math.min(s.plannedOutageIdx, Math.max(0, (conn.outages || []).length - 1)) + 1,
+      plannedOutageCount: (conn.outages || []).length,
+      prevPlanned: () => this.setState(p => ({ plannedOutageIdx: (p.plannedOutageIdx - 1 + (conn.outages || []).length) % (conn.outages || []).length })),
+      nextPlanned: () => this.setState(p => ({ plannedOutageIdx: (p.plannedOutageIdx + 1) % (conn.outages || []).length })),
+      outageKind: (conn.outages && conn.outages[s.plannedOutageIdx]) ? conn.outages[s.plannedOutageIdx].kind : '',
+      outageBadge: (conn.outages && conn.outages[s.plannedOutageIdx]) ? conn.outages[s.plannedOutageIdx].badge : '',
+      outageTitle: (conn.outages && conn.outages[s.plannedOutageIdx]) ? conn.outages[s.plannedOutageIdx].title : '',
+      outageWhen: (conn.outages && conn.outages[s.plannedOutageIdx]) ? conn.outages[s.plannedOutageIdx].when : '',
+      outageRest: (conn.outages && conn.outages[s.plannedOutageIdx]) ? conn.outages[s.plannedOutageIdx].rest : '',
+      plannedPercent: '62%',
+      payHint: conn.due + ' due ' + conn.dueShort,
+      billHint: conn.month + ' statement',
+      usageHint: conn.kwh + ' kWh this month',
+      stopClick: e => { if (e && e.stopPropagation) e.stopPropagation(); },
+      connSwitch: conns.map(c => ({
+        id: c.id,
+        cust: 'Customer ' + c.cust,
+        zoneLine: c.zone + ' · Meter ' + c.meter,
+        isPrimary: !!c.primary,
+        tickDisplay: c.id === conn.id ? 'inline-flex' : 'none',
+        rowBg: c.id === conn.id ? 'var(--agency-accent-soft)' : 'transparent',
+        rowFg: c.id === conn.id ? 'var(--agency-accent)' : 'var(--fg-2)',
+        rowOpacity: (s.payLocked && c.id !== conn.id) ? 0.45 : 1,
+        rowCursor: (s.payLocked && c.id !== conn.id) ? 'not-allowed' : 'pointer',
+        lockDisplay: (s.payLocked && c.id !== conn.id) ? 'inline-flex' : 'none',
+        rowTitle: (s.payLocked && c.id !== conn.id) ? 'Locked while your payment is processing' : 'Switch to this connection',
+        onPick: () => this.switchConn(c.id)
+      })),
+      canAdd: conns.length < MAX_CONNS,
+      atLimit: conns.length >= MAX_CONNS,
+      limitText: 'You can link up to ' + MAX_CONNS + ' connections to one login.',
+      openAdd: () => this.openAdd(),
+      goConnections: () => this.setState({ active: 'connections', profile: false, mobileNav: false }),
+      isConnections: s.active === 'connections',
+
+      manageList: conns.map(c => ({
+        id: c.id,
+        cust: 'Customer ' + c.cust,
+        acct: c.acct,
+        meter: c.meter,
+        zone: c.zone,
+        address: c.address,
+        mobile: c.mobile,
+        email: c.email,
+        contactNote: c.portalContact ? 'Uses your portal contact details' : 'Has its own contact details',
+        isPrimary: !!c.primary,
+        primaryDisplay: c.primary ? 'inline-flex' : 'none',
+        setPrimaryDisplay: c.primary ? 'none' : 'inline-flex',
+        isActive: c.id === conn.id,
+        activeDisplay: c.id === conn.id ? 'inline-flex' : 'none',
+        cardBorder: c.id === conn.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.10)',
+        onView: () => this.switchConn(c.id),
+        onPrimary: () => this.setState({ askPrimary: c.id }),
+        onRemove: () => this.setState({ askRemove: c.id, profile: false })
+      })),
+      onlyOne: conns.length < 2,
+
+      onPayState: (st) => this.setState({ payLocked: !!st.locked, payDirty: !!st.dirty }),
+      payResetNonce: s.payResetNonce,
+      switchLocked: !!s.payLocked,
+      switchLockedHint: s.payLocked ? 'Locked while your payment is processing' : '',
+
+      askSwitchOpen: !!s.askSwitch,
+      askSwitchName: s.askSwitch ? 'Customer ' + (byId(conns, s.askSwitch) || {}).cust : '',
+      askSwitchFrom: 'account ' + conn.cust,
+      confirmSwitch: () => this.confirmSwitch(),
+      cancelSwitch: () => this.setState({ askSwitch: null }),
+
+      lockNoteOpen: !!s.lockNote,
+      closeLockNote: () => this.setState({ lockNote: false }),
+
+      askPrimaryOpen: !!s.askPrimary,
+      askPrimaryName: s.askPrimary ? 'Customer ' + (byId(conns, s.askPrimary) || {}).cust : '',
+      confirmPrimary: () => this.setPrimary(s.askPrimary),
+      cancelPrimary: () => this.setState({ askPrimary: null }),
+
+      askRemoveOpen: !!s.askRemove,
+      askRemoveName: s.askRemove ? 'Customer ' + (byId(conns, s.askRemove) || {}).cust : '',
+      confirmRemove: () => this.removeConn(s.askRemove),
+      cancelRemove: () => this.setState({ askRemove: null }),
+      canRemove: conns.length > 1,
+
+      // ---- add connection wizard -----------------------------------------
+      addOpen: !!s.addOpen,
+      closeAdd: () => this.closeAdd(),
+      isDetails: s.addStep === 'details',
+      isValidating: s.addStep === 'validating',
+      isVerify: s.addStep === 'verify',
+      isDone: s.addStep === 'done',
+      stepLabel: s.addStep === 'details' || s.addStep === 'validating' ? 'Step 1 of 3'
+        : (s.addStep === 'verify' ? 'Step 2 of 3' : 'Step 3 of 3'),
+      fCust: (s.form || {}).cust || '',
+      fAcct: (s.form || {}).acct || '',
+      fMeter: (s.form || {}).meter || '',
+      fZone: (s.form || {}).zone || '',
+      onCust: e => this.setForm('cust', e.target.value),
+      onAcct: e => this.setForm('acct', e.target.value),
+      onMeter: e => this.setForm('meter', e.target.value),
+      zoneOptions: ZONES.map(z => ({
+        label: z,
+        bg: (s.form || {}).zone === z ? 'var(--agency-accent)' : 'var(--surface-2)',
+        fg: (s.form || {}).zone === z ? '#ffffff' : 'var(--fg-2)',
+        border: (s.form || {}).zone === z ? 'var(--agency-accent)' : 'rgba(19,28,46,0.14)',
+        onPick: () => this.setForm('zone', z)
+      })),
+      hasAddErr: !!s.addErr,
+      addErrTitle: s.addErr ? ADD_ERRORS[s.addErr].title : '',
+      addErrText: s.addErr ? ADD_ERRORS[s.addErr].text : '',
+      portalMobile: PORTAL_MOBILE,
+      portalEmail: PORTAL_EMAIL,
+      useMyMobile: !!s.useMyMobile,
+      useNewMobile: !s.useMyMobile,
+      pickMyMobile: () => this.setState({ useMyMobile: true }),
+      pickNewMobile: () => this.setState({ useMyMobile: false }),
+      altMobile: s.altMobile || '',
+      onAltMobile: e => this.setState({ altMobile: e.target.value }),
+      useMyEmail: !!s.useMyEmail,
+      useNewEmail: !s.useMyEmail,
+      pickMyEmail: () => this.setState({ useMyEmail: true }),
+      pickNewEmail: () => this.setState({ useMyEmail: false }),
+      altEmail: s.altEmail || '',
+      onAltEmail: e => this.setState({ altEmail: e.target.value }),
+      mobileRowBg: s.useMyMobile ? 'var(--agency-accent-soft)' : 'var(--surface-2)',
+      newMobileRowBg: s.useMyMobile ? 'var(--surface-2)' : 'var(--agency-accent-soft)',
+      emailRowBg: s.useMyEmail ? 'var(--agency-accent-soft)' : 'var(--surface-2)',
+      newEmailRowBg: s.useMyEmail ? 'var(--surface-2)' : 'var(--agency-accent-soft)',
+      submitDetails: () => this.submitDetails(),
+      otpDigits: [0, 1, 2, 3, 4, 5].map(i => ({
+        value: (s.otp || '').charAt(i) || '',
+        onChange: e => {
+          const v = (e.target.value || '').replace(/[^0-9]/g, '').slice(-1);
+          const cur = (s.otp || '').padEnd(6, ' ').split('');
+          cur[i] = v || ' ';
+          this.setState({ otp: cur.join('').replace(/\s+$/, ''), otpErr: '' });
+        },
+        // A pasted code fills every box from this one onwards.
+        onPaste: e => {
+          const text = ((e.clipboardData || window.clipboardData).getData('text') || '').replace(/[^0-9]/g, '');
+          if (!text) return;
+          e.preventDefault();
+          const cur = (s.otp || '').padEnd(6, ' ').split('');
+          for (let k = 0; k < text.length && i + k < 6; k++) cur[i + k] = text.charAt(k);
+          this.setState({ otp: cur.join('').replace(/\s+$/, ''), otpErr: '' });
+        }
+      })),
+      otpDest: s.useMyMobile
+        ? 'your portal mobile, ' + PORTAL_MOBILE
+        : (s.altMobile || 'the new number'),
+      otpErrText: s.otpErr || '',
+      hasOtpErr: !!s.otpErr,
+      otpLeft: s.otpLeft,
+      canResendAdd: s.otpLeft === 0,
+      countingAdd: s.otpLeft > 0,
+      resentAdd: !!s.resent,
+      resendAdd: () => { this.setState({ otp: '', otpErr: '', otpLeft: 30, resent: true }); this.startOtpClock(); },
+      verifyAdd: () => this.verifyAdd(),
+      demoCode: DEMO_CODE,
+      backToDetails: () => this.setState({ addStep: 'details', otpErr: '' }),
+      newCust: (s.newConn || {}).cust || '',
+      newAcct: (s.newConn || {}).acct || '',
+      newMeter: (s.newConn || {}).meter || '',
+      newZone: (s.newConn || {}).zone || '',
+      newMobile: (s.newConn || {}).mobile || '',
+      newEmail: (s.newConn || {}).email || '',
+      finishAdd: () => this.finishAdd(),
+
+      searchQuery: s.query || '',
+      onSearchInput: e => this.setState({ query: e.target.value, sugOpen: true, sugIndex: 0 }),
+      onSearchFocus: () => this.setState({ sugOpen: true }),
+      onSearchBlur: () => { window.setTimeout(() => this.setState({ sugOpen: false }), 160); },
+      onSearchKey: e => {
+        const list = this.matches();
+        if (e.key === 'ArrowDown') { e.preventDefault(); this.setState(p => ({ sugOpen: true, sugIndex: Math.min((p.sugIndex || 0) + 1, Math.max(list.length - 1, 0)) })); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); this.setState(p => ({ sugIndex: Math.max((p.sugIndex || 0) - 1, 0) })); }
+        else if (e.key === 'Enter') { if (list.length) { e.preventDefault(); this.goSearch(list[this.state.sugIndex || 0]); } }
+        else if (e.key === 'Escape') { this.setState({ sugOpen: false }); }
+      },
+      sugOpen: !!s.sugOpen,
+      sugDisplay: (s.sugOpen && (s.query || '').trim().length > 0) ? 'block' : 'none',
+      sugHasResults: this.matches().length > 0,
+      sugNoResults: this.matches().length === 0,
+      suggestions: this.matches().map((m, i) => ({
+        label: m.label,
+        hint: m.hint,
+        icon: m.icon,
+        selected: i === (s.sugIndex || 0),
+        bg: i === (s.sugIndex || 0) ? 'var(--surface-2, rgb(244,248,249))' : 'transparent',
+        onSelect: () => this.goSearch(m)
+      })),
+      clearDisplay: (s.query || '').length ? 'inline-flex' : 'none',
+      clearSearch: () => this.setState({ query: '', sugOpen: false, sugIndex: 0 }),
+
+      mobile: s.mobile,
+      mobileNavOpen: !!s.mobileNav,
+      railDisplay: s.mobile ? 'none' : 'flex',
+      // On a phone the bar carries the logo, the bell and the menu only.
+      brandTextDisplay: 'flex',
+      taglineDisplay: s.mobile ? 'none' : 'block',
+      headerSearchDisplay: s.mobile ? 'none' : 'flex',
+      profileDisplay: s.mobile ? 'none' : 'flex',
+      bodySearchDisplay: s.mobile ? 'flex' : 'none',
+      menuIcon: s.mobile ? (s.mobileNav ? 'x' : 'menu') : 'menu',
+      isMenuIconExpand: !(s.mobile && s.mobileNav),
+      isMenuIconX: s.mobile && s.mobileNav,
+      desktopMenuFlip: c ? 'none' : 'scaleX(-1)',
+      // On a phone the menu sits with the bell on the right, not beside the logo.
+      desktopMenuDisplay: s.mobile ? 'none' : 'inline-flex',
+      mobileMenuDisplay: s.mobile ? 'inline-flex' : 'none',
+      // One icon, two jobs: dropdown on mobile, collapse on desktop.
+      onMenu: () => this.setState(p => (p.mobile ? { mobileNav: !p.mobileNav } : { collapsed: !p.collapsed })),
+      closeMobileNav: () => this.setState({ mobileNav: false }),
+      railWidth: s.mobile ? '0px' : (c ? '64px' : '240px'),
+      railPadding: c ? '16px 4px' : '16px',
+      railAlign: c ? 'center' : 'flex-start',
+      railGap: c ? '9px' : '8px',
+      brandJustify: c ? 'center' : 'flex-start',
+      labelDisplay: c ? 'none' : 'flex',
+      // Labels fade and narrow with the rail rather than disappearing on the
+      // first frame, so the collapse reads as one soft movement.
+      labelOpacity: c ? 0 : 1,
+      labelMax: c ? '0px' : '200px',
+      labelGrow: c ? 0 : 1,
+      // Collapsed rail shows icons only, so the label moves into a hover tooltip.
+      tipDisplay: c ? 'inline-flex' : 'none',
+      toggleWidth: c ? '50px' : '100%',
+      togglePadding: c ? '12px 8px' : '12px',
+      toggleJustify: c ? 'center' : 'flex-start',
+      toggleIcon: c ? 'chevrons-right' : 'chevrons-left',
+      toggleLabel: s.mobile ? (s.mobileNav ? 'Close menu' : 'Open menu') : (c ? 'Expand menu' : 'Collapse menu'),
+      toggleRail: () => this.setState(p => ({ collapsed: !p.collapsed })),
+
+      // "One Citizen" cross-agency switcher hidden for now; flip to 'flex' to restore.
+      oneCitizenDisplay: 'none',
+      dropdownOpen: s.dropdown,
+      showSubmenu: s.dropdown && !c,
+      subPosition: c ? 'absolute' : 'static',
+      subLeft: c ? 'calc(100% + 10px)' : 'auto',
+      subTop: c ? (s.flyUp ? 'auto' : '0') : 'auto',
+      subWidth: c ? '228px' : 'auto',
+      subMaxHeight: c ? (s.flyMax + 'px') : 'min(260px, 34vh)',
+      subBg: 'rgb(8,24,30)',
+      subTitleBg: 'rgb(14,36,44)',
+      subBorder: '1px solid rgb(22,51,61)',
+      subShadow: c ? '0 12px 30px rgba(0,0,0,0.34)' : 'none',
+      subBottom: c ? (s.flyUp ? '0' : 'auto') : 'auto',
+      collapsedChevronDisplay: c ? 'inline-flex' : 'none',
+      railOverflow: c ? 'visible' : 'hidden',
+      navOverflowY: c ? 'visible' : 'auto',
+      navOverflowX: c ? 'visible' : 'hidden',
+      dropdownBg: s.dropdown ? 'rgb(14,36,44)' : 'rgb(22,51,61)',
+      dropdownBorder: s.dropdown ? '#30A9C7' : 'transparent',
+      chevronTransform: s.dropdown ? 'rotate(180deg)' : 'rotate(0deg)',
+      dropRef: this.dropRef,
+      toggleDropdown: () => this.setState(p => {
+        if (p.dropdown) return { dropdown: false };
+        const el = this.dropRef.current;
+        let flyUp = false, flyMax = 320;
+        if (el) {
+          const r = el.getBoundingClientRect();
+          const below = window.innerHeight - r.top - 16;
+          const above = r.bottom - 80;
+          flyUp = below < 220 && above > below;
+          flyMax = Math.max(160, Math.min(320, flyUp ? above : below));
+        }
+        return { dropdown: true, flyUp: flyUp, flyMax: flyMax };
+      }),
+      subItems: SUB.map(t => ({
+        label: t,
+        bg: s.activeSub === t ? 'rgb(14,36,44)' : 'transparent',
+        borderLeft: s.activeSub === t ? '#30A9C7' : 'transparent',
+        onSelect: () => this.setState({ activeSub: t })
+      })),
+
+      navItems: NAV.map(n => {
+        // The rail badge follows the live count the report page publishes as
+        // requests are filed; the connection's own list is only the starting
+        // value before anything has been filed this session.
+        const badge = n.id === 'reports'
+          ? String(s.requestCount || (conn.requests || []).length)
+          : n.badge;
+        const on = s.active === n.id;
+        return {
+        label: n.label,
+        icon: n.icon,
+        badge: badge,
+        showBadge: !c && !!badge,
+        tipBadge: c && !!badge,
+        // Native title would duplicate the custom tooltip while collapsed.
+        tooltipTitle: c ? '' : n.label,
+        current: on ? 'page' : undefined,
+        // Active per the Figma spec: rgb(22,51,61) fill, 1px cyan border with a
+        // 2.167px left edge, white 500 label. Hover uses the same treatment.
+        fg: 'rgb(255,255,255)',
+        weight: 500,
+        bg: on ? 'rgb(22,51,61)' : 'rgb(8,24,30)',
+        borderColor: on ? 'rgb(48,169,199)' : 'transparent',
+        width: c ? '50px' : '100%',
+        padding: c ? '12px 8px' : '12px',
+        justify: c ? 'center' : 'flex-start',
+        // Consumption lives as a card on the overview, so its nav item takes you
+        // there and scrolls to it rather than opening an empty screen.
+        onSelect: () => {
+          this.setState({ active: n.id, mobileNav: false });
+          try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+        }
+        };
+      }),
+
+      // Report and track live inside the dashboard shell, not on a separate page.
+      isOverview: s.active === 'overview',
+      showVerified: !!s.verifiedVia,
+      verifiedDetail: s.verifiedVia === 'email'
+        ? 'Your email address is confirmed. GPL will send bills and outage notices there.'
+        : 'Your mobile number is confirmed. GPL will text you about outages at your address.',
+      dismissVerified: () => this.setState({ verifiedVia: null }),
+      isUsageView: s.active === 'usage',
+      connMeterType: conn.meterType || 'postpaid',
+      connAvg: conn.avg,
+      goUsageBill: () => this.openBills('current'),
+      reportIntent: s.reportIntent || null,
+      isReportView: s.active === 'reports',
+      isServicesView: s.active === 'services',
+      servicesIntent: s.servicesIntent || null,
+      isOutagesView: s.active === 'outages',
+      outagesIntent: s.outagesIntent || null,
+      isFaqView: s.active === 'faq',
+      isBillsView: s.active === 'bills',
+      billsTab: s.billsTab || 'current',
+      billsNonce: s.billsNonce || 0,
+      isUnderConstruction: UNDER_CONSTRUCTION.hasOwnProperty(s.active),
+      ucTitle: UNDER_CONSTRUCTION[s.active] ? UNDER_CONSTRUCTION[s.active].title : '',
+      ucText: UNDER_CONSTRUCTION[s.active] ? UNDER_CONSTRUCTION[s.active].text : '',
+      goOverview: () => this.setState({ active: 'overview' }),
+      pageTitle: PAGE_TITLES[s.active] || 'Account overview',
+      pageTooltip: PAGE_TOOLTIPS[s.active] || '',
+      goRequests: () => this.setState({ active: 'services', profile: false, mobileNav: false, servicesIntent: { view: 'track', n: Date.now() } }),
+      goOutageRequests: () => this.setState({ active: 'outages', profile: false, mobileNav: false, outagesIntent: { view: 'track', n: Date.now() } }),
+      goOutageStatus: () => this.setState({ active: 'outages', profile: false, mobileNav: false, outagesIntent: { view: 'status', n: Date.now() } }),
+      goBillHistory: () => this.openBills('history'),
+      goPrefs: () => this.setState({ active: 'prefs', profile: false, mobileNav: false }),
+      isPrefs: s.active === 'prefs',
+      channels: [
+        { id: 'email', icon: 'mail', label: 'Email', detail: 'rennica.b@gmail.com', on: s.chEmail !== false },
+        { id: 'sms', icon: 'message-square', label: 'Text message', detail: '+592 612 4408', on: s.chSms !== false },
+        { id: 'whatsapp', icon: 'message-circle', label: 'WhatsApp', detail: 'Same number · needs your consent', on: !!s.chWhats },
+        { id: 'push', icon: 'bell-ring', label: 'App notifications', detail: 'This device · fastest during an outage', on: s.chPush !== false }
+      ].map(ch => Object.assign({}, ch, {
+        onChange: () => this.setState(p => {
+          const key = ch.id === 'email' ? 'chEmail' : (ch.id === 'sms' ? 'chSms' : (ch.id === 'push' ? 'chPush' : 'chWhats'));
+          const cur = key === 'chWhats' ? !!p.chWhats : p[key] !== false;
+          return { [key]: !cur };
+        })
+      })),
+      // Credential changes go through the same OTP the portal already uses at
+      // registration, so nothing here implies a new integration.
+      security: [
+        { id: 'password', icon: 'key-round', label: 'Password', detail: 'Last changed 12 June 2026' },
+        { id: 'email', icon: 'mail', label: 'Sign-in email', detail: 'rennica.b@gmail.com' },
+        { id: 'mobile', icon: 'smartphone', label: 'Sign-in mobile', detail: '+592 612 4408' }
+      ].map(sec => Object.assign({}, sec, { onPick: () => this.setState({ secOpen: sec.id, secStep: 1, secDraft: '', secCode: '' }) })),
+      secTitle: SECURITY_FORMS[s.secOpen] ? SECURITY_FORMS[s.secOpen].title : '',
+      secLead: SECURITY_FORMS[s.secOpen] ? SECURITY_FORMS[s.secOpen].lead : '',
+      secFields: SECURITY_FORMS[s.secOpen] ? SECURITY_FORMS[s.secOpen].fields : [],
+      secOpen: !!s.secOpen,
+      secFormStep: !s.secStep || s.secStep === 1,
+      secCodeStep: s.secStep === 2,
+      secDone: s.secStep === 3,
+      secDraft: s.secDraft || '',
+      secCode: s.secCode || '',
+      secDraftChange: (e) => this.setState({ secDraft: e.target.value }),
+      secCodeChange: (e) => this.setState({ secCode: e.target.value }),
+      secClose: () => this.setState({ secOpen: null, secStep: 1, secDraft: '', secCode: '' }),
+      secPrimaryLabel: s.secStep === 2 ? 'Confirm change' : (SECURITY_FORMS[s.secOpen] && SECURITY_FORMS[s.secOpen].needsCode ? 'Send me a code' : 'Save password'),
+      secPrimary: () => {
+        const form = SECURITY_FORMS[s.secOpen];
+        if (!form) return;
+        // A code step only where the identifier itself is changing; a password
+        // change is authorised by the current password instead.
+        if (s.secStep === 1 && form.needsCode) this.setState({ secStep: 2 });
+        else this.setState({ secStep: 3 });
+      },
+      secConfirmLine: SECURITY_FORMS[s.secOpen] ? SECURITY_FORMS[s.secOpen].confirm : '',
+      twoStepOn: !!s.twoStep,
+      toggleTwoStep: () => this.setState(p => ({ twoStep: !p.twoStep })),
+
+      paperlessOn: s.paperless !== false,
+      paperlessHint: s.paperless === false
+        ? 'You get a printed bill as well as this portal'
+        : 'No printed bill — you read it here and by email',
+      togglePaperless: () => this.setState(p => ({ paperless: p.paperless === false })),
+      reminderLeads: [3, 7, 14].map(n => {
+        const on = (s.reminderLead || 3) === n;
+        return {
+          label: n + ' days',
+          on: on,
+          bg: on ? '#ffffff' : 'transparent',
+          fg: on ? 'var(--agency-accent)' : 'var(--fg-3)',
+          shadow: on ? '0 1px 3px rgba(19,28,46,0.16)' : 'none',
+          onPick: () => this.setState({ reminderLead: n })
+        };
+      }),
+
+      dueReminderOn: s.dueReminder !== false,
+      dueReminderHint: s.dueReminder === false
+        ? 'Off — you will not be notified before the due date'
+        : 'Sent on the channels you turned on below',
+      toggleDueReminder: () => this.setState(p => ({ dueReminder: p.dueReminder === false })),
+      dueReminderExample: (() => {
+        const due = new Date(2026, 8, 12);
+        due.setDate(due.getDate() - (s.reminderLead || 3));
+        const when = due.getDate() + ' ' + ['January','February','March','April','May','June','July','August','September','October','November','December'][due.getMonth()];
+        return 'Your next bill is due 12 September, so GPL will notify you on ' + when + '.';
+      })(),
+
+      quietOn: s.quiet === true,
+      quietHint: s.quiet === true
+        ? 'Nothing between 9pm and 6am — it arrives in the morning'
+        : 'Messages arrive at any hour',
+      toggleQuiet: () => this.setState(p => ({ quiet: p.quiet !== true })),
+
+      topics: [
+        { id: 'outage', label: 'Outages at my address', hint: 'Faults on your line, whether or not you reported them', on: s.tpOutage !== false },
+        { id: 'planned', label: 'Planned work at my address', hint: 'Advance notice of maintenance that will cut your supply', on: s.tpPlanned !== false },
+        { id: 'crew', label: 'Crew and restoration times', hint: 'Crew assigned, estimated time, overruns and restoration', on: s.tpCrew !== false },
+        { id: 'bill', label: 'Bill ready', hint: 'When a new bill is issued', on: s.tpBill !== false },
+        { id: 'req', label: 'My request updates', hint: 'Each time a case you raised changes status', on: s.tpReq !== false },
+        { id: 'need', label: 'When GPL needs something from me', hint: 'A document, a payment or an answer that is holding a request up', on: s.tpNeed !== false }
+      ].map(tp => Object.assign({}, tp, {
+        onChange: () => this.setState(p => {
+          const key = 'tp' + tp.id.charAt(0).toUpperCase() + tp.id.slice(1);
+          return { [key]: p[key] === false };
+        })
+      })),
+      details: [
+        { label: 'Account holder', value: 'Rennica Barnwell' },
+        { label: 'Customer number', value: '118 4402' },
+        { label: 'Account number', value: '40 2938 1' },
+        { label: 'Meter number', value: '7719042' },
+        { label: 'Service address', value: 'Lot 22 Sheriff Street, Georgetown' }
+      ],
+      goBills: () => this.openBills('current'),
+      // Pinned rows lead the one list, tinted and with a filled pin.
+      actions: this.actionList().filter(a => a.pinned).concat(this.actionList().filter(a => !a.pinned)),
+      hasPins: this.actionList().some(a => a.pinned),
+      recentActions: this.recentList(),
+      hasRecent: this.recentList().length > 0,
+      pinHint: (s.pins || []).length >= MAX_PINS
+        ? 'You have pinned the maximum of four. Unpin one to swap it.'
+        : ((s.pins || []).length
+          ? 'Pin any of these to move them into your Pinned card — up to four.'
+          : 'Pin up to four you use most and they get their own card above.'),
+      pinCount: (s.pins || []).length + ' of ' + MAX_PINS,
+      clearPins: () => this.savePins([]),
+      billColumns: [
+        { key: 'month', label: 'Billing month' },
+        { key: 'issued', label: 'Issued' },
+        { key: 'amount', label: 'Amount', align: 'right' },
+        {
+          key: 'status',
+          label: 'Status',
+          align: 'center',
+          // A due bill offers the action instead of restating the state.
+          render: (row) => {
+            if (row.status !== 'Due') {
+              return React.createElement('span', {
+                style: { fontSize: '13.5px', fontWeight: 600, color: 'var(--fg-3)' }
+              }, row.status);
+            }
+            return React.createElement('span', {
+              style: { fontSize: '13.5px', fontWeight: 600, color: 'var(--status-warning)' }
+            }, row.status);
+          }
+        }
+      ],
+      billRows: (conn.bills || []).slice(0, billN),
+      requestItems: (conn.requests || []).slice(0, reqN),
+      ...(() => {
+        const current = conn.kwh || 0, avg = conn.avg || 1;
+        const diff = Math.abs(current - avg);
+        const pct = Math.round(diff / avg * 100);
+        const above = current > avg;
+        const same = diff === 0;
+        return {
+          // Plain words, and the amount rather than a percentage.
+          trendLabel: same
+            ? 'Same as usual'
+            : diff + ' kWh ' + (above ? 'more' : 'less') + ' than usual',
+          trendIcon: same ? 'minus' : (above ? 'trending-up' : 'trending-down'),
+          trendBg: same ? 'var(--surface-4)' : (above ? 'var(--status-warning-bg)' : 'var(--status-success-bg)'),
+          trendFg: same ? 'var(--fg-2)' : (above ? 'var(--status-warning)' : 'var(--status-success)')
+        };
+      })(),
+      // Relative trend only — no per-month kWh figures exist in the source data.
+      usageBars: [
+        { label: 'Feb', pct: 58 },
+        { label: 'Mar', pct: 66 },
+        { label: 'Apr', pct: 61 },
+        { label: 'May', pct: 72 },
+        { label: 'Jun', pct: 84 },
+        { label: 'Jul', pct: 96, current: true }
+      ].map(d => ({
+        label: d.label,
+        height: Math.round((d.pct / 100) * 116) + 'px',
+        color: d.current ? 'var(--agency-accent)' : 'var(--neutral-300)',
+        valueColor: d.current ? 'var(--agency-accent)' : 'var(--fg-4)'
+      })),
+      paperless: s.paperless, onPaperless: () => this.setState({ paperless: !s.paperless }),
+      alerts: s.alerts, onAlerts: () => this.setState({ alerts: !s.alerts }),
+      whatsapp: s.whatsapp, onWhatsapp: () => this.setState({ whatsapp: !s.whatsapp })
+    };
+  }
+}
+</script>
+</body>
+</html>

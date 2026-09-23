@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #eef2f8; font-family: Inter, system-ui, sans-serif; }
+  a { color: #404293; text-decoration: none; }
+  a:hover { color: #323373; }
+</style>
+</helmet>
+
+<div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-contrast:#ffffff; min-height:{{ rootMinHeight }}; background:{{ rootBg }}; color:var(--fg-1); font-family:var(--font-sans);">
+
+  <sc-if value="{{ standalone }}">
+    <div style="height:64px; background:#ffffff; border-bottom:1px solid rgba(19,28,46,0.10); display:flex; align-items:center; justify-content:space-between; padding:8px 24px; font-family:Inter, system-ui, sans-serif;">
+      <div style="display:flex; align-items:center; gap:16px; min-width:0;">
+        <span style="width:38px; height:38px; border-radius:10px; background:#404293; display:inline-flex; justify-content:center; align-items:center; flex-shrink:0; overflow:hidden;">
+          <img src="assets/gpl-logo.jpg" alt="Guyana Power &amp; Light" style="width:100%; height:100%; object-fit:cover;">
+        </span>
+        <div style="display:flex; flex-direction:column; gap:1px; min-width:0;">
+          <span style="font-weight:800; font-size:14px; letter-spacing:-0.14px; color:rgb(19,28,46); white-space:nowrap;">Guyana Power &amp; Light</span>
+          <span style="font-weight:600; font-size:11px; color:rgb(78,93,117); white-space:nowrap;">One front door to every service</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <a href="GPL Dashboard.dc.html" style="display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:600;"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back to dashboard</a>
+        <span style="width:38px; height:38px; border-radius:19px; background:#404293; display:inline-flex; justify-content:center; align-items:center; font-weight:700; font-size:13px; color:#ffffff;">RB</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="display:{{ headerDisplay }}; background:#ffffff; border-bottom:1px solid rgba(19,28,46,0.10); padding:{{ headerPadding }};">
+    <div style="max-width:{{ contentMax }}; margin:{{ contentMargin }};">
+      <sc-if value="{{ standalone }}" hint-placeholder-val="{{ true }}">
+        <h1 style="font-size:24px; font-weight:700; letter-spacing:-0.02em; color:var(--fg-1);">Report an issue</h1>
+        <p style="font-size:14px; line-height:1.5; color:var(--fg-3); margin-top:4px;">Account 40 2938 1 · Lot 22 Sheriff Street, Georgetown · Zone 2 — Demerara</p>
+      </sc-if>
+      <div style="display:{{ tabRowDisplay }}; gap:24px; margin-top:{{ tabsMarginTop }};">
+        <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="2">
+          <span onClick="{{ tab.onPick }}" role="button" style="cursor:pointer; padding:0 2px 12px; font-size:14.5px; font-weight:600; color:{{ tab.fg }}; border-bottom:2.5px solid {{ tab.border }}; transition:var(--tr-control);">{{ tab.label }}</span>
+        </sc-for>
+      </div>
+      <sc-if value="{{ mobilePager }}">
+        <div style="display:flex; align-items:center; gap:10px; margin-top:{{ tabsMarginTop }}; padding-bottom:12px;">
+          <span onClick="{{ prevTab }}" role="button" tabIndex="{{ zero }}" aria-label="Previous tab" style="flex:none; cursor:pointer; width:44px; height:44px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); background:#ffffff; display:inline-flex; align-items:center; justify-content:center; color:{{ prevTabFg }};" style-hover="background:var(--surface-2);"><i data-lucide="chevron-left" style="width:20px;height:20px"></i></span>
+          <span style="flex:1; min-width:0; height:44px; border-radius:999px; background:var(--agency-accent-soft); display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:0 14px;">
+            <span style="font-size:14.5px; font-weight:700; color:var(--agency-accent); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ activeTabLabel }}</span>
+            <span style="flex:none; font-size:12px; font-weight:600; color:var(--agency-accent); opacity:0.7;">{{ tabPosition }}</span>
+          </span>
+          <span onClick="{{ nextTab }}" role="button" tabIndex="{{ zero }}" aria-label="Next tab" style="flex:none; cursor:pointer; width:44px; height:44px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); background:#ffffff; display:inline-flex; align-items:center; justify-content:center; color:{{ nextTabFg }};" style-hover="background:var(--surface-2);"><i data-lucide="chevron-right" style="width:20px;height:20px"></i></span>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="max-width:{{ contentMax }}; margin:{{ contentMargin }}; padding:{{ bodyPadding }};">
+
+    <sc-if value="{{ isStatus }}">
+      <section data-screen-label="Service status" style="display:flex; flex-direction:column; gap:clamp(18px,2.6vw,22px);">
+        <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px;">
+          <div style="flex:1 1 320px; min-width:0;">
+            <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Service at your address</h2>
+            <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Everything affecting {{ statusAddress }}, whether or not you reported it.</p>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; align-items:flex-start; gap:20px; min-width:0;">
+
+          <section data-screen-label="Happening now" style="flex:3 1 min(420px, 100%); min-width:0; display:flex; flex-direction:column; gap:14px;">
+            <sc-for list="{{ activeOutages }}" as="o" hint-placeholder-count="2">
+              <div style="overflow:hidden; background:#ffffff; border:1px solid {{ o.cardBorder }}; box-shadow:{{ o.cardRing }}; border-radius:clamp(16px,3vw,20px); display:flex; flex-direction:column;">
+                <div style="flex:none; height:4px; background:{{ o.accent }};"></div>
+                <div style="padding:clamp(18px,3vw,22px) clamp(18px,3vw,24px); display:flex; flex-direction:column; gap:16px;">
+                  <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
+                    <span style="flex:none; width:44px; height:44px; border-radius:12px; background:{{ o.accent }}; color:#ffffff; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ o.icon }}" style="width:22px;height:22px"></i></span>
+                    <div style="flex:1 1 200px; min-width:0;">
+                      <div style="font-size:11.5px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:{{ o.chipFg }};">{{ o.eyebrow }}</div>
+                      <h4 style="font-size:17.5px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:5px;">{{ o.title }}</h4>
+                    </div>
+                    <span style="flex:none; margin-top:6px; display:inline-flex; align-items:center; gap:6px; padding:5px 13px; border-radius:999px; background:{{ o.chipBg }}; color:{{ o.chipFg }}; font-size:12.5px; font-weight:700; white-space:nowrap;"><i data-lucide="{{ o.statusIcon }}" style="width:14px;height:14px"></i> {{ o.status }}</span>
+                  </div>
+
+                  <p style="font-size:15px; line-height:1.6; color:var(--fg-2); text-wrap:pretty;">{{ o.detail }}</p>
+
+                  <sc-if value="{{ o.isMajor }}">
+                    <div style="background:rgba(196,61,61,0.07); border:1px solid rgba(196,61,61,0.26); border-radius:12px; padding:13px 15px; display:flex; gap:11px; align-items:flex-start;">
+                      <span style="flex:none; color:var(--status-error); margin-top:1px;"><i data-lucide="megaphone" style="width:17px;height:17px"></i></span>
+                      <div style="flex:1; min-width:0;">
+                        <div style="font-size:13.5px; font-weight:700; color:var(--fg-1);">GPL is handling this as a major incident</div>
+                        <p style="font-size:13px; line-height:1.55; color:var(--fg-2); margin-top:3px;">Updates are issued on a fixed cadence whether or not anything has changed. <strong>Next update {{ o.nextUpdate }}.</strong></p>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <sc-for list="{{ o.facts }}" as="fx" hint-placeholder-count="3">
+                      <div style="flex:1 1 min(150px, 100%); min-width:0; background:var(--surface-2); border-radius:12px; padding:11px 13px; display:flex; flex-direction:column; gap:3px;">
+                        <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">{{ fx.label }}</span>
+                        <span style="font-size:14px; font-weight:700; color:var(--fg-1);">{{ fx.value }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+
+                  <sc-if value="{{ o.hasConfirm }}">
+                    <div style="padding-top:14px; border-top:1px solid rgba(19,28,46,0.08); display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end;">
+                      <div onClick="{{ confirmAffected }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ affectedConfirmed }}" title="{{ affectedTitle }}" style="cursor:{{ affectedCursor }}; flex:none; display:inline-flex; align-items:center; gap:9px; height:42px; padding:0 18px; border-radius:999px; background:{{ affectedBg }}; border:1px solid {{ affectedBorder }}; color:{{ affectedFg }}; transition:var(--tr-control);" style-hover="background:{{ affectedBgHover }}" style-active="transform:scale(0.98)">
+                        <span style="flex:none; display:inline-flex;"><span data-gpl-icon="{{ affectedIcon }}" data-gpl-icon-size="16px" style="display:inline-flex;"><i data-lucide="{{ affectedIcon }}" style="width:16px;height:16px"></i></span></span>
+                        <span style="font-size:14px; font-weight:600; white-space:nowrap;">{{ affectedLabel }}</span>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ o.hasMap }}">
+                    <div style="padding-top:14px; border-top:1px solid rgba(19,28,46,0.08); display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end;">
+                      <span onClick="{{ o.onView }}" role="button" tabIndex="{{ zero }}" style="cursor: pointer; flex: 1 1 160px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--agency-accent); color: #ffffff; display: none; align-items: center; justify-content: center; gap: 8px; font-size: 14.5px; font-weight: 600" style-hover="background:var(--agency-accent-strong);" style-active="transform:scale(0.99)"><i data-lucide="file-text" style="width:17px;height:17px"></i> View outage</span>
+                      <span onClick="{{ openNationalMap }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; height:42px; padding:0 16px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); display:inline-flex; align-items:center; justify-content:center; gap:7px; font-size:14px; font-weight:600; white-space:nowrap;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);" style-active="transform:scale(0.98)"><i data-lucide="map" style="width:16px;height:16px"></i> View outage map</span>
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+
+            <sc-if value="{{ noActive }}">
+              <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); padding:clamp(18px,3vw,22px); display:flex; gap:13px; align-items:center;">
+                <span style="flex:none; width:42px; height:42px; border-radius:12px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="circle-check" style="width:21px;height:21px"></i></span>
+                <div style="flex:1; min-width:0;">
+                  <h4 style="font-size:16px; font-weight:700; color:var(--fg-1);">Nothing affecting your supply</h4>
+                  <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:3px;">GPL has no open interruption for your address.</p>
+                </div>
+              </div>
+            </sc-if>
+          </section>
+
+          <section data-screen-label="Your outage reports" style="flex:2 1 min(320px, 100%); min-width:0; display:flex; flex-direction:column; gap:14px;">
+            <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); overflow:hidden; display:flex; flex-direction:column;">
+              <div style="padding:clamp(16px,3vw,18px) clamp(18px,3vw,20px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; flex-direction:column; gap:3px;">
+                <h3 style="font-size:17px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Your outage reports</h3>
+                <p style="font-size:13px; line-height:1.5; color:var(--fg-3);">Outages and faults you reported that GPL still has open.</p>
+              </div>
+              <div style="padding:clamp(18px,3vw,20px); display:flex; flex-direction:column; gap:16px;">
+
+            <sc-for list="{{ openRequests }}" as="r" hint-placeholder-count="2">
+              <div style="border:1px solid rgba(19,28,46,0.09); border-radius:14px; padding:15px; display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; align-items:flex-start; gap:11px;">
+                  <span style="flex:none; width:34px; height:34px; border-radius:10px; background:{{ r.chipBg }}; color:{{ r.chipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ r.icon }}" style="width:17px;height:17px"></i></span>
+                  <span style="flex:1; min-width:0; font-size:14.5px; font-weight:700; line-height:1.4; color:var(--fg-1);">{{ r.title }}</span>
+                </div>
+
+                <span style="align-self:flex-start; display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:999px; background:{{ r.chipBg }}; color:{{ r.chipFg }}; font-size:12px; font-weight:700;"><i data-lucide="{{ r.icon }}" style="width:13px;height:13px"></i> {{ r.status }}</span>
+
+                <div style="display:flex; flex-wrap:wrap; gap:14px;">
+                  <span style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Reference</span>
+                    <span style="font-size:13px; font-weight:600; color:var(--fg-2);">{{ r.ref }}</span>
+                  </span>
+                  <span style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Logged</span>
+                    <span style="font-size:13px; font-weight:600; color:var(--fg-2);">{{ r.logged }}</span>
+                  </span>
+                </div>
+
+                <div style="display:flex; flex-direction:column; padding-top:12px; border-top:1px solid rgba(19,28,46,0.08);">
+                  <sc-for list="{{ r.steps }}" as="st" hint-placeholder-count="4">
+                    <div style="display:flex; gap:11px; align-items:stretch;">
+                      <span style="flex:none; width:18px; display:flex; flex-direction:column; align-items:center;">
+                        <span style="width:18px; height:18px; border-radius:999px; background:{{ st.dotBg }}; color:{{ st.dotFg }}; display:inline-flex; align-items:center; justify-content:center; flex:none;"><i data-lucide="{{ st.icon }}" style="width:11px;height:11px"></i></span>
+                        <span style="flex:1; width:2px; background:{{ st.line }}; min-height:10px;"></span>
+                      </span>
+                      <span style="flex:1; min-width:0; padding-bottom:11px; font-size:12.5px; font-weight:{{ st.weight }}; line-height:1.4; color:{{ st.fg }};">{{ st.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <span onClick="{{ r.onOpen }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:6px; min-height:44px; font-size:13.5px; font-weight:600; color:var(--agency-accent);">See full progress <i data-lucide="arrow-right" style="width:15px;height:15px"></i></span>
+              </div>
+            </sc-for>
+
+            <sc-if value="{{ noOpenRequests }}">
+              <p style="font-size:13.5px; line-height:1.55; color:var(--fg-3);">You have no open outage reports with GPL.</p>
+            </sc-if>
+
+              <span onClick="{{ goTrack }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:7px; min-height:44px; font-size:14px; font-weight:600; color:var(--agency-accent);">View all requests <i data-lucide="arrow-right" style="width:16px;height:16px"></i></span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isHistory }}">
+      <section data-screen-label="History" style="display:flex; flex-direction:column; gap:clamp(18px,2.6vw,22px);">
+        <div>
+          <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">History</h2>
+          <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Interruptions in your area and outage reports of your own that GPL has closed.</p>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:12px 18px; align-items:center;">
+          <div role="group" aria-label="Filter history" style="display:flex; flex-wrap:wrap; gap:4px; padding:4px; border-radius:999px; background:var(--surface-4);">
+            <sc-for list="{{ historyFilters }}" as="hf" hint-placeholder-count="3">
+              <span onClick="{{ hf.onPick }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ hf.on }}" style="cursor:pointer; min-height:44px; padding:0 16px; border-radius:999px; display:inline-flex; align-items:center; font-size:13.5px; font-weight:600; background:{{ hf.bg }}; color:{{ hf.fg }}; box-shadow:{{ hf.shadow }}; transition:var(--tr-control);">{{ hf.label }}</span>
+            </sc-for>
+          </div>
+          <span onClick="{{ toggleHistorySort }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:13.5px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="{{ historySortIcon }}" style="width:16px;height:16px"></i> {{ historySortLabel }}</span>
+          <span style="font-size:13px; color:var(--fg-4);">{{ historyCount }}</span>
+        </div>
+
+        <sc-for list="{{ historyItems }}" as="h" hint-placeholder-count="3">
+          <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.09); border-left:5px solid var(--status-success); border-radius:clamp(14px,2.5vw,16px); box-shadow:0 1px 4px rgba(19,28,46,0.05); padding:clamp(16px,3vw,20px); display:flex; flex-direction:column; gap:13px;">
+            <div style="display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+              <span style="flex:none; width:38px; height:38px; border-radius:11px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ h.icon }}" style="width:19px;height:19px"></i></span>
+              <div style="flex:1 1 200px; min-width:0;">
+                <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">{{ h.kind }}</div>
+                <h4 style="font-size:16px; font-weight:700; letter-spacing:-0.005em; color:var(--fg-1); margin-top:3px;">{{ h.title }}</h4>
+              </div>
+              <span style="flex:none; margin-top:6px; display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:999px; background:var(--status-success-bg); color:var(--status-success); font-size:12.5px; font-weight:700; white-space:nowrap;"><i data-lucide="circle-check" style="width:14px;height:14px"></i> {{ h.status }}</span>
+            </div>
+
+            <p style="font-size:14px; line-height:1.55; color:var(--fg-2); text-wrap:pretty;">{{ h.detail }}</p>
+
+            <div style="display:flex; flex-wrap:wrap; gap:18px;">
+              <sc-for list="{{ h.facts }}" as="hx" hint-placeholder-count="3">
+                <span style="display:flex; flex-direction:column; gap:2px;">
+                  <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">{{ hx.label }}</span>
+                  <span style="font-size:13.5px; font-weight:600; color:var(--fg-2);">{{ hx.value }}</span>
+                </span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ historyEmpty }}">
+          <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(14px,2.5vw,16px); padding:clamp(18px,3vw,22px); display:flex; gap:13px; align-items:center;">
+            <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--surface-4); color:var(--fg-3); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="history" style="width:20px;height:20px"></i></span>
+            <p style="flex:1; min-width:0; font-size:14px; line-height:1.55; color:var(--fg-3);">Nothing closed in this group yet.</p>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isReport }}" hint-placeholder-val="{{ true }}">
+      <section data-screen-label="Report an issue" style="display:flex; flex-direction:column; gap:20px;">
+
+        <sc-if value="{{ showStepper }}">
+          <section data-screen-label="Progress" style="display:flex; align-items:center; gap:8px;">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+              <div onClick="{{ s.onPick }}" role="{{ s.role }}" style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px; cursor:{{ s.cursor }};">
+                <span style="height:4px; border-radius:999px; background:{{ s.bar }};"></span>
+                <span style="font-size:12px; font-weight:600; color:{{ s.fg }};">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ isStep1 }}">
+          <section data-screen-label="Step 1 — category" style="display:flex; flex-direction:column; gap:14px;">
+            <div>
+              <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Choose a category</h2>
+              <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Pick the closest match. You do not need to know which GPL department handles it.</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:12px;">
+              <sc-for list="{{ families }}" as="f" hint-placeholder-count="4">
+                <div onClick="{{ f.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; padding:18px; display:flex; gap:14px; align-items:flex-start; transition:var(--tr-surface);" style-hover="border-color:var(--agency-accent); box-shadow:0 8px 22px rgba(19,28,46,0.10); transform:translateY(-2px);">
+                  <span style="flex:none; width:42px; height:42px; border-radius:12px; background:{{ f.chipBg }}; color:{{ f.chipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ f.icon }}" style="width:21px;height:21px"></i></span>
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:15.5px; font-weight:700; color:var(--fg-1);">{{ f.title }}</span>
+                    <span style="font-size:13.5px; line-height:1.5; color:var(--fg-3);">{{ f.hint }}</span>
+                  </span>
+                  <span style="flex:none; color:var(--fg-4); margin-top:10px;"><i data-lucide="chevron-right" style="width:18px;height:18px"></i></span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ isStep2 }}">
+          <section data-screen-label="Step 2 — issue" style="display:flex; flex-direction:column; gap:14px;">
+            <nav aria-label="Breadcrumb" style="display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; font-size:13px; font-weight:600;">
+              <span onClick="{{ back }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; color:var(--fg-3);" style-hover="color:var(--agency-accent);">What is happening?</span>
+              <span style="color:var(--fg-4);">/</span>
+              <span style="color:var(--fg-1);">{{ step2Title }}</span>
+            </nav>
+            <div>
+              <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">{{ step2Title }}</h2>
+              <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">{{ step2Hint }}</p>
+            </div>
+
+            <sc-if value="{{ showSelfHelp }}">
+              <div style="background:var(--agency-accent-soft); border:1px solid rgba(64,66,147,0.24); border-radius:16px; padding:18px; display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; gap:12px; align-items:flex-start;">
+                  <span style="flex:none; width:38px; height:38px; border-radius:12px; background:#ffffff; color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="message-circle" style="width:19px;height:19px"></i></span>
+                  <div style="flex:1; min-width:0;">
+                    <h3 style="font-size:15px; font-weight:700; color:var(--fg-1);">Most prepaid problems are fixed while you wait</h3>
+                    <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:5px;">A technical service officer can usually clear a keypad or credit problem on the call or chat, using the troubleshooting codes for your meter. No crew visit, no waiting. A technician is sent only if that does not work.</p>
+                  </div>
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:9px;">
+                  <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" icon="message-circle" on-click="{{ openChat }}" hint-size="auto,42px">Start live chat</x-import>
+                  <a href="tel:08004754357" style="display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 16px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="phone" style="width:17px;height:17px"></i> Call 0800-475-4357</a>
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden; display:flex; flex-direction:column;">
+              <sc-for list="{{ issueList }}" as="i" hint-placeholder-count="5">
+                <div onClick="{{ i.onPick }}" role="{{ i.role }}" tabIndex="{{ i.tabIndex }}" style="cursor:{{ i.cursor }}; padding:15px 18px; border-top:1px solid rgba(19,28,46,0.07); display:flex; align-items:{{ i.itemAlign }}; gap:14px; transition:background 160ms;" style-hover="{{ i.hoverStyle }}">
+                  <sc-if value="{{ i.isNotice }}">
+                    <span style="flex:none; width:34px; height:34px; border-radius:10px; background:{{ i.noticeBg }}; color:{{ i.noticeFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ i.noticeIcon }}" style="width:17px;height:17px"></i></span>
+                  </sc-if>
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                    <span style="font-size:15px; font-weight:600; color:var(--fg-1);">{{ i.label }}</span>
+                    <span style="font-size:13px; line-height:1.45; color:var(--fg-3);">{{ i.hint }}</span>
+                  </span>
+                  <sc-if value="{{ i.urgent }}">
+                    <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Badge" tone="error" hint-size="auto,24px">Highest priority</x-import>
+                  </sc-if>
+                  <sc-if value="{{ i.showChevron }}">
+                    <span style="flex:none; color:var(--fg-4);"><i data-lucide="chevron-right" style="width:18px;height:18px"></i></span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ isMatchStep }}">
+          <section data-screen-label="Known outage check" style="display:flex; flex-direction:column; gap:16px;">
+            <div>
+              <span onClick="{{ back }}" role="button" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--agency-accent); margin-bottom:10px;"><i data-lucide="arrow-left" style="width:15px;height:15px"></i> Back</span>
+              <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">This looks like it is already reported ({{ knownRef }})</h2>
+              <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">GPL has an outage open on the line that serves your address. Is this the same issue?</p>
+            </div>
+
+            <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; overflow:hidden;">
+              <div style="padding:18px 20px; background:var(--status-warning-bg); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; gap:14px; align-items:flex-start;">
+                <span style="flex:none; width:42px; height:42px; border-radius:13px; background:#ffffff; color:var(--status-warning); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="zap-off" style="width:21px;height:21px"></i></span>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-3);">Open outage {{ knownRef }}</div>
+                  <h3 style="font-size:17px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:3px;">{{ knownArea }}</h3>
+                  <p style="font-size:13px; color:var(--fg-3); margin-top:3px;">{{ knownFeeder }}</p>
+                </div>
+              </div>
+
+              <div style="padding:18px 20px; display:flex; flex-direction:column; gap:16px;">
+                <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                  <sc-for list="{{ knownFacts }}" as="kf" hint-placeholder-count="3">
+                    <div style="flex:1 1 150px; min-width:0; background:var(--surface-2); border-radius:12px; padding:12px 14px; display:flex; flex-direction:column; gap:4px;">
+                      <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">{{ kf.label }}</span>
+                      <span style="font-size:14.5px; font-weight:700; color:var(--fg-1);">{{ kf.value }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="display:flex; gap:11px; align-items:center; padding:13px 15px; border-radius:12px; background:var(--agency-accent-soft);">
+                  <span style="flex:none; color:var(--agency-accent); display:inline-flex;"><i data-lucide="users" style="width:18px;height:18px"></i></span>
+                  <span style="flex:1; min-width:0; font-size:13.5px; font-weight:600; color:var(--fg-1);">{{ knownReports }}</span>
+                </div>
+
+                <p style="font-size:13.5px; line-height:1.6; color:var(--fg-2); text-wrap:pretty;">Saying yes adds you to this outage as a confirmation. No new request is raised and no second crew is sent — but the count GPL prioritises on now includes you.</p>
+
+                <div style="display:flex; flex-wrap:wrap; gap:10px; padding-top:14px; border-top:1px solid rgba(19,28,46,0.08);">
+                  <span style="flex:none;">
+                    <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" icon="check" on-click="{{ addToOutage }}" hint-size="auto,48px">Yes, same issue</x-import>
+                  </span>
+                  <span onClick="{{ reportAnyway }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 20px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14.5px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="file-plus" style="width:17px;height:17px"></i> No, different issue</span>
+                </div>
+              </div>
+            </div>
+
+            <p style="font-size:12.5px; line-height:1.6; color:var(--fg-4);">Choose <strong style="font-weight:700; color:var(--fg-3);">No, different issue</strong> if your supply is off for a reason that is not this outage, or if you are reporting a hazard. GPL raises a separate case.</p>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ isLinked }}">
+          <section data-screen-label="Report linked" style="display:flex; flex-direction:column; gap:16px;">
+            <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:18px;">
+              <div style="display:flex; gap:14px; align-items:flex-start;">
+                <span style="flex:none; width:44px; height:44px; border-radius:14px; background:var(--status-info-bg); color:var(--status-info); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="link" style="width:23px;height:23px"></i></span>
+                <div style="flex:1; min-width:0;">
+                  <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">You were added to this outage</h2>
+                  <p style="font-size:14px; line-height:1.55; color:var(--fg-2); margin-top:5px;">GPL has one outage record for {{ knownArea }}, and your report is now part of it.</p>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <div style="flex:1 1 170px; min-width:0; background:var(--surface-2); border-radius:12px; padding:13px 15px;">
+                  <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Your reference</div>
+                  <div style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:4px;">{{ linkedRef }}</div>
+                </div>
+                <div style="flex:1 1 170px; min-width:0; background:var(--surface-2); border-radius:12px; padding:13px 15px;">
+                  <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Outage</div>
+                  <div style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:4px;">{{ knownRef }}</div>
+                </div>
+                <div style="flex:1 1 170px; min-width:0; background:var(--surface-2); border-radius:12px; padding:13px 15px;">
+                  <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Reports on it</div>
+                  <div style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:4px;">{{ linkedCount }}</div>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <span style="font-size:13px; font-weight:700; color:var(--fg-2);">What happens next</span>
+                <sc-for list="{{ linkedRoute }}" as="lr" hint-placeholder-count="3">
+                  <div style="display:flex; gap:12px; align-items:flex-start;">
+                    <span style="flex:none; width:26px; height:26px; border-radius:999px; background:{{ lr.bg }}; color:{{ lr.fg }}; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">{{ lr.n }}</span>
+                    <span style="flex:1; min-width:0; font-size:14px; line-height:1.55; color:var(--fg-2); padding-top:3px;">{{ lr.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex; flex-wrap:wrap; gap:10px; padding-top:14px; margin-top:4px; border-top:1px solid rgba(19,28,46,0.08); justify-content:flex-end;">
+                <span onClick="{{ goTrack }}" role="button" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;" style-hover="background:var(--agency-accent-strong);"><i data-lucide="list-checks" style="width:17px;height:17px"></i> Track this outage</span>
+                <span onClick="{{ restart }}" role="button" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="plus" style="width:17px;height:17px"></i> Report something else</span>
+              </div>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ isStep4 }}">
+          <section data-screen-label="Step 4 — details" style="display:flex; flex-direction:column; gap:16px;">
+            <div>
+              <nav aria-label="Your selections" style="display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; margin-bottom:12px;">
+                <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="2">
+                  <span style="display:inline-flex; align-items:center; gap:6px 8px;">
+                    <sc-if value="{{ ch.sep }}">
+                      <span style="font-size:13px; font-weight:500; color:var(--fg-4, #9aa2b1);">/</span>
+                    </sc-if>
+                    <span onClick="{{ ch.onPick }}" role="button" title="Change this" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--fg-2); border-bottom:1px solid transparent; padding-bottom:1px;" style-hover="color:var(--agency-accent); border-bottom-color:var(--agency-accent);">{{ ch.label }} <i data-lucide="pencil" style="width:12px;height:12px"></i></span>
+                  </span>
+                </sc-for>
+              </nav>
+              <sc-if value="{{ isStep4Review }}" hint-placeholder-val="{{ false }}">
+                <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Check your report</h2>
+                <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Review what you have entered before it is sent to GPL.</p>
+              </sc-if>
+              <sc-if value="{{ isStep4Fill }}" hint-placeholder-val="{{ true }}">
+                <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Where is it, and what can you see?</h2>
+                <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Everything here is optional except the location. The more the crew knows, the fewer return visits.</p>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ isStep4Fill }}" hint-placeholder-val="{{ true }}">
+            <sc-if value="{{ isUrgentIssue }}">
+              <div style="background:rgba(196,61,61,0.08); border:1px solid rgba(196,61,61,0.30); border-radius:14px; padding:15px 16px; display:flex; gap:11px; align-items:flex-start;">
+                <span style="flex:none; color:var(--status-error); margin-top:1px;"><i data-lucide="phone" style="width:18px;height:18px"></i></span>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:14px; font-weight:700; color:var(--fg-1);">Do not wait for this form</div>
+                  <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">This is a highest-priority job. Call GPL now on <strong>0800-475-4357</strong> so a crew can be sent immediately, then finish this form if you can. Keep everyone well clear.</p>
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:18px;">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:13px; font-weight:700; color:var(--fg-2);">Whose premises is this about?</span>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:10px; align-items:stretch;">
+                  <sc-for list="{{ locationOptions }}" as="lo" hint-placeholder-count="2">
+                    <div onClick="{{ lo.onPick }}" role="button" style="cursor:pointer; height:100%; border:1.5px solid {{ lo.border }}; border-radius:12px; padding:13px 15px; display:flex; align-items:center; gap:12px;" style-hover="border-color:var(--agency-accent);">
+                      <span style="flex:none; width:18px; height:18px; border-radius:999px; border:2px solid {{ lo.dotBorder }}; display:inline-flex; align-items:center; justify-content:center;"><span style="width:8px; height:8px; border-radius:999px; background:{{ lo.dotInner }};"></span></span>
+                      <span style="flex:1; min-width:0; font-size:14px; font-weight:500; color:var(--fg-1);">{{ lo.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ otherLocation }}">
+                  <input value="{{ addressDraft }}" onChange="{{ onAddress }}" placeholder="Street and nearest lot or landmark" aria-label="Address of the issue" style="height:44px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:var(--surface-2); border:1.5px solid {{ addressBorder }}; border-radius:12px; outline:none;">
+                </sc-if>
+                <sc-if value="{{ addressError }}">
+                  <span style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--status-error);"><i data-lucide="circle-alert" style="width:14px;height:14px"></i> Add the street and nearest lot or landmark so the crew can find it.</span>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{ thirdParty }}">
+                <div style="border:1px solid rgba(19,28,46,0.10); border-radius:14px; padding:16px; background:var(--surface-2); display:flex; flex-direction:column; gap:14px;">
+                  <div style="display:flex; gap:11px; align-items:flex-start;">
+                    <span style="flex:none; color:var(--agency-accent); margin-top:1px;"><i data-lucide="user-round-search" style="width:18px;height:18px"></i></span>
+                    <p style="flex:1; min-width:0; font-size:13.5px; line-height:1.55; color:var(--fg-2);">GPL checks every report against the account it belongs to before a crew or technician is sent. Give whatever details of that customer you have — their bill shows the customer number and the account number.</p>
+                  </div>
+
+                  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+                    <label style="display:flex; flex-direction:column; gap:6px;">
+                      <span style="font-size:12.5px; font-weight:700; color:var(--fg-2);">Customer's name</span>
+                      <input value="{{ otherName }}" onChange="{{ onOtherName }}" placeholder="Full name as it appears on the bill" aria-label="Customer's name" style="height:44px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:#ffffff; border:1.5px solid {{ nameBorder }}; border-radius:12px; outline:none;">
+                    </label>
+                    <label style="display:flex; flex-direction:column; gap:6px;">
+                      <span style="font-size:12.5px; font-weight:700; color:var(--fg-2);">Their contact number</span>
+                      <input value="{{ otherPhone }}" onChange="{{ onOtherPhone }}" placeholder="+592 000 0000" aria-label="Their contact number" style="height:44px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:#ffffff; border:1px solid var(--surface-border); border-radius:12px; outline:none;">
+                    </label>
+                    <label style="display:flex; flex-direction:column; gap:6px;">
+                      <span style="font-size:12.5px; font-weight:700; color:var(--fg-2);">Customer number</span>
+                      <input value="{{ otherCustomerNo }}" onChange="{{ onOtherCustomerNo }}" placeholder="Top of their bill, beside the name" aria-label="Customer number" style="height:44px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:#ffffff; border:1.5px solid {{ idBorder }}; border-radius:12px; outline:none;">
+                    </label>
+                    <label style="display:flex; flex-direction:column; gap:6px;">
+                      <span style="font-size:12.5px; font-weight:700; color:var(--fg-2);">Account number</span>
+                      <input value="{{ otherAccountNo }}" onChange="{{ onOtherAccountNo }}" placeholder="Under the name, above the address" aria-label="Account number" style="height:44px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:#ffffff; border:1.5px solid {{ idBorder }}; border-radius:12px; outline:none;">
+                    </label>
+                  </div>
+
+                  <label style="display:flex; flex-direction:column; gap:6px;">
+                    <span style="font-size:12.5px; font-weight:700; color:var(--fg-2);">Their address</span>
+                    <input value="{{ otherAddress }}" onChange="{{ onOtherAddress }}" placeholder="Lot, street and area" aria-label="Their address" style="height:44px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:#ffffff; border:1.5px solid {{ otherAddressBorder }}; border-radius:12px; outline:none;">
+                  </label>
+
+                  <sc-if value="{{ thirdPartyError }}">
+                    <span style="display:inline-flex; align-items:flex-start; gap:6px; font-size:13px; font-weight:600; color:var(--status-error);"><i data-lucide="circle-alert" style="width:14px;height:14px; margin-top:2px"></i> {{ thirdPartyErrorText }}</span>
+                  </sc-if>
+
+                  <p style="font-size:12.5px; line-height:1.5; color:var(--fg-4);">Only report on another customer's behalf if they have asked you to, or if what you can see is unsafe. GPL contacts the account holder directly about anything to do with their meter or their bill.</p>
+                </div>
+              </sc-if>
+
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:13px; font-weight:700; color:var(--fg-2);">{{ detailLabel }}</span>
+                <textarea value="{{ detailDraft }}" onChange="{{ onDetail }}" rows="3" placeholder="For example: the pole outside is leaning towards the fence and the wires are low over the road." aria-label="What can you see" style="padding:12px 14px; font-size:14px; line-height:1.55; font-family:var(--font-sans); color:var(--fg-1); background:var(--surface-2); border:1.5px solid {{ detailBorder }}; border-radius:12px; outline:none; resize:vertical;"></textarea>
+                <sc-if value="{{ detailError }}">
+                  <span style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--status-error);"><i data-lucide="circle-alert" style="width:14px;height:14px"></i> Describe what is happening — this is what a technical service officer classifies the job from.</span>
+                </sc-if>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:13px; font-weight:700; color:var(--fg-2);">Photo <span style="font-weight:500; color:var(--fg-4);">— optional</span></span>
+                <div style="border:1.5px dashed rgba(19,28,46,0.22); border-radius:12px; padding:20px; display:flex; flex-direction:column; align-items:center; gap:7px; background:var(--surface-2); cursor:pointer;" style-hover="border-color:var(--agency-accent); background:var(--agency-accent-soft);">
+                  <span style="color:var(--fg-3);"><i data-lucide="camera" style="width:22px;height:22px"></i></span>
+                  <span style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Add a photo from your phone</span>
+                  <span style="font-size:12.5px; color:var(--fg-4);">Never photograph anything closer than you can safely stand</span>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:13px; font-weight:700; color:var(--fg-2);">Number to reach you</span>
+                <input value="{{ phoneDraft }}" onChange="{{ onPhone }}" placeholder="+592 000 0000" aria-label="Contact number" style="height:44px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:var(--surface-2); border:1px solid var(--surface-border); border-radius:12px; outline:none;">
+                <span style="font-size:12.5px; color:var(--fg-4);">GPL calls or sends a WhatsApp message on this number if the crew needs to reach you.</span>
+              </div>
+            </div>
+            </sc-if>
+
+            <sc-if value="{{ isStep4Review }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden;">
+                <div style="padding:clamp(16px,3vw,18px) clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                  <h3 style="font-size:16px; font-weight:700; color:var(--fg-1);">Report summary</h3>
+                  <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">Once submitted you can add to the report but not change what you have entered.</p>
+                </div>
+                <sc-for list="{{ reviewRows }}" as="rr" hint-placeholder-count="5">
+                  <div style="padding:13px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.06); display:flex; flex-wrap:wrap; gap:6px 20px; align-items:baseline; justify-content:space-between;">
+                    <span style="flex:none; font-size:13.5px; color:var(--fg-3);">{{ rr.label }}</span>
+                    <span style="flex:1 1 auto; min-width:0; text-align:right; font-size:13.5px; font-weight:600; color:{{ rr.fg }};">{{ rr.value }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <div style="height:96px; flex:none;"></div>
+            <div style="position:fixed; left:{{ barLeft }}; right:0; bottom:0; z-index:45; background:#ffffff; border-top:1px solid rgba(19,28,46,0.12); box-shadow:0 -8px 24px rgba(19,28,46,0.10);">
+              <div style="max-width:{{ contentMax }}; margin:{{ contentMargin }}; padding:14px clamp(16px,3vw,32px); display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:14px;">
+                <span style="flex:1 1 200px; min-width:0; font-size:13px; line-height:1.5; color:var(--fg-3);">{{ submitBarNote }}</span>
+                <span onClick="{{ back }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; display:inline-flex; align-items:center; gap:7px; height:48px; padding:0 18px; border-radius:999px; font-size:14.5px; font-weight:600; color:var(--fg-2);" style-hover="background:rgba(19,28,46,0.06);"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back</span>
+                <span style="flex:none;">
+                  <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" icon="send-horizontal" on-click="{{ submit }}" hint-size="auto,48px">{{ submitLabel }}</x-import>
+                </span>
+              </div>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ isDone }}">
+          <section data-screen-label="Confirmation" style="display:flex; flex-direction:column; gap:16px;">
+            <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:18px;">
+              <div style="display:flex; gap:14px; align-items:flex-start;">
+                <span style="flex:none; width:44px; height:44px; border-radius:14px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="circle-check" style="width:23px;height:23px"></i></span>
+                <div style="flex:1; min-width:0;">
+                  <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Report logged</h2>
+                  <p style="font-size:14px; line-height:1.55; color:var(--fg-2); margin-top:5px;">{{ doneSummary }}</p>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <div style="flex:1 1 180px; min-width:0; background:var(--surface-2); border-radius:12px; padding:13px 15px;">
+                  <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Reference</div>
+                  <div style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:4px;">{{ doneRef }}</div>
+                </div>
+                <div style="flex:1 1 180px; min-width:0; background:var(--surface-2); border-radius:12px; padding:13px 15px;">
+                  <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Priority</div>
+                  <div style="font-size:15px; font-weight:700; color:{{ donePriorityFg }}; margin-top:6px;">{{ donePriority }}</div>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <span style="font-size:13px; font-weight:700; color:var(--fg-2);">What happens next</span>
+                <sc-for list="{{ doneRoute }}" as="r" hint-placeholder-count="3">
+                  <div style="display:flex; gap:12px; align-items:flex-start;">
+                    <span style="flex:none; width:26px; height:26px; border-radius:999px; background:{{ r.bg }}; color:{{ r.fg }}; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">{{ r.n }}</span>
+                    <span style="flex:1; min-width:0; font-size:14px; line-height:1.55; color:var(--fg-2); padding-top:3px;">{{ r.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ doneBackBill }}">
+                <div style="background:rgba(196,125,18,0.10); border:1px solid rgba(196,125,18,0.30); border-radius:14px; padding:15px 16px; display:flex; gap:11px; align-items:flex-start;">
+                  <span style="flex:none; color:var(--status-warning); margin-top:1px;"><i data-lucide="receipt-text" style="width:18px;height:18px"></i></span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:14px; font-weight:700; color:var(--fg-1);">{{ doneBackBillTitle }}</div>
+                    <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">{{ doneBackBillText }}</p>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div style="display:flex; flex-wrap:wrap; gap:10px; padding-top:14px; margin-top:4px; border-top:1px solid rgba(19,28,46,0.08); justify-content:flex-end;">
+                <span onClick="{{ goTrack }}" role="button" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600; margin-top:14px;" style-hover="background:var(--agency-accent-strong);"><i data-lucide="list-checks" style="width:17px;height:17px"></i> Track this request</span>
+                <span onClick="{{ restart }}" role="button" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600; margin-top:14px;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="plus" style="width:17px;height:17px"></i> Report something else</span>
+              </div>
+            </div>
+          </section>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isTrack }}">
+      <section data-screen-label="Your outage reports" style="display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Your outage reports</h2>
+          <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Every report keeps one reference number from the moment it is logged until Customer Service closes it.</p>
+        </div>
+
+        <sc-for list="{{ requests }}" as="rq" hint-placeholder-count="2">
+          <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden;">
+            <div onClick="{{ rq.onToggle }}" role="button" style="cursor:pointer; padding:16px 18px; display:flex; align-items:center; gap:14px;" style-hover="background:var(--surface-2);">
+              <span style="flex:none; width:38px; height:38px; border-radius:12px; background:{{ rq.chipBg }}; color:{{ rq.chipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ rq.icon }}" style="width:18px;height:18px"></i></span>
+              <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                <span style="font-size:15px; font-weight:700; color:var(--fg-1);">{{ rq.title }}</span>
+                <span style="font-size:13px; color:var(--fg-3);">{{ rq.meta }}</span>
+              </span>
+              <span style="flex:none; display:inline-flex; align-items:center; padding:4px 11px; border-radius:999px; background:{{ rq.chipBg }}; color:{{ rq.chipFg }}; font-size:12px; font-weight:700;">{{ rq.status }}</span>
+              <span style="flex:none; color:var(--fg-4); transform:{{ rq.chevron }}; transition:transform 180ms;"><i data-lucide="chevron-down" style="width:18px;height:18px"></i></span>
+            </div>
+
+            <sc-if value="{{ rq.expanded }}">
+              <div style="padding:4px 18px 18px; border-top:1px solid rgba(19,28,46,0.07); display:flex; flex-direction:column; gap:16px;">
+                <div style="display:flex; flex-direction:column; gap:0; padding-top:14px;">
+                  <sc-for list="{{ rq.timeline }}" as="tl" hint-placeholder-count="4">
+                    <div style="display:flex; gap:13px; align-items:stretch;">
+                      <span style="flex:none; width:26px; display:flex; flex-direction:column; align-items:center;">
+                        <span style="width:22px; height:22px; border-radius:999px; background:{{ tl.dotBg }}; color:{{ tl.dotFg }}; display:inline-flex; align-items:center; justify-content:center; flex:none;"><i data-lucide="{{ tl.icon }}" style="width:13px;height:13px"></i></span>
+                        <span style="flex:1; width:2px; background:{{ tl.line }}; min-height:14px;"></span>
+                      </span>
+                      <span style="flex:1; min-width:0; padding-bottom:16px; display:flex; flex-direction:column; gap:3px;">
+                        <span style="font-size:14px; font-weight:600; color:{{ tl.titleFg }};">{{ tl.title }}</span>
+                        <span style="font-size:13px; line-height:1.5; color:var(--fg-3);">{{ tl.detail }}</span>
+                        <span style="font-size:12.5px; color:var(--fg-4);">{{ tl.when }}</span>
+                      </span>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <sc-if value="{{ rq.backBill }}">
+                  <div style="background:rgba(196,125,18,0.10); border:1px solid rgba(196,125,18,0.30); border-radius:14px; padding:15px 16px; display:flex; gap:11px; align-items:flex-start;">
+                    <span style="flex:none; color:var(--status-warning); margin-top:1px;"><i data-lucide="receipt-text" style="width:18px;height:18px"></i></span>
+                    <div style="flex:1; min-width:0;">
+                      <div style="font-size:14px; font-weight:700; color:var(--fg-1);">Bill correction expected</div>
+                      <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">{{ rq.backBillText }}</p>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </section>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;embedded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const NBSP = '\u00A0';
+
+// Every category, issue, route and timeline label below comes from the GPL
+// incident routing matrix — nothing here is invented.
+const FAMILIES = [
+  { id: 'outage', icon: 'zap-off', short: 'Power out or unsteady', title: 'Planned Outage', hint: 'A scheduled interruption GPL has announced in advance for maintenance, repairs or network upgrades in your area', chipBg: 'rgba(196,125,18,0.14)', chipFg: 'var(--status-warning)' },
+  { id: 'danger', icon: 'triangle-alert', short: 'Damaged or dangerous', title: 'Unplanned Outage', hint: 'An unexpected loss of power caused by damage or a hazard — fallen or leaning poles, low or sparking wires, fire, a transformer problem', chipBg: 'rgba(196,61,61,0.13)', chipFg: 'var(--status-error)' },
+  { id: 'meter', icon: 'gauge', short: 'Meter or prepaid unit', title: 'My meter or prepaid unit', hint: 'Broken, burnt or smoking meter, keypad or credit problem', chipBg: 'rgba(64,66,147,0.12)', chipFg: 'var(--agency-accent)' },
+  { id: 'planned', icon: 'calendar-clock', short: 'Non-outage', title: 'Non-Outage', hint: 'Anything else that is not a power interruption — enquiries, feedback or other matters', chipBg: 'rgba(19,28,46,0.07)', chipFg: 'var(--fg-2)' }
+];
+
+const ISSUES = {
+  outage: {
+    title: 'What kind of planned outage is this?',
+    hint: 'Choose the closest description. A technical service officer confirms it with you before a crew is sent.',
+    list: [
+      { id: 'transformer-change', label: 'Changing of transformers', hint: 'A transformer in your area is being replaced or upgraded' },
+      { id: 'pole-planting', label: 'Pole planting', hint: 'New poles are being installed along the line' },
+      { id: 'scheduled-maintenance', label: 'Scheduled maintenance', hint: 'Routine maintenance work on the network' },
+      { id: 'area-upgrade', label: 'Upgrading area', hint: 'Network capacity or equipment is being upgraded' },
+      { id: 'vegetation-clearance', label: 'Vegetation management / line clearance', hint: 'Trees and branches are being cleared from the lines' }
+    ]
+  },
+  danger: {
+    title: 'What is happening?',
+    hint: 'Choose the closest description. Fire and fallen poles are the two highest priorities GPL holds. Keep well clear until a crew arrives.',
+    list: [
+      { id: 'blown-spur-fuse', label: 'Blown spur fuse', hint: 'The fuse on a spur line off the main feeder has blown' },
+      { id: 'blown-transformer-fuse', label: 'Blown transformer fuse', hint: 'The fuse protecting a transformer has blown' },
+      { id: 'blown-transformer', label: 'Blown transformer', hint: 'A transformer has failed and needs replacing' },
+      { id: 'broken-crossarm', label: 'Broken crossarm', hint: 'The crossarm holding the lines on a pole is broken' },
+      { id: 'broken-pole', label: 'Broken pole', hint: 'A pole is snapped or cracked' },
+      { id: 'burning-building', label: 'Burning building', hint: 'A building is on fire near GPL equipment', urgent: true },
+      { id: 'burning-pole', label: 'Burning pole', hint: 'A pole is on fire or smoking', urgent: true },
+      { id: 'burning-wire-primary', label: 'Burning wire (primary)', hint: 'A high-voltage primary wire is burning', urgent: true },
+      { id: 'burnt-off-jumper', label: 'Burnt off jumper', hint: 'A jumper connection has burnt through' },
+      { id: 'burst-primary-main', label: 'Burst primary main', hint: 'A high-voltage primary line has parted' },
+      { id: 'burst-secondary-main', label: 'Burst secondary main', hint: 'A low-voltage secondary line has parted' },
+      { id: 'defective-gab', label: 'Defective gang air breaker (GAB)', hint: 'A GAB switch is faulty or not operating' },
+      { id: 'defective-spd', label: 'Defective single pole disconnector (SPD)', hint: 'An SPD switch is faulty or not operating' },
+      { id: 'electrical-fire', label: 'Electrical fire', hint: 'A fire caused by electrical equipment or wiring', urgent: true },
+      { id: 'fallen-pole', label: 'Fallen pole', hint: 'A pole is down, or a vehicle has struck it', urgent: true },
+      { id: 'fire-on-wire', label: 'Fire on wire', hint: 'A wire is burning or sparking with visible flame', urgent: true },
+      { id: 'fluctuating-voltage-area', label: 'Fluctuating voltage (area)', hint: 'Voltage is rising and falling across the area' },
+      { id: 'high-voltage-area', label: 'High voltage (area)', hint: 'Supply is running noticeably above normal across the area' },
+      { id: 'lights-flickering-area', label: 'Lights flickering (area)', hint: 'Lights are dipping briefly but supply stays on' },
+      { id: 'low-voltage', label: 'Low voltage', hint: 'Appliances are running weakly' },
+      { id: 'no-current-area', label: 'No current to area', hint: 'The street or scheme has no supply' },
+      { id: 'no-current-few-buildings', label: 'No current to few buildings', hint: 'Depending on the reason for the outage' },
+      { id: 'one-phase-out-area', label: 'One phase out (area)', hint: 'One phase of a three-phase supply is out across the area' },
+      { id: 'secondary-mains-low', label: 'Secondary mains hanging low', hint: 'A low-voltage line is sagging over a road or yard' },
+      { id: 'transformer-hanging', label: 'Transformer hanging', hint: 'A transformer has come loose from its mounting' },
+      { id: 'transformer-leaking', label: 'Transformer leaking', hint: 'A transformer is leaking oil' },
+      { id: 'transformer-on-fire', label: 'Transformer on fire', hint: 'A transformer is on fire or emitting flame', urgent: true },
+      { id: 'transformer-sparking', label: 'Transformer sparking', hint: 'A transformer is sparking but not on fire' },
+      { id: 'tree-entangled-mains', label: 'Tree entangled with mains', hint: 'Branches are touching or pulling on the line' },
+      { id: 'vehicle-hit-pole', label: 'Vehicle hit pole', hint: 'A vehicle has struck a pole' },
+      { id: 'system-trips', label: 'System trips', hint: 'Repeated tripping on the network' }
+    ]
+  },
+  meter: {
+    title: 'What is wrong with the meter?',
+    hint: 'Prepaid keypad and credit problems are usually solved on the call. Anything burnt or smoking is treated as a fire job.',
+    selfHelp: true,
+    list: [
+      { id: 'meter-burning', label: 'Meter burning, smoking, or wire sparking in the meter', hint: 'Highest priority' + NBSP + '— keep clear of the meter box', urgent: true },
+      { id: 'meter-broken', label: 'Meter broken or damaged', hint: 'Cracked, display blank, or reading nothing' },
+      { id: 'ciu-credit', label: 'Prepaid unit will not accept my credit', hint: 'Token entered but credit does not register' },
+      { id: 'ciu-keypad', label: 'Prepaid keypad or unit not working', hint: 'Buttons or display have failed' },
+      { id: 'no-current-meter', label: 'No current and I think it is the meter', hint: 'Supply is on in the street but not in the building' }
+    ]
+  },
+  planned: {
+    title: 'What is happening?',
+    hint: 'Choose the closest description. A technical service officer confirms it with you before a crew is sent.',
+    list: [
+      { id: 'broken-meter', label: 'Broken meter', hint: 'The meter is cracked, damaged or not reading' },
+      { id: 'burning-meter', label: 'Burning meter', hint: 'The meter is on fire or has burn marks', urgent: true },
+      { id: 'burning-wire-secondary', label: 'Burning wire (secondary)', hint: 'A low-voltage secondary wire is burning', urgent: true },
+      { id: 'burst-service-wire', label: 'Burst service wire', hint: 'The wire feeding your premises has parted' },
+      { id: 'ciu-not-accepting-credit', label: 'CIU not accepting credit', hint: 'Token entered but credit does not register' },
+      { id: 'defective-service-wire', label: 'Defective service wire', hint: 'The wire feeding your premises is faulty' },
+      { id: 'earth-wire-smoking', label: 'Earth wire smoking', hint: 'The earth wire is smoking or overheating', urgent: true },
+      { id: 'entangled-mains', label: 'Entangled mains', hint: 'Mains wires are tangled with each other or an object' },
+      { id: 'fluctuating-voltage-localized', label: 'Fluctuating voltage (localized)', hint: 'Voltage is rising and falling at your premises' },
+      { id: 'high-voltage-localized', label: 'High voltage (localized)', hint: 'Supply is running noticeably above normal at your premises' },
+      { id: 'lights-flickering-localized', label: 'Lights flickering (localized)', hint: 'Lights are dipping briefly at your premises' },
+      { id: 'loose-service-wire', label: 'Loose service wire', hint: 'The wire feeding your premises is loose' },
+      { id: 'loose-wire-holder', label: 'Loose wire holder', hint: 'A wire holder or fitting has come loose' },
+      { id: 'meter-smoking', label: 'Meter smoking', hint: 'The meter is smoking or overheating', urgent: true },
+      { id: 'no-current-building', label: 'No current to building', hint: 'Only your premises is out' },
+      { id: 'no-current-few-buildings', label: 'No current to few buildings', hint: 'Depending on the reason for the outage' },
+      { id: 'one-phase-out-localized', label: 'One phase out (localized)', hint: 'One phase of a three-phase supply is out at your premises' },
+      { id: 'pole-leaning', label: 'Pole leaning', hint: 'A nearby pole is leaning but still standing' },
+      { id: 'rotten-pole', label: 'Rotten pole', hint: 'A pole is rotten and needs replacing' },
+      { id: 'service-wire-stiff', label: 'Service wire stiff', hint: 'The wire feeding your premises is stiff or brittle' },
+      { id: 'slack-connection', label: 'Slack connection', hint: 'A connection point is loose or slack' },
+      { id: 'sparking-wire', label: 'Sparking wire', hint: 'A wire is sparking near your premises' },
+      { id: 'wire-hanging-low', label: 'Wire hanging low', hint: 'A wire is sagging over a road or yard' },
+      { id: 'wire-sparking-in-meter', label: 'Wire sparking in meter', hint: 'Sparks are coming from inside the meter box', urgent: true },
+      { id: 'defective-ciu-no-power', label: 'Defective CIU (if consumer is out of power)', hint: 'The prepaid unit has failed and you have no current' },
+      { id: 'defective-keypad-no-power', label: 'Defective keypad (if consumer is out of power)', hint: 'The keypad has failed and you have no current' }
+    ]
+  }
+};
+
+// Nothing in the list matches — the customer describes it and an officer classifies it.
+const OTHER_ISSUE = { id: 'other', label: 'None of these' + NBSP + '— I will describe it', hint: 'A technical service officer reads your description and classifies the job' };
+
+const SCOPES = [
+  { id: 'single', label: 'Only my premises', hint: 'Neighbours still have current' },
+  { id: 'few', label: 'A few premises', hint: 'You and the buildings around you' },
+  { id: 'area', label: 'The whole street or area', hint: 'The scheme or a wide stretch of the street' }
+];
+
+// Routing narrative, in the customer's words, per family.
+const ROUTES = {
+  network: [
+    'Customer Service logs your report and gives you a reference number.',
+    'A technical service officer checks your account, confirms the fault and decides which crew is needed.',
+    'A transmission and distribution crew is sent to the reporting location.',
+    'Customer Service records what the crew did and closes your reference.'
+  ],
+  meter: [
+    'Customer Service logs your report and gives you a reference number.',
+    'A technical service officer checks your account and sends the metering rapid response team if your zone has one — otherwise a network crew attends first and puts you back on supply.',
+    'The Metering Department replaces or rectifies the meter, normally within about seven days.',
+    'The new meter number goes into GPL records, and Customer Service closes your reference.'
+  ],
+  prepaid: [
+    'Customer Service logs your report and gives you a reference number.',
+    'A technical service officer works through the troubleshooting codes with you — most cases end here.',
+    'If it is still not working, the Metering Department attends, normally within about seven days.',
+    'Customer Service records the outcome and closes your reference.'
+  ]
+};
+
+// Second-person copy is wrong when the report is about someone else's account.
+const ROUTES_THIRD = {
+  network: [
+    'Customer Service logs your report and gives you a reference number.',
+    "A technical service officer matches the details to that customer's account and decides which crew is needed.",
+    'A transmission and distribution crew is sent to the reported location.',
+    'Customer Service records what the crew did and closes the reference.'
+  ],
+  meter: [
+    'Customer Service logs your report and gives you a reference number.',
+    "A technical service officer matches the details to that customer's account and sends the metering rapid response team if that zone has one — otherwise a network crew attends first and puts the customer back on supply.",
+    'The Metering Department replaces or rectifies the meter, normally within about seven days.',
+    'The new meter number goes into GPL records, and GPL deals with the account holder from there.'
+  ],
+  prepaid: [
+    'Customer Service logs your report and gives you a reference number.',
+    'A technical service officer works through the troubleshooting codes with the account holder — most cases end here.',
+    'If it is still not working, the Metering Department attends, normally within about seven days.',
+    'Customer Service records the outcome and closes the reference.'
+  ]
+};
+
+const PRIORITY = {
+  fire: { label: 'P1' + NBSP + '— fire related', fg: 'var(--status-error)' },
+  burst: { label: 'P2' + NBSP + '— burst main', fg: 'var(--status-error)' },
+  pole: { label: 'P3' + NBSP + '— fallen or struck pole', fg: 'var(--status-error)' },
+  area: { label: 'P4' + NBSP + '— area outage', fg: 'var(--status-warning)' },
+  local: { label: 'P5' + NBSP + '— scheduled by crew location', fg: 'var(--fg-2)' }
+};
+
+const OUTAGES = [
+  {
+    id: 'out-4903', live: true, tone: 'error', eyebrow: 'Outage reported in your area',
+    title: 'Sheriff Street and Lamaha Street', status: 'Crew on site', statusIcon: 'wrench', sortDate: '2026-08-16',
+    icon: 'zap-off', accent: 'var(--status-error)', chipBg: 'var(--status-error-bg)', chipFg: 'var(--status-error)',
+    detail: 'Supply is off on Feeder GT-04, Georgetown zone. A transmission and distribution crew is on site.',
+    facts: [
+      { label: 'Reference', value: 'OUT-4903' },
+      { label: 'Reported', value: '15:42 today' },
+      { label: 'Expected back', value: '18:00 to 20:00 today' }
+    ],
+    addReport: true, major: true, nextUpdate: 'by 17:00 today',
+    priority: 'P4' + NBSP + '— area outage',
+    slaTarget: 'First response 1 hour · restore within 24 hours'
+  },
+  {
+    id: 'planned-diamond', title: 'Planned maintenance in your area', status: 'Planned', statusIcon: 'calendar-clock', sortDate: '2026-08-14', hasMap: true,
+    icon: 'calendar-clock', accent: 'var(--status-warning)', chipBg: 'rgba(196,125,18,0.14)', chipFg: 'var(--status-warning)',
+    detail: 'Power will be interrupted while a feeder on the Diamond line is replaced. Affects Diamond Housing Scheme and surrounding streets.',
+    priority: 'Planned work — not a fault',
+    slaTarget: 'Notified 7 days in advance',
+    facts: [
+      { label: 'Date', value: '14 August 2026' },
+      { label: 'Time', value: '09:00 to 14:00' },
+      { label: 'Cause', value: 'Feeder replacement' }
+    ]
+  },
+  {
+    id: 'out-sheriff', resolved: true, sortDate: '2026-08-09', title: 'Unplanned outage' + NBSP + '— Sheriff Street', status: 'Restored',
+    icon: 'circle-check', accent: 'var(--status-success)', chipBg: 'var(--status-success-bg)', chipFg: 'var(--status-success)',
+    detail: 'Supply to the area was interrupted and restored the same evening by a transmission and distribution crew.',
+    facts: [
+      { label: 'Date', value: '09 August 2026' },
+      { label: 'Restored', value: '22:15' },
+      { label: 'Scope', value: 'Area' }
+    ],
+    request: 'OUT-4821'
+  }
+];
+
+// An outage already open on this customer's feeder. BR-PRT-002 requires the
+// portal to show it before a duplicate report is raised; BR-INT-012 links a
+// further report to that case instead of creating a new one, and BR-INT-014
+// keeps the linked count, which is what drives prioritisation and the
+// major-incident threshold. The matching key and time window are BR-INT-013 —
+// still to be agreed with GPL, so the copy says feeder and area, not a rule.
+const KNOWN_OUTAGE = {
+  ref: 'OUT-4903',
+  zone: 'Demerara',
+  streets: ['Sheriff Street', 'Lamaha Street'],
+  area: 'Sheriff Street and Lamaha Street, Georgetown',
+  feeder: 'Feeder GT-04 · Georgetown zone',
+  status: 'Crew on site',
+  eta: '18:00 to 20:00 today',
+  since: 'Reported 15:42 today',
+  reports: 12,
+  facts: [
+    { label: 'Status', value: 'Crew on site' },
+    { label: 'Expected back', value: '18:00 to 20:00 today' },
+    { label: 'Reported', value: '15:42 today' }
+  ]
+};
+
+// Resolved area outages and closed requests both land on the History tab.
+const ACTIVE = OUTAGES.filter(o => !o.resolved);
+const PAST = OUTAGES.filter(o => o.resolved);
+
+const REQUESTS = [
+  {
+    id: 'RPT-2210', title: 'Streetlight out' + NBSP + '— Lot 22', meta: 'RPT-2210 · Logged 02 Aug 2026 · P5',
+    status: 'In progress', icon: 'clock', chipBg: 'var(--status-info-bg)', chipFg: 'var(--status-info)',
+    ref: 'RPT-2210', logged: '02 Aug 2026', sortDate: '2026-08-02',
+    steps: [
+      { label: 'Logged', state: 'done' },
+      { label: 'Checked and classified', state: 'done' },
+      { label: 'With the network crew', state: 'active' },
+      { label: 'Closed', state: 'wait' }
+    ],
+    timeline: [
+      { title: 'Logged by Customer Service', detail: 'Reference RPT-2210 issued to you.', when: '02 Aug 2026, 08:14', state: 'done' },
+      { title: 'Checked and classified', detail: 'A technical service officer confirmed the fault against your account and set it as a minor job.', when: '02 Aug 2026, 09:02', state: 'done' },
+      { title: 'With the network crew', detail: 'Scheduled by crew location — P5 jobs are picked up as a crew works through your area.', when: 'In progress', state: 'active' },
+      { title: 'Closed by Customer Service', detail: 'The crew’s completion detail is recorded and your reference is closed.', when: 'Not yet', state: 'wait' }
+    ]
+  },
+  {
+    id: 'MTR-3187', title: 'Meter replaced' + NBSP + '— Lot 22 Sheriff Street', meta: 'MTR-3187 · Logged 21 Jul 2026 · Non-penalty job',
+    status: 'Bill correction pending', icon: 'receipt-text', chipBg: 'rgba(196,125,18,0.16)', chipFg: 'var(--status-warning)',
+    ref: 'MTR-3187', logged: '21 Jul 2026', sortDate: '2026-07-21',
+    steps: [
+      { label: 'Logged', state: 'done' },
+      { label: 'Put back on supply', state: 'done' },
+      { label: 'Meter replaced', state: 'done' },
+      { label: 'Bill correction', state: 'active' }
+    ],
+    backBill: true,
+    backBillText: 'Your meter was replaced on 24 July 2026. GPL is now re-reading the account and may correct earlier bills, up to six months back, as a charge or a credit. You will be notified in writing, and by phone or WhatsApp, before it appears on a bill.',
+    timeline: [
+      { title: 'Logged by Customer Service', detail: 'Reference MTR-3187 issued to you.', when: '21 Jul 2026, 15:40', state: 'done' },
+      { title: 'Attended and put back on supply', detail: 'A crew attended the same day so you were not left without current.', when: '21 Jul 2026, 18:20', state: 'done' },
+      { title: 'Meter replaced by the Metering Department', detail: 'New meter fitted and the meter number recorded on the work order.', when: '24 Jul 2026', state: 'done' },
+      { title: 'Bill correction being prepared', detail: 'Billing reviews three months of actual readings before any correction is applied.', when: 'In progress', state: 'active' }
+    ]
+  },
+  {
+    id: 'OUT-4821', title: 'No power' + NBSP + '— Sheriff Street', meta: 'OUT-4821 · Logged 09 Aug 2026 · P4',
+    status: 'Resolved', icon: 'circle-check', chipBg: 'var(--status-success-bg)', chipFg: 'var(--status-success)',
+    resolved: true, ref: 'OUT-4821', logged: '09 Aug 2026', sortDate: '2026-08-09',
+    detail: 'You reported that the power was off in Sheriff Street. A crew repaired the fault and supply was back the same evening.',
+    facts: [
+      { label: 'Logged', value: '09 August 2026' },
+      { label: 'Closed', value: '22:15' },
+      { label: 'Reference', value: 'OUT-4821' }
+    ],
+    timeline: [
+      { title: 'Logged by Customer Service', detail: 'Reference OUT-4821 issued to you.', when: '09 Aug 2026, 19:05', state: 'done' },
+      { title: 'Checked and classified', detail: 'Confirmed as an area outage and passed to a network crew.', when: '09 Aug 2026, 19:22', state: 'done' },
+      { title: 'Crew on site', detail: 'A transmission and distribution crew attended the reporting location.', when: '09 Aug 2026, 20:40', state: 'done' },
+      { title: 'Closed by Customer Service', detail: 'Supply restored and the reference closed.', when: '09 Aug 2026, 22:15', state: 'done' }
+    ]
+  }
+];
+
+const MODES = ['status', 'report', 'track', 'history'];
+
+const HISTORY_FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'outages', label: 'Area outages' },
+  { id: 'requests', label: 'Your reports' }
+];
+
+class Component extends DCLogic {
+  state = {
+    mode: 'status',
+    statusMenuOpen: false,
+    step: 1,
+    reviewing: false,
+    family: null,
+    issue: null,
+    scope: null,
+    locationChoice: 'account',
+    addressDraft: '',
+    detailDraft: '',
+    phoneDraft: '',
+    result: null,
+    addressError: false,
+    detailError: false,
+    thirdPartyError: '',
+    otherName: '',
+    otherPhone: '',
+    otherCustomerNo: '',
+    otherAccountNo: '',
+    otherAddress: '',
+    filed: [],
+    expanded: 'RPT-2210'
+  };
+
+  componentDidMount() {
+    this.syncFooter();
+    this.onResize = () => {
+      const m = window.innerWidth < 860;
+      if (m !== this.state.mobile) this.setState({ mobile: m });
+    };
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+    // Dashboard quick actions hand over the category they mean.
+    this.onIntent = (e) => this.applyIntent(e.detail);
+    window.addEventListener('gpl-report-intent', this.onIntent);
+    // The dashboard also hands the intent over as a prop, which survives this
+    // page not having mounted when the user clicked.
+    this.applyIntent(this.props.intent);
+    if (this.props.forceMode) this.setState({ mode: this.props.forceMode });
+    let tries = 0;
+    const hydrate = () => {
+      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+      if (++tries < 12) setTimeout(hydrate, 250);
+    };
+    hydrate();
+  }
+
+  // Lucide swaps <i> for <svg>, so React has nothing left to update and a
+  // switched state keeps the previous glyph. Rewrite any chip whose rendered
+  // icon no longer matches the value it stands for.
+  refreshIcons() {
+    if (!window.lucide) return;
+    let stale = false;
+    document.querySelectorAll('[data-gpl-icon]').forEach(chip => {
+      const want = chip.getAttribute('data-gpl-icon');
+      if (!want) return;
+      const svg = chip.querySelector('svg');
+      if (svg && svg.classList.contains('lucide-' + want)) return;
+      if (chip.querySelector('i[data-lucide="' + want + '"]')) return;
+      const size = chip.getAttribute('data-gpl-icon-size') || '17px';
+      chip.innerHTML = '<i data-lucide="' + want + '" style="width:' + size + ';height:' + size + '"></i>';
+      stale = true;
+    });
+    if (stale) window.lucide.createIcons();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (window.lucide) window.lucide.createIcons();
+    this.refreshIcons();
+    this.syncFooter();
+    const now = this.props.intent, before = prevProps && prevProps.intent;
+    if (now && (!before || before.seq !== now.seq)) this.applyIntent(now);
+    const fm = this.props.forceMode;
+    if (fm && this.state.mode !== fm && (!prevProps || prevProps.forceMode !== fm)) this.setState({ mode: fm });
+  }
+  componentWillUnmount() {
+    if (this.onResize) window.removeEventListener('resize', this.onResize);
+    if (this.onIntent) window.removeEventListener('gpl-report-intent', this.onIntent);
+    this.setFooterHeight('0px');
+  }
+
+  applyIntent(intent) {
+    if (!intent) return;
+    if (this.appliedSeq !== undefined && this.appliedSeq === intent.seq) return;
+    this.appliedSeq = intent.seq;
+    // The dashboard's live-outage card sends the customer straight to the
+    // known-outage check rather than through category and issue again.
+    if (intent.known) {
+      this.setState({ mode: 'report', family: 'outage', issue: 'no-current-area', scope: 'area', step: 35 });
+      return;
+    }
+    if (intent.family && intent.issue) {
+      const skipScope = intent.family === 'meter';
+      this.setState({ mode: 'report', family: intent.family, issue: intent.issue, scope: skipScope ? 'single' : null, step: skipScope ? 4 : 3 });
+    } else if (intent.family) {
+      this.setState({ mode: 'report', family: intent.family, issue: null, scope: null, step: 2 });
+    } else this.setState({ mode: 'status' });
+  }
+
+  // A loss-of-supply report at the same location or feeder as an outage already
+  // open is intercepted before a second case can be raised. A hazard is never
+  // intercepted — it always needs its own crew — and 'only my premises' points
+  // at this customer's service, not the feeder.
+  knownOutageFor(scope) {
+    if (this.state.family !== 'outage') return null;
+    if (scope === 'single') return null;
+    // Silent check against the account's registered zone and address. Only an
+    // outage open in the same zone whose affected streets include this
+    // customer's street is treated as a match; anything else falls through to
+    // the normal form. The exact key and time window are BR-INT-013.
+    const zone = (this.props.connZone || KNOWN_OUTAGE.zone || '').toLowerCase();
+    const address = (this.props.connAddress || 'Lot 22 Sheriff Street, Georgetown').toLowerCase();
+    if (KNOWN_OUTAGE.zone.toLowerCase() !== zone) return null;
+    const hit = KNOWN_OUTAGE.streets.some(st => address.indexOf(st.toLowerCase()) >= 0);
+    return hit ? KNOWN_OUTAGE : null;
+  }
+
+  // Adding to the open case rather than duplicating it. The customer still gets
+  // their own reference so they can track it and still receives every update.
+  addToOutage() {
+    const k = KNOWN_OUTAGE;
+    const ref = 'REP-' + (7100 + Math.floor(Math.random() * 90));
+    const filed = {
+      id: ref,
+      title: 'Your report added to the ' + k.area.split(' and ')[0] + ' outage',
+      meta: ref + ' · Linked to ' + k.ref + ' · ' + k.status,
+      status: 'Linked to open outage', icon: 'link',
+      chipBg: 'var(--status-info-bg)', chipFg: 'var(--status-info)',
+      timeline: [
+        { title: 'Your report added to ' + k.ref, detail: 'GPL now counts ' + (k.reports + 1) + ' reports from your area on this outage.', when: 'Just now', state: 'done' },
+        { title: 'Crew on site', detail: 'A transmission and distribution crew is working on ' + k.feeder + '.', when: 'In progress', state: 'active' },
+        { title: 'Supply restored', detail: 'Expected between ' + k.eta + '. You will be notified when it is back.', when: 'Not yet', state: 'todo' },
+        { title: 'Outage closed', detail: 'The case closes once restoration is confirmed for the whole area.', when: 'Not yet', state: 'todo' }
+      ]
+    };
+    // Counted off the updated list, so the rail badge and the tab agree.
+    this.setState(prev => {
+      const list = [filed].concat(prev.filed || []);
+      window.dispatchEvent(new CustomEvent('gpl-requests-count', { detail: { count: list.length + REQUESTS.length } }));
+      return { step: 6, linkedRef: ref, filed: list };
+    });
+  }
+
+  // The fixed action bar only exists on the details step; the help launcher
+  // reads this variable so it rests low on every screen without one.
+  setFooterHeight(v) {
+    try { document.documentElement.style.setProperty('--gpl-footer-h', v); } catch (e) {}
+  }
+  syncFooter() {
+    const on = this.state.mode === 'report' && this.state.step === 4;
+    this.setFooterHeight(on ? '78px' : '0px');
+  }
+
+  priorityFor(issueId, scopeId) {
+    if (issueId === 'fire' || issueId === 'meter-burning') return PRIORITY.fire;
+    if (issueId === 'fallen-pole') return PRIORITY.pole;
+    if (issueId === 'burst-main') return PRIORITY.burst;
+    if (scopeId === 'area' || issueId === 'no-current-area') return PRIORITY.area;
+    return PRIORITY.local;
+  }
+
+  routeFor(familyId, issueId, thirdParty) {
+    const table = thirdParty ? ROUTES_THIRD : ROUTES;
+    if (familyId !== 'meter') return table.network;
+    if (issueId === 'ciu-credit' || issueId === 'ciu-keypad') return table.prepaid;
+    return table.meter;
+  }
+
+  submit() {
+    const s = this.state;
+    const addressMissing = s.locationChoice === 'other' && !s.addressDraft.trim();
+    const detailMissing = s.issue === 'other' && !s.detailDraft.trim();
+    // A report on someone else's account has to be identifiable in CIS before it can be routed.
+    let thirdPartyError = '';
+    if (s.locationChoice === 'third') {
+      const missing = [];
+      if (!s.otherName.trim()) missing.push("the customer's name");
+      if (!s.otherAddress.trim()) missing.push('their address');
+      if (!s.otherCustomerNo.trim() && !s.otherAccountNo.trim()) missing.push('either their customer number or their account number');
+      if (missing.length) thirdPartyError = 'GPL cannot match this to an account yet — add ' + missing.join(', ') + '.';
+    }
+    if (addressMissing || detailMissing || thirdPartyError) { this.setState({ addressError: addressMissing, detailError: detailMissing, thirdPartyError: thirdPartyError }); return; }
+    if (!s.reviewing) { this.setState({ reviewing: true }); return; }
+    this.submitFinal();
+  }
+
+  submitFinal() {
+    const s = this.state;
+    const fam = s.family;
+    const issue = (ISSUES[fam] ? ISSUES[fam].list.concat(OTHER_ISSUE) : []).find(i => i.id === s.issue) || {};
+    const pr = this.priorityFor(s.issue, s.scope);
+    const prefix = fam === 'meter' ? 'MTR' : (s.scope === 'area' ? 'OUT' : 'RPT');
+    const ref = prefix + '-' + (4900 + Math.floor(Math.random() * 90));
+    const backBill = fam === 'meter' && s.issue !== 'ciu-credit' && s.issue !== 'ciu-keypad';
+    const third = s.locationChoice === 'third';
+    const route = this.routeFor(fam, s.issue, third);
+    const place = s.locationChoice === 'third' ? (s.otherAddress.trim() + NBSP + '— ' + s.otherName.trim()) : (s.locationChoice === 'other' ? s.addressDraft.trim() : 'Lot 22 Sheriff Street, Georgetown');
+    const filed = {
+      id: ref,
+      title: (issue.label || 'Reported issue') + NBSP + '— ' + place,
+      meta: ref + ' · Logged today · ' + pr.label + (s.locationChoice === 'third' ? ' · reported on another account' : ''),
+      status: 'Logged', icon: 'clock', chipBg: 'var(--status-info-bg)', chipFg: 'var(--status-info)',
+      backBill: backBill,
+      backBillText: third
+        ? 'If the meter is replaced, GPL re-reads that account and may correct earlier bills, up to six months back. Anything to do with the bill is handled directly with the account holder — not through your account.'
+        : 'If the meter is replaced, GPL re-reads the account and may correct earlier bills, up to six months back, as a charge or a credit. You will be notified in writing, and by phone or WhatsApp, before it appears on a bill.',
+      timeline: route.map((t, i) => ({
+        title: ['Logged by Customer Service', 'Being checked and classified', 'Crew or technician attends', 'Closed by Customer Service'][i] || 'Next step',
+        detail: t,
+        when: i === 0 ? 'Just now' : (i === 1 ? 'In progress' : 'Not yet'),
+        state: i === 0 ? 'done' : (i === 1 ? 'active' : 'wait')
+      }))
+    };
+    // Keep the shell's rail badge in step with the real request count, counted
+    // off the updated list so the rail and the tab agree.
+    window.dispatchEvent(new CustomEvent('gpl-requests-count', { detail: { count: (s.filed || []).length + 1 + REQUESTS.length } }));
+    this.setState({
+      step: 5,
+      addressError: false,
+      detailError: false,
+      thirdPartyError: '',
+      filed: [filed].concat(s.filed || []),
+      expanded: ref,
+      result: {
+        ref: ref,
+        priority: pr,
+        route: route,
+        backBill: backBill,
+        thirdParty: third,
+        otherName: s.otherName.trim(),
+        summary: issue.label ? issue.label + ' — logged for ' + place + '. Keep this reference; it stays with the job until Customer Service closes it.' : 'Your report has been logged.'
+      }
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const fam = ISSUES[s.family] || null;
+    const famList = fam ? (s.family === 'planned' ? fam.list : fam.list.concat(OTHER_ISSUE)) : [];
+    const famMeta = FAMILIES.find(x => x.id === s.family) || null;
+    const issueMeta = famList.find(x => x.id === s.issue) || null;
+    const scopeMeta = SCOPES.find(x => x.id === s.scope) || null;
+    const res = s.result || {};
+    // The meter branch never asks about scope, so it runs a three-step stepper.
+    const meterBranch = s.family === 'meter';
+    const stepLabels = ['Choose a request', 'Your details', 'Check it', 'Submitted'];
+    // The known-outage check sits between scope and details; it is an
+    // interception, not a step of its own, so the stepper stays on scope.
+    const stepPos = s.step === 5 ? 4 : ((s.step === 35 || s.step === 4) ? (s.reviewing ? 3 : 2) : 1);
+    // Meter/prepaid cases are an account matter (My services); this page is
+    // scoped to network faults and outages, so meter cases never show here.
+    const isMeterCase = r => /^MTR/.test(r.ref || r.id || '');
+    const allRequests = (s.filed || []).concat(REQUESTS).filter(r => this.props.reportScope !== 'outage' || !isMeterCase(r));
+    const openReqs = allRequests.filter(r => !r.resolved);
+    const historyFilter = s.historyFilter || 'all';
+    const historyItems = PAST.map(o => ({
+      kind: 'Area outage', icon: o.id.indexOf('planned') === 0 ? 'calendar-check' : 'circle-check',
+      title: o.title, status: o.status, detail: o.detail, facts: o.facts,
+      sortDate: o.sortDate || '', group: 'outages'
+    })).concat(allRequests.filter(r => r.resolved).map(r => ({
+      kind: 'Your outage report', icon: 'circle-check',
+      title: r.title, status: r.status,
+      detail: r.detail || 'This report was closed by GPL customer service.',
+      facts: r.facts || [{ label: 'Reference', value: r.ref || r.id }, { label: 'Logged', value: r.logged || '' }],
+      sortDate: r.sortDate || '', group: 'requests'
+    })))
+      .filter(h => historyFilter === 'all' || h.group === historyFilter)
+      .sort((a, b) => s.historyOldest ? a.sortDate.localeCompare(b.sortDate) : b.sortDate.localeCompare(a.sortDate));
+    const known = KNOWN_OUTAGE;
+    const openCount = allRequests.filter(r => !r.resolved).length;
+    const latest = allRequests[0] || null;
+    const latestActive = latest ? latest.timeline.find(t => t.state === 'active') : null;
+    const latestStage = latest ? (latestActive ? latestActive.title + NBSP + '— ' + latestActive.detail : 'Closed by Customer Service') : '';
+    const latestSegments = latest ? latest.timeline.map(t => ({ bg: t.state === 'done' ? 'var(--status-success)' : (t.state === 'active' ? 'var(--agency-accent)' : 'rgba(19,28,46,0.12)') })) : [];
+    const trackLabel = 'Your outage reports (' + openCount + ')';
+    const doneStates = { done: { bg: 'var(--status-success-bg)', fg: 'var(--status-success)', icon: 'check', line: 'var(--status-success)', titleFg: 'var(--fg-1)' },
+      active: { bg: 'var(--agency-accent-soft)', fg: 'var(--agency-accent)', icon: 'loader-circle', line: 'rgba(19,28,46,0.12)', titleFg: 'var(--fg-1)' },
+      wait: { bg: 'var(--surface-4)', fg: 'var(--fg-4)', icon: 'circle', line: 'rgba(19,28,46,0.12)', titleFg: 'var(--fg-3)' } };
+
+    // Embedded inside the dashboard shell the page drops its own top bar,
+    // account header and centred column — the shell already supplies them.
+    const embedded = !!this.props.embedded;
+    const chromeless = !!this.props.chromeless;
+    return {
+      zero: 0,
+      mobile: !!s.mobile,
+      mobilePager: !!s.mobile && !chromeless,
+      headerDisplay: chromeless ? 'none' : 'block',
+      tabRowDisplay: (chromeless || s.mobile) ? 'none' : 'flex',
+      activeTabLabel: s.mode === 'status' ? 'Service status' : (s.mode === 'report' ? 'Report an issue' : trackLabel),
+      tabPosition: (MODES.indexOf(s.mode) + 1) + ' / ' + MODES.length,
+      prevTabFg: MODES.indexOf(s.mode) === 0 ? 'var(--fg-4)' : 'var(--fg-2)',
+      nextTabFg: MODES.indexOf(s.mode) === MODES.length - 1 ? 'var(--fg-4)' : 'var(--fg-2)',
+      prevTab: () => {
+        const i = MODES.indexOf(this.state.mode);
+        if (i > 0) this.setState({ mode: MODES[i - 1] });
+      },
+      nextTab: () => {
+        const i = MODES.indexOf(this.state.mode);
+        if (i < MODES.length - 1) this.setState({ mode: MODES[i + 1] });
+      },
+      standalone: !embedded,
+      rootMinHeight: embedded ? '0' : '100vh',
+      rootBg: chromeless ? 'transparent' : '#eef2f8',
+      headerPadding: embedded ? '18px 16px 0' : '20px 24px 0',
+      contentMax: (embedded || chromeless) ? '100%' : '820px',
+      // The action bar clears the dashboard rail so it reads as a page footer.
+      barLeft: embedded ? (this.props.railWidth || '240px') : '0px',
+      contentMargin: embedded ? '0' : '0 auto',
+      tabsMarginTop: embedded ? '0' : '16px',
+      bodyPadding: chromeless ? '0' : (embedded ? 'clamp(20px,3vw,28px) 16px 24px' : 'clamp(20px,3vw,28px) 24px 72px'),
+      isStatus: s.mode === 'status',
+      hasLatest: !!latest,
+      latestTitle: latest ? latest.title : '',
+      latestStatus: latest ? latest.status : '',
+      latestIcon: latest ? latest.icon : 'clock',
+      latestChipBg: latest ? latest.chipBg : 'var(--surface-4)',
+      latestChipFg: latest ? latest.chipFg : 'var(--fg-2)',
+      latestRef: latest ? latest.meta : '',
+      latestSteps: latest ? latest.timeline.map((t, i) => ({
+        title: t.title,
+        icon: t.state === 'done' ? 'check' : (t.state === 'active' ? 'loader-circle' : 'circle'),
+        dotBg: t.state === 'done' ? 'var(--status-success-bg)' : (t.state === 'active' ? 'var(--agency-accent-soft)' : 'var(--surface-4)'),
+        dotFg: t.state === 'done' ? 'var(--status-success)' : (t.state === 'active' ? 'var(--agency-accent)' : 'var(--fg-4)'),
+        line: i === latest.timeline.length - 1 ? 'transparent' : (t.state === 'done' ? 'var(--status-success)' : 'rgba(19,28,46,0.12)'),
+        weight: t.state === 'active' ? '700' : '500',
+        fg: t.state === 'wait' ? 'var(--fg-4)' : 'var(--fg-2)'
+      })) : [],
+      goLatest: () => { if (latest) this.setState({ mode: 'track', expanded: latest.id }); },
+      isReport: s.mode === 'report',
+      statusMenuOpen: s.statusMenuOpen,
+      toggleStatusMenu: () => this.setState(p => ({ statusMenuOpen: !p.statusMenuOpen })),
+      closeStatusMenu: () => this.setState({ statusMenuOpen: false }),
+      goReportProblem: () => {
+        this.setState({ statusMenuOpen: false });
+        if (chromeless) window.dispatchEvent(new CustomEvent('gpl-new-request-problem'));
+        else this.setState({ mode: 'report', step: 1, reviewing: false, family: null, issue: null });
+      },
+      goNewRequest: () => {
+        this.setState({ statusMenuOpen: false });
+        if (chromeless) window.dispatchEvent(new CustomEvent('gpl-new-request-service'));
+        else window.location.href = 'GPL Service Requests.dc.html';
+      },
+      statusAddress: this.props.connAddress || 'Lot 22 Sheriff Street, Georgetown',
+      activeOutages: ACTIVE.map(o => Object.assign({}, o, {
+        eyebrow: o.eyebrow || 'Planned outage',
+        cardBorder: o.tone === 'error' ? 'rgba(190,42,52,0.38)' : 'rgba(196,125,18,0.38)',
+        cardRing: 'none',
+        hasConfirm: !!o.addReport,
+        facts: (o.facts || []).concat([
+          { label: 'Priority', value: o.priority || 'P4 — area outage' },
+          { label: 'GPL target', value: o.slaTarget || 'Restored within 24 hours of logging' }
+        ]),
+        isMajor: !!o.major,
+        nextUpdate: o.nextUpdate || '',
+        onView: () => this.setState({ mode: 'report', family: 'planned', issue: null, step: 2 })
+      })),
+      noActive: ACTIVE.length === 0,
+
+      // The right-hand panel carries only what GPL still has open; closed
+      // requests live on the History tab.
+      openRequests: openReqs.map(r => ({
+        title: r.title, status: r.status, icon: r.icon,
+        chipBg: r.chipBg, chipFg: r.chipFg,
+        ref: r.ref || r.id, logged: r.logged || '',
+        steps: (r.steps || []).map((x, i, arr) => ({
+          label: x.label,
+          icon: x.state === 'done' ? 'check' : (x.state === 'active' ? 'loader-circle' : 'circle'),
+          dotBg: x.state === 'done' ? 'var(--status-success-bg)' : (x.state === 'active' ? 'var(--agency-accent-soft)' : 'var(--surface-4)'),
+          dotFg: x.state === 'done' ? 'var(--status-success)' : (x.state === 'active' ? 'var(--agency-accent)' : 'var(--fg-4)'),
+          line: i === arr.length - 1 ? 'transparent' : (x.state === 'done' ? 'var(--status-success)' : 'rgba(19,28,46,0.12)'),
+          weight: x.state === 'active' ? '700' : '500',
+          fg: x.state === 'wait' ? 'var(--fg-4)' : 'var(--fg-2)'
+        })),
+        onOpen: () => window.dispatchEvent(new CustomEvent('gpl-open-my-requests', { detail: { ref: r.ref || r.id } }))
+      })),
+      noOpenRequests: openReqs.length === 0,
+
+      isHistory: s.mode === 'history',
+      historyFilters: HISTORY_FILTERS.map(hf => ({
+        label: hf.label,
+        on: historyFilter === hf.id,
+        bg: historyFilter === hf.id ? '#ffffff' : 'transparent',
+        fg: historyFilter === hf.id ? 'var(--agency-accent)' : 'var(--fg-3)',
+        shadow: historyFilter === hf.id ? '0 1px 3px rgba(19,28,46,0.16)' : 'none',
+        onPick: () => this.setState({ historyFilter: hf.id })
+      })),
+      historyItems: historyItems,
+      historyEmpty: historyItems.length === 0,
+      historyCount: historyItems.length === 1 ? '1 record' : historyItems.length + ' records',
+      historySortLabel: s.historyOldest ? 'Oldest first' : 'Newest first',
+      historySortIcon: s.historyOldest ? 'arrow-up-narrow-wide' : 'arrow-down-wide-narrow',
+      toggleHistorySort: () => this.setState(prev => ({ historyOldest: !prev.historyOldest })),
+
+      // Confirming adds this customer to the count on the open case; it raises
+      // no request and sends no second crew.
+      affectedConfirmed: !!s.affectedConfirmed,
+      affectedLabel: s.affectedConfirmed
+        ? 'You confirmed · ' + (KNOWN_OUTAGE.reports + 1) + ' others confirmed'
+        : "I'm affected too (" + KNOWN_OUTAGE.reports + ' others confirmed)',
+      affectedIcon: s.affectedConfirmed ? 'check' : 'hand',
+      affectedBg: s.affectedConfirmed ? 'var(--status-success-bg)' : 'var(--status-error-bg)',
+      affectedBgHover: s.affectedConfirmed ? 'var(--status-success-bg)' : 'rgba(190,42,52,0.16)',
+      affectedFg: s.affectedConfirmed ? 'var(--status-success)' : 'var(--status-error)',
+      affectedBorder: s.affectedConfirmed ? 'rgba(14,141,138,0.34)' : 'rgba(190,42,52,0.28)',
+      affectedCursor: s.affectedConfirmed ? 'default' : 'pointer',
+      affectedTitle: s.affectedConfirmed
+        ? 'GPL has your confirmation for this outage'
+        : 'Tell GPL your supply is off too — no new request is raised',
+      confirmAffected: () => { if (!s.affectedConfirmed) this.setState({ affectedConfirmed: true }); },
+      // The dashboard shell owns the map overlay, so the request travels to it.
+      openNationalMap: () => window.dispatchEvent(new CustomEvent('gpl-open-outage-map', { detail: { scope: 'all' } })),
+      isTrack: s.mode === 'track',
+      tabs: [
+        { id: 'status', label: 'Service status', fg: s.mode === 'status' ? 'var(--agency-accent)' : 'var(--fg-3)', border: s.mode === 'status' ? 'var(--agency-accent)' : 'transparent', onPick: () => this.setState({ mode: 'status' }) },
+        { id: 'report', label: 'Report an issue', fg: s.mode === 'report' ? 'var(--agency-accent)' : 'var(--fg-3)', border: s.mode === 'report' ? 'var(--agency-accent)' : 'transparent', onPick: () => this.setState({ mode: 'report' }) }
+      ],
+
+      showStepper: !this.props.hideStepper && (s.step <= 5 || s.step === 35),
+      steps: stepLabels.map((l, i) => {
+        const n = i + 1;
+        const reachable = n < stepPos;
+        return {
+          label: l,
+          bar: n <= stepPos ? 'var(--agency-accent)' : 'rgba(19,28,46,0.12)',
+          fg: n <= stepPos ? 'var(--fg-1)' : 'var(--fg-4)',
+          role: reachable ? 'button' : undefined,
+          cursor: reachable ? 'pointer' : 'default',
+          onPick: reachable ? () => {
+            if (n === 2) this.setState({ step: 4, reviewing: false, addressError: false, detailError: false });
+            else this.setState({ step: n, reviewing: false, addressError: false, detailError: false });
+          } : undefined
+        };
+      }),
+
+      isStep1: s.step === 1,
+      isStep2: s.step === 2,
+      isStep3: false,
+      isStep4: s.step === 4,
+      isStep4Fill: s.step === 4 && !s.reviewing,
+      isStep4Review: s.step === 4 && !!s.reviewing,
+      isDone: s.step === 5,
+      back: () => this.state.reviewing ? this.setState({ reviewing: false }) : this.setState({ step: (s.step === 35 || s.step === 4) ? 2 : Math.max(1, s.step - 1) }),
+
+      isMatchStep: s.step === 35,
+      knownRef: known.ref,
+      knownArea: known.area,
+      knownFeeder: known.feeder,
+      knownStatus: known.status,
+      knownEta: known.eta,
+      knownFacts: known.facts,
+      knownReports: known.reports + ' households in your area have already reported this',
+      addToOutage: () => this.addToOutage(),
+      reportAnyway: () => this.setState({ step: 4 }),
+
+      isLinked: s.step === 6,
+      linkedRef: s.linkedRef || '',
+      linkedCount: (known.reports + 1) + ' reports',
+      linkedRoute: [
+        'Your report is attached to ' + known.ref + ' — no second crew is sent, and the count GPL uses to prioritise this outage now includes you.',
+        'You receive the same updates as everyone else on this outage: status changes, the expected restoration time, and confirmation when supply is back.',
+        'If your supply is still off after the rest of the area is restored, reply to the update and GPL raises a separate case for your premises.'
+      ].map((text, i) => ({ n: i + 1, text: text, bg: 'var(--agency-accent-soft)', fg: 'var(--agency-accent)' })),
+
+      families: FAMILIES
+        // Meter/prepaid issues are an account matter (My services); the network
+        // categories (outage, hazard, planned work) live under Outages & faults.
+        .filter(f => this.props.reportScope === 'meter' ? f.id === 'meter' : (this.props.reportScope === 'outage' ? f.id !== 'meter' : true))
+        .map(f => Object.assign({}, f, { onPick: () => this.props.onFamilyPick ? this.props.onFamilyPick(f.id) : this.setState({ family: f.id, issue: null, step: 2 }) })),
+
+      step2Title: fam ? fam.title : '',
+      step2Hint: fam ? fam.hint : '',
+      showSelfHelp: !!(fam && fam.selfHelp),
+      chips: [
+        famMeta ? { label: famMeta.short, onPick: () => this.setState({ step: 1 }) } : null,
+        issueMeta ? { label: issueMeta.label, onPick: () => this.setState({ step: 2 }) } : null
+      ].filter(Boolean).map((c, i) => ({ ...c, sep: i > 0 })),
+      isUrgentIssue: !!(issueMeta && issueMeta.urgent),
+      detailLabel: s.issue === 'other' ? 'Describe what is happening' : 'What can you see or hear?',
+      addressError: s.addressError,
+      detailError: s.detailError,
+      addressBorder: s.addressError ? 'var(--status-error)' : 'var(--surface-border)',
+      detailBorder: s.detailError ? 'var(--status-error)' : 'var(--surface-border)',
+      // The assistant is mounted by the dashboard shell; ask it to open.
+      openChat: () => window.dispatchEvent(new CustomEvent('gpl-open-assistant')),
+      isPlanned: false,
+      startOutageReport: () => this.setState({ family: 'outage', issue: null, step: 2 }),
+      issueList: famList.map(i => {
+        const notice = false;
+        return Object.assign({}, i, {
+          urgent: !!i.urgent,
+          isNotice: notice,
+          noticeIcon: i.id === 'planned-current' ? 'calendar-clock' : 'circle-check',
+          noticeBg: i.id === 'planned-current' ? 'rgba(196,125,18,0.14)' : 'var(--surface-4)',
+          noticeFg: i.id === 'planned-current' ? 'var(--status-warning)' : 'var(--fg-3)',
+          role: notice ? 'listitem' : 'button',
+          tabIndex: notice ? undefined : 0,
+          cursor: notice ? 'default' : 'pointer',
+          itemAlign: notice ? 'flex-start' : 'center',
+          hoverStyle: notice ? '' : 'background:var(--surface-2);',
+          showChevron: !notice,
+          onPick: notice ? undefined : () => {
+            this.setState({ issue: i.id, scope: 'single', step: 4 });
+          }
+        });
+      }),
+
+      scopes: SCOPES.map(sc => ({
+        label: sc.label, hint: sc.hint,
+        border: s.scope === sc.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.12)',
+        dotBorder: s.scope === sc.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.22)',
+        dotBg: '#ffffff',
+        dotInner: s.scope === sc.id ? 'var(--agency-accent)' : 'transparent',
+        onPick: () => this.setState({ scope: sc.id, step: this.knownOutageFor(sc.id) ? 35 : 4 })
+      })),
+
+      locationOptions: [
+        { id: 'account', label: 'My own premises' + NBSP + '— Lot 22 Sheriff Street, Georgetown' },
+        { id: 'other', label: 'A street or public place nearby' },
+        { id: 'third', label: "Another customer's premises" + NBSP + '— a neighbour, tenant or relative' }
+      ].map(lo => ({
+        label: lo.label,
+        border: s.locationChoice === lo.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.12)',
+        dotBorder: s.locationChoice === lo.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.22)',
+        dotInner: s.locationChoice === lo.id ? 'var(--agency-accent)' : 'transparent',
+        onPick: () => this.setState({ locationChoice: lo.id })
+      })),
+      otherLocation: s.locationChoice === 'other',
+      thirdParty: s.locationChoice === 'third',
+      otherName: s.otherName,
+      otherPhone: s.otherPhone,
+      otherCustomerNo: s.otherCustomerNo,
+      otherAccountNo: s.otherAccountNo,
+      otherAddress: s.otherAddress,
+      onOtherName: (e) => this.setState({ otherName: e.target.value }),
+      onOtherPhone: (e) => this.setState({ otherPhone: e.target.value }),
+      onOtherCustomerNo: (e) => this.setState({ otherCustomerNo: e.target.value }),
+      onOtherAccountNo: (e) => this.setState({ otherAccountNo: e.target.value }),
+      onOtherAddress: (e) => this.setState({ otherAddress: e.target.value }),
+      thirdPartyError: !!s.thirdPartyError,
+      thirdPartyErrorText: s.thirdPartyError,
+      nameBorder: s.thirdPartyError && !s.otherName.trim() ? 'var(--status-error)' : 'var(--surface-border)',
+      otherAddressBorder: s.thirdPartyError && !s.otherAddress.trim() ? 'var(--status-error)' : 'var(--surface-border)',
+      idBorder: s.thirdPartyError && !s.otherCustomerNo.trim() && !s.otherAccountNo.trim() ? 'var(--status-error)' : 'var(--surface-border)',
+      addressDraft: s.addressDraft,
+      detailDraft: s.detailDraft,
+      phoneDraft: s.phoneDraft,
+      onAddress: (e) => this.setState({ addressDraft: e.target.value }),
+      onDetail: (e) => this.setState({ detailDraft: e.target.value }),
+      onPhone: (e) => this.setState({ phoneDraft: e.target.value }),
+      submit: () => this.submit(),
+      submitLabel: s.reviewing ? 'Submit report' : 'Check and submit',
+      submitBarNote: s.reviewing ? 'A reference number is issued the moment you submit.' : 'You will get a reference number straight away.',
+      reviewRows: [
+        { label: 'Category', value: famMeta ? famMeta.title : '', fg: 'var(--fg-1)' },
+        { label: 'Issue', value: issueMeta ? issueMeta.label : '', fg: 'var(--fg-1)' },
+        { label: 'Location', value: s.locationChoice === 'third' ? (s.otherAddress || 'Not given') : (s.locationChoice === 'other' ? (s.addressDraft || 'Not given') : 'My own premises — Lot 22 Sheriff Street, Georgetown'), fg: 'var(--fg-1)' },
+        { label: 'What you can see', value: s.detailDraft || 'Not given', fg: s.detailDraft ? 'var(--fg-1)' : 'var(--fg-4)' },
+        { label: 'Contact number', value: s.phoneDraft || 'Not given', fg: s.phoneDraft ? 'var(--fg-1)' : 'var(--fg-4)' }
+      ],
+
+      doneRef: res.ref || '',
+      donePriority: res.priority ? res.priority.label : '',
+      donePriorityFg: res.priority ? res.priority.fg : 'var(--fg-2)',
+      doneSummary: res.summary || '',
+      doneBackBill: !!res.backBill,
+      doneBackBillTitle: res.thirdParty ? 'GPL deals with the account holder from here' : 'Your bill may be corrected afterwards',
+      doneBackBillText: res.thirdParty
+        ? 'When a meter is replaced, GPL re-reads that account and may correct earlier bills — up to six months back. ' + (res.otherName ? res.otherName : 'The account holder') + ' is notified directly, in writing and by phone or WhatsApp. Nothing about that meter or bill appears on your account.'
+        : 'When a meter is replaced, GPL re-reads the account and may correct earlier bills — up to six months back, as a charge or a credit. You will be told in writing, and by phone or WhatsApp, before it appears on a bill.',
+      doneRoute: (res.route || []).map((t, i) => ({
+        n: i + 1, text: t,
+        bg: i === 0 ? 'var(--agency-accent)' : 'var(--surface-4)',
+        fg: i === 0 ? '#ffffff' : 'var(--fg-2)'
+      })),
+      goTrack: () => window.dispatchEvent(new CustomEvent('gpl-open-my-requests')),
+      restart: () => this.setState({ mode: 'report', step: 1, reviewing: false, family: null, issue: null, scope: null, result: null, detailDraft: '', addressDraft: '', locationChoice: 'account', otherName: '', otherPhone: '', otherCustomerNo: '', otherAccountNo: '', otherAddress: '', thirdPartyError: '' }),
+
+      requests: allRequests.map(r => ({
+        title: r.title, meta: r.meta, status: r.status, icon: r.icon, chipBg: r.chipBg, chipFg: r.chipFg,
+        expanded: s.expanded === r.id,
+        chevron: s.expanded === r.id ? 'rotate(180deg)' : 'rotate(0deg)',
+        onToggle: () => this.setState({ expanded: s.expanded === r.id ? null : r.id }),
+        backBill: !!r.backBill,
+        backBillText: r.backBillText || '',
+        timeline: r.timeline.map((t, i) => {
+          const st = doneStates[t.state] || doneStates.wait;
+          return { title: t.title, detail: t.detail, when: t.when, icon: st.icon, dotBg: st.bg, dotFg: st.fg, titleFg: st.titleFg, line: i === r.timeline.length - 1 ? 'transparent' : st.line };
+        })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

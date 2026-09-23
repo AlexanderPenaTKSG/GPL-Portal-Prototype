@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #ffffff; font-family: Inter, system-ui, sans-serif; }
+  a { color: #2d2e67; text-decoration: none; }
+  a:hover { color: #1d1e42; }
+  label { font-size: 14px !important; }
+  @media (max-width: 640px) {
+    .stack-cta { flex: 1 1 100%; justify-content: stretch; }
+    .stack-cta > * { width: 100%; }
+    .stack-cta button { width: 100%; justify-content: center; }
+  }
+</style>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#2d2e67"></rect><text x="50" y="62" font-family="Inter, sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">GPL</text></svg></template>
+</helmet>
+
+<div style="--agency-accent:#2d2e67; --agency-accent-strong:#1d1e42; --agency-accent-soft:rgba(45,46,103,0.10); --agency-accent-ring:rgba(45,46,103,0.30); --agency-tint:#2d2e67; --agency-contrast:#ffffff; min-height:100vh; display:flex; flex-wrap:wrap; font-family:var(--font-sans);">
+
+  <div style="flex:0 1 450px; min-width:390px; height:100vh; position:sticky; top:0; overflow:hidden; background:linear-gradient(180deg, rgb(29,30,66) 0%, rgb(45,46,103) 100%); display:flex; flex-direction:column; justify-content:space-between; padding:clamp(28px,5vw,48px);">
+    <img src="uploads/coat-of-arms-watermark.png" alt="" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:380px; opacity:0.5; pointer-events:none; user-select:none;"/>
+    <div style="position:relative; display:flex; flex-direction:column; gap:28px;">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <span style="font-size:38px; font-weight:700; letter-spacing:-0.02em; line-height:1.12; color:#ffffff;">GPL</span>
+        <span style="font-size:15px; font-weight:400; color:rgba(255,255,255,0.72);">Guyana Power and Light</span>
+        <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(212,175,55);">One people &middot; One nation &middot; One destiny</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="width:64px; height:3px; border-radius:2px; background:rgb(212,175,55);"></div>
+        <span style="font-size:clamp(17px,2vw,20px); font-weight:400; line-height:1.4; color:#ffffff; max-width:26ch;">Create your MyGPL account to manage bills and outages online.</span>
+      </div>
+    </div>
+    <div style="position:relative; display:flex; align-items:center; gap:14px;">
+      <span style="flex:none; width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.10); display:inline-flex; align-items:center; justify-content:center; overflow:hidden;">
+        <img src="assets/gpl-logo.jpg" alt="GPL logo" style="width:100%; height:100%; object-fit:cover;"/>
+      </span>
+      <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(165,181,193);">Guyana Power and Light</span>
+    </div>
+  </div>
+
+  <div ref="{{ setRightPanelRef }}" style="flex:1 1 640px; min-width:0; background:#ffffff; padding:clamp(24px,4vw,48px); display:flex; justify-content:center;">
+    <div style="width:100%; max-width:720px; display:flex; flex-direction:column; gap:24px;">
+
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span style="font-size:28px; font-weight:600; letter-spacing:-0.01em; color:rgb(11,29,58);">Create your GPL account</span>
+        <span style="font-size:14px; font-weight:500; color:rgb(107,114,128);">Enter the details shown on your GPL bill.</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px; padding-bottom:16px; border-bottom:1px solid rgba(19,28,46,0.10);">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+          <span style="font-size:13px; font-weight:700; color:var(--agency-accent);">Step 1 of 2 &middot; Your details</span>
+          <span style="font-size:12.5px; font-weight:600; color:var(--fg-4);">Next: Verify</span>
+        </div>
+        <div style="height:6px; border-radius:999px; background:rgba(19,28,46,0.09); overflow:hidden;">
+          <div style="width:50%; height:100%; border-radius:999px; background:var(--agency-accent);"></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
+          <h2 style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-1)">Your account details</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 16px; width: 100%">
+          <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Customer number" required="{{ false }}" hint-size="100%,66px" error="{{ errCustomer }}">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="user-round" placeholder="e.g. 118 4402" value="{{ vCustomer }}" on-change="{{ onCustomer }}" error="{{ errCustomer }}" hint-size="100%,44px"></x-import>
+          </x-import>
+          <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Account number" required="{{ false }}" hint-size="100%,66px" error="{{ errAccount }}">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="hash" placeholder="e.g. 40 2938 1" value="{{ vAccount }}" on-change="{{ onAccount }}" error="{{ errAccount }}" hint-size="100%,44px"></x-import>
+          </x-import>
+          <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Meter number" required="{{ false }}" hint-size="100%,66px" error="{{ errMeter }}">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="gauge" placeholder="e.g. 7719042" value="{{ vMeter }}" on-change="{{ onMeter }}" error="{{ errMeter }}" hint-size="100%,44px"></x-import>
+          </x-import>
+        </div>
+        <div style="display:flex; justify-content:flex-end; margin-top:14px;">
+          <span onClick="{{ openBill }}">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" icon="receipt-text" hint-size="auto,40px">View sample bill</x-import>
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <div style="margin-bottom:16px;">
+          <h2 style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-1)">Your contact details</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="First name" required="{{ false }}" hint-size="100%,28px" error="{{ errFirst }}">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" placeholder="First name" value="{{ vFirst }}" on-change="{{ onFirst }}" error="{{ errFirst }}" hint-size="100%,44px"></x-import>
+            </x-import>
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Last name" required="{{ false }}" hint-size="100%,28px" error="{{ errLast }}">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" placeholder="Last name" value="{{ vLast }}" on-change="{{ onLast }}" error="{{ errLast }}" hint-size="100%,44px"></x-import>
+            </x-import>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Mobile number" required="{{ false }}" hint-size="100%,66px" error="{{ errMobile }}">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="smartphone" placeholder="+592 000 0000" value="{{ vMobile }}" on-change="{{ onMobile }}" error="{{ errMobile }}" hint-size="100%,44px"></x-import>
+            </x-import>
+            <div style="display:flex; flex-direction:column; justify-content:flex-start;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Landline" hint-size="100%,66px">
+                <div style="display:grid; grid-template-columns:1.7fr 0.8fr; gap:10px;">
+                  <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="phone" placeholder="+592 000 0000" hint-size="100%,44px"></x-import>
+                  <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" placeholder="Ext" hint-size="100%,44px"></x-import>
+                </div>
+              </x-import>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="margin-bottom:16px;">
+          <h2 style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-1)">Create your login</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px">
+          <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Email address" required="{{ false }}" hint-size="100%,66px" error="{{ errEmail }}">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="mail" placeholder="you@example.gy" value="{{ vEmail }}" on-change="{{ onEmail }}" error="{{ errEmail }}" hint-size="100%,44px"></x-import>
+          </x-import>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
+            <div style="display:flex; flex-direction:column; gap:7px;">
+              <div style="display:flex; align-items:center; gap:7px;">
+                <span style="font-size:14px; font-weight:600; color:var(--fg-1);">Password</span>
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Tooltip" label="Between 8 and 20 characters, with at least one number and one capital letter." hint-size="18px,18px">
+                  <span style="display:inline-flex; color:var(--fg-4); cursor:help;"><i data-lucide="info" style="width:16px;height:16px"></i></span>
+                </x-import>
+              </div>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="lock" icon-right="eye" type="password" placeholder="Choose a password" value="{{ vPassword }}" on-change="{{ onPassword }}" error="{{ errPassword }}" hint-size="100%,44px"></x-import>
+              <sc-if value="{{ errPassword }}"><span style="font-size:13px; font-weight:600; color:var(--status-error);">{{ errPassword }}</span></sc-if>
+              <sc-if value="{{ passwordHint }}"><span style="font-size:13px; line-height:1.5; color:var(--fg-3);">{{ passwordHint }}</span></sc-if>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:7px;">
+              <div style="display:flex; align-items:center; gap:7px;">
+                <span style="font-size:14px; font-weight:600; color:var(--fg-1);">Confirm password</span>
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Tooltip" label="Type the same password again so we know it was not mistyped." hint-size="18px,18px">
+                  <span style="display:inline-flex; color:var(--fg-4); cursor:help;"><i data-lucide="info" style="width:16px;height:16px"></i></span>
+                </x-import>
+              </div>
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="lock" icon-right="eye" type="password" placeholder="Type it once more" value="{{ vConfirm }}" on-change="{{ onConfirm }}" error="{{ errConfirm }}" hint-size="100%,44px"></x-import>
+              <sc-if value="{{ errConfirm }}"><span style="font-size:13px; font-weight:600; color:var(--status-error);">{{ errConfirm }}</span></sc-if>
+              <sc-if value="{{ confirmHint }}"><span style="font-size:13px; line-height:1.5; color:var(--fg-3);">{{ confirmHint }}</span></sc-if>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Security question" required="{{ false }}" hint-size="100%,66px">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Select" options="{{ questionOptions }}" hint-size="100%,44px"></x-import>
+            </x-import>
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="Security answer" required="{{ false }}" hint-size="100%,28px" error="{{ errAnswer }}">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="key-round" placeholder="Your answer" value="{{ vAnswer }}" on-change="{{ onAnswer }}" error="{{ errAnswer }}" hint-size="100%,44px"></x-import>
+            </x-import>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
+            <div style="background:var(--surface-2); border:1px solid var(--surface-border); border-radius:16px; padding:18px; display:flex; flex-direction:column; gap:12px;">
+              <div>
+                <div style="font-size:14px; font-weight:600; color:var(--fg-1);">Paperless bills</div>
+                <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">Your bill by email instead of a printed copy.</p>
+              </div>
+              <div style="display:flex; gap:18px;">
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Radio" name="paperless" checked="{{ paperlessYes }}" on-change="{{ setPaperlessYes }}" label="Yes" hint-size="auto,24px"></x-import>
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Radio" name="paperless" checked="{{ paperlessNo }}" on-change="{{ setPaperlessNo }}" label="No" hint-size="auto,24px"></x-import>
+              </div>
+            </div>
+            <div style="background:var(--surface-2); border:1px solid var(--surface-border); border-radius:16px; padding:18px; display:flex; flex-direction:column; gap:12px;">
+              <div>
+                <div style="font-size:14px; font-weight:600; color:var(--fg-1);">Email consent</div>
+                <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">Allow GPL to contact you by email about your service.</p>
+              </div>
+              <div style="display:flex; gap:18px;">
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Radio" name="consent" checked="{{ consentYes }}" on-change="{{ setConsentYes }}" label="Yes" hint-size="auto,24px"></x-import>
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Radio" name="consent" checked="{{ consentNo }}" on-change="{{ setConsentNo }}" label="No" hint-size="auto,24px"></x-import>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Checkbox" checked="{{ terms }}" on-change="{{ onTerms }}" hint-size="20px,20px"></x-import>
+            <span style="font-size:15px; line-height:1.5; color:{{ termsColor }};">I agree to GPL&rsquo;s <a href="#" onClick="{{ openTerms }}" style="font-weight:600; text-decoration:underline; text-underline-offset:2px;">Terms &amp; Conditions</a> and <a href="#" onClick="{{ openPrivacy }}" style="font-weight:600; text-decoration:underline; text-underline-offset:2px;">Privacy Policy</a>.</span>
+          </div>
+
+          <sc-if value="{{ modalOpen }}">
+            <div onClick="{{ closeModal }}" style="position:fixed; inset:0; z-index:200; background:rgba(12,13,32,0.55); display:flex; align-items:center; justify-content:center; padding:clamp(12px,4vw,32px);">
+              <div onClick="{{ stopPropagation }}" style="background:#fff; border-radius:24px; box-shadow:0 12px 30px rgba(19,28,46,0.20); max-width:680px; width:100%; max-height:80vh; display:flex; flex-direction:column; overflow:hidden;">
+                <div style="padding:18px clamp(18px,4vw,28px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:16px;">
+                  <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">{{ modalTitle }}</h3>
+                  <span onClick="{{ closeModal }}" style="cursor:pointer; color:var(--fg-4); display:inline-flex;"><i data-lucide="x" style="width:20px;height:20px"></i></span>
+                </div>
+                <div style="padding:clamp(18px,4vw,24px) clamp(18px,4vw,28px); overflow-y:auto; display:flex; flex-direction:column; gap:14px;">
+                  <p style="font-size:15px; line-height:1.65; color:var(--fg-2);">{{ modalIntro }}</p>
+                  <sc-for list="{{ modalClauses }}" as="clause" hint-placeholder-count="4">
+                    <div style="display:flex; flex-direction:column; gap:5px;">
+                      <div style="font-size:15px; font-weight:600; color:var(--fg-1);">{{ clause.heading }}</div>
+                      <p style="font-size:14px; line-height:1.6; color:var(--fg-3);">{{ clause.body }}</p>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="padding:16px clamp(18px,4vw,28px); border-top:1px solid rgba(19,28,46,0.08); background:var(--surface-2); display:flex; align-items:center; justify-content:flex-end; gap:12px;">
+                  <span onClick="{{ closeModal }}">
+                    <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="ghost" hint-size="auto,42px">Close</x-import>
+                  </span>
+                  <span onClick="{{ acceptTerms }}">
+                    <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" icon-right="check" hint-size="auto,42px">Accept</x-import>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <sc-if value="{{ billOpen }}">
+        <div onClick="{{ closeBill }}" style="position:fixed; inset:0; z-index:200; background:rgba(12,13,32,0.55); display:flex; align-items:center; justify-content:center; padding:clamp(12px,4vw,32px);">
+          <div onClick="{{ stopPropagation }}" style="background:#fff; border-radius:24px; box-shadow:0 12px 30px rgba(19,28,46,0.20); max-width:900px; width:100%; max-height:86vh; display:flex; flex-direction:column; overflow:hidden;">
+            <div style="padding:18px clamp(18px,4vw,28px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:16px;">
+              <div>
+                <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Sample bill</h3>
+                <p style="font-size:14px; color:var(--fg-3); margin-top:2px;">The three circled numbers are the ones you need.</p>
+              </div>
+              <span onClick="{{ closeBill }}" style="cursor:pointer; color:var(--fg-4); display:inline-flex;"><i data-lucide="x" style="width:20px;height:20px"></i></span>
+            </div>
+            <div style="padding:clamp(14px,3vw,24px) clamp(14px,3vw,28px); overflow:auto; background:var(--surface-2);">
+              <img src="assets/sample-bill.jpg" alt="Sample GPL bill with the customer, account and meter numbers circled" style="width:100%; height:auto; display:block; border-radius:12px; border:1px solid rgba(19,28,46,0.10); background:#fff;">
+            </div>
+            <div style="padding:16px clamp(18px,4vw,28px); border-top:1px solid rgba(19,28,46,0.08); background:var(--surface-2); display:flex; justify-content:flex-end;">
+              <span onClick="{{ closeBill }}">
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" hint-size="auto,42px">Close</x-import>
+              </span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasErrors }}">
+        <div style="background:var(--status-error-bg); border:1px solid rgba(194,54,95,0.28); border-radius:14px; padding:14px 16px; display:flex; gap:11px; align-items:flex-start;">
+          <span style="flex:none; color:var(--status-error); display:inline-flex; margin-top:1px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></span>
+          <div style="min-width:0;">
+            <div style="font-size:14.5px; font-weight:700; color:var(--fg-1);">{{ errorHeading }}</div>
+            <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:3px;">{{ errorDetail }}</p>
+          </div>
+        </div>
+      </sc-if>
+
+      <div ref="{{ setFooterRef }}" style="{{ footerBarStyle }}">
+        <div style="max-width:720px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <a href="GPL Login Final.dc.html" style="font-size:15px; font-weight:600; display:inline-flex; align-items:center; gap:7px;"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Already have an account? Sign in</a>
+          <div class="stack-cta" style="flex:1 1 240px; display:flex; justify-content:flex-end; min-width:0;">
+            <span onClick="{{ submit }}" style="display:inline-flex; cursor:pointer;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" icon-right="arrow-right" hint-size="auto,50px">Continue</x-import>
+            </span>
+            <a ref="{{ setOtpLink }}" href="GPL OTP Verification.dc.html" aria-hidden="{{ true }}" style="display:none;">Verify</a>
+          </div>
+        </div>
+      </div>
+      <div style="height:96px;"></div>
+
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// No server in the prototype: the details typed here are handed to the
+// verification screen (and back again) through one localStorage key.
+const STORE = 'gpl.registration';
+const FIELDS = ['customer', 'account', 'meter', 'first', 'last', 'mobile', 'email', 'password', 'confirm', 'answer'];
+const LABELS = {
+  customer: 'Customer number', account: 'Account number', meter: 'Meter number',
+  first: 'First name', last: 'Last name', mobile: 'Mobile number',
+  email: 'Email address', password: 'Password', confirm: 'Confirm password', answer: 'Security answer'
+};
+
+function loadSaved() {
+  try { return JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { return {}; }
+}
+
+class Component extends DCLogic {
+  state = { paperless: 'yes', consent: 'yes', terms: false, modal: null, f: {}, errors: {}, shown: false };
+
+  componentDidMount() {
+    const saved = loadSaved();
+    const f = {};
+    FIELDS.forEach(k => { f[k] = saved[k] || ''; });
+    const returning = FIELDS.some(k => f[k]);
+    this.setState({ f: f, terms: !!saved.terms, paperless: saved.paperless || 'yes', consent: saved.consent || 'yes', returning: returning });
+    let tries = 0;
+    const hydrate = () => {
+      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+      if (++tries < 12 && document.querySelector('[data-lucide]')) setTimeout(hydrate, 250);
+    };
+    hydrate();
+    this.measureFooter = () => {
+      if (this.rightPanelEl) {
+        const rect = this.rightPanelEl.getBoundingClientRect();
+        this.setState({ footerLeft: Math.round(rect.left) });
+      }
+    };
+    this.measureFooter();
+    window.addEventListener('resize', this.measureFooter);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.measureFooter); }
+  componentDidUpdate() { if (window.lucide) window.lucide.createIcons(); }
+
+  validate() {
+    const f = this.state.f;
+    const errors = {};
+    if (f.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim())) errors.email = 'Enter a valid email address, for example you@example.gy.';
+    if (f.mobile && f.mobile.replace(/\D/g, '').length < 7) errors.mobile = 'Enter your full mobile number.';
+    if (f.password && !(f.password.length >= 8 && f.password.length <= 20 && /[0-9]/.test(f.password) && /[A-Z]/.test(f.password))) {
+      errors.password = '8 to 20 characters, with a number and a capital letter.';
+    }
+    if (f.confirm && f.password && f.confirm !== f.password) errors.confirm = 'Both passwords must match.';
+    return errors;
+  }
+
+  submit() {
+    const errors = this.validate();
+    this.setState({ errors: errors, shown: true });
+    if (Object.keys(errors).length) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      return;
+    }
+    const f = this.state.f;
+    const payload = Object.assign({}, f, {
+      terms: true, paperless: this.state.paperless, consent: this.state.consent, verified: false
+    });
+    delete payload.password;
+    delete payload.confirm;
+    try { localStorage.setItem(STORE, JSON.stringify(payload)); } catch (e) {}
+    if (this.otpLink) this.otpLink.click();
+  }
+
+  field(key) {
+    return (e) => {
+      const f = Object.assign({}, this.state.f);
+      f[key] = e.target.value;
+      const errors = Object.assign({}, this.state.errors);
+      delete errors[key];
+      this.setState({ f: f, errors: errors });
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const f = s.f || {};
+    const errs = s.shown ? s.errors : {};
+    const count = Object.keys(errs).length;
+    const vals = {
+      setOtpLink: (el) => { this.otpLink = el; },
+      setRightPanelRef: (el) => {
+        if (this.rightPanelEl === el) return;
+        this.rightPanelEl = el;
+        if (el && this.measureFooter) setTimeout(this.measureFooter, 0);
+      },
+      setFooterRef: () => {},
+      footerBarStyle: 'position:fixed; left:' + (s.footerLeft || 0) + 'px; right:0; bottom:0; z-index:50; background:#ffffff; border-top:1px solid rgb(209,213,219); padding:16px clamp(24px,4vw,48px);',
+      submit: () => this.submit(),
+      hasErrors: count > 0,
+      errorHeading: count === 1 ? 'One detail still needs your attention' : count + ' details still need your attention',
+      errorDetail: count ? 'Check the fields marked in red above, then choose Continue again.' : '',
+      termsColor: errs.terms ? 'var(--status-error)' : 'var(--fg-2)',
+      passwordHint: !f.password && !errs.password ? 'Optional in this prototype. GPL never stores it on this device.' : '',
+      confirmHint: ''
+    };
+    FIELDS.forEach(k => {
+      const cap = k.charAt(0).toUpperCase() + k.slice(1);
+      vals['v' + cap] = f[k] || '';
+      vals['on' + cap] = this.field(k);
+      vals['err' + cap] = errs[k] || '';
+    });
+    return Object.assign(vals, {
+      questionOptions: [
+        { value: 'q1', label: 'Name of your first school?' },
+        { value: 'q2', label: 'Mother\u2019s maiden name?' },
+        { value: 'q3', label: 'Community where you were born?' },
+        { value: 'q4', label: 'Name of your first pet?' }
+      ],
+      paperlessYes: s.paperless === 'yes',
+      paperlessNo: s.paperless === 'no',
+      setPaperlessYes: () => this.setState({ paperless: 'yes' }),
+      setPaperlessNo: () => this.setState({ paperless: 'no' }),
+      consentYes: s.consent === 'yes',
+      consentNo: s.consent === 'no',
+      setConsentYes: () => this.setState({ consent: 'yes' }),
+      setConsentNo: () => this.setState({ consent: 'no' }),
+      terms: s.terms,
+      onTerms: () => this.setState({ terms: !s.terms }),
+      modalOpen: !!s.modal,
+      modalTitle: s.modal === 'privacy' ? 'Privacy Policy' : 'Terms & Conditions',
+      modalIntro: s.modal === 'privacy'
+        ? 'This notice explains what Guyana Power & Light collects when you register for web access, why it is collected, and how long it is kept.'
+        : 'These terms govern your use of the Guyana Power & Light web access account. Read them before you register.',
+      modalClauses: s.modal === 'privacy' ? [
+        { heading: 'What we collect', body: 'Your name, email address, telephone numbers, and the customer, account and meter numbers printed on your bill. We do not collect your national identification number at registration.' },
+        { heading: 'Why we collect it', body: 'To match your online account to your electricity service, to send you bills and outage notices for your area, and to respond when you report a fault.' },
+        { heading: 'Who it is shared with', body: 'Your details are used within GPL only. They are not sold, and they are not shared with third parties except where GPL is required to do so by law.' },
+        { heading: 'How long we keep it', body: 'For as long as your account is active, and for a further period after closure as required by GPL record-keeping obligations.' },
+        { heading: 'Your choices', body: 'You may change your contact preferences, correct your details, or ask GPL to close your online account at any time from your account settings or at any GPL office.' }
+      ] : [
+        { heading: 'Your account', body: 'You are responsible for keeping your password and security answer confidential. Notify GPL immediately if you believe someone else has gained access to your account.' },
+        { heading: 'Accuracy of information', body: 'The customer, account and meter numbers you supply must match a live GPL service. Registration may be refused or reversed where details cannot be verified.' },
+        { heading: 'Use of the service', body: 'Web access is provided for managing your own electricity service. It must not be used to access another customer\u2019s account or to interfere with the operation of the platform.' },
+        { heading: 'Outage information', body: 'Outage notices and restoration estimates are published in good faith based on the information available at the time. Estimates may change as work progresses.' },
+        { heading: 'Changes to these terms', body: 'GPL may update these terms. Where a change materially affects you, notice will be given through the platform or by email before it takes effect.' }
+      ],
+      openTerms: (e) => { e.preventDefault(); this.setState({ modal: 'terms' }); },
+      openPrivacy: (e) => { e.preventDefault(); this.setState({ modal: 'privacy' }); },
+      closeModal: () => this.setState({ modal: null }),
+      stopPropagation: (e) => e.stopPropagation(),
+      acceptTerms: () => this.setState({ terms: true, modal: null }),
+      billOpen: !!s.bill,
+      openBill: () => this.setState({ bill: true }),
+      closeBill: () => this.setState({ bill: false })
+    });
+  }
+}
+
+</script>
+</body>
+</html>

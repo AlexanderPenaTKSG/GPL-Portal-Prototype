@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPL — Outage map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: Inter, system-ui, sans-serif; background: #eef2f8; color: var(--fg-1);
+    --agency-accent: #404293; --agency-accent-strong: #323373;
+    --agency-accent-soft: rgba(64,66,147,0.12); --agency-contrast: #ffffff;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  a { color: #404293; text-decoration: none; }
+  a:hover { color: #323373; }
+  #map { flex: 1; min-height: 0; background: #dfe7f1; }
+  .leaflet-container { font-family: Inter, system-ui, sans-serif; }
+  .pin {
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 999px; color: #fff; font-weight: 700; font-size: 12.5px;
+    border: 2.5px solid #fff; box-shadow: 0 3px 10px rgba(19,28,46,0.34);
+  }
+  .pin.unplanned { background: #be2a34; }
+  .pin.planned { background: #c47d12; }
+  .pin.restored { background: #0e8d8a; }
+  .pin.mine { box-shadow: 0 0 0 5px rgba(64,66,147,0.34), 0 3px 10px rgba(19,28,46,0.34); }
+  .pin { transition: transform 180ms cubic-bezier(0.2,0.8,0.3,1), box-shadow 180ms cubic-bezier(0.2,0.8,0.3,1), opacity 180ms ease; cursor: pointer; }
+  .pin:hover { transform: scale(1.08); }
+  .pin.active {
+    transform: scale(1.22);
+    border-color: #131c2e;
+    box-shadow: 0 0 0 4px rgba(19,28,46,0.16), 0 6px 16px rgba(19,28,46,0.4);
+    font-size: 14px;
+  }
+  .pin.active.mine { box-shadow: 0 0 0 6px rgba(64,66,147,0.38), 0 6px 16px rgba(19,28,46,0.4); }
+  .map-has-selection .pin:not(.active) { opacity: 0.55; }
+  .leaflet-marker-icon:has(.pin.active) { z-index: 1000 !important; }
+  .zone-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(19,28,46,0.42); white-space: nowrap; text-shadow: 0 1px 0 #fff, 0 0 6px #fff;
+  }
+  .btn {
+    cursor: pointer; border: 0; font-family: inherit; display: inline-flex; align-items: center;
+    gap: 7px; height: 38px; padding: 0 15px; border-radius: 999px; font-size: 13.5px; font-weight: 600;
+    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  }
+  .btn-primary { background: var(--agency-accent); color: #fff; }
+  .btn-primary:hover { background: var(--agency-accent-strong); }
+  .btn-ghost { background: #fff; color: var(--fg-2); border: 1px solid rgba(19,28,46,0.16); }
+  .btn-ghost:hover { border-color: var(--agency-accent); color: var(--agency-accent); }
+  #panel {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1000;
+    background: #fff; border-top: 1px solid rgba(19,28,46,0.12);
+    box-shadow: 0 -10px 30px rgba(19,28,46,0.16);
+    border-radius: 18px 18px 0 0; padding: 18px 20px 20px;
+    transform: translateY(105%); transition: transform 260ms cubic-bezier(0.2,0.8,0.3,1);
+    max-height: 62%; overflow: auto;
+  }
+  #panel.open { transform: translateY(0); }
+  @media (min-width: 860px) {
+    #panel { left: auto; right: 16px; bottom: 16px; width: 380px; border-radius: 18px;
+      transform: translateX(120%); max-height: calc(100% - 32px); }
+    #panel.open { transform: translateX(0); }
+  }
+  .strip { display: flex; align-items: flex-start; gap: 0; }
+  .strip-step { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+  .strip-bar { height: 5px; border-radius: 999px; }
+  .strip-label { font-size: 11px; font-weight: 700; line-height: 1.3; }
+  .fact { flex: 1 1 130px; min-width: 0; background: var(--surface-2, #f4f7fb); border-radius: 12px; padding: 11px 13px; display: flex; flex-direction: column; gap: 3px; }
+  .fact-k { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-4); }
+  .fact-v { font-size: 15px; font-weight: 700; color: var(--fg-1); margin-top: 3px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 999px; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(19,28,46,0.3); flex: none; }
+</style>
+</head>
+<body>
+
+<header style="flex:none; background:#fff; border-bottom:1px solid rgba(19,28,46,0.10); padding:14px clamp(14px,3vw,22px); display:flex; flex-wrap:wrap; gap:12px 18px; align-items:center; justify-content:space-between;">
+  <div style="min-width:0;">
+    <h1 style="font-size:17px; font-weight:700; letter-spacing:-0.01em;">Outage map</h1>
+    <p id="stamp" style="font-size:12.5px; color:var(--fg-3); margin-top:2px;">Loading outages…</p>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+    <span style="display:flex; align-items:center; gap:8px; padding:6px 12px 6px 10px; border-radius:999px; background:var(--surface-2,#f4f7fb);">
+      <span class="legend-dot" style="background:#be2a34;"></span><span style="font-size:12.5px; font-weight:600; color:var(--fg-2);">Unplanned</span>
+      <span class="legend-dot" style="background:#c47d12; margin-left:6px;"></span><span style="font-size:12.5px; font-weight:600; color:var(--fg-2);">Planned</span>
+      <span class="legend-dot" style="background:#0e8d8a; margin-left:6px;"></span><span style="font-size:12.5px; font-weight:600; color:var(--fg-2);">Restored</span>
+    </span>
+    <button id="scope" class="btn btn-primary" type="button">View all Guyana outages</button>
+  </div>
+</header>
+
+<div style="position:relative; flex:1; min-height:0; display:flex;">
+  <div id="map"></div>
+
+  <div style="position:absolute; top:12px; left:12px; z-index:1000; background:#fff; border:1px solid rgba(19,28,46,0.12); border-radius:14px; box-shadow:0 4px 14px rgba(19,28,46,0.12); padding:12px 14px; display:flex; gap:16px;">
+    <span style="display:flex; flex-direction:column; gap:2px;">
+      <span class="fact-k">Active outages</span>
+      <span id="count-active" class="fact-v">—</span>
+    </span>
+    <span style="display:flex; flex-direction:column; gap:2px;">
+      <span class="fact-k">Customers affected</span>
+      <span id="count-cust" class="fact-v">—</span>
+    </span>
+  </div>
+
+  <div id="panel">
+    <div style="display:flex; align-items:flex-start; gap:12px;">
+      <div style="flex:1; min-width:0;">
+        <div id="p-eyebrow" style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);"></div>
+        <h2 id="p-title" style="font-size:17px; font-weight:700; letter-spacing:-0.01em; margin-top:3px;"></h2>
+        <p id="p-zone" style="font-size:13px; color:var(--fg-3); margin-top:3px;"></p>
+      </div>
+      <button id="p-close" class="btn btn-ghost" type="button" aria-label="Close" style="flex:none; width:36px; height:36px; padding:0; justify-content:center; border-radius:11px;">✕</button>
+    </div>
+
+    <div class="strip" id="p-strip" style="margin-top:18px;"></div>
+
+    <div style="display:flex; flex-wrap:wrap; gap:9px; margin-top:16px;">
+      <span class="fact"><span class="fact-k">Customers affected</span><span id="p-cust" class="fact-v"></span></span>
+      <span class="fact"><span class="fact-k">Estimated restoration</span><span id="p-eta" class="fact-v"></span></span>
+    </div>
+
+    <p id="p-detail" style="font-size:13.5px; line-height:1.6; color:var(--fg-2); margin-top:14px;"></p>
+    <p id="p-note" style="font-size:12px; line-height:1.55; color:var(--fg-4); margin-top:12px;"></p>
+  </div>
+</div>
+
+<script>
+// Real coordinates for every location shown. Nothing here is placed by eye.
+const OUTAGES = [
+  { ref: 'OUT-4903', kind: 'unplanned', mine: true, title: 'Sheriff Street and Lamaha Street',
+    place: 'Georgetown', zone: 'Demerara', feeder: 'Feeder GT-04', lat: 6.8013, lon: -58.1551,
+    stage: 2, customers: 1420, eta: '18:00 to 20:00 today', reports: 12,
+    detail: 'A transmission and distribution crew is on site. The fault is on the 13.8 kV feeder serving the area.' },
+  { ref: 'OUT-4897', kind: 'unplanned', title: 'Republic Avenue', place: 'Linden', zone: 'Demerara',
+    feeder: 'Feeder LN-02', lat: 6.0000, lon: -58.3000, stage: 1, customers: 640,
+    eta: 'Not yet set', detail: 'Reported by customers and confirmed by the control room. A crew is being assigned.' },
+  { ref: 'OUT-4884', kind: 'unplanned', title: 'Corentyne Coast road', place: 'Corriverton', zone: 'Berbice',
+    feeder: 'Feeder BC-07', lat: 5.8900, lon: -57.1600, stage: 3, customers: 310,
+    eta: 'Within the hour', detail: 'A fallen pole has been replaced and the crew is energising the line section by section.' },
+  { ref: 'OUT-4870', kind: 'planned', title: 'Feeder replacement', place: 'Diamond Housing Scheme', zone: 'Demerara',
+    feeder: 'Feeder DM-11', lat: 6.6667, lon: -58.2333, stage: 0, customers: 2100,
+    eta: '09:00 to 14:00 on 14 August', detail: 'Planned interruption while a feeder on the Diamond line is replaced. Scheduled and notified in advance.' },
+  { ref: 'OUT-4866', kind: 'planned', title: 'Substation maintenance', place: 'Anna Regina', zone: 'Essequibo',
+    feeder: 'Feeder EQ-03', lat: 7.2650, lon: -58.5070, stage: 0, customers: 870,
+    eta: '08:00 to 12:00 on 16 August', detail: 'Planned maintenance at the Anna Regina substation.' },
+  { ref: 'OUT-4855', kind: 'restored', title: 'Main Street', place: 'New Amsterdam', zone: 'Berbice',
+    feeder: 'Feeder BC-02', lat: 6.2470, lon: -57.5205, stage: 4, customers: 0,
+    eta: 'Restored 22:15 yesterday', detail: 'Supply was interrupted and restored the same evening.' },
+  { ref: 'OUT-4849', kind: 'restored', title: 'Bartica landing', place: 'Bartica', zone: 'Essequibo',
+    feeder: 'Feeder EQ-08', lat: 6.4000, lon: -58.6167, stage: 4, customers: 0,
+    eta: 'Restored 14:40 yesterday', detail: 'A damaged service line was repaired and supply restored.' }
+];
+
+const STAGES = ['Reported', 'Crew assigned', 'In progress', 'Restored'];
+// A planned interruption has not been reported by anyone — it starts scheduled.
+const PLANNED_STAGES = ['Scheduled', 'Crew assigned', 'In progress', 'Completed'];
+const TONE = { unplanned: '#be2a34', planned: '#c47d12', restored: '#0e8d8a' };
+
+const map = L.map('map', { zoomControl: true, attributionControl: true });
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors', maxZoom: 18
+}).addTo(map);
+
+const MINE = OUTAGES.find(o => o.mine) || OUTAGES[0];
+const NATIONAL_BOUNDS = () => L.latLngBounds(OUTAGES.map(o => [o.lat, o.lon])).pad(0.55);
+// Opened from the planned-work card the map is a network-wide view; opened for
+// a customer's own outage it frames their address first.
+let national = new URLSearchParams(location.search).get('scope') === 'all';
+if (national) map.fitBounds(NATIONAL_BOUNDS());
+else map.setView([MINE.lat, MINE.lon], 13);
+
+// ---- Zone shading, built from the real national polygon ----------------------
+// Guyana's counties are divided by the Essequibo and Berbice rivers. GPL's GIS
+// layer is the only authoritative source for those lines (BRD P13 — the
+// feeder-to-area mapping is still a manual document), so the shading here takes
+// the real Natural Earth national outline and splits it at the longitudes of the
+// two river mouths. The coast, where the customers are, is accurate; the
+// interior division is a straight line and is labelled as indicative.
+const ESSEQUIBO_MOUTH = -58.60, BERBICE_MOUTH = -57.55;
+const ZONES = [
+  { name: 'Essequibo', min: -180, max: ESSEQUIBO_MOUTH, at: [6.9, -58.95] },
+  { name: 'Demerara', min: ESSEQUIBO_MOUTH, max: BERBICE_MOUTH, at: [6.55, -58.05] },
+  { name: 'Berbice', min: BERBICE_MOUTH, max: 180, at: [6.05, -57.25] }
+];
+
+// Sutherland–Hodgman clip of a ring against a vertical line.
+function clipHalf(ring, lon, keepLeft) {
+  const out = [];
+  const inside = p => keepLeft ? p[0] <= lon : p[0] >= lon;
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i], b = ring[(i + 1) % ring.length];
+    const ia = inside(a), ib = inside(b);
+    if (ia) out.push(a);
+    if (ia !== ib) {
+      const t = (lon - a[0]) / (b[0] - a[0]);
+      out.push([lon, a[1] + t * (b[1] - a[1])]);
+    }
+  }
+  return out;
+}
+
+const zoneLayer = L.layerGroup().addTo(map);
+const zoneLabels = [];
+
+d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(topo => {
+  const countries = topojson.feature(topo, topo.objects.countries);
+  const guyana = countries.features.find(f => f.properties && f.properties.name === 'Guyana');
+  if (!guyana) return;
+
+  const rings = guyana.geometry.type === 'Polygon'
+    ? guyana.geometry.coordinates
+    : guyana.geometry.coordinates.flat();
+
+  ZONES.forEach(z => {
+    const shaped = rings.map(r => {
+      let ring = r.slice();
+      if (z.min > -180) ring = clipHalf(ring, z.min, false);
+      if (ring.length && z.max < 180) ring = clipHalf(ring, z.max, true);
+      return ring;
+    }).filter(r => r.length > 2);
+    if (!shaped.length) return;
+
+    L.geoJSON({ type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: shaped } }, {
+      style: { color: '#404293', weight: 1.6, opacity: 0.55, fillColor: '#404293', fillOpacity: 0.05, dashArray: '6 5' },
+      interactive: false
+    }).addTo(zoneLayer);
+
+    const label = L.marker(z.at, {
+      interactive: false,
+      icon: L.divIcon({ className: '', html: '<span class="zone-label">' + z.name + '</span>', iconSize: [90, 16], iconAnchor: [45, 8] })
+    }).addTo(zoneLayer);
+    zoneLabels.push(label);
+  });
+  syncZones();
+}).catch(() => {
+  document.getElementById('stamp').textContent =
+    'Outage list loaded. Zone outlines could not be loaded — check the connection.';
+});
+
+// Zone outlines only make sense at national scale; up close they are noise.
+function syncZones() {
+  const show = map.getZoom() <= 9;
+  zoneLayer.eachLayer(l => {
+    const el = l.getElement && l.getElement();
+    if (el) el.style.display = show ? '' : 'none';
+    if (l.setStyle && !l.getElement) l.setStyle({ opacity: show ? 0.55 : 0, fillOpacity: show ? 0.05 : 0 });
+  });
+  zoneLayer.eachLayer(l => { if (l.setStyle) l.setStyle({ opacity: show ? 0.55 : 0, fillOpacity: show ? 0.05 : 0 }); });
+}
+map.on('zoomend', syncZones);
+
+// ---- Markers ----------------------------------------------------------------
+const markers = {};
+OUTAGES.forEach(o => {
+  const size = o.customers > 1500 ? 40 : (o.customers > 500 ? 34 : 28);
+  const cls = 'pin ' + o.kind + (o.mine ? ' mine' : '');
+  const glyph = o.kind === 'planned' ? '◷' : (o.kind === 'restored' ? '✓' : '⚡');
+  const m = L.marker([o.lat, o.lon], {
+    title: o.ref + ' — ' + o.place,
+    icon: L.divIcon({
+      className: '',
+      html: '<div class="' + cls + '" style="width:' + size + 'px;height:' + size + 'px;">' + glyph + '</div>',
+      iconSize: [size, size], iconAnchor: [size / 2, size / 2]
+    })
+  }).addTo(map);
+  m.on('click', () => { setActive(o.ref); open(o); });
+  markers[o.ref] = m;
+});
+
+// ---- Selection --------------------------------------------------------------
+// Clicking a circle marks it active: it grows, takes a dark ring and pulls the
+// other pins back so the selected outage reads against the panel beside it.
+let activeRef = null;
+function setActive(ref) {
+  activeRef = ref;
+  document.body.classList.toggle('map-has-selection', !!ref);
+  Object.keys(markers).forEach(k => {
+    const el = markers[k].getElement();
+    const pin = el && el.querySelector('.pin');
+    if (pin) pin.classList.toggle('active', k === ref);
+  });
+}
+
+// ---- Detail panel -----------------------------------------------------------
+const panel = document.getElementById('panel');
+function open(o) {
+  const labels = o.kind === 'planned' ? PLANNED_STAGES : STAGES;
+  const tone = TONE[o.kind];
+  document.getElementById('p-eyebrow').textContent =
+    (o.kind === 'planned' ? 'Planned interruption' : (o.kind === 'restored' ? 'Restored' : 'Unplanned outage')) + ' · ' + o.ref;
+  document.getElementById('p-title').textContent = o.title;
+  document.getElementById('p-zone').textContent = o.place + ' · ' + o.zone + ' · ' + o.feeder;
+  document.getElementById('p-cust').textContent = o.customers ? o.customers.toLocaleString('en-US') : 'None now';
+  document.getElementById('p-eta').textContent = o.eta;
+  document.getElementById('p-detail').textContent = o.detail;
+  document.getElementById('p-note').textContent = o.mine
+    ? 'This is the outage affecting your address. You are one of ' + (o.reports || 1) + ' customers who have reported it.'
+    : 'Customer counts come from GPL\u2019s feeder records and are indicative until the GIS layer is connected.';
+
+  document.getElementById('p-strip').innerHTML = labels.map((l, i) => {
+    const done = i < o.stage, active = i === o.stage;
+    return '<span class="strip-step" style="padding-right:' + (i < labels.length - 1 ? '6px' : '0') + '">'
+      + '<span class="strip-bar" style="background:' + (done || active ? tone : 'rgba(19,28,46,0.12)') + '"></span>'
+      + '<span class="strip-label" style="color:' + (active ? tone : (done ? 'var(--fg-2)' : 'var(--fg-4)')) + '">' + l + '</span>'
+      + '</span>';
+  }).join('');
+
+  panel.classList.add('open');
+  map.panTo([o.lat, o.lon], { animate: true });
+}
+document.getElementById('p-close').addEventListener('click', () => { panel.classList.remove('open'); setActive(null); });
+map.on('click', () => { panel.classList.remove('open'); setActive(null); });
+
+// ---- Scope toggle -----------------------------------------------------------
+const scopeBtn = document.getElementById('scope');
+function syncScopeLabel() {
+  scopeBtn.textContent = national ? 'Focus on my area' : 'View all Guyana outages';
+}
+syncScopeLabel();
+scopeBtn.addEventListener('click', () => {
+  national = !national;
+  if (national) {
+    map.fitBounds(NATIONAL_BOUNDS());
+    panel.classList.remove('open');
+    setActive(null);
+  } else {
+    map.setView([MINE.lat, MINE.lon], 13);
+    setActive(MINE.ref);
+    open(MINE);
+  }
+  syncScopeLabel();
+});
+
+// ---- Counters ---------------------------------------------------------------
+const active = OUTAGES.filter(o => o.kind !== 'restored');
+document.getElementById('count-active').textContent = active.length;
+document.getElementById('count-cust').textContent =
+  active.reduce((t, o) => t + o.customers, 0).toLocaleString('en-US');
+document.getElementById('stamp').textContent =
+  'Last updated 16:05 today · ' + active.length + ' active, ' + (OUTAGES.length - active.length) + ' restored in the last 24 hours';
+
+// Opened for the customer's own outage, the panel is filled straight away so
+// the map answers their question before they touch anything. At national scale
+// there is no single outage to lead with.
+if (!national) { setActive(MINE.ref); open(MINE); }
+</script>
+</body>
+</html>

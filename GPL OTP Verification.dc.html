@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #ffffff; font-family: Inter, system-ui, sans-serif; }
+  a { color: #2d2e67; text-decoration: none; }
+  a:hover { color: #1d1e42; }
+  .otp-box:focus { outline: none; border-color: #2d2e67; background: #ffffff; box-shadow: 0 0 0 3px rgba(45,46,103,0.28); }
+  .otp-box:disabled { color: #94a2b8; cursor: not-allowed; }
+</style>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#2d2e67"></rect><text x="50" y="62" font-family="Inter, sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">GPL</text></svg></template>
+</helmet>
+
+<div style="--agency-accent:#2d2e67; --agency-accent-strong:#1d1e42; --agency-accent-soft:rgba(45,46,103,0.10); --agency-accent-ring:rgba(45,46,103,0.30); --agency-tint:#2d2e67; --agency-contrast:#ffffff; min-height:100vh; display:flex; flex-wrap:wrap; font-family:var(--font-sans);">
+
+  <div style="flex:0 1 900px; min-width:320px; height:100vh; position:sticky; top:0; overflow:hidden; background:linear-gradient(180deg, rgb(29,30,66) 0%, rgb(45,46,103) 100%); display:flex; flex-direction:column; justify-content:space-between; padding:clamp(28px,5vw,48px);">
+    <img src="uploads/coat-of-arms-watermark.png" alt="" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:380px; opacity:0.5; pointer-events:none; user-select:none;"/>
+    <div style="position:relative; display:flex; flex-direction:column; gap:28px;">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <span style="font-size:38px; font-weight:700; letter-spacing:-0.02em; line-height:1.12; color:#ffffff;">GPL</span>
+        <span style="font-size:15px; font-weight:400; color:rgba(255,255,255,0.72);">Guyana Power and Light</span>
+        <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(212,175,55);">One people &middot; One nation &middot; One destiny</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="width:64px; height:3px; border-radius:2px; background:rgb(212,175,55);"></div>
+        <span style="font-size:clamp(17px,2vw,20px); font-weight:400; line-height:1.4; color:#ffffff; max-width:26ch;">Almost there &mdash; verify your account to finish setting up MyGPL.</span>
+      </div>
+    </div>
+    <div style="position:relative; display:flex; align-items:center; gap:14px;">
+      <span style="flex:none; width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.10); display:inline-flex; align-items:center; justify-content:center; overflow:hidden;">
+        <img src="assets/gpl-logo.jpg" alt="GPL logo" style="width:100%; height:100%; object-fit:cover;"/>
+      </span>
+      <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(165,181,193);">Guyana Power and Light</span>
+    </div>
+  </div>
+
+  <div ref="{{ setRightPanelRef }}" style="flex:1 1 340px; min-width:0; background:#ffffff; padding:clamp(24px,4vw,48px); display:flex; justify-content:center;">
+    <div style="width:100%; max-width:720px; display:flex; flex-direction:column; gap:24px;">
+
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span style="font-size:28px; font-weight:600; letter-spacing:-0.01em; color:rgb(11,29,58);">Verify your account</span>
+        <p style="font-size:14px; font-weight:500; line-height:1.55; color:rgb(107,114,128);">{{ subline }}</p>
+        <p style="font-size:13px; line-height:1.55; color:rgb(156,163,175);">Once you verify, you are signed in. You already set your password when you registered.</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+          <span style="font-size:13px; font-weight:700; color:var(--agency-accent);">Step 2 of 2 &middot; Verify</span>
+        </div>
+        <div style="height:6px; border-radius:999px; background:rgba(19,28,46,0.09); overflow:hidden;">
+          <div style="width:100%; height:100%; border-radius:999px; background:var(--agency-accent);"></div>
+        </div>
+      </div>
+
+      <sc-if value="{{ choosing }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="font-size:14px; font-weight:700; color:var(--fg-1);">Where should we send the code?</div>
+          <button type="button" onClick="{{ pickSms }}" style="{{ smsOptionStyle }}">
+            <span style="{{ smsChipStyle }}"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><rect x="5" y="2" width="14" height="20" rx="2"></rect><path d="M12 18h.01"></path></svg></span>
+            <span style="display:flex; flex-direction:column; gap:2px; text-align:left; min-width:0; flex:1 1 auto;">
+              <span style="font-size:13px; font-weight:600; color:var(--fg-3);">Text message</span>
+              <span style="font-size:15px; font-weight:700; color:var(--fg-1);">{{ mobile }}</span>
+            </span>
+            <span style="{{ smsRadioStyle }}"></span>
+          </button>
+          <button type="button" onClick="{{ pickEmail }}" style="{{ emailOptionStyle }}">
+            <span style="{{ emailChipStyle }}"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span>
+            <span style="display:flex; flex-direction:column; gap:2px; text-align:left; min-width:0; flex:1 1 auto;">
+              <span style="font-size:13px; font-weight:600; color:var(--fg-3);">Email</span>
+              <span style="font-size:15px; font-weight:700; color:var(--fg-1); overflow-wrap:anywhere;">{{ email }}</span>
+            </span>
+            <span style="{{ emailRadioStyle }}"></span>
+          </button>
+          <sc-if value="{{ idle }}" hint-placeholder-val="{{ true }}">
+          <sc-if value="{{ false }}">
+            <p style="font-size:13px; line-height:1.5; color:var(--fg-4); margin:0;">Standard message rates may apply. The code is valid for 10 minutes.</p>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ entering }}">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; padding:5px; gap:4px; background:var(--surface-2); border-radius:999px;">
+            <button type="button" onClick="{{ pickSms }}" style="{{ smsTabStyle }}">Mobile</button>
+            <button type="button" onClick="{{ pickEmail }}" style="{{ emailTabStyle }}">Email</button>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="flex:none; width:34px; height:34px; border-radius:11px; background:var(--agency-accent-soft); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;">
+              <sc-if value="{{ isSms }}" hint-placeholder-val="{{ true }}"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><rect x="5" y="2" width="14" height="20" rx="2"></rect><path d="M12 18h.01"></path></svg></sc-if>
+              <sc-if value="{{ isEmail }}"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></sc-if>
+            </span>
+            <div style="min-width:0;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">Code sent to</div>
+              <div style="font-size:15px; font-weight:700; color:var(--fg-1); overflow-wrap:anywhere;">{{ destination }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px;">
+            <sc-for list="{{ digits }}" as="d" hint-placeholder-count="6">
+              <input class="otp-box" inputMode="numeric" maxLength="1" aria-label="Code digit" value="{{ d.value }}" onChange="{{ d.onChange }}" onKeyDown="{{ d.onKeyDown }}" onPaste="{{ d.onPaste }}" ref="{{ d.setRef }}" disabled="{{ inputsDisabled }}" style="{{ boxStyle }}">
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ live }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:13px;">
+              <span style="display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--fg-3);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                Code expires in <span style="font-variant-numeric:tabular-nums; font-weight:700; color:var(--agency-accent);">{{ expiry }}</span>
+              </span>
+              <sc-if value="{{ canResend }}">
+                <button type="button" onClick="{{ resend }}" style="border:0; background:none; padding:0; font-family:inherit; font-size:13px; font-weight:700; color:var(--agency-accent); cursor:pointer;">Send a new code</button>
+              </sc-if>
+              <sc-if value="{{ counting }}" hint-placeholder-val="{{ true }}">
+                <span style="font-weight:600; color:var(--fg-4); font-variant-numeric:tabular-nums;">Resend in {{ countdown }}s</span>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ blocked }}">
+            <div style="background:var(--status-error-bg); border:1px solid rgba(194,54,95,0.28); border-radius:14px; padding:13px 15px; display:flex; gap:10px; align-items:flex-start;">
+              <span style="flex:none; color:var(--status-error); display:inline-flex; margin-top:1px;"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></span>
+              <div style="min-width:0; flex:1 1 auto;">
+                <div style="font-size:14px; font-weight:700; color:var(--fg-1);">{{ blockedTitle }}</div>
+                <p style="font-size:13px; line-height:1.5; color:var(--fg-2); margin-top:3px;">{{ blockedDetail }}</p>
+                <button type="button" onClick="{{ resend }}" style="border:0; background:none; padding:0; margin-top:8px; font-family:inherit; font-size:13.5px; font-weight:700; color:var(--agency-accent); cursor:pointer;">Send a new code</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ wrong }}">
+            <div style="display:flex; align-items:flex-start; gap:8px; font-size:13px; font-weight:600; color:var(--status-error);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;margin-top:1px;"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
+              <span style="line-height:1.5;">{{ wrongText }}</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ resent }}">
+            <div style="display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--status-success);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+              A new code is on its way.
+            </div>
+          </sc-if>
+
+          <div style="background:var(--surface-2); border:1px dashed rgba(19,28,46,0.18); border-radius:12px; padding:11px 13px; display:flex; align-items:center; gap:9px;">
+            <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Prototype</span>
+            <span style="font-size:13px; color:var(--fg-2);">Your code is <strong style="font-variant-numeric:tabular-nums; letter-spacing:0.14em;">{{ demoCode }}</strong></span>
+          </div>
+        </div>
+      </sc-if>
+
+      <div ref="{{ setFooterRef }}" style="{{ footerBarStyle }}">
+        <div style="max-width:720px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:14px; font-weight:600;">
+          <sc-if value="{{ entering }}">
+            <button type="button" onClick="{{ backToChoose }}" style="border:0; background:none; padding:0; font-family:inherit; font-size:14px; font-weight:600; color:var(--agency-accent); cursor:pointer; display:inline-flex; align-items:center; gap:7px;"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg> Use another method</button>
+          </sc-if>
+          <sc-if value="{{ choosing }}" hint-placeholder-val="{{ true }}">
+            <a href="GPL Registration Final.dc.html" style="display:inline-flex; align-items:center; gap:7px;"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg> Change details</a>
+          </sc-if>
+          <sc-if value="{{ idle }}">
+            <span onClick="{{ sendCode }}" style="display:inline-flex; cursor:pointer;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" hint-size="auto,50px">Send code to {{ channelWord }}</x-import>
+            </span>
+          </sc-if>
+          <sc-if value="{{ sending }}">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" disabled="{{ true }}" hint-size="auto,50px">Sending code&#8230;</x-import>
+          </sc-if>
+          <sc-if value="{{ canVerify }}">
+            <span onClick="{{ verify }}" style="display:inline-flex; cursor:pointer; text-align:center;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" icon-right="arrow-right" hint-size="auto,50px" style="justify-content:center; text-align:center;">Verify and continue</x-import>
+            </span>
+          </sc-if>
+          <sc-if value="{{ cannotVerify }}">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" disabled="{{ true }}" hint-size="auto,50px">Verify and continue</x-import>
+          </sc-if>
+        </div>
+      </div>
+      <div style="height:80px;"></div>
+    </div>
+  </div>
+
+  <a ref="{{ setDashLink }}" href="GPL Dashboard.dc.html" aria-hidden="{{ true }}" style="display:none;">Dashboard</a>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TAB = 'flex:1 1 0; height:36px; border:0; border-radius:999px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; transition:background 140ms ease, color 140ms ease;';
+const TAB_ON = 'background:#ffffff; color:var(--agency-accent); box-shadow:0 2px 6px rgba(19,28,46,0.10);';
+const TAB_OFF = 'background:transparent; color:var(--fg-3);';
+const OPT = 'display:flex; align-items:center; gap:12px; padding:13px 14px; border-radius:16px; font-family:inherit; cursor:pointer; transition:border-color 140ms ease, background 140ms ease;';
+const OPT_ON = 'border:1.5px solid var(--agency-accent); background:var(--agency-accent-soft);';
+const OPT_OFF = 'border:1.5px solid rgba(19,28,46,0.12); background:#ffffff;';
+const CHIP = 'flex:none; width:36px; height:36px; border-radius:12px; display:inline-flex; align-items:center; justify-content:center;';
+const CHIP_ON = 'background:var(--agency-accent); color:#ffffff;';
+const CHIP_OFF = 'background:var(--surface-2); color:var(--fg-3);';
+const DOT = 'flex:none; width:18px; height:18px; border-radius:999px;';
+const DOT_ON = 'border:5px solid var(--agency-accent); background:#ffffff;';
+const DOT_OFF = 'border:1.5px solid rgba(19,28,46,0.22); background:#ffffff;';
+const BOX = 'flex:1 1 0; min-width:0; height:56px; text-align:center; font-size:22px; font-weight:700; border-radius:12px; transition:border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;';
+const BOX_LIVE = 'color:#131c2e; background:var(--surface-2); border:1.5px solid rgba(19,28,46,0.12);';
+const BOX_DEAD = 'color:#94a2b8; background:rgba(19,28,46,0.05); border:1.5px solid rgba(19,28,46,0.10);';
+const BOX_WRONG = 'color:#131c2e; background:var(--status-error-bg); border:1.5px solid rgba(194,54,95,0.45);';
+
+const STORE = 'gpl.registration';
+const MAX_ATTEMPTS = 3;
+const EMPTY = ['', '', '', '', '', ''];
+
+function saved() {
+  try { return JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { return {}; }
+}
+function newCode() {
+  let c = '';
+  for (let i = 0; i < 6; i++) c += Math.floor(Math.random() * 10);
+  return c;
+}
+
+class Component extends DCLogic {
+  state = {
+    stage: 'choose', channel: 'sms', digits: EMPTY.slice(), countdown: 30, expiry: 600,
+    resent: false, code: newCode(), attempts: 0, wrong: '', mobile: '', email: ''
+  };
+  refs = [];
+
+  componentDidMount() {
+    const s = saved();
+    this.setState({
+      mobile: (s.mobile || '').trim() || 'the mobile number on your registration',
+      email: (s.email || '').trim() || 'the email address on your registration'
+    });
+    this.tick = setInterval(() => {
+      if (this.state.stage !== 'code') return;
+      this.setState(p => ({
+        countdown: p.countdown > 0 ? p.countdown - 1 : 0,
+        expiry: p.expiry > 0 ? p.expiry - 1 : 0
+      }));
+    }, 1000);
+    this.measureFooter = () => {
+      if (this.rightPanelEl) {
+        const rect = this.rightPanelEl.getBoundingClientRect();
+        this.setState({ footerLeft: Math.round(rect.left) });
+      }
+    };
+    this.measureFooter();
+    window.addEventListener('resize', this.measureFooter);
+  }
+  componentWillUnmount() { clearInterval(this.tick); clearTimeout(this.sendTimer); window.removeEventListener('resize', this.measureFooter); }
+
+  send() {
+    this.setState({ stage: 'sending' });
+    this.sendTimer = setTimeout(() => {
+      this.reset({ stage: 'code' });
+    }, 1100);
+  }
+
+  reset(patch) {
+    this.setState(Object.assign({
+      digits: EMPTY.slice(), countdown: 30, expiry: 600, resent: false,
+      code: newCode(), attempts: 0, wrong: ''
+    }, patch));
+    setTimeout(() => { if (this.refs[0]) this.refs[0].focus(); }, 60);
+  }
+
+  verify() {
+    const entered = this.state.digits.join('');
+    if (entered === this.state.code) {
+      const rec = saved();
+      rec.verified = true;
+      rec.verifiedChannel = this.state.channel;
+      try {
+        localStorage.setItem(STORE, JSON.stringify(rec));
+        sessionStorage.setItem('gpl.justVerified', this.state.channel);
+      } catch (e) {}
+      if (this.dashLink) this.dashLink.click();
+      return;
+    }
+    const attempts = this.state.attempts + 1;
+    const left = MAX_ATTEMPTS - attempts;
+    this.setState({
+      attempts: attempts,
+      digits: EMPTY.slice(),
+      wrong: left > 0
+        ? 'That code is not right. ' + (left === 1 ? 'One attempt left' : left + ' attempts left') + ' before you need a new code.'
+        : ''
+    });
+    if (left > 0) setTimeout(() => { if (this.refs[0]) this.refs[0].focus(); }, 40);
+  }
+
+  setDigit(i, v) {
+    const digits = this.state.digits.slice();
+    digits[i] = v;
+    this.setState({ digits: digits, resent: false });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const sms = s.channel === 'sms';
+    const m = Math.floor(s.expiry / 60);
+    const sec = s.expiry % 60;
+    const expired = s.stage === 'code' && s.expiry === 0;
+    const locked = s.attempts >= MAX_ATTEMPTS;
+    const dead = expired || locked;
+    const complete = s.digits.every(d => d !== '');
+
+    const digits = s.digits.map((value, i) => ({
+      value: value,
+      setRef: (el) => { this.refs[i] = el; },
+      onChange: (e) => {
+        const v = (e.target.value || '').replace(/\D/g, '').slice(-1);
+        this.setDigit(i, v);
+        if (v && this.refs[i + 1]) this.refs[i + 1].focus();
+      },
+      onKeyDown: (e) => {
+        if (e.key === 'Backspace' && !s.digits[i] && this.refs[i - 1]) {
+          this.refs[i - 1].focus();
+          this.setDigit(i - 1, '');
+        }
+        if (e.key === 'ArrowLeft' && this.refs[i - 1]) this.refs[i - 1].focus();
+        if (e.key === 'ArrowRight' && this.refs[i + 1]) this.refs[i + 1].focus();
+      },
+      onPaste: (e) => {
+        const text = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+        if (!text) return;
+        e.preventDefault();
+        const next = s.digits.slice();
+        for (let k = 0; k < text.length && i + k < 6; k++) next[i + k] = text[k];
+        this.setState({ digits: next, resent: false });
+        const last = Math.min(i + text.length, 5);
+        if (this.refs[last]) this.refs[last].focus();
+      }
+    }));
+
+    return {
+      digits: digits,
+      mobile: s.mobile,
+      email: s.email,
+      destination: sms ? s.mobile : s.email,
+      channelWord: sms ? 'mobile' : 'email',
+      isSms: sms,
+      isEmail: !sms,
+      choosing: s.stage !== 'code',
+      entering: s.stage === 'code',
+      idle: s.stage === 'choose',
+      sending: s.stage === 'sending',
+      live: !dead,
+      blocked: dead,
+      blockedTitle: locked ? 'Too many attempts' : 'Code expired',
+      blockedDetail: locked
+        ? 'For your security this code is now closed. Ask for a new one and try again.'
+        : 'The ten minutes are up. Ask for a new code to carry on.',
+      wrong: !!s.wrong && !dead,
+      wrongText: s.wrong,
+      resent: s.resent && !s.wrong,
+      canVerify: s.stage === 'code' && complete && !dead,
+      cannotVerify: s.stage === 'code' && !(complete && !dead),
+      inputsDisabled: dead,
+      boxStyle: BOX + (dead ? BOX_DEAD : (s.wrong ? BOX_WRONG : BOX_LIVE)),
+      demoCode: s.code,
+      countdown: s.countdown,
+      canResend: s.countdown === 0,
+      counting: s.countdown > 0,
+      expiry: m + ':' + (sec < 10 ? '0' + sec : sec),
+      subline: s.stage === 'code'
+        ? 'Enter the six-digit code GPL just sent you.'
+        : 'Choose where GPL should send your six-digit code.',
+      smsTabStyle: TAB + (sms ? TAB_ON : TAB_OFF),
+      emailTabStyle: TAB + (sms ? TAB_OFF : TAB_ON),
+      smsOptionStyle: OPT + (sms ? OPT_ON : OPT_OFF),
+      emailOptionStyle: OPT + (sms ? OPT_OFF : OPT_ON),
+      smsChipStyle: CHIP + (sms ? CHIP_ON : CHIP_OFF),
+      emailChipStyle: CHIP + (sms ? CHIP_OFF : CHIP_ON),
+      smsRadioStyle: DOT + (sms ? DOT_ON : DOT_OFF),
+      emailRadioStyle: DOT + (sms ? DOT_OFF : DOT_ON),
+      setDashLink: (el) => { this.dashLink = el; },
+      setRightPanelRef: (el) => {
+        if (this.rightPanelEl === el) return;
+        this.rightPanelEl = el;
+        if (el && this.measureFooter) setTimeout(this.measureFooter, 0);
+      },
+      setFooterRef: () => {},
+      footerBarStyle: 'position:fixed; left:' + (s.footerLeft || 0) + 'px; right:0; bottom:0; z-index:50; background:#ffffff; border-top:1px solid rgb(209,213,219); padding:16px clamp(24px,4vw,48px);',
+      verify: () => this.verify(),
+      sendCode: () => this.send(),
+      backToChoose: () => this.setState({ stage: 'choose', digits: EMPTY.slice(), wrong: '', attempts: 0 }),
+      pickSms: () => (s.stage === 'code' ? this.reset({ channel: 'sms', resent: true }) : this.setState({ channel: 'sms' })),
+      pickEmail: () => (s.stage === 'code' ? this.reset({ channel: 'email', resent: true }) : this.setState({ channel: 'email' })),
+      resend: () => this.reset({ resent: true })
+    };
+  }
+}
+
+</script>
+</body>
+</html>

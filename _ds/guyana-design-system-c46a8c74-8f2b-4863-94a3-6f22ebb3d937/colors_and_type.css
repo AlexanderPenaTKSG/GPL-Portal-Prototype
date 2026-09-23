@@ -1,0 +1,362 @@
+/* ==========================================================================
+   GUYANA GOVERNMENT PORTAL — Design System Foundations
+   colors_and_type.css
+
+   A modern, light-mode token system for a whole-of-government unified portal.
+   Front-end target: React Native (Generic RN + Reanimated / Tamagui). These
+   CSS custom properties are the single source of truth; RN themes map 1:1 to
+   the same names.
+
+   DESIGN INTENT (v3 — flat & modern):
+   Flat, SOLID surfaces (no glassmorphism), generous rounding, calm neutral
+   ink, and one vivid accent per agency. Motion is a first-class citizen:
+   snappy, spring-eased micro-interactions on every control (hover lift,
+   press, focus, selection) — expressive but purposeful, never noisy.
+   Sizes are defined in px (not rem) so design-tool / Figma exports read as
+   clean pixel values.
+
+   Load order:
+     1. @import this file (or <link>) — defines :root tokens + agency themes
+     2. Set a theme on any scope:  <div data-agency="revenue"> … </div>
+   ========================================================================== */
+
+/* ----------------------------------------------------------------------------
+   FONTS — Manrope (Google Fonts CDN). See README for vendoring instructions.
+   ---------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ======================================================================
+     1. TYPE FAMILIES
+     ====================================================================== */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', monospace;
+
+  /* ======================================================================
+     2. TYPE SCALE  (tuned for UI; px for clean design-tool export)
+     ====================================================================== */
+  --text-2xs: 13px;  /* smallest functional label */
+  --text-xs:  14px;  /* captions, meta */
+  --text-sm:  15px;  /* secondary body, dense UI */
+  --text-base:17px;  /* body */
+  --text-md:  19px;  /* lead body */
+  --text-lg:  23px;  /* card titles */
+  --text-xl:  28px;  /* section headings */
+  --text-2xl: 36px;  /* page titles */
+  --text-3xl: 48px;  /* hero */
+  --text-4xl: 64px;  /* display */
+
+  --leading-tight: 1.12;
+  --leading-snug:  1.3;
+  --leading-normal:1.55;
+  --leading-relaxed:1.7;
+
+  --tracking-tight: -0.02em;
+  --tracking-snug:  -0.01em;
+  --tracking-normal:0;
+  --tracking-wide:  0.04em;
+  --tracking-caps:  0.08em;  /* eyebrow / overline */
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+  --weight-extra:   800;
+
+  /* ======================================================================
+     3. NEUTRAL PALETTE  (institutional ink + paper — cool, slightly blue-grey)
+     ====================================================================== */
+  --neutral-0:   #ffffff;
+  --neutral-50:  #f6f8fb;
+  --neutral-100: #eef2f7;
+  --neutral-150: #e4eaf2;
+  --neutral-200: #d6deea;
+  --neutral-300: #b9c4d6;
+  --neutral-400: #94a2b8;
+  --neutral-500: #6b7a93;
+  --neutral-600: #4e5d75;
+  --neutral-700: #38445a;
+  --neutral-800: #232e42;
+  --neutral-900: #131c2e;
+  --neutral-950: #0a1120;
+
+  /* ======================================================================
+     4. SEMANTIC INK / SURFACE  (foreground + background roles)
+     ====================================================================== */
+  --fg-1: var(--neutral-900);   /* primary text */
+  --fg-2: var(--neutral-800);   /* secondary text */
+  --fg-3: var(--neutral-600);   /* tertiary / meta */
+  --fg-4: var(--neutral-500);   /* disabled / placeholder — still readable */
+  --fg-on-accent: #ffffff;      /* text on a filled accent button */
+
+  --bg-page:  #eef2f8;          /* app canvas behind cards */
+  --bg-subtle:var(--neutral-50);/* alternate zebra / inset ground */
+  --bg-solid: var(--neutral-0); /* solid surface fallback */
+
+  /* ======================================================================
+     5. SURFACE SYSTEM  ★ FLAT & SOLID (glassmorphism removed)
+        Cards and chrome are opaque. The old --glass-* names are kept as
+        compatibility ALIASES so existing components keep resolving — they
+        now point at solid fills, and the blur tokens resolve to `none`.
+        Prefer the --surface-* names in new work.
+     ====================================================================== */
+  --surface-1: var(--neutral-0);    /* primary card / panel */
+  --surface-2: var(--neutral-50);   /* rails, inset regions */
+  --surface-3: var(--neutral-0);    /* content panels */
+  --surface-4: var(--neutral-100);  /* chips, faint fills */
+
+  --surface-border:      rgba(19, 28, 46, 0.10);
+  --surface-border-soft: rgba(19, 28, 46, 0.06);
+  --surface-hairline:    rgba(19, 28, 46, 0.08);
+
+  /* Legacy aliases (glass removed → solid). Blur is now a no-op. */
+  --glass-bg-1: var(--surface-1);
+  --glass-bg-2: var(--surface-1);
+  --glass-bg-3: var(--surface-1);
+  --glass-bg-4: var(--surface-4);
+  --glass-border:      var(--surface-border);
+  --glass-border-soft: var(--surface-border-soft);
+  --glass-hairline:    var(--surface-hairline);
+  --glass-blur:        none;   /* @kind other */
+  --glass-blur-strong: none;   /* @kind other */
+  --glass-blur-light:  none;   /* @kind other */
+  --glass-sheen: none;         /* @kind other */
+  --glass-inner: none;         /* @kind other */
+
+  /* ======================================================================
+     6. ELEVATION  (soft, diffuse — flat cards that lift on interaction)
+     ====================================================================== */
+  --shadow-xs: 0 1px 2px rgba(19, 28, 46, 0.05);
+  --shadow-sm: 0 1px 3px rgba(19, 28, 46, 0.06);
+  --shadow-md: 0 3px 8px rgba(19, 28, 46, 0.07), 0 1px 2px rgba(19, 28, 46, 0.05);
+  --shadow-lg: 0 6px 16px rgba(19, 28, 46, 0.08), 0 2px 6px rgba(19, 28, 46, 0.05);
+  --shadow-xl: 0 12px 30px rgba(19, 28, 46, 0.10), 0 4px 10px rgba(19, 28, 46, 0.06);
+  /* Accent-tinted glow for hovered/active accent surfaces (micro-interaction) */
+  --shadow-accent: 0 8px 22px var(--agency-accent-ring);
+  --elevation-glass: var(--shadow-md);  /* legacy alias — now just the shadow */
+
+  /* ======================================================================
+     7. RADII  (soft, modern — generous but not bubbly)
+     ====================================================================== */
+  --radius-xs:  6px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+  --radius-2xl: 28px;
+  --radius-pill:999px;
+
+  /* ======================================================================
+     8. SPACING  (4px base grid)
+     ====================================================================== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* ======================================================================
+     9. MOTION  ★ micro-interactions are a first-class citizen
+        Use --ease-spring for selection/press pops, --ease-out for moves,
+        --ease-emphasis for entrances. Keep durations short & snappy.
+     ====================================================================== */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);       /* @kind other */
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);      /* @kind other */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);   /* @kind other */
+  --ease-emphasis: cubic-bezier(0.2, 0.9, 0.25, 1.15);  /* @kind other */
+  --ease-glass:    var(--ease-out);                     /* @kind other */
+  --dur-snap:  120ms;   /* @kind other */
+  --dur-fast:  180ms;   /* @kind other */
+  --dur-base:  260ms;   /* @kind other */
+  --dur-slow:  420ms;   /* @kind other */
+  /* Ready-made transition recipes */
+  --tr-control: transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  --tr-surface: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+
+  /* ======================================================================
+     10. STATUS / FEEDBACK  (semantic, agency-independent)
+     ====================================================================== */
+  --status-success: #1f8a5b;
+  --status-success-bg: rgba(31, 138, 91, 0.12);
+  --status-warning: #c47d12;
+  --status-warning-bg: rgba(196, 125, 18, 0.14);
+  --status-error:   #c43d3d;
+  --status-error-bg: rgba(196, 61, 61, 0.12);
+  --status-info:    #2a6fdb;
+  --status-info-bg: rgba(42, 111, 219, 0.12);
+
+  /* ======================================================================
+     11. AGENCY THEME HOOKS  ★ the per-agency override surface
+        Override these six hooks on any scope (data-agency / inline style)
+        to re-skin everything. Default below = Ministry of Finance.
+     ====================================================================== */
+  --agency-accent:       #0f7a52;  /* primary brand color */
+  --agency-accent-strong:#0b5c3e;  /* hover / pressed / deep fills */
+  --agency-accent-soft:  rgba(15, 122, 82, 0.12);   /* tints, selected bg */
+  --agency-accent-ring:  rgba(15, 122, 82, 0.30);   /* focus ring, glow */
+  --agency-tint:         #0f7a52;  /* ambient background tint */
+  --agency-contrast:     #ffffff;  /* text on filled accent */
+}
+
+/* ============================================================================
+   AGENCY THEMES — apply with  data-agency="…"
+   One vivid, accessible accent per agency. The flat shell stays identical;
+   only these hooks change.
+   ============================================================================ */
+
+/* Ministry of Finance — emerald (default) */
+[data-agency="finance"], [data-agency="national"] {
+  --agency-accent: #0f7a52;  --agency-accent-strong: #0b5c3e;
+  --agency-accent-soft: rgba(15,122,82,0.12); --agency-accent-ring: rgba(15,122,82,0.30);
+  --agency-tint: #0f7a52; --agency-contrast: #ffffff;
+}
+/* Guyana Revenue Authority (GRA) — royal blue */
+[data-agency="revenue"], [data-agency="gra"] {
+  --agency-accent: #2563c9;  --agency-accent-strong: #1b4a9c;
+  --agency-accent-soft: rgba(37,99,201,0.12); --agency-accent-ring: rgba(37,99,201,0.30);
+  --agency-tint: #2563c9; --agency-contrast: #ffffff;
+}
+/* Home Affairs — General Register Office (GRO) — plum */
+[data-agency="gro"] {
+  --agency-accent: #8a3fa8;  --agency-accent-strong: #6d2f86;
+  --agency-accent-soft: rgba(138,63,168,0.12); --agency-accent-ring: rgba(138,63,168,0.30);
+  --agency-tint: #8a3fa8; --agency-contrast: #ffffff;
+}
+/* Home Affairs — Central Immigration & Passport Office — indigo navy */
+[data-agency="immigration"], [data-agency="passport"] {
+  --agency-accent: #3a45b0;  --agency-accent-strong: #2b3488;
+  --agency-accent-soft: rgba(58,69,176,0.12); --agency-accent-ring: rgba(58,69,176,0.30);
+  --agency-tint: #3a45b0; --agency-contrast: #ffffff;
+}
+/* Ministry of Human Services & Social Security — rose */
+[data-agency="human-services"], [data-agency="social"] {
+  --agency-accent: #c2365f;  --agency-accent-strong: #9c2b4d;
+  --agency-accent-soft: rgba(194,54,95,0.12); --agency-accent-ring: rgba(194,54,95,0.30);
+  --agency-tint: #c2365f; --agency-contrast: #ffffff;
+}
+/* National Insurance Scheme (NIS) — green */
+[data-agency="nis"] {
+  --agency-accent: #1f7a4d;  --agency-accent-strong: #175d3a;
+  --agency-accent-soft: rgba(31,122,77,0.12); --agency-accent-ring: rgba(31,122,77,0.30);
+  --agency-tint: #1f7a4d; --agency-contrast: #ffffff;
+}
+/* Ministry of Housing & Water (CH&PA) — warm amber-terracotta */
+[data-agency="housing"], [data-agency="chpa"] {
+  --agency-accent: #b45f16;  --agency-accent-strong: #8c4910;
+  --agency-accent-soft: rgba(180,95,22,0.14); --agency-accent-ring: rgba(180,95,22,0.32);
+  --agency-tint: #c86f1e; --agency-contrast: #ffffff;
+}
+/* All Ministry — Appointments (cross-government) — violet */
+[data-agency="appointments"] {
+  --agency-accent: #6d4bd8;  --agency-accent-strong: #543aad;
+  --agency-accent-soft: rgba(109,75,216,0.12); --agency-accent-ring: rgba(109,75,216,0.30);
+  --agency-tint: #6d4bd8; --agency-contrast: #ffffff;
+}
+
+/* ============================================================================
+   SEMANTIC TEXT ROLES — apply as classes (h1…caption) or copy into components.
+   ============================================================================ */
+.ds-display {
+  font-family: var(--font-sans); font-weight: var(--weight-extra);
+  font-size: var(--text-4xl); line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight); color: var(--fg-1);
+}
+.ds-h1 {
+  font-family: var(--font-sans); font-weight: var(--weight-bold);
+  font-size: var(--text-2xl); line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight); color: var(--fg-1);
+}
+.ds-h2 {
+  font-family: var(--font-sans); font-weight: var(--weight-bold);
+  font-size: var(--text-xl); line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-snug); color: var(--fg-1);
+}
+.ds-h3 {
+  font-family: var(--font-sans); font-weight: var(--weight-semibold);
+  font-size: var(--text-lg); line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-snug); color: var(--fg-1);
+}
+.ds-lead {
+  font-family: var(--font-sans); font-weight: var(--weight-regular);
+  font-size: var(--text-md); line-height: var(--leading-relaxed); color: var(--fg-2);
+}
+.ds-body {
+  font-family: var(--font-sans); font-weight: var(--weight-regular);
+  font-size: var(--text-base); line-height: var(--leading-normal); color: var(--fg-2);
+}
+.ds-small {
+  font-family: var(--font-sans); font-weight: var(--weight-medium);
+  font-size: var(--text-sm); line-height: var(--leading-normal); color: var(--fg-2);
+}
+.ds-caption {
+  font-family: var(--font-sans); font-weight: var(--weight-medium);
+  font-size: var(--text-xs); line-height: var(--leading-normal); color: var(--fg-3);
+}
+.ds-eyebrow {
+  font-family: var(--font-sans); font-weight: var(--weight-bold);
+  font-size: var(--text-xs); line-height: 1; letter-spacing: var(--tracking-caps);
+  text-transform: uppercase; color: var(--agency-accent);
+}
+.ds-mono {
+  font-family: var(--font-mono); font-size: var(--text-sm); color: var(--fg-2);
+}
+
+/* ============================================================================
+   SURFACE UTILITY — the reusable flat, solid surface recipe.
+   Compose: <div class="surface"> … </div>  (.glass kept as a legacy alias)
+   Opaque card with a hairline + soft shadow. No blur, no sheen.
+   ============================================================================ */
+.surface, .glass {
+  position: relative;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.glass--2, .surface--2 { background: var(--surface-2); }
+.glass--3, .surface--3 { background: var(--surface-3); }
+.glass--4, .surface--4 { background: var(--surface-4); box-shadow: var(--shadow-sm); }
+/* Legacy frost opt-ins are now no-ops (glassmorphism removed) */
+.glass--frost, .glass--strong { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* ============================================================================
+   MICRO-INTERACTIONS — snappy, spring-eased feedback on every control.
+   Add .interactive to any card/tile; .press to any button/pressable.
+   Respects reduced-motion.
+   ============================================================================ */
+.interactive {
+  transition: var(--tr-surface);
+  cursor: pointer;
+  will-change: transform;
+}
+.interactive:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.interactive:active { transform: translateY(-1px) scale(0.995); transition-duration: var(--dur-snap); }
+
+.press {
+  transition: var(--tr-control);
+  will-change: transform;
+}
+.press:hover { transform: translateY(-1px); }
+.press:active { transform: translateY(0) scale(0.96); transition-duration: var(--dur-snap); }
+
+/* Accent focus ring — expressive, animated */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--agency-accent-ring);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive, .press, .focus-ring, * {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+  }
+  .interactive:hover, .press:hover { transform: none; }
+}

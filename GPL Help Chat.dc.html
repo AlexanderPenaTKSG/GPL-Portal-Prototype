@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  @keyframes gplChatIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes gplDot { 0%, 60%, 100% { opacity: 0.28; } 30% { opacity: 1; } }
+  @keyframes gplWave { 0%, 100% { transform: scaleY(0.24); } 50% { transform: scaleY(1); } }
+  @keyframes gplHalo { 0% { transform: scale(0.9); opacity: 0.55; } 70% { transform: scale(1.5); opacity: 0; } 100% { transform: scale(1.5); opacity: 0; } }
+  @keyframes gplFadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes gplSpin { to { transform: rotate(360deg); } }
+  @keyframes gplCaret { 0%, 45% { opacity: 1; } 55%, 100% { opacity: 0; } }
+</style>
+</helmet>
+
+<div style="position:fixed; right:clamp(10px,1.6vw,16px); bottom:calc(var(--gpl-footer-h, 0px) + clamp(16px,2.5vw,22px)); z-index:180; visibility:var(--gpl-launcher-vis, visible); transition:bottom 200ms ease; display:flex; flex-direction:column; align-items:flex-end; gap:12px; font-family:var(--font-sans);">
+
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ true }}">
+    <div style="width:min(392px, calc(100vw - 28px)); height:min(600px, calc(100vh - 130px - var(--gpl-footer-h, 0px))); background:#ffffff; border:1px solid var(--surface-border); border-radius:20px; box-shadow:0 12px 30px rgba(19,28,46,0.18), 0 4px 10px rgba(19,28,46,0.08); display:flex; flex-direction:column; overflow:hidden; animation:gplChatIn 260ms cubic-bezier(0.2,0.8,0.3,1);">
+
+      <div style="padding:13px 14px; background:#12132b; display:flex; align-items:center; gap:11px;">
+        <span style="flex:none; width:36px; height:36px; border-radius:12px; background:rgba(255,255,255,0.14); display:inline-flex; align-items:center; justify-content:center; color:#c6c7e4;"><i data-lucide="{{ headerIcon }}" style="width:19px;height:19px"></i></span>
+        <div style="flex:1; min-width:0;">
+          <div style="font-size:15px; font-weight:600; color:#ffffff;">GPL assistant</div>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:1px;">
+            <span style="width:7px; height:7px; border-radius:999px; background:{{ headerDot }};"></span>
+            <span style="font-size:12px; color:rgba(255,255,255,0.68);">{{ headerSub }}</span>
+          </div>
+        </div>
+        <span onClick="{{ toggleVoice }}" role="button" aria-label="{{ voiceToggleLabel }}" title="{{ voiceToggleLabel }}" style="flex:none; width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; color:{{ voiceToggleFg }}; background:{{ voiceToggleBg }}; cursor:pointer;" style-hover="background:rgba(255,255,255,0.16); color:#ffffff;"><i data-lucide="{{ voiceToggleIcon }}" style="width:18px;height:18px"></i></span>
+        <span onClick="{{ toggle }}" role="button" aria-label="Close assistant" style="flex:none; width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.78); cursor:pointer;" style-hover="background:rgba(255,255,255,0.12); color:#ffffff;"><i data-lucide="x" style="width:18px;height:18px"></i></span>
+      </div>
+
+      <sc-if value="{{ voiceBarOn }}">
+        <div style="padding:14px 16px; background:#191a3a; border-bottom:1px solid rgba(255,255,255,0.10); display:flex; align-items:center; gap:14px;">
+          <div onClick="{{ toggleListening }}" role="button" aria-label="{{ micLabel }}" style="position:relative; flex:none; width:56px; height:56px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+            <span style="position:absolute; inset:0; border-radius:999px; background:{{ haloColor }}; animation:gplHalo 2.4s ease-out infinite; animation-play-state:{{ wavePlay }};"></span>
+            <span style="position:relative; width:46px; height:46px; border-radius:999px; background:{{ orbColor }}; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(0,0,0,0.32); transition:background 200ms cubic-bezier(0.2,0.8,0.3,1);">
+              <span style="display:flex; align-items:center; justify-content:center; gap:3px; height:20px;">
+                <sc-for list="{{ waveBars }}" as="bar" hint-placeholder-count="5">
+                  <span style="width:3px; height:100%; border-radius:999px; background:rgba(255,255,255,0.92); transform:scaleY({{ bar.rest }}); transform-origin:center; animation:gplWave {{ bar.dur }} ease-in-out infinite {{ bar.delay }}; animation-play-state:{{ wavePlay }};"></span>
+                </sc-for>
+              </span>
+            </span>
+          </div>
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+            <span style="font-size:13.5px; font-weight:600; color:#ffffff;">{{ voiceTitle }}</span>
+            <span style="font-size:12px; line-height:1.45; color:{{ voiceHintFg }};">{{ voiceHint }}</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <div ref="{{ scrollRef }}" style="flex:1; min-height:0; overflow-y:auto; padding:16px; background:var(--surface-2); display:flex; flex-direction:column; gap:14px;">
+        <sc-for list="{{ messages }}" as="m" hint-placeholder-count="2">
+          <div style="display:flex; flex-direction:column; gap:6px; align-items:{{ m.align }}; animation:gplFadeUp 220ms cubic-bezier(0.2,0.8,0.3,1);">
+
+            <sc-if value="{{ m.hasSteps }}">
+              <div style="width:100%; background:#ffffff; border:1px solid var(--surface-border); border-radius:14px; padding:10px 12px; display:flex; flex-direction:column; gap:7px;">
+                <span style="font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">{{ m.stepsLabel }}</span>
+                <sc-for list="{{ m.steps }}" as="st" hint-placeholder-count="2">
+                  <div style="display:flex; align-items:center; gap:9px;">
+                    <span style="flex:none; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; color:{{ st.fg }}; animation:{{ st.spin }};"><i data-lucide="{{ st.icon }}" style="width:15px;height:15px"></i></span>
+                    <span style="flex:1; min-width:0; font-size:13px; color:{{ st.textFg }};">{{ st.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ m.hasText }}">
+              <div style="max-width:88%; padding:11px 14px; border-radius:{{ m.radius }}; background:{{ m.bg }}; border:{{ m.border }}; color:{{ m.fg }}; font-size:14px; line-height:1.55; white-space:pre-line;">{{ m.text }}<sc-if value="{{ m.caret }}"><span style="display:inline-block; width:7px; margin-left:2px; color:var(--agency-accent); animation:gplCaret 900ms step-end infinite;">▍</span></sc-if></div>
+            </sc-if>
+
+            <sc-if value="{{ m.hasActions }}">
+              <div style="width:100%; display:flex; flex-wrap:wrap; gap:8px;">
+                <sc-for list="{{ m.actions }}" as="a" hint-placeholder-count="2">
+                  <span onClick="{{ a.onPick }}" role="button" style="display:inline-flex; align-items:center; gap:7px; cursor:pointer; font-size:13px; font-weight:600; padding:8px 13px; border-radius:999px; background:{{ a.bg }}; color:{{ a.fg }}; border:{{ a.border }}; transition:var(--tr-control);" style-active="transform:scale(0.96);">
+                    <i data-lucide="{{ a.icon }}" style="width:15px;height:15px"></i> {{ a.label }}
+                  </span>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ m.hasWho }}">
+              <div style="display:flex; align-items:center; gap:8px; padding:0 4px;">
+                <sc-if value="{{ m.canListen }}">
+                  <span onClick="{{ m.onListen }}" role="button" title="{{ m.listenLabel }}" aria-label="{{ m.listenLabel }} this answer" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:5px; height:24px; padding:0 9px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:{{ m.listenFg }}; font-size:11px; font-weight:600; transition:var(--tr-control);" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);" style-active="transform:scale(0.96);"><i data-lucide="{{ m.listenIcon }}" style="width:13px;height:13px"></i> {{ m.listenLabel }}</span>
+                </sc-if>
+                <span style="font-size:11px; color:var(--fg-4);">{{ m.who }}</span>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ hasInterim }}">
+          <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+            <div style="max-width:88%; padding:11px 14px; border-radius:16px 16px 4px 16px; background:var(--agency-accent-soft); color:var(--agency-accent); font-size:14px; line-height:1.55; font-style:italic;">{{ interim }}</div>
+            <span style="font-size:11px; color:var(--fg-4); padding:0 4px;">You · speaking</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ thinking }}">
+          <div style="display:flex; align-items:center; gap:5px; padding:11px 14px; background:#ffffff; border:1px solid var(--surface-border); border-radius:16px 16px 16px 4px; align-self:flex-start;">
+            <span style="width:6px; height:6px; border-radius:999px; background:var(--agency-accent); animation:gplDot 1.2s infinite;"></span>
+            <span style="width:6px; height:6px; border-radius:999px; background:var(--agency-accent); animation:gplDot 1.2s infinite 0.2s;"></span>
+            <span style="width:6px; height:6px; border-radius:999px; background:var(--agency-accent); animation:gplDot 1.2s infinite 0.4s;"></span>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ showSuggestions }}">
+        <div style="padding:12px 16px 0; background:#ffffff; max-height:132px; overflow-y:auto; display:flex; flex-wrap:wrap; gap:8px;">
+          <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="3">
+            <span onClick="{{ s.onPick }}" style="cursor:pointer; font-size:13px; font-weight:600; padding:7px 12px; border-radius:999px; border:1px solid var(--surface-border); background:var(--surface-2); color:var(--fg-2);" style-hover="border-color:var(--agency-accent); color:var(--agency-accent); background:var(--agency-accent-soft);">{{ s.label }}</span>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <div style="padding:12px 16px 14px; background:#ffffff; border-top:1px solid var(--surface-hairline); display:flex; align-items:center; gap:9px;">
+        <span onClick="{{ toggleMenu }}" role="button" aria-label="{{ menuLabel }}" title="{{ menuLabel }}" aria-pressed="{{ menuOpen }}" style="flex:none; width:42px; height:42px; border-radius:999px; background:var(--surface-2); border:1px solid var(--surface-border); color:var(--fg-2); display:inline-flex; align-items:center; justify-content:center; cursor:pointer; transition:var(--tr-control);" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);" style-active="transform:scale(0.94);"><i data-lucide="{{ menuIcon }}" style="width:19px;height:19px"></i></span>
+        <span onClick="{{ toggleListening }}" role="button" aria-label="{{ micLabel }}" title="{{ micLabel }}" style="flex:none; width:42px; height:42px; border-radius:999px; background:{{ micBg }}; color:{{ micFg }}; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; transition:var(--tr-control);" style-active="transform:scale(0.94);"><i data-lucide="{{ micIcon }}" style="width:19px;height:19px"></i></span>
+        <input value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ onKeyDown }}" placeholder="Ask, or ask me to do something…" aria-label="Message the assistant" style="flex:1; min-width:0; height:42px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:var(--surface-2); border:1px solid var(--surface-border); border-radius:999px; outline:none;">
+        <span onClick="{{ send }}" role="button" aria-label="Send message" style="flex:none; width:42px; height:42px; border-radius:999px; background:var(--agency-accent); color:#ffffff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;" style-hover="background:var(--agency-accent-strong);" style-active="transform:scale(0.94);"><i data-lucide="send-horizontal" style="width:18px;height:18px"></i></span>
+      </div>
+    </div>
+  </sc-if>
+
+  <div onClick="{{ toggle }}" role="button" aria-label="{{ launcherLabel }}" style="width:60px; height:60px; border-radius:999px; background:var(--agency-accent); color:#ffffff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 12px 30px rgba(64,66,147,0.34), 0 4px 10px rgba(19,28,46,0.12); position:relative; transition:var(--tr-control);" style-hover="background:var(--agency-accent-strong); transform:translateY(-3px);" style-active="transform:scale(0.94);">
+    <span style="display:{{ bubbleDisplay }}; align-items:center; justify-content:center;"><i data-lucide="sparkles" style="width:24px;height:24px"></i></span>
+    <span style="display:{{ chevronDisplay }}; align-items:center; justify-content:center;"><i data-lucide="chevron-down" style="width:25px;height:25px"></i></span>
+    <sc-if value="{{ showBadge }}">
+      <span style="position:absolute; top:2px; right:2px; width:14px; height:14px; border-radius:999px; background:#c43d3d; border:2.5px solid #eef2f8;"></span>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// Agentic assistant. Every skill is grounded in what the GPL portal already shows,
+// and any skill that changes something asks for confirmation before it runs.
+const SKILLS = [
+  {
+    id: 'balance',
+    match: ['how much', 'amount due', 'owe', 'balance', 'my bill', 'bill amount'],
+    steps: ['Opening account 40 2938 1', 'Reading July 2026 bill'],
+    reply: 'Your July 2026 bill is G$ 17,728, due 27 August 2026.',
+    actions: ['pay', 'download']
+  },
+  {
+    id: 'pay',
+    match: ['pay', 'payment', 'settle'],
+    confirm: 'I can take you to payment for G$ 17,728 (July 2026). Shall I open it?',
+    steps: ['Checking outstanding balance', 'Preparing payment for G$ 17,728'],
+    reply: 'Payment is ready. The payment page is open on your dashboard — GPL does not take card details in this chat.',
+    actions: ['download']
+  },
+  {
+    id: 'outage',
+    match: ['outage', 'power cut', 'blackout', 'no power', 'no light', 'maintenance', 'interrupt'],
+    steps: ['Checking Zone 2 — Demerara', 'Matching Lot 22 Sheriff Street'],
+    reply: 'Planned maintenance affects your area on 14 August 2026, 09:00 to 14:00, while a feeder on the Diamond line is replaced. Diamond Housing Scheme and surrounding streets are affected.',
+    actions: ['outage', 'reportOutage']
+  },
+  {
+    id: 'usage',
+    match: ['usage', 'consumption', 'kwh', 'electricity use', 'how am i using', 'using more'],
+    steps: ['Reading last six billing months'],
+    reply: 'You used 351 kWh this month against a three-month average of 348 kWh — about 1% above your average.',
+    actions: ['reading']
+  },
+  {
+    id: 'requests',
+    match: ['request', 'my report', 'reports', 'status of', 'reference', 'out-4821', 'rpt-2210'],
+    steps: ['Fetching requests for this account'],
+    reply: 'You have two open items: OUT-4821, no power on Sheriff Street — resolved 09 Aug 2026. RPT-2210, streetlight out at Lot 22 — in progress.',
+    actions: ['requests']
+  },
+  {
+    id: 'reportOutage',
+    match: ['report an outage', 'report outage', 'my power is out', 'report a fault'],
+    confirm: 'I can start an outage report for Lot 22 Sheriff Street. Shall I open the form?',
+    steps: ['Confirming service address', 'Opening outage report'],
+    reply: 'The outage report is open with your address filled in. Add what you can see and submit — you will get a reference number.',
+    actions: []
+  },
+  {
+    id: 'hazard',
+    match: ['hazard', 'sagging', 'fallen pole', 'live wire', 'danger'],
+    confirm: 'A hazard report goes to the zone engineering team. Shall I open the hazard form?',
+    steps: ['Opening hazard report'],
+    reply: 'The hazard form is open. If anyone is in immediate danger, keep clear and call GPL directly.',
+    actions: []
+  },
+  {
+    id: 'reading',
+    match: ['submit a reading', 'meter reading', 'send my reading', 'my meter'],
+    confirm: 'I can open the meter reading form for this account. Shall I?',
+    steps: ['Opening meter reading form'],
+    reply: 'The reading form is open. Enter the numbers exactly as they show on the meter dial.',
+    actions: []
+  },
+  {
+    id: 'bills',
+    match: ['bills', 'history', 'previous bill', 'last bill', 'past bills'],
+    steps: ['Loading recent bills'],
+    reply: 'Recent bills: July 2026 G$ 17,728 (due), June 2026 G$ 19,559 (paid), May 2026 G$ 16,204 (paid), April 2026 G$ 15,880 (paid).',
+    actions: ['bills']
+  },
+  {
+    id: 'account',
+    match: ['account number', 'my account', 'account details', 'my address'],
+    steps: [],
+    reply: 'This account is 40 2938 1, for Lot 22 Sheriff Street, Georgetown, Zone 2 — Demerara.',
+    actions: []
+  },
+  {
+    id: 'reconnect',
+    match: ['reconnect', 'disconnected', 'cut off', 'restore my supply', 'been cut'],
+    confirm: 'A reconnection request needs your bill settled first. Shall I check the balance and open the reconnection request?',
+    steps: ['Checking arrears on 40 2938 1', 'Opening reconnection request'],
+    reply: 'The reconnection request is open. GPL reconnects within 24 hours of the balance clearing, Monday to Saturday.',
+    actions: ['pay']
+  },
+  {
+    id: 'streetlight',
+    match: ['streetlight', 'street light', 'lamp post', 'light on my street'],
+    confirm: 'I can start a streetlight report for Lot 22 Sheriff Street. Shall I open it?',
+    steps: ['Locating the nearest pole record', 'Opening streetlight report'],
+    reply: 'The streetlight report is open. Note the pole number if you can see it — it gets the crew to the right lamp first time.',
+    actions: ['requests']
+  },
+  {
+    id: 'tariff',
+    match: ['tariff', 'rate', 'per kwh', 'how much per unit', 'price of electricity'],
+    steps: ['Reading the residential tariff for this account'],
+    reply: 'This account is on the residential tariff: G$ 51.79 per kWh, plus the fixed monthly charge shown on your bill. Rates are set by the PUC and any change is published before it applies.',
+    actions: ['usage']
+  },
+  {
+    id: 'office',
+    match: ['office', 'opening hours', 'branch', 'where can i pay in person', 'counter'],
+    steps: [],
+    reply: 'The nearest GPL office is Sophia, Georgetown — Monday to Friday, 08:00 to 16:00. Payments are also taken at MMG agents and commercial banks.',
+    actions: ['pay']
+  },
+  {
+    id: 'emergency',
+    match: ['emergency', 'urgent', 'fire', 'someone is hurt', 'shock', 'sparks'],
+    steps: [],
+    reply: 'If anyone is in danger, keep everyone well clear and call GPL on 0800-475-2000 straight away — that line is staffed 24 hours. Do not wait for a portal report.',
+    actions: ['hazard']
+  },
+  {
+    id: 'notify',
+    match: ['notification', 'remind me', 'alerts', 'stop texts', 'email instead'],
+    steps: ['Opening account and notifications'],
+    reply: 'You can choose your channels and topics under Account and notifications — including how many days before the due date GPL reminds you.',
+    actions: ['notify']
+  },
+  {
+    id: 'newservice',
+    match: ['new connection', 'new service', 'connect a new', 'apply for electricity', 'add a connection'],
+    confirm: 'A new connection is a separate application with proof of ownership. Shall I open it?',
+    steps: ['Opening new connection application'],
+    reply: 'The new connection application is open. You will need proof of ownership or tenancy and a valid ID for the applicant.',
+    actions: []
+  },
+  {
+    id: 'capability',
+    match: ['what can you do', 'help', 'options', 'menu', 'what do you do'],
+    steps: [],
+    reply: 'I can read your bill, tariff, usage, outages and requests, and I can start a payment, an outage or hazard report, a streetlight report, a meter reading, a reconnection or a new connection. Ask in your own words, or pick one below.',
+    actions: ['balance', 'outage', 'usage', 'requests']
+  },
+  {
+    id: 'greet',
+    match: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening'],
+    steps: [],
+    reply: 'Hello. I can check your bill, your service status, your usage and your requests — and I can start a payment, an outage report, a hazard report or a meter reading for you.',
+    actions: ['balance', 'outage']
+  },
+  {
+    id: 'thanks',
+    match: ['thanks', 'thank you', 'appreciate'],
+    steps: [],
+    reply: 'You are welcome. Anything else on this account?',
+    actions: []
+  }
+];
+
+const ACTIONS = {
+  pay: { label: 'Pay G$ 17,728', icon: 'credit-card', kind: 'primary', run: 'pay' },
+  download: { label: 'Download bill', icon: 'download', kind: 'ghost', run: 'download' },
+  outage: { label: 'View outage details', icon: 'zap-off', kind: 'ghost', run: 'outage' },
+  reportOutage: { label: 'Report an outage', icon: 'zap', kind: 'primary', run: 'reportOutage' },
+  reading: { label: 'Submit a reading', icon: 'gauge', kind: 'ghost', run: 'reading' },
+  requests: { label: 'View all requests', icon: 'list-checks', kind: 'ghost', run: 'requests' },
+  bills: { label: 'View all bills', icon: 'file-text', kind: 'ghost', run: 'bills' },
+  balance: { label: 'How much do I owe?', icon: 'wallet', kind: 'ghost', run: 'balance' },
+  usage: { label: 'My usage', icon: 'chart-column', kind: 'ghost', run: 'usage' },
+  hazard: { label: 'Report a hazard', icon: 'triangle-alert', kind: 'primary', run: 'hazard' },
+  notify: { label: 'Notification settings', icon: 'bell', kind: 'ghost', run: 'notify' }
+};
+
+// Chip labels used when the assistant has to ask which of several things
+// the customer meant.
+const CHIP = {
+  balance: { label: 'My amount due', icon: 'wallet' },
+  pay: { label: 'Pay my bill', icon: 'credit-card' },
+  bills: { label: 'My past bills', icon: 'file-text' },
+  outage: { label: 'Outage in my area', icon: 'zap-off' },
+  reportOutage: { label: 'Report my power is out', icon: 'zap' },
+  hazard: { label: 'Report a hazard', icon: 'triangle-alert' },
+  streetlight: { label: 'Streetlight out', icon: 'lightbulb' },
+  usage: { label: 'My usage', icon: 'chart-column' },
+  reading: { label: 'Submit a meter reading', icon: 'gauge' },
+  requests: { label: 'My requests', icon: 'list-checks' },
+  tariff: { label: 'Tariff and rates', icon: 'receipt' },
+  reconnect: { label: 'Reconnect my supply', icon: 'plug-zap' },
+  newservice: { label: 'New connection', icon: 'house-plug' },
+  notify: { label: 'Notification settings', icon: 'bell' },
+  office: { label: 'Offices and payment points', icon: 'building-2' },
+  account: { label: 'My account details', icon: 'user-round' },
+  capability: { label: 'What can you do?', icon: 'sparkles' }
+};
+
+const UNCLEAR = 'I did not catch that clearly. Please say it again, a little slower.';
+// Two clarification openers, so a second miss does not read as a loop.
+const CLARIFY = [
+  'I am not certain what you mean by that. Did you mean one of these?',
+  'Still not quite there. Pick the closest one and I will carry on from it.'
+];
+const CLARIFY_FALLBACK = ['balance', 'outage', 'usage', 'requests'];
+
+const VOICE_STATES = {
+  off: { title: 'Voice is off', hint: 'Tap the microphone to talk to the assistant', orb: 'rgba(255,255,255,0.16)', halo: 'rgba(255,255,255,0.06)', wave: 'paused', dot: '#1f8a5b', rest: 0.3 },
+  connecting: { title: 'Connecting…', hint: 'Allow microphone access to start', orb: 'rgba(255,255,255,0.18)', halo: 'rgba(255,255,255,0.10)', wave: 'paused', dot: '#f0b866', rest: 0.3 },
+  listening: { title: 'Listening', hint: 'Speak naturally — I keep listening between answers', orb: '#404293', halo: 'rgba(64,66,147,0.45)', wave: 'running', dot: '#1f8a5b', rest: 1 },
+  working: { title: 'Working on it', hint: 'Checking your account', orb: 'rgba(255,255,255,0.18)', halo: 'rgba(255,255,255,0.10)', wave: 'paused', dot: '#f0b866', rest: 0.5 },
+  speaking: { title: 'Assistant speaking', hint: 'I will listen again when I finish', orb: '#1f8a5b', halo: 'rgba(31,138,91,0.42)', wave: 'running', dot: '#1f8a5b', rest: 1 },
+  blocked: { title: 'Microphone unavailable', hint: 'Allow the microphone, or type instead — answers are the same', orb: '#c43d3d', halo: 'rgba(196,61,61,0.30)', wave: 'paused', dot: '#c43d3d', rest: 0.3 }
+};
+
+class Component extends DCLogic {
+  recog = null;
+  scrollRef = React.createRef();
+  timers = [];
+  seq = 0;
+  state = {
+    open: false,
+    draft: '',
+    thinking: false,
+    seen: false,
+    voiceOn: false,
+    voiceState: 'off',
+    listening: false,
+    interim: '',
+    pending: null,
+    messages: [{
+      id: 'm0', from: 'bot',
+      text: 'Hello. I am the GPL assistant.\n\nI can check your bill, outages, usage and requests — and start a payment, a report or a meter reading for you.'
+    }]
+  };
+
+  componentDidMount() {
+    this.onOpenRequest = () => this.setState({ open: true, seen: true });
+    window.addEventListener('gpl-open-assistant', this.onOpenRequest);
+    let tries = 0;
+    const hydrate = () => {
+      if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+      if (++tries < 12) setTimeout(hydrate, 250);
+    };
+    hydrate();
+  }
+
+  componentDidUpdate() {
+    if (window.lucide) window.lucide.createIcons();
+    const el = this.scrollRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }
+
+  componentWillUnmount() {
+    if (this.onOpenRequest) window.removeEventListener('gpl-open-assistant', this.onOpenRequest);
+    this.stopAll();
+  }
+
+  stopAll() {
+    this.timers.forEach(clearTimeout);
+    this.timers = [];
+    if (this.recog) { try { this.recog.onend = null; this.recog.abort(); } catch (e) {} this.recog = null; }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  }
+
+  later(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+
+  patch(id, patch) {
+    this.setState(s => ({ messages: s.messages.map(m => m.id === id ? Object.assign({}, m, patch) : m) }));
+  }
+
+  addMessage(msg) {
+    const id = 'm' + (++this.seq);
+    this.setState(s => ({ messages: s.messages.concat(Object.assign({ id: id }, msg)) }));
+    return id;
+  }
+
+  // Types a reply out word by word, so the agent reads as live rather than pasted.
+  stream(id, text, done) {
+    const words = text.split(' ');
+    let i = 0;
+    const tick = () => {
+      i += 2;
+      this.patch(id, { text: words.slice(0, i).join(' '), streaming: i < words.length });
+      if (i < words.length) this.later(tick, 42);
+      else if (done) done();
+    };
+    this.patch(id, { text: '', streaming: true });
+    this.later(tick, 60);
+  }
+
+  // Action skills (those needing confirmation) win over informational ones,
+  // so "pay my bill" opens payment instead of reading out the balance.
+  match(q) {
+    const low = (q || '').toLowerCase();
+    if (!low.trim()) return null;
+    const hits = SKILLS.filter(k => k.match.some(m => low.includes(m)));
+    if (!hits.length) return null;
+    return hits.find(k => k.confirm) || hits[0];
+  }
+
+  speak(text, onDone, id) {
+    this.setState({ speakingId: id || null });
+    const done = () => { this.setState({ speakingId: null }); if (onDone) onDone(); };
+    if (!window.speechSynthesis) { this.later(done, Math.min(8000, 700 + text.length * 42)); return; }
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 1.03;
+    u.onend = done;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+    // Safety net if onend never fires — scaled to the length of the answer.
+    this.later(done, Math.min(60000, 3000 + text.length * 75));
+  }
+
+  // Every answer can be played back on its own, for customers who would rather
+  // listen than read — independent of whether voice input is on.
+  playMessage(id, text) {
+    if (this.state.speakingId === id) {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      this.setState({ speakingId: null });
+      return;
+    }
+    this.speak(text, null, id);
+  }
+
+  finishTurn(spokenText) {
+    const back = () => {
+      if (!this.state.voiceOn) return;
+      this.setState({ voiceState: this.state.listening ? 'listening' : 'off' });
+      if (!this.state.listening) this.startListening();
+    };
+    if (this.state.voiceOn) {
+      this.setState({ voiceState: 'speaking' });
+      this.speak(spokenText, () => { this.setState({ voiceState: 'listening' }); this.startListening(); }, null);
+      return;
+    }
+    back();
+  }
+
+  // Ranks skills by shared words when nothing matched outright, so the
+  // clarification offers the two or three things the customer probably meant.
+  guess(q) {
+    const words = (q || '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 3);
+    if (!words.length) return CLARIFY_FALLBACK.slice(0, 3);
+    const scored = SKILLS.filter(k => CHIP[k.id]).map(k => {
+      const hay = (k.id + ' ' + k.match.join(' ') + ' ' + (k.reply || '')).toLowerCase();
+      return { id: k.id, score: words.reduce((n, w) => n + (hay.indexOf(w) >= 0 ? 1 : 0), 0) };
+    }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
+    const picks = scored.slice(0, 3).map(x => x.id);
+    return picks.length ? picks : CLARIFY_FALLBACK.slice(0, 3);
+  }
+
+  // A miss is a question, not a dead end: the assistant says what it is unsure
+  // about, offers its best guesses, and the conversation carries on from the pick.
+  clarify(q) {
+    const picks = this.guess(q);
+    const text = CLARIFY[Math.min(this.clarifyCount || 0, CLARIFY.length - 1)];
+    this.clarifyCount = (this.clarifyCount || 0) + 1;
+    this.setState({ thinking: false });
+    const id = this.addMessage({
+      from: 'bot', kind: 'clarify', text: '',
+      actions: picks.map(p => 'skill:' + p).concat('skill:capability')
+    });
+    this.stream(id, text, () => this.finishTurn(text));
+  }
+
+  // The agent loop: understand → run visible steps → answer → offer next actions.
+  run(skill, userText) {
+    if (!skill) { this.clarify(userText); return; }
+    this.clarifyCount = 0;
+    this.setState({ thinking: true, voiceState: this.state.voiceOn ? 'working' : this.state.voiceState });
+    const steps = (skill && skill.steps) || [];
+    const id = this.addMessage({ from: 'bot', text: '', steps: steps.map(l => ({ label: l, state: 'run' })), stepsLabel: skill ? 'Working' : 'Checking' });
+
+    const finish = () => {
+      const text = skill.reply;
+      this.setState({ thinking: false });
+      this.patch(id, { steps: steps.map(l => ({ label: l, state: 'done' })), stepsLabel: steps.length ? 'Done' : '', actions: skill.actions || [] });
+      this.stream(id, text, () => this.finishTurn(text));
+    };
+
+    if (!steps.length) { this.later(finish, 420); return; }
+    steps.forEach((l, i) => {
+      this.later(() => {
+        this.patch(id, { steps: steps.map((lbl, j) => ({ label: lbl, state: j < i ? 'done' : (j === i ? 'run' : 'wait') })) });
+      }, 300 + i * 620);
+    });
+    this.later(finish, 300 + steps.length * 620);
+  }
+
+  ask(text) {
+    const q = (text || '').trim();
+    if (!q) return;
+    this.addMessage({ from: 'you', text: q });
+    this.setState({ draft: '', interim: '' });
+
+    // Confirmation reply to a pending action.
+    const low = q.toLowerCase();
+    const pend = this.state.pending;
+    if (pend) {
+      const yes = /\b(yes|yeah|yep|ok|okay|do it|go ahead|please|sure|confirm)\b/.test(low);
+      const no = /\b(no|nope|cancel|stop|not now|later)\b/.test(low);
+      if (yes) { this.setState({ pending: null }); this.run(pend, q); return; }
+      if (no) {
+        this.setState({ pending: null });
+        const id = this.addMessage({ from: 'bot', text: '' });
+        this.stream(id, 'No problem — nothing was changed. What else can I check for you?', () => this.finishTurn('No problem, nothing was changed.'));
+        return;
+      }
+    }
+
+    const skill = this.match(q);
+    if (skill && skill.confirm) {
+      this.setState({ pending: skill });
+      const id = this.addMessage({ from: 'bot', text: '', actions: ['__confirm', '__cancel'] });
+      this.stream(id, skill.confirm, () => this.finishTurn(skill.confirm));
+      return;
+    }
+    this.run(skill, q);
+  }
+
+  runAction(key) {
+    if (key === '__confirm') { const p = this.state.pending; this.setState({ pending: null }); if (p) { this.addMessage({ from: 'you', text: 'Yes, go ahead' }); this.run(p, 'confirm'); } return; }
+    if (key === '__cancel') {
+      this.setState({ pending: null });
+      this.addMessage({ from: 'you', text: 'Not now' });
+      const id = this.addMessage({ from: 'bot', text: '' });
+      this.stream(id, 'Cancelled — nothing was changed.', () => this.finishTurn('Cancelled, nothing was changed.'));
+      return;
+    }
+    const skill = SKILLS.find(s => s.id === key);
+    if (!skill) return;
+    this.addMessage({ from: 'you', text: ACTIONS[key] ? ACTIONS[key].label : (CHIP[key] ? CHIP[key].label : key) });
+    if (skill.confirm) {
+      this.setState({ pending: skill });
+      const id = this.addMessage({ from: 'bot', text: '', actions: ['__confirm', '__cancel'] });
+      this.stream(id, skill.confirm, () => this.finishTurn(skill.confirm));
+    } else this.run(skill, key);
+  }
+
+  micUnavailable(reason) {
+    this.stopAll();
+    this.setState({ voiceOn: false, voiceState: 'off', listening: false, interim: '' });
+    if (this.micNoticeShown) return;
+    this.micNoticeShown = true;
+    const id = this.addMessage({ from: 'bot', text: '', warn: true });
+    this.stream(id, reason);
+  }
+
+  // Prime the mic permission first — speech recognition fails silently in an
+  // embedded preview unless getUserMedia has already been granted.
+  startListening() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { this.micUnavailable('This browser cannot use the microphone, so voice is unavailable here. Type your question — I answer exactly the same way.'); return; }
+    if (this.micReady || !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { this.beginRecognition(SR); return; }
+    this.setState({ voiceOn: true, voiceState: 'connecting', interim: '' });
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      stream.getTracks().forEach(t => t.stop());
+      this.micReady = true;
+      this.beginRecognition(SR);
+    }).catch(() => {
+      const framed = window.self !== window.top;
+      this.micUnavailable(framed
+        ? 'I cannot reach the microphone inside this preview window — it is not allowed to use it. Open this page in its own browser tab and voice will work. Meanwhile, type your question; I answer exactly the same way.'
+        : 'The microphone was blocked. Allow microphone access for this site in your browser, then tap the microphone again. You can also just type — I answer exactly the same way.');
+    });
+  }
+
+  beginRecognition(SR) {
+    if (this.recog) { try { this.recog.onend = null; this.recog.abort(); } catch (e) {} }
+    const r = new SR();
+    r.lang = 'en-GB';
+    r.interimResults = true;
+    r.continuous = true;
+    r.onstart = () => this.setState({ voiceState: 'listening', listening: true });
+    r.onresult = (ev) => {
+      let interim = '', final = '';
+      for (let i = ev.resultIndex; i < ev.results.length; i++) {
+        const res = ev.results[i];
+        if (res.isFinal) final += res[0].transcript; else interim += res[0].transcript;
+      }
+      if (interim) this.setState({ interim: interim });
+      if (final) {
+        // Hold the mic while the assistant works and speaks, then reopen it.
+        this.setState({ listening: false, voiceState: 'working', interim: '' });
+        try { r.stop(); } catch (e) {}
+        this.ask(final);
+      }
+    };
+    r.onerror = (ev) => {
+      const e = ev.error;
+      if (e === 'no-speech') {
+        const id = this.addMessage({ from: 'bot', text: '', warn: true });
+        this.stream(id, UNCLEAR);
+        this.setState({ listening: false, voiceState: 'off', interim: '' });
+      } else if (e === 'not-allowed' || e === 'service-not-allowed') {
+        this.micUnavailable('I could not reach the microphone — this window does not have permission for it. Type your question instead; I answer exactly the same way.');
+      } else if (e !== 'aborted') {
+        this.setState({ voiceState: 'off', listening: false, interim: '' });
+      }
+    };
+    // Conversation mode: while voice is on the assistant keeps the turn open,
+    // so the customer can just keep talking without tapping the mic again.
+    r.onend = () => {
+      this.setState({ listening: false, interim: '' });
+      if (!this.state.voiceOn) { this.setState({ voiceState: 'off' }); return; }
+      if (this.state.voiceState === 'speaking' || this.state.voiceState === 'working' || this.state.thinking) return;
+      this.later(() => { if (this.state.voiceOn && !this.state.listening && this.state.voiceState !== 'speaking') { try { r.start(); } catch (e) {} } }, 500);
+    };
+    this.recog = r;
+    this.setState({ voiceOn: true, voiceState: 'connecting', interim: '' });
+    try { r.start(); } catch (e) { this.micUnavailable('I could not start the microphone here. Type your question instead; I answer exactly the same way.'); }
+  }
+
+  stopListening() {
+    if (this.recog) { try { this.recog.stop(); } catch (e) {} }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    this.setState({ listening: false, voiceState: 'off', interim: '' });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const vs = VOICE_STATES[s.voiceState] || VOICE_STATES.off;
+    const stepIcon = { run: 'loader-circle', done: 'circle-check', wait: 'circle' };
+    const stepFg = { run: 'var(--agency-accent)', done: 'var(--status-success)', wait: 'var(--fg-4)' };
+    const actionOf = (key) => {
+      if (key === '__confirm') return { label: 'Yes, go ahead', icon: 'check', bg: 'var(--agency-accent)', fg: '#ffffff', border: 'none', onPick: () => this.runAction('__confirm') };
+      if (key === '__cancel') return { label: 'Not now', icon: 'x', bg: '#ffffff', fg: 'var(--fg-2)', border: '1px solid var(--surface-border)', onPick: () => this.runAction('__cancel') };
+      if (key.indexOf('skill:') === 0) {
+        const sid = key.slice(6);
+        const chip = CHIP[sid] || { label: sid.charAt(0).toUpperCase() + sid.slice(1).replace(/([A-Z])/g, ' $1').toLowerCase(), icon: 'circle-help' };
+        return { label: chip.label, icon: chip.icon, bg: '#ffffff', fg: 'var(--agency-accent)', border: '1px solid rgba(64,66,147,0.36)', onPick: () => this.runAction(sid) };
+      }
+      const a = ACTIONS[key];
+      if (!a) return null;
+      return {
+        label: a.label, icon: a.icon,
+        bg: a.kind === 'primary' ? 'var(--agency-accent)' : '#ffffff',
+        fg: a.kind === 'primary' ? '#ffffff' : 'var(--fg-2)',
+        border: a.kind === 'primary' ? 'none' : '1px solid var(--surface-border)',
+        onPick: () => this.runAction(a.run)
+      };
+    };
+
+    return {
+      open: s.open,
+      scrollRef: this.scrollRef,
+      bubbleDisplay: s.open ? 'none' : 'inline-flex',
+      chevronDisplay: s.open ? 'inline-flex' : 'none',
+      launcherLabel: s.open ? 'Close assistant' : 'Open assistant',
+      showBadge: !s.seen && !s.open,
+      toggle: () => { this.stopAll(); this.setState({ open: !s.open, seen: true, voiceOn: false, voiceState: 'off', listening: false, interim: '' }); },
+
+      headerIcon: s.voiceOn ? 'audio-lines' : 'sparkles',
+      headerSub: s.voiceOn ? vs.title : 'Answers and acts on this account',
+      headerDot: s.voiceOn ? vs.dot : '#1f8a5b',
+      voiceBarOn: s.voiceOn,
+      voiceToggleIcon: s.voiceOn ? 'audio-lines' : 'mic',
+      voiceToggleLabel: s.voiceOn ? 'Turn voice off' : 'Turn voice on',
+      voiceToggleBg: s.voiceOn ? 'rgba(255,255,255,0.16)' : 'transparent',
+      voiceToggleFg: s.voiceOn ? '#ffffff' : 'rgba(255,255,255,0.78)',
+      toggleVoice: () => { if (s.voiceOn) { this.stopAll(); this.setState({ voiceOn: false, voiceState: 'off', listening: false, interim: '' }); } else this.startListening(); },
+
+      voiceTitle: vs.title,
+      voiceHint: vs.hint,
+      voiceHintFg: s.voiceState === 'blocked' ? '#ffb3b3' : 'rgba(255,255,255,0.62)',
+      orbColor: vs.orb,
+      haloColor: vs.halo,
+      wavePlay: vs.wave,
+      waveBars: [
+        { dur: '900ms', delay: '0ms', rest: vs.rest },
+        { dur: '700ms', delay: '120ms', rest: vs.rest },
+        { dur: '1100ms', delay: '60ms', rest: vs.rest },
+        { dur: '760ms', delay: '200ms', rest: vs.rest },
+        { dur: '960ms', delay: '40ms', rest: vs.rest }
+      ],
+      micIcon: s.listening ? 'mic' : (s.voiceOn ? 'mic-off' : 'mic'),
+      micLabel: s.listening ? 'Stop listening' : 'Talk to the assistant',
+      micBg: s.listening ? 'var(--agency-accent)' : 'var(--agency-accent-soft)',
+      micFg: s.listening ? '#ffffff' : 'var(--agency-accent)',
+      toggleListening: () => { if (s.listening) this.stopListening(); else this.startListening(); },
+
+      thinking: s.thinking,
+      hasInterim: !!s.interim,
+      interim: s.interim,
+
+      messages: s.messages.map(m => {
+        const bot = m.from === 'bot';
+        const steps = m.steps || [];
+        const actions = (m.actions || []).map(actionOf).filter(Boolean);
+        return {
+          hasText: !!(m.text && m.text.length) || (bot && !steps.length),
+          text: m.text,
+          caret: !!m.streaming,
+          hasSteps: bot && steps.length > 0,
+          stepsLabel: m.stepsLabel || '',
+          steps: steps.map(st => ({
+            label: st.label,
+            icon: stepIcon[st.state] || 'circle',
+            fg: stepFg[st.state] || 'var(--fg-4)',
+            textFg: st.state === 'wait' ? 'var(--fg-4)' : 'var(--fg-2)',
+            spin: st.state === 'run' ? 'gplSpin 900ms linear infinite' : 'none'
+          })),
+          hasActions: actions.length > 0,
+          actions: actions,
+          hasWho: true,
+          who: bot
+            ? (m.kind === 'clarify' ? 'GPL assistant · needs a steer' : (m.warn ? 'GPL assistant · needs detail' : 'GPL assistant'))
+            : 'You',
+          canListen: bot && !!(m.text && m.text.length) && !m.streaming,
+          listenIcon: s.speakingId === m.id ? 'square' : 'volume-2',
+          listenLabel: s.speakingId === m.id ? 'Stop' : 'Listen',
+          listenFg: s.speakingId === m.id ? 'var(--agency-accent)' : 'var(--fg-3)',
+          onListen: () => this.playMessage(m.id, m.text),
+          align: bot ? 'flex-start' : 'flex-end',
+          bg: bot ? (m.kind === 'clarify' ? '#eceefb' : (m.warn ? 'var(--status-warning-bg)' : '#ffffff')) : 'var(--agency-accent)',
+          border: bot
+            ? (m.kind === 'clarify' ? '1px dashed rgba(64,66,147,0.55)' : (m.warn ? '1px solid rgba(196,125,18,0.34)' : '1px solid var(--surface-border)'))
+            : 'none',
+          fg: bot ? (m.kind === 'clarify' ? '#2c2e6b' : 'var(--fg-1)') : '#ffffff',
+          radius: bot ? '16px 16px 16px 4px' : '16px 16px 4px 16px'
+        };
+      }),
+
+      showSuggestions: s.messages.length < 3 || s.menuOpen,
+      menuOpen: !!s.menuOpen,
+      menuIcon: s.menuOpen ? 'x' : 'plus',
+      menuLabel: s.menuOpen ? 'Hide quick options' : 'Quick options',
+      toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
+      suggestions: [
+        'balance', 'pay', 'outage', 'reportOutage', 'usage', 'tariff', 'reading', 'requests', 'reconnect', 'streetlight', 'notify', 'office'
+      ].map(id => ({
+        label: CHIP[id].label,
+        onPick: () => { this.setState({ menuOpen: false }); this.runAction(id); }
+      })),
+      draft: s.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      onKeyDown: (e) => { if (e.key === 'Enter') this.ask(this.state.draft); },
+      send: () => this.ask(this.state.draft)
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #eef2f8; font-family: Inter, system-ui, sans-serif; }
+  a { color: #404293; text-decoration: none; }
+  a:hover { color: #323373; }
+</style>
+</helmet>
+
+<div style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-contrast:#ffffff; min-height:{{ rootMinHeight }}; background:#eef2f8; color:var(--fg-1); font-family:var(--font-sans);">
+
+  <sc-if value="{{ standalone }}">
+    <div style="height:64px; background:#ffffff; border-bottom:1px solid rgba(19,28,46,0.10); display:flex; align-items:center; justify-content:space-between; padding:8px 24px;">
+      <div style="display:flex; align-items:center; gap:16px; min-width:0;">
+        <span style="width:38px; height:38px; border-radius:10px; background:#404293; display:inline-flex; justify-content:center; align-items:center; flex-shrink:0; overflow:hidden;">
+          <img src="assets/gpl-logo.jpg" alt="Guyana Power &amp; Light" style="width:100%; height:100%; object-fit:cover;">
+        </span>
+        <div style="display:flex; flex-direction:column; gap:1px; min-width:0;">
+          <span style="font-weight:800; font-size:14px; letter-spacing:-0.14px; color:rgb(19,28,46); white-space:nowrap;">Guyana Power &amp; Light</span>
+          <span style="font-weight:600; font-size:11px; color:rgb(78,93,117); white-space:nowrap;">One front door to every service</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <a href="GPL Dashboard.dc.html" style="display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:600;"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back to dashboard</a>
+        <span style="width:38px; height:38px; border-radius:19px; background:#404293; display:inline-flex; justify-content:center; align-items:center; font-weight:700; font-size:13px; color:#ffffff;">RB</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="background:#ffffff; border-bottom:1px solid rgba(19,28,46,0.10); padding:{{ headerPadding }};">
+    <div style="width:100%; min-width:0;">
+      <sc-if value="{{ standalone }}" hint-placeholder-val="{{ true }}">
+        <h1 style="font-size:24px; font-weight:700; letter-spacing:-0.02em; color:var(--fg-1);">{{ standaloneTitle }}</h1>
+        <p style="font-size:14px; line-height:1.5; color:var(--fg-3); margin-top:4px;">Account 40 2938 1 · Lot 22 Sheriff Street, Georgetown · Zone 2 — Demerara</p>
+      </sc-if>
+      <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:{{ tabsMarginTop }};">
+        <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="3">
+          <span onClick="{{ tab.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; padding:0 2px 12px; font-size:14.5px; font-weight:600; color:{{ tab.fg }}; border-bottom:2.5px solid {{ tab.border }}; transition:var(--tr-control); display:inline-flex; align-items:center; gap:8px;">{{ tab.label }}<sc-if value="{{ tab.hasCount }}"><span style="display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 6px; border-radius:999px; background:{{ tab.countBg }}; color:{{ tab.countFg }}; font-size:11.5px; font-weight:700;">{{ tab.count }}</span></sc-if></span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="width:100%; min-width:0; padding:clamp(20px,3vw,28px) 16px 72px;">
+
+    <sc-if value="{{ isStatus }}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{ isOutagesMode }}">
+        <section data-screen-label="What is happening?" style="display:flex; flex-direction:column; gap:14px; margin-bottom:20px; background:#ffffff; border:1px solid #e2e5ee; border-radius:14px; padding:clamp(16px,2.6vw,20px) clamp(16px,2.6vw,20px) 16px; box-shadow:0 1px 3px rgba(19,28,46,0.05);">
+          <dc-import name="GPL Report an Issue" embedded="{{ true }}" chromeless="{{ true }}" force-mode="report" intent="{{ reportIntent }}" report-scope="{{ reportScope }}" rail-width="{{ railWidth }}" on-family-pick="{{ jumpToReportFull }}" hide-stepper="{{ true }}" hint-size="100%,720px"></dc-import>
+        </section>
+      </sc-if>
+      <dc-import name="GPL Report an Issue" embedded="{{ true }}" chromeless="{{ true }}" force-mode="status" report-scope="{{ reportScope }}" hint-size="100%,720px"></dc-import>
+    </sc-if>
+
+    <sc-if value="{{ isProblem }}">
+      <section data-screen-label="Report a problem" style="display:flex; flex-direction:column; gap:14px;">
+        <span onClick="{{ backFromReportFull }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> {{ backFromReportLabel }}</span>
+        <dc-import name="GPL Report an Issue" embedded="{{ true }}" chromeless="{{ true }}" force-mode="report" intent="{{ reportIntent }}" report-scope="{{ reportScope }}" rail-width="{{ railWidth }}" hint-size="100%,720px"></dc-import>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isCatalogue }}">
+      <section data-screen-label="Which service do you need?" style="display:flex; flex-direction:column; gap:14px; margin-bottom:20px; background:#ffffff; border:1px solid #e2e5ee; border-radius:14px; padding:clamp(16px,2.6vw,20px) clamp(16px,2.6vw,20px) 16px; box-shadow:0 1px 3px rgba(19,28,46,0.05);">
+        <div>
+          <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Which service do you need?</h2>
+          <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">Pick the closest match. Each category opens the requests you can raise there.</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:12px;">
+          <sc-for list="{{ families }}" as="fam" hint-placeholder-count="3">
+            <div onClick="{{ fam.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; padding:18px; display:flex; gap:14px; align-items:flex-start; transition:var(--tr-surface);" style-hover="border-color:var(--agency-accent); box-shadow:0 8px 22px rgba(19,28,46,0.10); transform:translateY(-2px);">
+              <span style="flex:none; width:42px; height:42px; border-radius:12px; background:var(--agency-accent-soft); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ fam.icon }}" style="width:21px;height:21px"></i></span>
+              <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px;">
+                <span style="font-size:15.5px; font-weight:700; color:var(--fg-1);">{{ fam.title }}</span>
+                <span style="font-size:13.5px; line-height:1.5; color:var(--fg-3);">{{ fam.hint }}</span>
+              </span>
+              <span style="flex:none; color:var(--fg-4); margin-top:10px;"><i data-lucide="chevron-right" style="width:18px;height:18px"></i></span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:var(--agency-accent-soft); border:1px solid rgba(64,66,147,0.24); border-radius:16px; padding:16px 18px; display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap;">
+          <span style="flex:none; color:var(--agency-accent); margin-top:1px;"><i data-lucide="zap-off" style="width:19px;height:19px"></i></span>
+          <p style="flex:1 1 260px; min-width:0; font-size:13.5px; line-height:1.55; color:var(--fg-2);">Power out, a leaning pole, a burning smell or a sparking wire? Those are asked differently so a crew can be dispatched straight away.</p>
+          <span onClick="{{ goProblem }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="triangle-alert" style="width:17px;height:17px"></i> Report a problem instead</span>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isCatalogueFamily }}">
+      <section data-screen-label="Service category" style="display:flex; flex-direction:column; gap:14px;">
+        <span onClick="{{ backToFamilies }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back to My services</span>
+        <section data-screen-label="Progress" style="display:flex; align-items:center; gap:8px;">
+          <sc-for list="{{ formSteps }}" as="fs" hint-placeholder-count="4">
+            <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+              <span style="height:4px; border-radius:999px; background:{{ fs.bar }};"></span>
+              <span style="font-size:12px; font-weight:600; color:{{ fs.fg }};">{{ fs.label }}</span>
+            </div>
+          </sc-for>
+        </section>
+        <nav aria-label="Breadcrumb" style="display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; font-size:13px; font-weight:600;">
+          <span onClick="{{ backToFamilies }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; color:var(--fg-3);" style-hover="color:var(--agency-accent);">My services</span>
+          <span style="color:var(--fg-4);">/</span>
+          <span style="color:var(--fg-1);">{{ selectedFamily.title }}</span>
+        </nav>
+        <div>
+          <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">{{ selectedFamily.title }}</h2>
+          <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">{{ selectedFamily.hint }}</p>
+        </div>
+        <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden; display:flex; flex-direction:column;">
+          <sc-for list="{{ selectedFamily.types }}" as="t" hint-placeholder-count="2">
+            <div onClick="{{ t.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; padding:15px 18px; border-top:1px solid rgba(19,28,46,0.07); display:flex; align-items:center; gap:14px; transition:background 160ms;" style-hover="background:var(--surface-2);">
+              <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                <span style="font-size:15px; font-weight:600; color:var(--fg-1);">{{ t.label }}</span>
+                <span style="font-size:13px; line-height:1.45; color:var(--fg-3);">{{ t.hint }}</span>
+              </span>
+              <span style="flex:none; display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:999px; background:var(--surface-4); color:var(--fg-3); font-size:11.5px; font-weight:700; white-space:nowrap;"><i data-lucide="clock" style="width:13px;height:13px"></i> {{ t.sla }}</span>
+              <span style="flex:none; color:var(--fg-4);"><i data-lucide="chevron-right" style="width:18px;height:18px"></i></span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isForm }}">
+      <section data-screen-label="Guided request form" style="display:flex; flex-direction:column; gap:18px;">
+
+        <span onClick="{{ backToCatalogue }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> All request types</span>
+
+        <section data-screen-label="Progress" style="display:flex; align-items:center; gap:8px;">
+          <sc-for list="{{ formSteps }}" as="fs" hint-placeholder-count="3">
+            <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+              <span style="height:4px; border-radius:999px; background:{{ fs.bar }};"></span>
+              <span style="font-size:12px; font-weight:600; color:{{ fs.fg }};">{{ fs.label }}</span>
+            </div>
+          </sc-for>
+        </section>
+
+        <nav aria-label="Breadcrumb" style="display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; font-size:13px; font-weight:600;">
+          <span onClick="{{ goCatalogue }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; color:var(--fg-3);" style-hover="color:var(--agency-accent);">My services</span>
+          <span style="color:var(--fg-4);">/</span>
+          <span onClick="{{ backToCatalogue }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; color:var(--fg-3);" style-hover="color:var(--agency-accent);">{{ selectedFamily.title }}</span>
+          <span style="color:var(--fg-4);">/</span>
+          <span style="color:var(--fg-1);">{{ formTitle }}</span>
+        </nav>
+
+        <div>
+          <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">{{ formTitle }}</h2>
+          <p style="font-size:14px; line-height:1.55; color:var(--fg-3); margin-top:4px;">{{ formHint }}</p>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start;">
+
+          <div style="flex:3 1 min(460px, 100%); min-width:0; display:flex; flex-direction:column; gap:16px;">
+
+            <sc-if value="{{ isFormFill }}" hint-placeholder-val="{{ true }}">
+
+              <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; padding:clamp(18px,3vw,22px); display:flex; flex-direction:column; gap:18px;">
+                <div style="display:flex; align-items:center; gap:12px; padding-bottom:14px; border-bottom:1px solid rgba(19,28,46,0.08);">
+                  <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="shield-check" style="width:18px;height:18px"></i></span>
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:14px; font-weight:700; color:var(--fg-1);">Raising this as {{ accountHolder }}</span>
+                    <span style="font-size:12.5px; line-height:1.45; color:var(--fg-3);">{{ accountLine }}</span>
+                  </span>
+                  <span onClick="{{ openAccountSwitch }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; font-size:13px; font-weight:600; color:var(--agency-accent);">Change account</span>
+                </div>
+
+                <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+                  <label style="display:flex; flex-direction:column; gap:7px;">
+                    <span style="display:flex; align-items:baseline; gap:7px; flex-wrap:wrap;">
+                      <span style="font-size:13px; font-weight:700; color:var(--fg-2);">{{ f.label }}</span>
+                      <span style="font-size:12px; font-weight:600; color:{{ f.badgeFg }};">{{ f.badge }}</span>
+                    </span>
+                    <sc-if value="{{ f.isText }}">
+                      <input value="{{ f.value }}" onChange="{{ f.onChange }}" placeholder="{{ f.placeholder }}" aria-label="{{ f.label }}" style="height:46px; padding:0 14px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:var(--surface-2); border:1.5px solid {{ f.border }}; border-radius:12px; outline:none;">
+                    </sc-if>
+                    <sc-if value="{{ f.isArea }}">
+                      <textarea value="{{ f.value }}" onChange="{{ f.onChange }}" rows="3" placeholder="{{ f.placeholder }}" aria-label="{{ f.label }}" style="padding:12px 14px; font-size:14px; line-height:1.55; font-family:var(--font-sans); color:var(--fg-1); background:var(--surface-2); border:1.5px solid {{ f.border }}; border-radius:12px; outline:none; resize:vertical;"></textarea>
+                    </sc-if>
+                    <sc-if value="{{ f.isChoice }}">
+                      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:10px; align-items:stretch;">
+                        <sc-for list="{{ f.options }}" as="op" hint-placeholder-count="2">
+                          <div onClick="{{ op.onPick }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ op.on }}" style="cursor:pointer; height:100%; border:1.5px solid {{ op.border }}; border-radius:12px; padding:13px 15px; display:flex; align-items:center; gap:12px; background:{{ op.bg }};" style-hover="border-color:var(--agency-accent);">
+                            <span style="flex:none; width:18px; height:18px; border-radius:999px; border:2px solid {{ op.dotBorder }}; display:inline-flex; align-items:center; justify-content:center;"><span style="width:8px; height:8px; border-radius:999px; background:{{ op.dotInner }};"></span></span>
+                            <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                              <span style="font-size:14px; font-weight:600; color:var(--fg-1);">{{ op.label }}</span>
+                              <span style="font-size:12.5px; line-height:1.4; color:var(--fg-3);">{{ op.hint }}</span>
+                            </span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ f.hasError }}">
+                      <span style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--status-error);"><i data-lucide="circle-alert" style="width:14px;height:14px"></i> {{ f.error }}</span>
+                    </sc-if>
+                    <sc-if value="{{ f.hasHelp }}">
+                      <span style="font-size:12.5px; line-height:1.5; color:var(--fg-4);">{{ f.help }}</span>
+                    </sc-if>
+                  </label>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ hasDocs }}">
+                <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden;">
+                  <div style="padding:clamp(16px,3vw,18px) clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+                    <div style="flex:1 1 220px; min-width:0;">
+                      <h3 style="font-size:16px; font-weight:700; color:var(--fg-1);">Documents to attach</h3>
+                      <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">GPL checks that each one is present before the request is routed. Photographs of the document are accepted.</p>
+                    </div>
+                    <span style="flex:none; display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:999px; background:{{ docsChipBg }}; color:{{ docsChipFg }}; font-size:12.5px; font-weight:700;"><i data-lucide="{{ docsChipIcon }}" style="width:14px;height:14px"></i> {{ docsChip }}</span>
+                  </div>
+                  <sc-for list="{{ docs }}" as="d" hint-placeholder-count="3">
+                    <div style="padding:14px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.06); display:flex; align-items:center; gap:13px; flex-wrap:wrap;">
+                      <span style="flex:none; width:36px; height:36px; border-radius:11px; background:{{ d.iconBg }}; color:{{ d.iconFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ d.icon }}" style="width:18px;height:18px"></i></span>
+                      <span style="flex:1 1 180px; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                        <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ d.label }}</span>
+                        <span style="font-size:12.5px; line-height:1.45; color:{{ d.subFg }};">{{ d.sub }}</span>
+                      </span>
+                      <span onClick="{{ d.onToggle }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:7px; height:40px; padding:0 15px; border-radius:999px; background:{{ d.btnBg }}; border:1px solid {{ d.btnBorder }}; color:{{ d.btnFg }}; font-size:13.5px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="{{ d.btnIcon }}" style="width:16px;height:16px"></i> {{ d.btnLabel }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ hasCharge }}">
+                <div style="background:var(--status-warning-bg); border:1px solid rgba(180,95,22,0.28); border-radius:16px; padding:16px 18px; display:flex; gap:12px; align-items:flex-start;">
+                  <span style="flex:none; color:var(--status-warning); margin-top:1px;"><i data-lucide="receipt" style="width:19px;height:19px"></i></span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:14px; font-weight:700; color:var(--fg-1);">A charge applies to this request</div>
+                    <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">{{ chargeText }} GPL raises the invoice once the application is assessed. Work is scheduled after payment clears, and the request waits at <strong>Awaiting payment</strong> until then.</p>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{ isFormReview }}">
+              <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden;">
+                <div style="padding:clamp(16px,3vw,18px) clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                  <h3 style="font-size:16px; font-weight:700; color:var(--fg-1);">Check this before it goes to GPL</h3>
+                  <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">Once submitted you can add to the request but not change what you have entered.</p>
+                </div>
+                <sc-for list="{{ reviewRows }}" as="rr" hint-placeholder-count="5">
+                  <div style="padding:13px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.06); display:flex; flex-wrap:wrap; gap:6px 20px; align-items:baseline; justify-content:space-between;">
+                    <span style="flex:none; font-size:13.5px; color:var(--fg-3);">{{ rr.label }}</span>
+                    <span style="flex:1 1 200px; min-width:0; text-align:right; font-size:14.5px; font-weight:600; color:{{ rr.fg }};">{{ rr.value }}</span>
+                  </div>
+                </sc-for>
+                <div style="padding:14px clamp(18px,3vw,22px); background:var(--surface-2); display:flex; gap:10px; align-items:flex-start;">
+                  <span style="flex:none; color:var(--fg-3); margin-top:1px;"><i data-lucide="bell" style="width:16px;height:16px"></i></span>
+                  <p style="flex:1; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fg-2);">{{ reviewNotifyLine }}</p>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isFormDone }}">
+              <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; padding:clamp(20px,3vw,24px); display:flex; flex-direction:column; gap:18px;">
+                <div style="display:flex; gap:14px; align-items:flex-start;">
+                  <span style="flex:none; width:44px; height:44px; border-radius:14px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="circle-check" style="width:23px;height:23px"></i></span>
+                  <div style="flex:1; min-width:0;">
+                    <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Request received</h2>
+                    <p style="font-size:14px; line-height:1.55; color:var(--fg-2); margin-top:5px;">{{ doneSummary }}</p>
+                  </div>
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                  <div style="flex:1 1 180px; min-width:0; background:var(--surface-2); border-radius:12px; padding:13px 15px;">
+                    <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Case number</div>
+                    <div style="display:flex; align-items:center; gap:9px; margin-top:4px;">
+                      <span style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">{{ doneRef }}</span>
+                      <span onClick="{{ copyRef }}" role="button" tabIndex="{{ zero }}" title="Copy case number" style="cursor:pointer; flex:none; width:30px; height:30px; border-radius:9px; background:#ffffff; border:1px solid var(--surface-border); color:{{ copyFg }}; display:inline-flex; align-items:center; justify-content:center;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="{{ copyIcon }}" style="width:15px;height:15px"></i></span>
+                    </div>
+                  </div>
+                  <div style="flex:1 1 180px; min-width:0; background:var(--surface-2); border-radius:12px; padding:13px 15px;">
+                    <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">GPL aims to complete by</div>
+                    <div style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1); margin-top:4px;">{{ doneTarget }}</div>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <span style="font-size:13px; font-weight:700; color:var(--fg-2);">What happens next</span>
+                  <sc-for list="{{ doneRoute }}" as="dr" hint-placeholder-count="3">
+                    <div style="display:flex; gap:12px; align-items:flex-start;">
+                      <span style="flex:none; width:26px; height:26px; border-radius:999px; background:{{ dr.bg }}; color:{{ dr.fg }}; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">{{ dr.n }}</span>
+                      <span style="flex:1; min-width:0; font-size:14px; line-height:1.55; color:var(--fg-2); padding-top:3px;">{{ dr.text }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:10px; padding-top:14px; border-top:1px solid rgba(19,28,46,0.08); justify-content:flex-end;">
+                  <span onClick="{{ goTrackNew }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 20px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14.5px; font-weight:600;" style-hover="background:var(--agency-accent-strong);"><i data-lucide="list-checks" style="width:17px;height:17px"></i> Track this request</span>
+                  <span onClick="{{ backToCatalogue }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 20px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14.5px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="plus" style="width:17px;height:17px"></i> Raise another request</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ showFormAside }}" hint-placeholder-val="{{ true }}">
+            <aside style="flex:1 1 min(280px, 100%); min-width:0; display:flex; flex-direction:column; gap:14px;">
+              <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden;">
+                <div style="padding:14px 18px; border-bottom:1px solid rgba(19,28,46,0.08); display:flex; gap:10px; align-items:center;">
+                  <span style="flex:none; color:var(--agency-accent);"><i data-lucide="book-open" style="width:17px;height:17px"></i></span>
+                  <h3 style="flex:1; min-width:0; font-size:14.5px; font-weight:700; color:var(--fg-1);">Before you submit</h3>
+                </div>
+                <sc-for list="{{ suggestedArticles }}" as="sa" hint-placeholder-count="3">
+                  <div onClick="{{ sa.onOpen }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; padding:13px 18px; border-bottom:1px solid rgba(19,28,46,0.06); display:flex; gap:11px; align-items:flex-start; transition:background 160ms;" style-hover="background:var(--surface-2);">
+                    <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                      <span style="font-size:13.5px; font-weight:600; line-height:1.4; color:var(--fg-1);">{{ sa.title }}</span>
+                      <span style="font-size:12.5px; line-height:1.45; color:var(--fg-3);">{{ sa.snippet }}</span>
+                    </span>
+                    <span style="flex:none; color:var(--fg-4); margin-top:2px;"><i data-lucide="arrow-up-right" style="width:15px;height:15px"></i></span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:var(--surface-2); border:1px solid rgba(19,28,46,0.08); border-radius:16px; padding:15px 17px; display:flex; flex-direction:column; gap:9px;">
+                <span style="font-size:13px; font-weight:700; color:var(--fg-1);">Prefer to talk it through?</span>
+                <p style="font-size:12.5px; line-height:1.5; color:var(--fg-3);">A customer service representative can complete this same form with you.</p>
+                <a href="tel:08004754357" style="display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 15px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:13.5px; font-weight:600; align-self:flex-start;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="phone" style="width:16px;height:16px"></i> 0800-475-4357</a>
+              </div>
+            </aside>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ showFormBar }}" hint-placeholder-val="{{ true }}">
+          <div style="height:80px; flex:none;"></div>
+          <div style="position:fixed; left:{{ railWidth }}; right:0; bottom:0; z-index:45; background:#ffffff; border-top:1px solid rgba(19,28,46,0.12); box-shadow:0 -8px 24px rgba(19,28,46,0.10);">
+            <div style="padding:14px clamp(16px,3vw,32px); display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:14px;">
+              <span style="flex:1 1 220px; min-width:0; font-size:13px; line-height:1.5; color:var(--fg-3);">{{ formBarNote }}</span>
+              <span onClick="{{ formBack }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; display:inline-flex; align-items:center; gap:7px; height:48px; padding:0 18px; border-radius:999px; font-size:14.5px; font-weight:600; color:var(--fg-2);" style-hover="background:rgba(19,28,46,0.06);"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back</span>
+              <span onClick="{{ formNext }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; display:inline-flex; align-items:center; gap:9px; height:48px; padding:0 22px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14.5px; font-weight:600;" style-hover="background:var(--agency-accent-strong);" style-active="transform:scale(0.98)"><i data-lucide="{{ formNextIcon }}" style="width:17px;height:17px"></i> {{ formNextLabel }}</span>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isTrack }}">
+      <section data-screen-label="My requests" style="display:flex; flex-direction:column; gap:clamp(16px,2.4vw,20px);">
+
+        <sc-if value="{{ noCaseOpen }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+            <label style="flex:1 1 260px; min-width:0; position:relative; display:flex; align-items:center;">
+              <span style="position:absolute; left:14px; color:var(--fg-4); display:inline-flex; pointer-events:none;"><i data-lucide="search" style="width:17px;height:17px"></i></span>
+              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Search by case number, type or address" aria-label="Search your requests" style="width:100%; height:46px; padding:0 14px 0 42px; font-size:14px; font-family:var(--font-sans); color:var(--fg-1); background:#ffffff; border:1px solid var(--surface-border); border-radius:999px; outline:none;">
+            </label>
+            <span onClick="{{ toggleSort }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 17px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:13.5px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="{{ sortIcon }}" style="width:16px;height:16px"></i> {{ sortLabel }}</span>
+            <sc-if value="{{ isOutagesMode }}">
+              <span onClick="{{ newMenuAction }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:9px; height:46px; padding:0 18px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14.5px; font-weight:600;" style-hover="background:var(--agency-accent-strong);">{{ newMenuLabel }}</span>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ showFilterBar }}">
+          <div style="display:flex; flex-wrap:wrap; gap:12px 18px; align-items:center;">
+            <div role="group" aria-label="Filter requests" style="display:flex; flex-wrap:wrap; gap:4px; padding:4px; border-radius:999px; background:var(--surface-4);">
+              <sc-for list="{{ filters }}" as="fl" hint-placeholder-count="5">
+                <span onClick="{{ fl.onPick }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ fl.on }}" style="cursor:pointer; min-height:42px; padding:0 15px; border-radius:999px; display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:600; background:{{ fl.bg }}; color:{{ fl.fg }}; box-shadow:{{ fl.shadow }}; transition:var(--tr-control);">{{ fl.label }}<sc-if value="{{ fl.hasCount }}"><span style="font-size:12px; font-weight:700; opacity:0.72;">{{ fl.count }}</span></sc-if></span>
+              </sc-for>
+            </div>
+            <span style="font-size:13px; color:var(--fg-4);">{{ resultCount }}</span>
+          </div>
+          </sc-if>
+
+          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;">
+          <sc-for list="{{ visibleCases }}" as="c" hint-placeholder-count="4">
+            <div onClick="{{ c.onOpen }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(14px,2.5vw,18px); box-shadow:0 1px 4px rgba(19,28,46,0.05); overflow:hidden; display:flex; flex-direction:column; transition:var(--tr-surface);" style-hover="border-color:var(--agency-accent); box-shadow:0 8px 22px rgba(19,28,46,0.10); transform:translateY(-2px);">
+              <div style="padding:clamp(16px,3vw,20px); display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; align-items:flex-start; gap:11px;">
+                  <span style="flex:none; width:34px; height:34px; border-radius:10px; background:{{ c.chipBg }}; color:{{ c.chipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ c.icon }}" style="width:17px;height:17px"></i></span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">{{ c.kind }} · {{ c.ref }}</div>
+                    <h4 style="font-size:14.5px; font-weight:700; line-height:1.4; color:var(--fg-1); margin-top:3px;">{{ c.title }}</h4>
+                  </div>
+                </div>
+
+                <span style="align-self:flex-start; display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:999px; background:{{ c.chipBg }}; color:{{ c.chipFg }}; font-size:12px; font-weight:700;"><i data-lucide="{{ c.statusIcon }}" style="width:13px;height:13px"></i> {{ c.status }}</span>
+
+                <sc-if value="{{ c.needsYou }}">
+                  <div style="background:var(--status-warning-bg); border:1px solid rgba(180,95,22,0.26); border-radius:12px; padding:11px 13px; display:flex; gap:10px; align-items:flex-start;">
+                    <span style="flex:none; color:var(--status-warning); margin-top:1px;"><i data-lucide="circle-alert" style="width:16px;height:16px"></i></span>
+                    <span style="flex:1; min-width:0; font-size:13px; line-height:1.5; font-weight:600; color:var(--fg-1);">{{ c.needsYouText }}</span>
+                  </div>
+                </sc-if>
+
+                <div style="display:flex; flex-wrap:wrap; gap:14px;">
+                  <sc-for list="{{ c.facts }}" as="cf" hint-placeholder-count="2">
+                    <span style="display:flex; flex-direction:column; gap:2px;">
+                      <span style="font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">{{ cf.label }}</span>
+                      <span style="font-size:13px; font-weight:600; color:{{ cf.fg }};">{{ cf.value }}</span>
+                    </span>
+                  </sc-for>
+                </div>
+
+                <div style="display:flex; align-items:flex-start; padding-top:12px; border-top:1px solid rgba(19,28,46,0.08);">
+                  <sc-for list="{{ c.steps }}" as="st" hint-placeholder-count="4">
+                    <div style="flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; gap:6px;">
+                      <div style="width:100%; display:flex; align-items:center;">
+                        <span style="flex:1; height:2px; background:{{ st.lineBefore }};"></span>
+                        <span style="flex:none; width:18px; height:18px; border-radius:999px; background:{{ st.dotBg }}; color:{{ st.dotFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ st.icon }}" style="width:11px;height:11px"></i></span>
+                        <span style="flex:1; height:2px; background:{{ st.line }};"></span>
+                      </div>
+                      <span style="font-size:11px; font-weight:{{ st.weight }}; line-height:1.3; text-align:center; color:{{ st.fg }};">{{ st.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+          </div>
+
+          <sc-if value="{{ noResults }}">
+            <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; padding:clamp(20px,3vw,26px); display:flex; gap:14px; align-items:center;">
+              <span style="flex:none; width:42px; height:42px; border-radius:12px; background:var(--surface-4); color:var(--fg-3); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="search-x" style="width:21px;height:21px"></i></span>
+              <div style="flex:1; min-width:0;">
+                <h4 style="font-size:16px; font-weight:700; color:var(--fg-1);">Nothing matches that</h4>
+                <p style="font-size:13.5px; line-height:1.55; color:var(--fg-3); margin-top:3px;">{{ emptyHint }}</p>
+              </div>
+            </div>
+          </sc-if>
+        </sc-if>
+
+        <sc-if value="{{ caseOpen }}">
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <span onClick="{{ closeCase }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--agency-accent);"><i data-lucide="arrow-left" style="width:15px;height:15px"></i> All requests</span>
+
+            <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start;">
+
+              <div style="flex:3 1 min(440px, 100%); min-width:0; display:flex; flex-direction:column; gap:16px;">
+
+                <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; overflow:hidden; box-shadow:0 2px 8px rgba(19,28,46,0.06);">
+                  <div style="flex:none; height:4px; background:{{ detAccent }};"></div>
+                  <div style="padding:clamp(18px,3vw,22px); display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
+                      <span style="flex:none; width:44px; height:44px; border-radius:13px; background:{{ detChipBg }}; color:{{ detChipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ detIcon }}" style="width:22px;height:22px"></i></span>
+                      <div style="flex:1 1 220px; min-width:0;">
+                        <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-4);">{{ detKind }}</div>
+                        <h2 style="font-size:19px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1); margin-top:4px;">{{ detTitle }}</h2>
+                      </div>
+                      <span style="flex:none; margin-top:6px; display:inline-flex; align-items:center; gap:6px; padding:5px 13px; border-radius:999px; background:{{ detChipBg }}; color:{{ detChipFg }}; font-size:12.5px; font-weight:700; white-space:nowrap;"><i data-lucide="{{ detStatusIcon }}" style="width:14px;height:14px"></i> {{ detStatus }}</span>
+                    </div>
+
+                    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                      <div style="flex:1 1 170px; min-width:0; background:var(--surface-2); border-radius:12px; padding:12px 14px;">
+                        <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">Case number</div>
+                        <div style="display:flex; align-items:center; gap:9px; margin-top:4px;">
+                          <span style="font-size:17px; font-weight:700; color:var(--fg-1);">{{ detRef }}</span>
+                          <span onClick="{{ copyRef }}" role="button" tabIndex="{{ zero }}" title="Copy case number" style="cursor:pointer; flex:none; width:28px; height:28px; border-radius:9px; background:#ffffff; border:1px solid var(--surface-border); color:{{ copyFg }}; display:inline-flex; align-items:center; justify-content:center;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="{{ copyIcon }}" style="width:14px;height:14px"></i></span>
+                        </div>
+                      </div>
+                      <sc-for list="{{ detFacts }}" as="df" hint-placeholder-count="2">
+                        <div style="flex:1 1 170px; min-width:0; background:var(--surface-2); border-radius:12px; padding:12px 14px;">
+                          <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">{{ df.label }}</div>
+                          <div style="font-size:15px; font-weight:700; color:var(--fg-1); margin-top:5px;">{{ df.value }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <div style="border:1px solid {{ etaBorder }}; background:{{ etaBg }}; border-radius:14px; padding:15px 17px; display:flex; gap:12px; align-items:flex-start;">
+                      <span style="flex:none; color:{{ etaFg }}; margin-top:1px;"><i data-lucide="{{ etaIcon }}" style="width:19px;height:19px"></i></span>
+                      <div style="flex:1; min-width:0;">
+                        <div style="font-size:14.5px; font-weight:700; color:var(--fg-1);">{{ etaTitle }}</div>
+                        <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">{{ etaText }}</p>
+                      </div>
+                    </div>
+
+                    <sc-if value="{{ detNeedsYou }}">
+                      <div style="background:var(--status-warning-bg); border:1px solid rgba(180,95,22,0.28); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:12px;">
+                        <div style="display:flex; gap:11px; align-items:flex-start;">
+                          <span style="flex:none; color:var(--status-warning); margin-top:1px;"><i data-lucide="circle-alert" style="width:19px;height:19px"></i></span>
+                          <div style="flex:1; min-width:0;">
+                            <div style="font-size:14.5px; font-weight:700; color:var(--fg-1);">{{ detNeedsTitle }}</div>
+                            <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">{{ detNeedsText }}</p>
+                          </div>
+                        </div>
+                        <span onClick="{{ resolveNeed }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;" style-hover="background:var(--agency-accent-strong);"><i data-lucide="{{ detNeedsIcon }}" style="width:16px;height:16px"></i> {{ detNeedsAction }}</span>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ detCanReopen }}">
+                      <div style="background:rgba(196,61,61,0.07); border:1px solid rgba(196,61,61,0.26); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:12px;">
+                        <div style="display:flex; gap:11px; align-items:flex-start;">
+                          <span style="flex:none; color:var(--status-error); margin-top:1px;"><i data-lucide="zap-off" style="width:19px;height:19px"></i></span>
+                          <div style="flex:1; min-width:0;">
+                            <div style="font-size:14.5px; font-weight:700; color:var(--fg-1);">Supply not actually back?</div>
+                            <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2); margin-top:4px;">GPL keeps this case open for {{ reopenWindow }} after restoration. Tell GPL now and the same case is reopened — you do not have to report it again or lose your place.</p>
+                          </div>
+                        </div>
+                        <span onClick="{{ reopenCase }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:999px; background:#ffffff; border:1px solid rgba(196,61,61,0.4); color:var(--status-error); font-size:14px; font-weight:600;" style-hover="background:rgba(196,61,61,0.10);"><i data-lucide="rotate-ccw" style="width:16px;height:16px"></i> My power is still off</span>
+                      </div>
+                    </sc-if>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; overflow:hidden;">
+                  <div style="padding:clamp(16px,3vw,18px) clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.08);">
+                    <h3 style="font-size:16px; font-weight:700; color:var(--fg-1);">Progress</h3>
+                    <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">{{ progressHint }}</p>
+                  </div>
+                  <div style="padding:clamp(18px,3vw,22px);">
+                    <sc-for list="{{ detStages }}" as="st" hint-placeholder-count="6">
+                      <div style="display:flex; gap:14px; align-items:stretch;">
+                        <span style="flex:none; width:26px; display:flex; flex-direction:column; align-items:center;">
+                          <span style="width:26px; height:26px; border-radius:999px; background:{{ st.dotBg }}; color:{{ st.dotFg }}; border:2px solid {{ st.dotBorder }}; display:inline-flex; align-items:center; justify-content:center; flex:none;"><i data-lucide="{{ st.icon }}" style="width:14px;height:14px"></i></span>
+                          <sc-if value="{{ st.hasLine }}">
+                            <span style="flex:1; width:2px; background:{{ st.line }}; min-height:16px;"></span>
+                          </sc-if>
+                        </span>
+                        <span style="flex:1; min-width:0; padding-bottom:{{ st.pad }}; display:flex; flex-direction:column; gap:3px;">
+                          <span style="font-size:14.5px; font-weight:{{ st.weight }}; line-height:1.4; color:{{ st.fg }};">{{ st.label }}</span>
+                          <span style="font-size:12.5px; line-height:1.5; color:var(--fg-4);">{{ st.meta }}</span>
+                        </span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; overflow:hidden;">
+                  <div style="padding:clamp(16px,3vw,18px) clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+                    <div style="flex:1 1 220px; min-width:0;">
+                      <h3 style="font-size:16px; font-weight:700; color:var(--fg-1);">Everything GPL has told you</h3>
+                      <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:3px;">Every message sent on this case, on whichever channel it went out.</p>
+                    </div>
+                    <span style="flex:none; font-size:13px; color:var(--fg-4);">{{ updateCount }}</span>
+                  </div>
+                  <sc-for list="{{ detUpdates }}" as="u" hint-placeholder-count="4">
+                    <div style="padding:15px clamp(18px,3vw,22px); border-bottom:1px solid rgba(19,28,46,0.06); display:flex; gap:13px; align-items:flex-start;">
+                      <span style="flex:none; width:34px; height:34px; border-radius:10px; background:var(--surface-4); color:var(--fg-2); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ u.icon }}" style="width:16px;height:16px"></i></span>
+                      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px;">
+                        <div style="display:flex; flex-wrap:wrap; gap:6px 10px; align-items:baseline;">
+                          <span style="font-size:14px; font-weight:700; color:var(--fg-1);">{{ u.title }}</span>
+                          <span style="font-size:12px; font-weight:600; color:var(--fg-4);">{{ u.when }}</span>
+                        </div>
+                        <p style="font-size:13.5px; line-height:1.55; color:var(--fg-2);">{{ u.body }}</p>
+                        <span style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700; color:var(--fg-4); margin-top:2px;"><i data-lucide="{{ u.channelIcon }}" style="width:13px;height:13px"></i> {{ u.channel }}</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <aside style="flex:1 1 min(280px, 100%); min-width:0; display:flex; flex-direction:column; gap:14px;">
+                <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; overflow:hidden;">
+                  <div style="padding:14px 18px; border-bottom:1px solid rgba(19,28,46,0.08);">
+                    <h3 style="font-size:14.5px; font-weight:700; color:var(--fg-1);">What you submitted</h3>
+                  </div>
+                  <sc-for list="{{ detSubmitted }}" as="ds" hint-placeholder-count="4">
+                    <div style="padding:12px 18px; border-bottom:1px solid rgba(19,28,46,0.06); display:flex; flex-direction:column; gap:2px;">
+                      <span style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-4);">{{ ds.label }}</span>
+                      <span style="font-size:13.5px; font-weight:600; line-height:1.45; color:var(--fg-2);">{{ ds.value }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:16px; padding:16px 18px; display:flex; flex-direction:column; gap:11px;">
+                  <span style="font-size:14px; font-weight:700; color:var(--fg-1);">Updates go to</span>
+                  <sc-for list="{{ detChannels }}" as="dc" hint-placeholder-count="3">
+                    <span style="display:inline-flex; align-items:center; gap:9px; font-size:13.5px; font-weight:600; color:var(--fg-2);"><span style="flex:none; color:{{ dc.fg }}; display:inline-flex;"><i data-lucide="{{ dc.icon }}" style="width:16px;height:16px"></i></span>{{ dc.label }}</span>
+                  </sc-for>
+                  <a href="GPL Dashboard.dc.html" style="font-size:13px; font-weight:600; margin-top:2px;">Change how GPL contacts you</a>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isHelp }}">
+      <section data-screen-label="FAQ" style="display:flex; flex-direction:column; gap:clamp(16px,2.4vw,20px);">
+        <label style="position:relative; display:flex; align-items:center;">
+          <span style="position:absolute; left:16px; color:var(--fg-4); display:inline-flex; pointer-events:none;"><i data-lucide="search" style="width:18px;height:18px"></i></span>
+          <input value="{{ helpQuery }}" onChange="{{ onHelpQuery }}" placeholder="Search help — prepaid credit, new connection, high bill, reconnection" aria-label="Search help articles" style="width:100%; height:52px; padding:0 16px 0 46px; font-size:15px; font-family:var(--font-sans); color:var(--fg-1); background:#ffffff; border:1px solid var(--surface-border); border-radius:999px; outline:none;">
+        </label>
+
+        <div role="group" aria-label="Filter help topics" style="display:flex; flex-wrap:wrap; gap:4px; padding:4px; border-radius:999px; background:var(--surface-4); align-self:flex-start;">
+          <sc-for list="{{ helpTopics }}" as="ht" hint-placeholder-count="4">
+            <span onClick="{{ ht.onPick }}" role="button" tabIndex="{{ zero }}" aria-pressed="{{ ht.on }}" style="cursor:pointer; min-height:42px; padding:0 15px; border-radius:999px; display:inline-flex; align-items:center; font-size:13.5px; font-weight:600; background:{{ ht.bg }}; color:{{ ht.fg }}; box-shadow:{{ ht.shadow }}; transition:var(--tr-control);">{{ ht.label }}</span>
+          </sc-for>
+        </div>
+
+        <div style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:18px; overflow:hidden; box-shadow:0 2px 8px rgba(19,28,46,0.06);">
+          <sc-for list="{{ helpArticles }}" as="a" hint-placeholder-count="5">
+            <div style="border-bottom:1px solid rgba(19,28,46,0.06);">
+              <div onClick="{{ a.onToggle }}" role="button" tabIndex="{{ zero }}" aria-expanded="{{ a.open }}" style="cursor:pointer; padding:16px clamp(18px,3vw,22px); display:flex; gap:14px; align-items:center; transition:background 160ms;" style-hover="background:var(--surface-2);">
+                <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--agency-accent-soft); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ a.icon }}" style="width:18px;height:18px"></i></span>
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                  <span style="font-size:15px; font-weight:600; line-height:1.4; color:var(--fg-1);">{{ a.title }}</span>
+                  <span style="font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-4);">{{ a.topic }}</span>
+                </span>
+                <span style="flex:none; color:var(--fg-4);"><i data-lucide="{{ a.chevron }}" style="width:18px;height:18px"></i></span>
+              </div>
+              <sc-if value="{{ a.open }}">
+                <div style="padding:0 clamp(18px,3vw,22px) 20px 68px; display:flex; flex-direction:column; gap:12px;">
+                  <sc-for list="{{ a.body }}" as="p" hint-placeholder-count="2">
+                    <p style="font-size:14px; line-height:1.65; color:var(--fg-2); text-wrap:pretty;">{{ p.text }}</p>
+                  </sc-for>
+                  <sc-if value="{{ a.hasAction }}">
+                    <span onClick="{{ a.onAction }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:flex-start; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 17px; border-radius:999px; background:var(--agency-accent-soft); color:var(--agency-accent); font-size:13.5px; font-weight:600;" style-hover="background:var(--agency-accent); color:#ffffff;"><i data-lucide="arrow-right" style="width:16px;height:16px"></i> {{ a.actionLabel }}</span>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{ helpEmpty }}">
+            <div style="padding:clamp(20px,3vw,26px); display:flex; gap:14px; align-items:center;">
+              <span style="flex:none; width:42px; height:42px; border-radius:12px; background:var(--surface-4); color:var(--fg-3); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="search-x" style="width:21px;height:21px"></i></span>
+              <div style="flex:1; min-width:0;">
+                <h4 style="font-size:16px; font-weight:700; color:var(--fg-1);">No article covers that yet</h4>
+                <p style="font-size:13.5px; line-height:1.55; color:var(--fg-3); margin-top:3px;">Ask the help assistant, or call 0800-475-4357 and a representative will answer it.</p>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ accountSwitchOpen }}">
+      <div onClick="{{ closeAccountSwitch }}" role="presentation" style="position:fixed; inset:0; z-index:80; background:rgba(19,28,46,0.44); display:flex; align-items:center; justify-content:center; padding:24px;">
+        <div style="width:min(460px, 100%); background:#ffffff; border-radius:20px; overflow:hidden; box-shadow:0 24px 60px rgba(19,28,46,0.30);">
+          <div style="padding:20px 22px; border-bottom:1px solid rgba(19,28,46,0.08);">
+            <h3 style="font-size:17px; font-weight:700; color:var(--fg-1);">Which account is this about?</h3>
+            <p style="font-size:13px; line-height:1.5; color:var(--fg-3); margin-top:4px;">You hold more than one account with GPL. Requests, bills and notifications are kept separate for each.</p>
+          </div>
+          <sc-for list="{{ accounts }}" as="ac" hint-placeholder-count="2">
+            <div onClick="{{ ac.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; padding:15px 22px; border-bottom:1px solid rgba(19,28,46,0.06); display:flex; gap:13px; align-items:center;" style-hover="background:var(--surface-2);">
+              <span style="flex:none; width:20px; height:20px; border-radius:999px; border:2px solid {{ ac.dotBorder }}; display:inline-flex; align-items:center; justify-content:center;"><span style="width:9px; height:9px; border-radius:999px; background:{{ ac.dotInner }};"></span></span>
+              <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                <span style="font-size:14.5px; font-weight:700; color:var(--fg-1);">{{ ac.label }}</span>
+                <span style="font-size:12.5px; line-height:1.45; color:var(--fg-3);">{{ ac.detail }}</span>
+              </span>
+              <span style="flex:none; display:inline-flex; align-items:center; padding:4px 10px; border-radius:999px; background:var(--surface-4); color:var(--fg-3); font-size:11.5px; font-weight:700;">{{ ac.tag }}</span>
+            </div>
+          </sc-for>
+          <div style="padding:16px 22px; display:flex; justify-content:flex-end;">
+            <span onClick="{{ closeAccountSwitch }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14px; font-weight:600;" style-hover="background:var(--agency-accent-strong);">Done</span>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;embedded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;intent&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{view:string, type?:string, ref?:string, n:number}&quot;},&quot;reportIntent&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{family:string, seq:number}&quot;},&quot;railWidth&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;}}">
+const SOFT = 'rgba(64,66,147,0.12)';
+const ACCENT = '#404293';
+
+const TYPES = {
+  'new-res-application': {
+    family: 'connection', label: 'New service application — residential', short: 'New residential application',
+    hint: 'Power to a house, flat or apartment that has never been connected', sla: '10 working days',
+    title: 'New service application — residential',
+    formHint: 'GPL needs proof that the premises are yours and that the wiring has been passed.',
+    icon: 'house-plug', charge: null,
+    docs: ['Proof of ownership or tenancy', 'Valid photo identification', 'Electrical inspection certificate'],
+    fields: ['premises', 'address', 'phase', 'loadNote'],
+    target: '10 working days from a complete application'
+  },
+  'new-com-application': {
+    family: 'connection', label: 'New service application — business or corporate', short: 'New business application',
+    hint: 'A business, workshop or industrial site', sla: 'Assessed in 15 working days',
+    title: 'New service application — business or corporate',
+    formHint: 'Commercial applications are assessed by an engineer before a quotation is issued.',
+    icon: 'factory', charge: 'The connection charge depends on the assessed load.',
+    docs: ['Business registration certificate', 'Proof of ownership or tenancy', 'Electrical inspection certificate', 'Load schedule from your electrician'],
+    fields: ['premisesCom', 'address', 'phaseCom', 'loadKw', 'loadNoteCom'],
+    target: 'Assessment within 15 working days'
+  },
+  'new-supply-capital': {
+    family: 'connection', label: 'New supply requiring capital work', short: 'New supply — capital work',
+    hint: 'A supply that needs network extension, a new pole line or a transformer', sla: 'Assessed in 20 working days',
+    title: 'New supply requiring capital work',
+    formHint: 'An engineer assesses the network work needed before a quotation is issued.',
+    icon: 'hard-hat', charge: 'Costed after the site assessment.',
+    docs: ['Proof of ownership or tenancy', 'Site plan or sketch'],
+    fields: ['address', 'loadNote'],
+    target: 'Assessment within 20 working days'
+  },
+  'temp-supply-event': {
+    family: 'connection', label: 'Temporary supply for an outdoor event', short: 'Temporary event supply',
+    hint: 'A short-term connection for a wedding, fair or other outdoor event', sla: '5 working days',
+    title: 'Temporary supply for an outdoor event',
+    formHint: 'Book well ahead of the event date — GPL schedules a crew to connect and later disconnect the supply.',
+    icon: 'tent', charge: 'A temporary connection fee applies.',
+    docs: ['Event permit, if applicable'],
+    fields: ['address', 'detail'],
+    target: '5 working days before the event'
+  },
+  'change-tenancy': {
+    family: 'connection', label: 'Change of tenancy / change of account holder', short: 'Change of tenancy',
+    hint: 'Moving the account into a new tenant or owner\u2019s name', sla: '5 working days',
+    title: 'Change of tenancy or account holder',
+    formHint: 'The new account holder needs valid identification and proof of occupancy.',
+    icon: 'user-round-pen', charge: null,
+    docs: ['Valid photo identification', 'Proof of tenancy or ownership'],
+    fields: ['address', 'detail'],
+    target: '5 working days'
+  },
+  'load-upgrade': {
+    family: 'connection', label: 'Load upgrade', short: 'Load upgrade',
+    hint: 'Increasing the capacity of an existing supply', sla: 'Assessed in 15 working days',
+    title: 'Load upgrade',
+    formHint: 'An engineer confirms the network can support the higher load before work is scheduled.',
+    icon: 'trending-up', charge: 'Costed after the site assessment.',
+    docs: ['Load schedule from your electrician'],
+    fields: ['loadKw', 'loadNote'],
+    target: 'Assessment within 15 working days'
+  },
+  'load-downgrade': {
+    family: 'connection', label: 'Load downgrade', short: 'Load downgrade',
+    hint: 'Reducing the capacity of an existing supply', sla: '10 working days',
+    title: 'Load downgrade',
+    formHint: 'Say what the new expected load will be.',
+    icon: 'trending-down', charge: null,
+    docs: [],
+    fields: ['loadNote'],
+    target: '10 working days'
+  },
+  'tariff-change': {
+    family: 'connection', label: 'Tariff change', short: 'Tariff change',
+    hint: 'Moving to a different rate category, for example residential to commercial', sla: '5 working days',
+    title: 'Tariff change',
+    formHint: 'GPL reviews how the premises is used before the tariff is changed.',
+    icon: 'receipt', charge: null,
+    docs: [],
+    fields: ['detail'],
+    target: '5 working days'
+  },
+  'service-line-rearrange': {
+    family: 'connection', label: 'Service line re-arrangement — customer requested', short: 'Service line re-arrangement',
+    hint: 'Moving the wire that feeds your premises, for example for construction', sla: '10 working days',
+    title: 'Service line re-arrangement',
+    formHint: 'Describe why the line needs to move and where it should go instead.',
+    icon: 'route', charge: 'A re-arrangement charge applies.',
+    docs: [],
+    fields: ['address', 'detail'],
+    target: '10 working days'
+  },
+  'meter-relocation': {
+    family: 'connection', label: 'Meter relocation or meter shift', short: 'Meter relocation',
+    hint: 'Moving the meter to a different position on the premises', sla: '10 working days',
+    title: 'Meter relocation or meter shift',
+    formHint: 'Say where the meter is now and where you would like it moved to.',
+    icon: 'move', charge: 'A relocation charge applies.',
+    docs: [],
+    fields: ['address', 'detail'],
+    target: '10 working days'
+  },
+  'disconnect-request': {
+    family: 'connection', label: 'Disconnection at the customer\u2019s request', short: 'Voluntary disconnection',
+    hint: 'Ending the supply at a premises you are vacating or closing', sla: '5 working days',
+    title: 'Disconnection at your request',
+    formHint: 'Give the date you want the supply disconnected from.',
+    icon: 'power-off', charge: null,
+    docs: [],
+    fields: ['address', 'detail'],
+    target: '5 working days'
+  },
+  'reconnect-nonpayment': {
+    family: 'connection', label: 'Reconnection after disconnection for non-payment', short: 'Reconnection — non-payment',
+    hint: 'Restoring supply after arrears have been cleared or arranged', sla: '2 working days',
+    title: 'Reconnection after disconnection for non-payment',
+    formHint: 'Reconnection is scheduled once the arrears are cleared in full, or a payment arrangement is agreed.',
+    icon: 'plug-zap', charge: 'A reconnection fee applies.',
+    docs: ['Proof of payment or payment arrangement'],
+    fields: ['address', 'detail'],
+    target: '2 working days after payment is confirmed'
+  },
+  'reconnect-voluntary': {
+    family: 'connection', label: 'Reconnection after a voluntary disconnection', short: 'Reconnection — voluntary',
+    hint: 'Restoring supply you had previously asked GPL to disconnect', sla: '5 working days',
+    title: 'Reconnection after a voluntary disconnection',
+    formHint: 'A site check may be needed if the supply has been off for some time.',
+    icon: 'plug-zap', charge: 'A reconnection fee may apply.',
+    docs: [],
+    fields: ['address', 'detail'],
+    target: '5 working days'
+  },
+  'service-line-obstructing': {
+    family: 'connection', label: 'Service line obstructing a neighbour\u2019s construction', short: 'Service line obstruction',
+    hint: 'A GPL line is in the way of building work on a neighbouring lot', sla: '10 working days',
+    title: 'Service line obstructing construction',
+    formHint: 'Describe the obstruction and attach a site plan if you have one.',
+    icon: 'construction', charge: null,
+    docs: ['Site plan or sketch, if available'],
+    fields: ['address', 'detail'],
+    target: '10 working days'
+  },
+  'pole-blocking-driveway': {
+    family: 'connection', label: 'Incorrectly planted pole or pole blocking a driveway', short: 'Pole obstruction',
+    hint: 'A pole is in the wrong place or blocks vehicle access', sla: '10 working days',
+    title: 'Incorrectly planted pole or pole blocking a driveway',
+    formHint: 'A crew visits to assess whether the pole can be moved.',
+    icon: 'signpost', charge: 'A pole relocation charge may apply.',
+    docs: [],
+    fields: ['address', 'detail'],
+    target: '10 working days'
+  },
+  'obstructing-guy-wire': {
+    family: 'connection', label: 'Obstructing guy wire', short: 'Obstructing guy wire',
+    hint: 'A support wire from a pole is in the way of your property or access', sla: '10 working days',
+    title: 'Obstructing guy wire',
+    formHint: 'Describe where the guy wire is and what it is obstructing.',
+    icon: 'cable', charge: null,
+    docs: [],
+    fields: ['address', 'detail'],
+    target: '10 working days'
+  },
+  'meter-defective-replace': {
+    family: 'meter', label: 'Defective or improperly registering meter — replacement', short: 'Defective meter replacement',
+    hint: 'The meter is broken, damaged or not reading correctly', sla: '3 working days',
+    title: 'Defective or improperly registering meter',
+    formHint: 'A technician confirms the fault before the meter is replaced.',
+    icon: 'gauge', charge: null,
+    docs: [],
+    fields: ['symptom', 'detail'],
+    target: '3 working days'
+  },
+  'meter-testing': {
+    family: 'meter', label: 'Meter testing requested by the customer', short: 'Meter testing',
+    hint: 'You want GPL to test the accuracy of your meter', sla: '10 working days',
+    title: 'Meter testing requested by the customer',
+    formHint: 'A testing fee may apply if the meter is found to be accurate.',
+    icon: 'gauge', charge: 'A testing fee applies if the meter is found accurate.',
+    docs: [],
+    fields: ['detail'],
+    target: '10 working days'
+  },
+  'prepaid-ciu-problem': {
+    family: 'meter', label: 'Prepaid meter or CIU problem', short: 'Prepaid meter or CIU problem',
+    hint: 'A prepaid meter or customer interface unit that will not take credit or shows an error', sla: '3 working days',
+    title: 'Prepaid meter or CIU problem',
+    formHint: 'Most prepaid problems are cleared without a visit. Tell GPL exactly what the meter is showing.',
+    icon: 'credit-card', charge: null,
+    docs: [],
+    fields: ['meterKind', 'symptom', 'detail'],
+    target: '3 working days, sooner if it can be cleared remotely'
+  },
+  'meter-reading-dispute': {
+    family: 'meter', label: 'Meter reading dispute or re-read request', short: 'Reading dispute or re-read',
+    hint: 'You believe a reading is wrong and want it checked again', sla: '5 working days',
+    title: 'Meter reading dispute or re-read request',
+    formHint: 'Say which reading you are disputing and why.',
+    icon: 'refresh-ccw', charge: null,
+    docs: [],
+    fields: ['billRef', 'detail'],
+    target: '5 working days'
+  },
+  'transformer-testing': {
+    family: 'meter', label: 'Transformer testing requested by a customer', short: 'Transformer testing',
+    hint: 'You want the transformer serving your premises tested', sla: '10 working days',
+    title: 'Transformer testing requested by a customer',
+    formHint: 'A technician schedules a visit to test the transformer.',
+    icon: 'gauge', charge: 'A testing fee may apply.',
+    docs: [],
+    fields: ['detail'],
+    target: '10 working days'
+  },
+  'billing-query': {
+    family: 'billing', label: 'Billing query or disputed consumption', short: 'Billing query',
+    hint: 'A bill that looks wrong, or consumption you are disputing', sla: '5 working days',
+    title: 'Billing query or disputed consumption',
+    formHint: 'Say which bill and what looks wrong. GPL checks the reading, the tariff and the payments received.',
+    icon: 'receipt-text', charge: null,
+    docs: ['The bill in question'],
+    fields: ['billRef', 'billIssue', 'detail'],
+    target: '5 working days'
+  },
+  'billing-adjust-estimated': {
+    family: 'billing', label: 'Billing adjustment — estimated read corrected to actual', short: 'Adjustment — estimated to actual',
+    hint: 'A bill based on an estimate needs correcting to an actual reading', sla: '5 working days',
+    title: 'Billing adjustment — estimated read corrected to actual',
+    formHint: 'GPL takes an actual reading and adjusts the bill accordingly.',
+    icon: 'file-diff', charge: null,
+    docs: [],
+    fields: ['billRef', 'detail'],
+    target: '5 working days'
+  },
+  'billing-adjust-incorrect': {
+    family: 'billing', label: 'Billing adjustment — incorrect actual read', short: 'Adjustment — incorrect read',
+    hint: 'An actual reading on a bill appears to be wrong', sla: '5 working days',
+    title: 'Billing adjustment — incorrect actual read',
+    formHint: 'Give the reading shown on the bill and the reading on your meter.',
+    icon: 'file-diff', charge: null,
+    docs: [],
+    fields: ['billRef', 'detail'],
+    target: '5 working days'
+  },
+  'backbill-credit-meter-change': {
+    family: 'billing', label: 'Back-bill or credit after a defective meter change', short: 'Back-bill after meter change',
+    hint: 'A credit or back-bill following the replacement of a defective meter', sla: '10 working days',
+    title: 'Back-bill or credit after a defective meter change',
+    formHint: 'GPL recalculates the account once the meter history has been reviewed.',
+    icon: 'file-diff', charge: null,
+    docs: [],
+    fields: ['billRef', 'detail'],
+    target: '10 working days'
+  },
+  'backbill-bypass-tampering': {
+    family: 'billing', label: 'Back-bill after meter bypass or tampering', short: 'Back-bill — bypass or tampering',
+    hint: 'A back-bill raised following a suspected meter bypass or tampering', sla: '10 working days',
+    title: 'Back-bill after meter bypass or tampering',
+    formHint: 'Provide any details relevant to the investigation.',
+    icon: 'file-diff', charge: null,
+    docs: [],
+    fields: ['billRef', 'detail'],
+    target: '10 working days'
+  },
+  'account-balance-enquiry': {
+    family: 'billing', label: 'Account balance or statement enquiry', short: 'Balance or statement enquiry',
+    hint: 'You need your current balance or a statement of your account', sla: '3 working days',
+    title: 'Account balance or statement enquiry',
+    formHint: 'Say which account and what period the statement should cover.',
+    icon: 'file-text', charge: null,
+    docs: [],
+    fields: ['detail'],
+    target: '3 working days'
+  },
+  'payment-verification': {
+    family: 'billing', label: 'Payment not reflected / payment verification', short: 'Payment verification',
+    hint: 'A payment you made is not showing on your account', sla: '5 working days',
+    title: 'Payment not reflected or payment verification',
+    formHint: 'Attach the payment receipt if you have one.',
+    icon: 'circle-dollar-sign', charge: null,
+    docs: ['Payment receipt'],
+    fields: ['billRef', 'detail'],
+    target: '5 working days'
+  },
+  'outage-credit-compensation': {
+    family: 'billing', label: 'Outage credit or compensation', short: 'Outage credit or compensation',
+    hint: 'Requesting a credit or compensation for an outage', sla: '10 working days',
+    title: 'Outage credit or compensation',
+    formHint: 'Give the outage reference number if you reported it, and how it affected you.',
+    icon: 'circle-dollar-sign', charge: null,
+    docs: [],
+    fields: ['aboutRef', 'detail'],
+    target: '10 working days'
+  },
+  'claim-damage-property': {
+    family: 'billing', label: 'Claim for damage to appliances or property', short: 'Damage claim',
+    hint: 'A power surge or fault damaged an appliance or your property', sla: '15 working days',
+    title: 'Claim for damage to appliances or property',
+    formHint: 'Describe what was damaged and attach any supporting evidence you have.',
+    icon: 'shield-alert', charge: null,
+    docs: ['Photos of the damage, if available', 'Repair or replacement estimate, if available'],
+    fields: ['address', 'detail'],
+    target: '15 working days for an initial response'
+  },
+  'security-deposit-refund': {
+    family: 'billing', label: 'Security deposit refund', short: 'Deposit refund',
+    hint: 'Requesting the refund of a security deposit held on your account', sla: '10 working days',
+    title: 'Security deposit refund',
+    formHint: 'Refunds are processed once the account is confirmed clear of arrears.',
+    icon: 'circle-dollar-sign', charge: null,
+    docs: [],
+    fields: ['detail'],
+    target: '10 working days'
+  },
+  'general-info-enquiry': {
+    family: 'billing', label: 'General information enquiry', short: 'General enquiry',
+    hint: 'A general question that does not fit another category', sla: '3 working days',
+    title: 'General information enquiry',
+    formHint: 'Ask your question and GPL will respond.',
+    icon: 'circle-help', charge: null,
+    docs: [],
+    fields: ['detail'],
+    target: '3 working days'
+  },
+  'outage-info-enquiry': {
+    family: 'billing', label: 'Outage information enquiry', short: 'Outage information enquiry',
+    hint: 'A question about a past or current outage', sla: '3 working days',
+    title: 'Outage information enquiry',
+    formHint: 'Give the outage reference number if you have one.',
+    icon: 'zap-off', charge: null,
+    docs: [],
+    fields: ['aboutRef', 'detail'],
+    target: '3 working days'
+  },
+  'followup-existing-report': {
+    family: 'billing', label: 'Follow-up on an existing report', short: 'Follow-up on a report',
+    hint: 'Checking progress on a case you already raised', sla: '3 working days',
+    title: 'Follow-up on an existing report',
+    formHint: 'Give the case number so GPL can find your report quickly.',
+    icon: 'list-checks', charge: null,
+    docs: [],
+    fields: ['aboutRef', 'detail'],
+    target: '3 working days'
+  },
+  'service-requirement-enquiry': {
+    family: 'billing', label: 'Service requirement enquiry', short: 'Service requirement enquiry',
+    hint: 'A question about what GPL requires for a service or application', sla: '3 working days',
+    title: 'Service requirement enquiry',
+    formHint: 'Say which service you are asking about.',
+    icon: 'circle-help', charge: null,
+    docs: [],
+    fields: ['detail'],
+    target: '3 working days'
+  },
+  'general-complaint': {
+    family: 'billing', label: 'General service complaint', short: 'Service complaint',
+    hint: 'Service you received, a visit that did not happen, or how you were treated', sla: '5 working days',
+    title: 'General service complaint',
+    formHint: 'A complaint is read by the Customer Service Manager, not by the team it concerns.',
+    icon: 'message-square-warning', charge: null,
+    docs: [],
+    fields: ['aboutRef', 'detail'],
+    target: '5 working days'
+  },
+  'written-notice-response': {
+    family: 'billing', label: 'Written notice from a customer requiring a response', short: 'Written notice',
+    hint: 'A formal written notice that needs a documented reply', sla: '10 working days',
+    title: 'Written notice requiring a response',
+    formHint: 'Attach or describe the notice you sent.',
+    icon: 'file-text', charge: null,
+    docs: [],
+    fields: ['detail'],
+    target: '10 working days'
+  }
+
+};
+
+const FIELD_DEFS = {
+  premises: { kind: 'choice', label: 'Type of premises', required: true, options: [
+    { v: 'house', label: 'House or flat', hint: 'A single dwelling' },
+    { v: 'multi', label: 'Multiple dwellings', hint: 'Two or more meters on one plot' }
+  ] },
+  address: { kind: 'text', label: 'Address of the premises', required: true, placeholder: 'Lot, street, village or ward', help: 'Say which side of the street the lot is on — two feeders can run along one road, and GPL cannot tell from the address alone.' },
+  phase: { kind: 'choice', label: 'Supply required', required: true, options: [
+    { v: 'single', label: 'Single phase', hint: 'Normal household supply' },
+    { v: 'three', label: 'Three phase', hint: 'Motors, large air conditioning, machinery' }
+  ] },
+  premisesCom: { kind: 'choice', label: 'Type of premises', required: true, options: [
+    { v: 'retail', label: 'Shop or retail unit', hint: 'Street-front trading premises' },
+    { v: 'office', label: 'Office or commercial building', hint: 'Including multi-tenant buildings' },
+    { v: 'works', label: 'Workshop or factory', hint: 'Machinery, welding, refrigeration' },
+    { v: 'other', label: 'Something else', hint: 'Farm, warehouse, site supply' }
+  ] },
+  phaseCom: { kind: 'choice', label: 'Supply required', required: true, options: [
+    { v: 'single', label: 'Single phase', hint: 'Light commercial load only' },
+    { v: 'three', label: 'Three phase', hint: 'Motors, chillers, machinery' },
+    { v: 'unsure', label: 'The engineer should advise', hint: 'GPL sizes it from your load schedule' }
+  ] },
+  loadKw: { kind: 'text', label: 'Estimated maximum demand', required: true, placeholder: 'For example 45 kW', help: 'Take this from the load schedule your electrician prepared. It decides whether a network extension or a transformer is needed.' },
+  loadNote: { kind: 'area', label: 'What will the supply run?', required: false, placeholder: 'For example: four bedrooms, two air conditioning units, a water pump.', help: 'Optional, but it lets the engineer size the service without a second visit.' },
+  loadNoteCom: { kind: 'area', label: 'Anything the engineer should know', required: false, placeholder: 'For example: three-phase chiller, a standby generator, trading hours that limit when work can happen.' },
+  meterKind: { kind: 'choice', label: 'Which meter do you have?', required: true, options: [
+    { v: 'prepaid', label: 'Prepaid', hint: 'You buy credit and enter a token' },
+    { v: 'postpaid', label: 'Postpaid', hint: 'You get a bill each month' }
+  ] },
+  symptom: { kind: 'choice', label: 'What is the meter doing?', required: true, options: [
+    { v: 'token', label: 'Will not accept a token', hint: 'Credit entered but rejected' },
+    { v: 'error', label: 'Showing an error code', hint: 'For example Error 5' },
+    { v: 'blank', label: 'Blank or dead display', hint: 'Nothing on the screen' },
+    { v: 'keypad', label: 'Keypad not responding', hint: 'The customer interface unit' }
+  ] },
+  detail: { kind: 'area', label: 'Tell GPL what is happening', required: true, placeholder: 'Describe it in your own words — what you see, when it started, and anything you have already tried.' },
+  billRef: { kind: 'text', label: 'Which bill is this about?', required: true, placeholder: 'Bill number or the month, e.g. July 2026' },
+  billIssue: { kind: 'choice', label: 'What looks wrong?', required: true, options: [
+    { v: 'high', label: 'The amount is too high', hint: 'Much more than usual' },
+    { v: 'payment', label: 'A payment is missing', hint: 'Paid but still showing owed' },
+    { v: 'reading', label: 'The reading looks wrong', hint: 'Does not match your meter' },
+    { v: 'other', label: 'Something else', hint: 'Explain below' }
+  ] },
+  aboutRef: { kind: 'text', label: 'Case number this concerns', required: false, placeholder: 'For example 3471 — leave blank if this is not about an existing case' }
+};
+
+const HELP = [
+  { id: 'h1', topic: 'Prepaid', icon: 'gauge', title: 'My prepaid meter will not accept a token', body: ['Enter the twenty digits again slowly — most rejections are a mistyped digit. If the meter shows "Reject", check the token was bought against this meter number and not a neighbour\'s.', 'If it still refuses, a technical service officer can issue a clearing code over the phone or on chat. That fixes most cases with no visit at all. A technician is sent only when the code does not work.'], action: 'prepaid-ciu-problem', actionLabel: 'Report this problem' },
+  { id: 'h2', topic: 'Prepaid', icon: 'circle-alert', title: 'What Error 5 means on a prepaid meter', body: ['Error 5 usually points to the customer interface unit rather than the meter itself. Nothing you can do at the keypad will clear it.', 'Report it and GPL routes it to the metering team, who will test or change the unit.'], action: 'prepaid-ciu-problem', actionLabel: 'Report this problem' },
+  { id: 'h3', topic: 'Connections', icon: 'house-plug', title: 'What you need to apply for a new connection', body: ['Proof of ownership or tenancy, valid photo identification, and an electrical inspection certificate for the wiring. A commercial application also needs the business registration and a load schedule from your electrician.', 'Photographs of the documents are accepted — you do not have to bring the originals unless GPL asks.'], action: 'new-res-application', actionLabel: 'Start an application' },
+  { id: 'h4', topic: 'Connections', icon: 'plug-zap', title: 'Getting reconnected after a disconnection', body: ['Clear the arrears in full, or agree a payment arrangement at a GPL office. Reconnection follows once the payment shows against your account, which can take a day for some payment channels.', 'If your power is off and you have paid, check your bill balance first — a supply off for non-payment is not a fault and will not be dispatched to a crew.'], action: 'reconnect-nonpayment', actionLabel: 'Request reconnection' },
+  { id: 'h5', topic: 'Billing', icon: 'receipt-text', title: 'Why a bill can be much higher than usual', body: ['The three common causes are an estimated reading later corrected, a change in how much you used, and a fault such as a water heater or pump running constantly.', 'Compare the reading on the bill against the reading on your meter now. If they do not agree, raise a billing query and GPL will check it.'], action: 'billing-query', actionLabel: 'Query a bill' },
+  { id: 'h6', topic: 'Billing', icon: 'smartphone', title: 'Why you might get two bills', body: ['Some customers appear twice in GPL\'s records — usually a name entered in the wrong field at some point, producing a second customer number.', 'Raise a billing query with both references and GPL will merge them. Keep paying the one you recognise in the meantime.'], action: 'billing-query', actionLabel: 'Query a bill' },
+  { id: 'h7', topic: 'Outages', icon: 'zap-off', title: 'How GPL prioritises outages', body: ['Anything fire-related is the highest priority GPL holds. Burst mains come next, then fallen or vehicle-hit poles, then other area outages, and finally single premises.', 'That is why a whole street can be restored before one house — the crew is sent where the most customers or the greatest danger is.'], action: 'outage', actionLabel: 'Report an outage' },
+  { id: 'h8', topic: 'Outages', icon: 'users', title: 'Why reporting an outage someone already reported still helps', body: ['GPL keeps one case per event, so your report is linked to the existing one rather than creating a second job. No second crew is sent.', 'The count of linked reports is one of the things GPL prioritises on, and linking means you get the updates directly rather than hearing it from a neighbour.'], action: 'outage', actionLabel: 'Report an outage' },
+  { id: 'h9', topic: 'Safety', icon: 'triangle-alert', title: 'A fallen wire or a leaning pole', body: ['Stay well clear — at least the length of a pole — and keep children and animals away. Assume every fallen wire is live.', 'Call 0800-475-4357 immediately. Do not wait for a form, and never photograph anything closer than you can safely stand.'] }
+];
+
+const CASES = [
+  {
+    ref: '3471', kind: 'Outage', type: 'outage', title: 'No supply — Sheriff Street, Georgetown',
+    status: 'Crew assigned', stage: 2, opened: '1 Sep 2026, 06:12', eta: '11:00 – 13:00 today',
+    accent: 'var(--status-warning)', icon: 'zap-off', chipBg: 'var(--status-warning-bg)', chipFg: 'var(--status-warning)', statusIcon: 'truck',
+    priority: 'P4 — area outage', team: 'T&D — Georgetown major crew',
+    submitted: [['Reported', 'No supply at the whole block'], ['Location', 'Lot 22 Sheriff Street, Georgetown'], ['Affected', 'The whole street'], ['Linked reports', '14 customers on this case']],
+    updates: [
+      { icon: 'circle-check', title: 'Case logged', when: '1 Sep, 06:12', body: 'Your report was logged as case 3471 and confirmed against your account.', channel: 'SMS, email and WhatsApp', channelIcon: 'message-circle' },
+      { icon: 'shield-check', title: 'Report confirmed', when: '1 Sep, 06:24', body: 'A technical service officer confirmed the fault and classified it as an area outage on your feeder.', channel: 'Email', channelIcon: 'mail' },
+      { icon: 'truck', title: 'Crew assigned', when: '1 Sep, 07:05', body: 'The Georgetown major crew has been assigned. Estimated restoration 11:00 – 13:00.', channel: 'SMS and WhatsApp', channelIcon: 'message-circle' }
+    ]
+  },
+  {
+    ref: '3468', kind: 'Meter fault', type: 'request', title: 'Prepaid meter will not accept a token',
+    status: 'Awaiting you', stage: 1, opened: '30 Aug 2026, 14:40', eta: null,
+    accent: 'var(--status-warning)', icon: 'gauge', chipBg: 'var(--status-warning-bg)', chipFg: 'var(--status-warning)', statusIcon: 'circle-alert',
+    priority: 'P5 — single premises', team: 'Metering',
+    needsYou: true, needsTitle: 'GPL needs the token number from you',
+    needsText: 'The technical service officer needs the twenty-digit number of the token that was rejected, and the meter number printed on the front of the unit. The request pauses here until you send them — GPL will close it if nothing arrives by 6 September.',
+    needsAction: 'Send the details', needsIcon: 'send-horizontal',
+    submitted: [['Meter', 'Prepaid — 04 2938 117'], ['Problem', 'Will not accept a token'], ['Started', '30 August, evening'], ['Tried', 'Re-entered the token three times']],
+    updates: [
+      { icon: 'circle-check', title: 'Request received', when: '30 Aug, 14:40', body: 'Case 3468 raised. GPL aims to resolve a meter fault within three working days.', channel: 'Email and SMS', channelIcon: 'mail' },
+      { icon: 'circle-alert', title: 'GPL needs something from you', when: '31 Aug, 09:15', body: 'Send the rejected token number and your meter number so a clearing code can be issued.', channel: 'WhatsApp and email', channelIcon: 'message-circle' }
+    ]
+  },
+  {
+    ref: '3455', kind: 'New connection', type: 'request', title: 'New commercial connection — Lot 8 Regent Street',
+    status: 'Awaiting payment', stage: 2, opened: '24 Aug 2026, 10:02', eta: null,
+    accent: '#b45f16', icon: 'factory', chipBg: 'var(--status-warning-bg)', chipFg: 'var(--status-warning)', statusIcon: 'receipt',
+    priority: 'Commercial application', team: 'New service applications',
+    needsYou: true, needsTitle: 'Your quotation is ready — G$ 486,000',
+    needsText: 'The engineer assessed the load and a network extension of two spans is required. Work is scheduled once payment clears; the quotation holds until 23 September 2026.',
+    needsAction: 'View and pay the quotation', needsIcon: 'credit-card',
+    submitted: [['Premises', 'Commercial — retail unit'], ['Address', 'Lot 8 Regent Street, Georgetown'], ['Supply', 'Three phase'], ['Documents', 'All four received']],
+    updates: [
+      { icon: 'circle-check', title: 'Application received', when: '24 Aug, 10:02', body: 'Case 3455 raised with all four supporting documents attached.', channel: 'Email', channelIcon: 'mail' },
+      { icon: 'search-check', title: 'Assessment complete', when: '29 Aug, 16:30', body: 'An engineer assessed the site. A two-span network extension is required for the requested load.', channel: 'Email', channelIcon: 'mail' },
+      { icon: 'receipt', title: 'Quotation issued', when: '30 Aug, 09:00', body: 'Quotation of G$ 486,000 issued, valid to 23 September 2026.', channel: 'Email and SMS', channelIcon: 'mail' }
+    ]
+  },
+  {
+    ref: '3402', kind: 'Outage', type: 'outage', title: 'Supply restored — Sheriff Street, Georgetown',
+    status: 'Restored', stage: 4, opened: '28 Aug 2026, 19:44', eta: null, restoredAt: 'today at 04:20',
+    accent: 'var(--status-success)', icon: 'circle-check', chipBg: 'var(--status-success-bg)', chipFg: 'var(--status-success)', statusIcon: 'circle-check',
+    priority: 'P3 — vehicle-hit pole', team: 'T&D — Georgetown major crew', canReopen: true,
+    submitted: [['Reported', 'Pole hit by a vehicle, wires down'], ['Location', 'Corner of Sheriff and Duncan Street'], ['Affected', 'The whole street']],
+    updates: [
+      { icon: 'circle-check', title: 'Case logged', when: '28 Aug, 19:44', body: 'Logged as case 3402 and classified P3 — vehicle-hit pole.', channel: 'SMS and WhatsApp', channelIcon: 'message-circle' },
+      { icon: 'truck', title: 'Crew assigned', when: '28 Aug, 20:10', body: 'The Georgetown major crew was assigned and travelling.', channel: 'SMS', channelIcon: 'smartphone' },
+      { icon: 'clock', title: 'Work overran', when: '29 Aug, 01:30', body: 'The pole had to be replaced rather than re-set. Revised estimate 05:00.', channel: 'SMS and WhatsApp', channelIcon: 'message-circle' },
+      { icon: 'circle-check', title: 'Supply restored', when: '29 Aug, 04:20', body: 'Pole replaced and supply restored. Tell GPL within 24 hours if your supply is still off.', channel: 'SMS, email and WhatsApp', channelIcon: 'mail' }
+    ]
+  },
+  {
+    ref: '3390', kind: 'Billing query', type: 'request', title: 'July bill much higher than usual',
+    status: 'Closed', stage: 5, opened: '18 Aug 2026, 11:20', eta: null, targetBy: '25 August 2026 — met',
+    accent: 'var(--fg-4)', icon: 'receipt-text', chipBg: 'var(--surface-4)', chipFg: 'var(--fg-3)', statusIcon: 'circle-check',
+    priority: 'Billing query', team: 'Customer Service', resolution: 'Estimated reading corrected; G$ 8,140 credited',
+    submitted: [['Bill', 'July 2026'], ['Issue', 'The amount is too high'], ['Detail', 'Roughly three times the usual bill']],
+    updates: [
+      { icon: 'circle-check', title: 'Request received', when: '18 Aug, 11:20', body: 'Case 3390 raised. GPL aims to answer a billing query within five working days.', channel: 'Email', channelIcon: 'mail' },
+      { icon: 'search-check', title: 'Reading checked', when: '20 Aug, 15:05', body: 'The July reading was an estimate. A real reading was taken on 20 August.', channel: 'Email', channelIcon: 'mail' },
+      { icon: 'circle-check', title: 'Resolved and closed', when: '21 Aug, 10:12', body: 'The estimate was corrected and G$ 8,140 credited to your account. It appears on your next bill.', channel: 'Email and SMS', channelIcon: 'mail' }
+    ]
+  }
+];
+
+const OUTAGE_STAGES = ['Reported', 'Confirmed', 'Crew assigned', 'Work in progress', 'Restored', 'Closed'];
+const REQUEST_STAGES = ['Received', 'Being assessed', 'Action scheduled', 'Work done', 'Closed'];
+
+const STAGE_ICONS = ['file-text', 'shield-check', 'truck', 'wrench', 'circle-check', 'archive'];
+const REQ_STAGE_ICONS = ['file-text', 'search-check', 'calendar-check', 'wrench', 'circle-check'];
+
+class Component extends DCLogic {
+  state = {
+    tab: 'status', kind: null, typeId: null, catFamily: null, formStage: 'fill', errors: {}, values: {}, attached: {},
+    query: '', filter: 'all', sortNewest: true, openRef: null, copied: false,
+    helpQuery: '', helpTopic: 'All', helpOpen: 'h1', acctOpen: false, acct: 'main',
+    reopened: false, needResolved: {}
+  };
+
+  pick(tab) { this.setState({ tab, openRef: null, kind: null, typeId: null, catFamily: null, presetIntent: null }); }
+
+  startType(id) {
+    const fam = TYPES[id] ? TYPES[id].family : null;
+    this.setState({ tab: 'track', typeId: id, catFamily: fam, formStage: 'fill', values: {}, attached: {}, errors: {} });
+  }
+
+
+  setVal(k, v) {
+    const values = Object.assign({}, this.state.values, { [k]: v });
+    const errors = Object.assign({}, this.state.errors); delete errors[k];
+    this.setState({ values, errors });
+  }
+
+  validate() {
+    const t = TYPES[this.state.typeId]; const errors = {};
+    t.fields.forEach(k => {
+      const d = FIELD_DEFS[k];
+      if (d.required && !this.state.values[k]) {
+        errors[k] = d.kind === 'choice' ? 'Choose one of these so GPL routes it to the right team.' : 'GPL needs this to progress the request.';
+      }
+    });
+    this.setState({ errors });
+    return Object.keys(errors).length === 0;
+  }
+
+  renderVals() {
+    const s = this.state;
+    const embedded = this.props.embedded === true;
+    const t = s.typeId ? TYPES[s.typeId] : null;
+    const isOutagesMode = this.props.mode === 'outages';
+    const isFaqMode = this.props.mode === 'faq';
+
+    const tabDef = isFaqMode ? [] : isOutagesMode ? [
+      { id: 'status', label: 'Outages & faults' },
+      { id: 'track', label: 'My outage reports', count: CASES.filter(c => c.type === 'outage' && c.status !== 'Closed').length }
+    ] : [
+      { id: 'track', label: 'My services', count: CASES.filter(c => c.type === 'request' && c.status !== 'Closed').length },
+      { id: 'closed', label: 'Closed', count: CASES.filter(c => c.type === 'request' && c.status === 'Closed').length }
+    ];
+    const activeTab = s.tab;
+
+    // ---- catalogue
+    const famDef = [
+      { id: 'connection', title: 'Connections', hint: 'A new supply, or a bigger one', icon: 'house-plug' },
+      { id: 'meter', title: 'Your meter', hint: 'Faults, errors and meter enquiries', icon: 'gauge' },
+      { id: 'billing', title: 'Bills and service', hint: 'Queries, disputes and complaints', icon: 'receipt-text' }
+    ];
+
+    // ---- form fields
+    const fields = (t ? t.fields : []).map(k => {
+      const d = FIELD_DEFS[k]; const val = s.values[k]; const err = s.errors[k];
+      return {
+        label: d.label,
+        badge: d.required ? 'Required' : 'Optional',
+        badgeFg: d.required ? 'var(--status-error)' : 'var(--fg-4)',
+        isText: d.kind === 'text', isArea: d.kind === 'area', isChoice: d.kind === 'choice',
+        value: d.kind === 'choice' ? '' : (val || ''),
+        placeholder: d.placeholder || '',
+        onChange: e => this.setVal(k, e.target.value),
+        border: err ? 'var(--status-error)' : 'var(--surface-border)',
+        hasError: !!err, error: err || '',
+        hasHelp: !!d.help && !err, help: d.help || '',
+        options: (d.options || []).map(o => ({
+          label: o.label, hint: o.hint, on: val === o.v,
+          onPick: () => this.setVal(k, o.v),
+          border: val === o.v ? ACCENT : 'var(--surface-border)',
+          bg: val === o.v ? SOFT : '#ffffff',
+          dotBorder: val === o.v ? ACCENT : 'rgba(19,28,46,0.26)',
+          dotInner: val === o.v ? ACCENT : 'transparent'
+        }))
+      };
+    });
+
+    const docList = t ? t.docs : [];
+    const attachedCount = docList.filter(d => s.attached[d]).length;
+    const docs = docList.map(label => {
+      const on = !!s.attached[label];
+      return {
+        label, icon: on ? 'file-check-2' : 'file-plus-2',
+        iconBg: on ? 'var(--status-success-bg)' : 'var(--surface-4)',
+        iconFg: on ? 'var(--status-success)' : 'var(--fg-3)',
+        sub: on ? 'Attached — photograph, 1.2 MB' : 'Not attached yet',
+        subFg: on ? 'var(--status-success)' : 'var(--fg-3)',
+        btnLabel: on ? 'Remove' : 'Attach',
+        btnIcon: on ? 'x' : 'paperclip',
+        btnBg: '#ffffff', btnBorder: 'var(--surface-border)', btnFg: 'var(--fg-2)',
+        onToggle: () => this.setState({ attached: Object.assign({}, s.attached, { [label]: !on }) })
+      };
+    });
+
+    const docsDone = docList.length > 0 && attachedCount === docList.length;
+
+    // ---- review rows
+    const reviewRows = [];
+    if (t) {
+      reviewRows.push({ label: 'Request type', value: t.label, fg: 'var(--fg-1)' });
+      reviewRows.push({ label: 'Account', value: s.acct === 'main' ? '40 2938 1 — Lot 22 Sheriff Street' : '40 7712 6 — Lot 8 Regent Street', fg: 'var(--fg-1)' });
+      t.fields.forEach(k => {
+        const d = FIELD_DEFS[k]; const v = s.values[k];
+        let out = v || 'Not given';
+        if (d.kind === 'choice' && v) { const o = d.options.find(x => x.v === v); out = o ? o.label : v; }
+        reviewRows.push({ label: d.label, value: out, fg: v ? 'var(--fg-1)' : 'var(--fg-4)' });
+      });
+      if (docList.length) reviewRows.push({ label: 'Documents', value: attachedCount + ' of ' + docList.length + ' attached', fg: docsDone ? 'var(--status-success)' : 'var(--status-warning)' });
+    }
+
+    // ---- track list
+    const q = s.query.trim().toLowerCase();
+    const effectiveFilter = s.tab === 'closed' ? 'closed' : s.filter;
+    let list = CASES.filter(c => {
+      if (isOutagesMode) { if (c.type !== 'outage') return false; }
+      else { if (c.type !== 'request') return false; }
+      if (effectiveFilter === 'needsyou' && !c.needsYou) return false;
+      if (effectiveFilter === 'closed' && c.status !== 'Closed') return false;
+      if (effectiveFilter !== 'closed' && effectiveFilter !== 'all' && c.status === 'Closed') return false;
+      if (!q) return true;
+      return (c.ref + ' ' + c.title + ' ' + c.kind + ' ' + c.status).toLowerCase().indexOf(q) >= 0;
+    });
+    if (!s.sortNewest) list = list.slice().reverse();
+
+    const scopedCases = CASES.filter(c => isOutagesMode ? c.type === 'outage' : c.type === 'request');
+    const filterDef = [
+      { id: 'all', label: 'Everything', count: scopedCases.length },
+      { id: 'needsyou', label: 'Waiting on you', count: scopedCases.filter(c => c.needsYou).length }
+    ];
+
+    const stagesFor = c => (c.type === 'outage' ? OUTAGE_STAGES : REQUEST_STAGES);
+
+    const visibleCases = list.map(c => {
+      const total = stagesFor(c).length;
+      return {
+        ref: c.ref, kind: c.kind, title: c.title, status: c.status, accent: c.accent, icon: c.icon,
+        chipBg: c.chipBg, chipFg: c.chipFg, statusIcon: c.statusIcon,
+        needsYou: !!c.needsYou && !s.needResolved[c.ref], needsYouText: c.needsTitle || '',
+        steps: stagesFor(c).map((label, i, arr) => {
+          const state = i < c.stage ? 'done' : (i === c.stage ? 'active' : 'wait');
+          const dotBg = state === 'done' ? 'var(--status-success-bg)' : (state === 'active' ? 'var(--agency-accent-soft)' : 'var(--surface-4)');
+          const dotFg = state === 'done' ? 'var(--status-success)' : (state === 'active' ? 'var(--agency-accent)' : 'var(--fg-4)');
+          const lineColor = state === 'done' || (state === 'active' && i > 0) ? 'var(--status-success)' : 'rgba(19,28,46,0.12)';
+          return {
+            label,
+            icon: state === 'done' ? 'check' : (state === 'active' ? 'loader-circle' : 'circle'),
+            dotBg, dotFg,
+            lineBefore: i === 0 ? 'transparent' : (i <= c.stage ? 'var(--status-success)' : 'rgba(19,28,46,0.12)'),
+            line: i === arr.length - 1 ? 'transparent' : lineColor,
+            weight: state === 'active' ? '700' : '500',
+            fg: state === 'wait' ? 'var(--fg-4)' : 'var(--fg-2)'
+          };
+        }),
+        facts: [
+          { label: 'Raised', value: c.opened, fg: 'var(--fg-2)' },
+          (c.restoredAt
+            ? { label: 'Restored', value: c.restoredAt, fg: 'var(--fg-2)' }
+            : { label: c.type === 'outage' ? 'Estimated restoration' : 'GPL aims to complete by', value: c.eta || c.targetBy || 'Not yet available', fg: (c.eta || c.targetBy) ? 'var(--fg-2)' : 'var(--fg-4)' }),
+          { label: 'With', value: c.team, fg: 'var(--fg-2)' }
+        ],
+        onOpen: () => this.setState({ openRef: c.ref, copied: false })
+      };
+    });
+
+    // ---- detail
+    const det = CASES.find(c => c.ref === s.openRef) || null;
+    let detStages = [], detUpdates = [], detFacts = [], detSubmitted = [];
+    if (det) {
+      const names = stagesFor(det);
+      const icons = det.type === 'outage' ? STAGE_ICONS : REQ_STAGE_ICONS;
+      detStages = names.map((n, i) => {
+        const done = i < det.stage, now = i === det.stage;
+        return {
+          label: n, icon: done ? 'check' : (icons[i] || 'circle'),
+          dotBg: done ? det.accent : (now ? '#ffffff' : 'var(--surface-4)'),
+          dotFg: done ? '#ffffff' : (now ? det.accent : 'var(--fg-4)'),
+          dotBorder: done ? det.accent : (now ? det.accent : 'transparent'),
+          line: i < det.stage ? det.accent : 'rgba(19,28,46,0.12)',
+          hasLine: i < names.length - 1,
+          weight: now ? 700 : 500,
+          fg: (done || now) ? 'var(--fg-1)' : 'var(--fg-4)',
+          meta: done ? 'Done' : (now ? 'Happening now' : 'Not started'),
+          pad: i < names.length - 1 ? '18px' : '0px'
+        };
+      });
+      detUpdates = det.updates.map(u => Object.assign({}, u));
+      detFacts = [
+        { label: 'Raised', value: det.opened },
+        { label: 'Priority', value: det.priority },
+        { label: 'With', value: det.team }
+      ];
+      if (det.resolution) detFacts.push({ label: 'Resolution', value: det.resolution });
+      detSubmitted = det.submitted.map(p => ({ label: p[0], value: p[1] }));
+    }
+
+    const needResolved = det ? !!s.needResolved[det.ref] : false;
+    const hasEta = det ? !!det.eta : false;
+
+    // ---- help
+    const hq = s.helpQuery.trim().toLowerCase();
+    const helpList = HELP.filter(a => {
+      if (s.helpTopic !== 'All' && a.topic !== s.helpTopic) return false;
+      if (!hq) return true;
+      return (a.title + ' ' + a.topic + ' ' + a.body.join(' ')).toLowerCase().indexOf(hq) >= 0;
+    });
+
+    const suggestFor = { 'new-res-application': ['h3'], 'new-com-application': ['h3'], 'prepaid-ciu-problem': ['h1', 'h2'], 'meter-defective-replace': ['h1', 'h2'], 'billing-query': ['h5', 'h6'], 'general-complaint': ['h7', 'h8'] };
+    const suggested = ((s.typeId && suggestFor[s.typeId]) || []).map(id => HELP.find(a => a.id === id)).filter(Boolean);
+
+    return {
+      zero: 0,
+      standalone: !embedded,
+      standaloneTitle: isOutagesMode ? 'Outages & faults' : 'Requests',
+      rootMinHeight: embedded ? 'auto' : '100vh',
+      headerPadding: embedded ? '20px 16px 0' : 'clamp(18px,2.6vw,24px) 16px 0',
+      tabsMarginTop: embedded ? '0px' : '18px',
+
+      tabs: tabDef.map(x => ({
+        label: x.label,
+        onPick: () => this.pick(x.id),
+        fg: activeTab === x.id ? ACCENT : 'var(--fg-3)',
+        border: activeTab === x.id ? ACCENT : 'transparent',
+        hasCount: !!x.count,
+        count: x.count || 0,
+        countBg: activeTab === x.id ? SOFT : 'var(--surface-4)',
+        countFg: activeTab === x.id ? ACCENT : 'var(--fg-3)'
+      })),
+
+      isStatus: s.tab === 'status' && !isFaqMode,
+      isProblem: s.tab === 'report' && !isFaqMode,
+      isCatalogue: !isOutagesMode && s.tab === 'track' && !s.typeId && !isFaqMode,
+      isCatalogueFamily: !isOutagesMode && s.tab === 'catalogueFamily' && !isFaqMode,
+      isForm: !isOutagesMode && s.tab === 'track' && !!s.typeId && !isFaqMode,
+      isTrack: ((s.tab === 'track' && !s.typeId) || s.tab === 'closed') && !isFaqMode,
+      isHelp: s.tab === 'help' || isFaqMode,
+      isOutagesMode,
+      isServicesMode: !isOutagesMode,
+      showFilterBar: !isOutagesMode && s.tab !== 'closed',
+      reportScope: isOutagesMode ? 'outage' : 'meter',
+      trackTitle: isOutagesMode ? 'My outage reports' : 'My requests',
+      trackHint: isOutagesMode ? 'Outages you have reported to GPL, with the reference number, status and expected restoration time.' : 'Service requests you have raised with GPL, open and closed, with the case number GPL works from.',
+      newMenuLabel: isOutagesMode ? 'Report an outage or fault' : 'New request',
+      reportIntent: s.presetIntent || this.props.reportIntent || null,
+      // The report module's fixed submit bar clears the dashboard rail. Standing
+      // alone there is no rail, so the offset must collapse rather than default.
+      railWidth: this.props.railWidth || (embedded ? '240px' : '0px'),
+      // Outage/hazard reports live under Outages & faults now; hand off there.
+      goProblem: () => window.dispatchEvent(new CustomEvent('gpl-goto-outages')),
+      jumpToReportFull: (familyId) => this.setState({ tab: 'report', presetIntent: { family: familyId, seq: Date.now() } }),
+      backFromReportFull: () => this.setState({ tab: isOutagesMode ? 'status' : 'track', presetIntent: null }),
+      backFromReportLabel: isOutagesMode ? 'Back to Outages & faults' : 'Back to My services',
+      kinds: [
+        {
+          id: 'problem', title: 'Something is wrong with my supply', cta: 'Report a problem',
+          icon: 'zap-off', accent: 'var(--status-error)', chipBg: 'var(--status-error-bg)', chipFg: 'var(--status-error)',
+          hint: 'A fault, an outage or anything unsafe. GPL classifies it, gives it a priority and sends a crew.',
+          examples: ['No power at your address or across the street', 'A leaning pole, a fallen wire, sparking or burning', 'A street light out, or damage to GPL equipment']
+        },
+        {
+          id: 'service', title: 'I need a service from GPL', cta: 'Choose a service',
+          icon: 'clipboard-list', accent: ACCENT, chipBg: SOFT, chipFg: ACCENT,
+          hint: 'Applications, meter enquiries and anything about your bill. These would otherwise mean a visit to an office.',
+          examples: ['Apply for a new residential or commercial connection', 'A meter that will not take credit or shows an error', 'Query a bill, or raise a complaint about service']
+        }
+      ].map(k => Object.assign({}, k, {
+        examples: k.examples.map(text => ({ text })),
+        onPick: () => this.setState({ kind: k.id, typeId: null })
+      })),
+
+      families: famDef.map(f => ({
+        id: f.id, title: f.title, hint: f.hint, icon: f.icon,
+        onPick: () => this.setState({ tab: 'catalogueFamily', catFamily: f.id })
+      })),
+      backToFamilies: () => this.setState({ tab: 'track', catFamily: null }),
+      selectedFamily: (() => {
+        const f = famDef.find(x => x.id === s.catFamily) || famDef[0];
+        return {
+          title: f.title, hint: f.hint,
+          types: Object.keys(TYPES).filter(k => TYPES[k].family === f.id).map(k => ({
+            label: TYPES[k].label, hint: TYPES[k].hint, sla: TYPES[k].sla,
+            onPick: () => this.startType(k)
+          }))
+        };
+      })(),
+
+      allTypes: Object.keys(TYPES).map(k => ({
+        label: TYPES[k].label, hint: TYPES[k].hint, sla: TYPES[k].sla,
+        onPick: () => this.startType(k)
+      })),
+
+      // form
+      formTitle: t ? t.title : '',
+      formHint: t ? t.formHint : '',
+      isFormFill: s.formStage === 'fill',
+      isFormReview: s.formStage === 'review',
+      isFormDone: s.formStage === 'done',
+      showFormAside: s.formStage !== 'done',
+      showFormBar: s.formStage !== 'done',
+      formSteps: ['Choose a request', 'Your details', 'Check it', 'Submitted'].map((label, i) => {
+        const idx = s.tab === 'catalogueFamily' ? 0 : (s.formStage === 'fill' ? 1 : (s.formStage === 'review' ? 2 : 3));
+        return { label, bar: i <= idx ? ACCENT : 'rgba(19,28,46,0.12)', fg: i <= idx ? ACCENT : 'var(--fg-4)' };
+      }),
+      fields,
+      docs, hasDocs: docList.length > 0,
+      docsChip: attachedCount + ' of ' + docList.length + ' attached',
+      docsChipBg: docsDone ? 'var(--status-success-bg)' : 'var(--surface-4)',
+      docsChipFg: docsDone ? 'var(--status-success)' : 'var(--fg-3)',
+      docsChipIcon: docsDone ? 'circle-check' : 'paperclip',
+      hasCharge: !!(t && t.charge),
+      chargeText: t && t.charge ? t.charge : '',
+      accountHolder: 'Rennica Bancroft',
+      accountLine: s.acct === 'main' ? 'Account 40 2938 1 · Lot 22 Sheriff Street, Georgetown' : 'Account 40 7712 6 · Lot 8 Regent Street, Georgetown',
+      reviewRows,
+      reviewNotifyLine: 'GPL will confirm by email and SMS as soon as this is received, then again at every stage. You can change which channels are used in Account and notifications.',
+      formBarNote: s.formStage === 'review' ? 'A case number is issued the moment you submit.' : (docList.length ? 'Attach what you can now — a missing document pauses the request.' : 'You will get a case number straight away.'),
+      formNextLabel: s.formStage === 'review' ? 'Submit request' : 'Check and submit',
+      formNextIcon: s.formStage === 'review' ? 'send-horizontal' : 'arrow-right',
+      formNext: () => {
+        if (s.formStage === 'fill') { if (this.validate()) this.setState({ formStage: 'review' }); }
+        else this.setState({ formStage: 'done' });
+      },
+      formBack: () => {
+        if (s.formStage === 'review') this.setState({ formStage: 'fill' });
+        else this.setState({ typeId: null });
+      },
+      backToCatalogue: () => this.setState({ tab: 'catalogueFamily', typeId: null, formStage: 'fill' }),
+      doneRef: '3482',
+      doneTarget: t ? t.target : '',
+      doneSummary: t ? ('Your ' + t.short.toLowerCase() + ' is with GPL. Quote the case number below on any call, WhatsApp message or office visit about it.') : '',
+      doneRoute: [
+        { n: 1, text: 'A customer service representative checks the request against your account and the documents attached.', bg: SOFT, fg: ACCENT },
+        { n: 2, text: 'It is routed to the team that handles this type of work, with a service level attached from the moment it was logged.', bg: SOFT, fg: ACCENT },
+        { n: 3, text: 'You are notified at every stage — and told directly if GPL needs anything more from you.', bg: SOFT, fg: ACCENT }
+      ],
+      goTrackNew: () => this.setState({ tab: 'track', openRef: '3468' }),
+      suggestedArticles: suggested.map(a => ({
+        title: a.title, snippet: a.body[0].slice(0, 92) + '…',
+        onOpen: () => this.setState({ tab: 'help', helpOpen: a.id, helpQuery: '', helpTopic: 'All' })
+      })),
+
+      // track
+      query: s.query,
+      onQuery: e => this.setState({ query: e.target.value }),
+      sortLabel: s.sortNewest ? 'Newest first' : 'Oldest first',
+      sortIcon: s.sortNewest ? 'arrow-down-wide-narrow' : 'arrow-up-narrow-wide',
+      toggleSort: () => this.setState({ sortNewest: !s.sortNewest }),
+      filters: filterDef.map(f => ({
+        label: f.label, on: effectiveFilter === f.id, count: f.count, hasCount: f.count > 0,
+        onPick: () => this.setState({ tab: 'track', filter: f.id }),
+        bg: effectiveFilter === f.id ? '#ffffff' : 'transparent',
+        fg: effectiveFilter === f.id ? ACCENT : 'var(--fg-3)',
+        shadow: effectiveFilter === f.id ? '0 1px 3px rgba(19,28,46,0.14)' : 'none'
+      })),
+      resultCount: list.length === 1 ? '1 case' : list.length + ' cases',
+      visibleCases,
+      noResults: list.length === 0,
+      emptyHint: q ? 'Try the case number on its own, or clear the search and use the filters.' : 'Nothing in this group right now.',
+      goCatalogue: () => this.setState({ tab: 'track', kind: null, typeId: null, catFamily: null }),
+      newMenuOpen: s.newMenuOpen,
+      toggleNewMenu: () => this.setState(p => ({ newMenuOpen: !p.newMenuOpen })),
+      closeNewMenu: () => this.setState({ newMenuOpen: false }),
+      newMenuAction: isOutagesMode
+        ? () => this.setState({ tab: 'status' })
+        : () => this.setState({ tab: 'track', kind: null, typeId: null, catFamily: null }),
+      noCaseOpen: !det,
+      caseOpen: !!det,
+      closeCase: () => this.setState({ openRef: null }),
+
+      detRef: det ? det.ref : '',
+      detKind: det ? det.kind : '',
+      detTitle: det ? det.title : '',
+      detStatus: det ? (s.reopened && det.canReopen ? 'Reopened' : det.status) : '',
+      detStatusIcon: det ? det.statusIcon : 'circle',
+      detAccent: det ? det.accent : ACCENT,
+      detIcon: det ? det.icon : 'circle',
+      detChipBg: det ? det.chipBg : SOFT,
+      detChipFg: det ? det.chipFg : ACCENT,
+      detFacts, detStages, detUpdates, detSubmitted,
+      progressHint: det && det.type === 'outage' ? 'The stages GPL works through on an outage, in plain words.' : 'The stages a service request moves through.',
+      updateCount: det ? (det.updates.length + ' messages') : '',
+      etaTitle: !det ? '' : (det.restoredAt
+        ? 'Supply restored ' + det.restoredAt
+        : (det.type === 'outage'
+            ? (hasEta ? 'Estimated restoration ' + det.eta : 'No estimated time yet')
+            : (det.targetBy ? 'GPL aims to complete this by ' + det.targetBy : 'No target date yet'))),
+      etaText: !det ? '' : (det.restoredAt
+        ? 'The crew confirmed supply back on. Nothing further is expected from you unless your power is still off — tell GPL below and this same case reopens.'
+        : (det.type === 'outage'
+            ? (hasEta
+                ? 'This is the crew\'s current estimate. GPL messages you if it changes, and again if the work overruns.'
+                : 'GPL has not been given a time by the crew. Rather than show you a guess, this stays empty until there is a real estimate — you will be messaged the moment one is set.')
+            : (det.targetBy
+                ? 'This is the service level for this type of request, counted from when it was logged. GPL messages you if it slips.'
+                : 'The clock on this request is paused while GPL waits on you. A target date is set again as soon as it can move forward.'))),
+      etaIcon: !det ? 'clock' : (det.restoredAt ? 'circle-check' : (det.type === 'outage' ? (hasEta ? 'clock' : 'clock-alert') : (det.targetBy ? 'calendar-check' : 'clock-alert'))),
+      etaBg: !det ? 'var(--surface-2)' : (det.restoredAt ? 'var(--status-success-bg)' : ((hasEta || det.targetBy) ? SOFT : 'var(--surface-2)')),
+      etaBorder: !det ? 'rgba(19,28,46,0.10)' : (det.restoredAt ? 'rgba(14,141,138,0.30)' : ((hasEta || det.targetBy) ? 'rgba(64,66,147,0.24)' : 'rgba(19,28,46,0.10)')),
+      etaFg: !det ? 'var(--fg-3)' : (det.restoredAt ? 'var(--status-success)' : ((hasEta || det.targetBy) ? ACCENT : 'var(--fg-3)')),
+      detNeedsYou: !!(det && det.needsYou && !needResolved),
+      detNeedsTitle: det && det.needsTitle ? det.needsTitle : '',
+      detNeedsText: det && det.needsText ? det.needsText : '',
+      detNeedsAction: det && det.needsAction ? det.needsAction : '',
+      detNeedsIcon: det && det.needsIcon ? det.needsIcon : 'arrow-right',
+      resolveNeed: () => det && this.setState({ needResolved: Object.assign({}, s.needResolved, { [det.ref]: true }) }),
+      detCanReopen: !!(det && det.canReopen && !s.reopened),
+      reopenWindow: '24 hours',
+      reopenCase: () => this.setState({ reopened: true }),
+      detChannels: [
+        { label: 'SMS to +592 622 8841', icon: 'smartphone', fg: 'var(--fg-3)' },
+        { label: 'WhatsApp on the same number', icon: 'message-circle', fg: '#0e8d8a' },
+        { label: 'Email to rennica.b@gmail.com', icon: 'mail', fg: 'var(--fg-3)' }
+      ],
+      copyIcon: s.copied ? 'check' : 'copy',
+      copyFg: s.copied ? 'var(--status-success)' : 'var(--fg-3)',
+      copyRef: () => {
+        const v = det ? det.ref : '3482';
+        try { navigator.clipboard.writeText(v); } catch (e) {}
+        this.setState({ copied: true });
+        setTimeout(() => this.setState({ copied: false }), 1600);
+      },
+
+      // help
+      helpQuery: s.helpQuery,
+      onHelpQuery: e => this.setState({ helpQuery: e.target.value }),
+      helpTopics: ['All', 'Connections', 'Billing', 'Outages', 'Safety'].map(x => ({
+        label: x, on: s.helpTopic === x,
+        onPick: () => this.setState({ helpTopic: x }),
+        bg: s.helpTopic === x ? '#ffffff' : 'transparent',
+        fg: s.helpTopic === x ? ACCENT : 'var(--fg-3)',
+        shadow: s.helpTopic === x ? '0 1px 3px rgba(19,28,46,0.14)' : 'none'
+      })),
+      helpArticles: helpList.map(a => ({
+        title: a.title, topic: a.topic, icon: a.icon,
+        open: s.helpOpen === a.id,
+        chevron: s.helpOpen === a.id ? 'chevron-up' : 'chevron-down',
+        onToggle: () => this.setState({ helpOpen: s.helpOpen === a.id ? null : a.id }),
+        body: a.body.map(text => ({ text })),
+        hasAction: !!a.action,
+        actionLabel: a.actionLabel || '',
+        onAction: () => a.action && (a.action === 'outage'
+          ? window.dispatchEvent(new CustomEvent('gpl-goto-outages'))
+          : (isFaqMode
+              ? window.dispatchEvent(new CustomEvent('gpl-open-service-request', { detail: { type: a.action } }))
+              : this.startType(a.action)))
+      })),
+      helpEmpty: helpList.length === 0,
+
+      // accounts
+      accountSwitchOpen: s.acctOpen,
+      openAccountSwitch: () => this.setState({ acctOpen: true }),
+      closeAccountSwitch: () => this.setState({ acctOpen: false }),
+      accounts: [
+        { id: 'main', label: 'Account 40 2938 1', detail: 'Lot 22 Sheriff Street, Georgetown · Prepaid', tag: 'Residential' },
+        { id: 'shop', label: 'Account 40 7712 6', detail: 'Lot 8 Regent Street, Georgetown · Postpaid', tag: 'Commercial' }
+      ].map(a => ({
+        label: a.label, detail: a.detail, tag: a.tag,
+        onPick: () => this.setState({ acct: a.id }),
+        dotBorder: s.acct === a.id ? ACCENT : 'rgba(19,28,46,0.26)',
+        dotInner: s.acct === a.id ? ACCENT : 'transparent'
+      }))
+    };
+  }
+
+  setFooterHeight(v) {
+    try { document.documentElement.style.setProperty('--gpl-footer-h', v); } catch (e) {}
+  }
+  syncFooter() {
+    const on = this.state.tab === 'new' && this.state.kind === 'service' && !!this.state.typeId && this.state.formStage !== 'done';
+    this.setFooterHeight(on ? '78px' : '0px');
+  }
+
+  componentDidMount() {
+    const isOutages = this.props.mode === 'outages';
+    // 'status' is already the default initial tab, so outages mode needs no override here.
+    if (!isOutages && this.state.tab === 'status' && !this.props.intent) this.setState({ tab: 'track' });
+    this.syncFooter();
+    // Service status is rendered by the report module inside this page, so its
+    // own "report a new issue" and "view all requests" actions come back as
+    // events rather than navigating away.
+    this.onProblem = () => this.setState(p => ({ tab: this.props.mode === 'outages' ? 'status' : 'report' }));
+    window.addEventListener('gpl-new-request-problem', this.onProblem);
+    this.onNewRequest = () => this.setState({ tab: 'track', kind: null, typeId: null, catFamily: null });
+    window.addEventListener('gpl-new-request-service', this.onNewRequest);
+    this.onTrack = (e) => this.setState({ tab: 'track', openRef: (e.detail && e.detail.ref) || null, filter: 'all', query: '' });
+    window.addEventListener('gpl-open-my-requests', this.onTrack);
+    this.onServiceReq = (e) => {
+      const t = e.detail && e.detail.type;
+      if (t && TYPES[t]) this.startType(t); else this.setState({ tab: 'new', kind: null, typeId: null });
+    };
+    window.addEventListener('gpl-open-service-request', this.onServiceReq);
+    this.applyIntent();
+    this.icons();
+  }
+  componentWillUnmount() {
+    this.setFooterHeight('0px');
+    window.removeEventListener('gpl-new-request-problem', this.onProblem);
+    window.removeEventListener('gpl-new-request-service', this.onNewRequest);
+    window.removeEventListener('gpl-open-my-requests', this.onTrack);
+    window.removeEventListener('gpl-open-service-request', this.onServiceReq);
+  }
+  componentDidUpdate() { this.applyIntent(); this.icons(); this.syncFooter(); }
+
+  // Bills, Consumption and Report an issue hand off to this module rather than
+  // each keeping its own request list or dispute form.
+  applyIntent() {
+    const it = this.props.intent;
+    if (!it || it.n === this._intentN) return;
+    this._intentN = it.n;
+    if (it.view === 'track') this.setState({ tab: 'track', openRef: it.ref || null, filter: 'all', query: '' });
+    else if (it.view === 'status') this.setState({ tab: 'status', kind: null, typeId: null });
+    else if (it.view === 'problem') this.setState({ tab: this.props.mode === 'outages' ? 'status' : 'report' });
+    else if (it.view === 'form' && it.type && TYPES[it.type]) this.startType(it.type);
+    else if (it.view === 'form') this.setState({ tab: 'track', kind: null, typeId: null, catFamily: null });
+  }
+  icons() {
+    if (window.lucide && window.lucide.createIcons) {
+      clearTimeout(this._t);
+      this._t = setTimeout(() => { try { window.lucide.createIcons(); } catch (e) {} }, 0);
+    }
+  }
+}
+</script>
+</body>
+</html>

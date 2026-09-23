@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<meta name="ext-resource-dependency" content="./GPL Login Final.dc.html" data-resource-id="./GPL%20Login%20Final.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Registration Final.dc.html" data-resource-id="./GPL%20Registration%20Final.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL OTP Verification.dc.html" data-resource-id="./GPL%20OTP%20Verification.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Dashboard.dc.html" data-resource-id="./GPL%20Dashboard.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Bills and Payments.dc.html" data-resource-id="./GPL%20Bills%20and%20Payments.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Report an Issue.dc.html" data-resource-id="./GPL%20Report%20an%20Issue.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Help Chat.dc.html" data-resource-id="./GPL%20Help%20Chat.dc.html" />
+<meta name="ext-resource-dependency" content="./GPL Service Requests.dc.html" data-resource-id="./GPL%20Service%20Requests.dc.html" />
+<template id="__bundler_thumbnail" data-bg-color="#eef2f8">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#eef2f8"/>
+    <rect x="330" y="150" width="540" height="500" rx="28" fill="#ffffff"/>
+    <rect x="536" y="210" width="128" height="128" rx="34" fill="#404293"/>
+    <rect x="400" y="392" width="400" height="34" rx="10" fill="#e4eaf2"/>
+    <rect x="400" y="452" width="400" height="34" rx="10" fill="#e4eaf2"/>
+    <rect x="400" y="524" width="400" height="52" rx="26" fill="#404293"/>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #eef2f8; font-family: Inter, system-ui, sans-serif; }
+  a { color: #404293; text-decoration: none; }
+  a:hover { color: #323373; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#eef2f8;">
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+    <dc-import name="GPL Login Final" hint-size="100%,100vh"></dc-import>
+  </sc-if>
+  <sc-if value="{{ isRegister }}">
+    <dc-import name="GPL Registration Final" hint-size="100%,100vh"></dc-import>
+  </sc-if>
+  <sc-if value="{{ isOtp }}">
+    <dc-import name="GPL OTP Verification" hint-size="100%,100vh"></dc-import>
+  </sc-if>
+  <sc-if value="{{ isDashboard }}">
+    <dc-import name="GPL Dashboard" hint-size="100%,100vh"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;GPL indigo&quot;,&quot;Revenue blue&quot;,&quot;Finance emerald&quot;,&quot;Housing amber&quot;],&quot;default&quot;:&quot;GPL indigo&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;inkTone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Deep teal&quot;,&quot;Midnight navy&quot;,&quot;Graphite&quot;],&quot;default&quot;:&quot;Deep teal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;canvas&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Cool grey&quot;,&quot;Warm paper&quot;,&quot;Bright white&quot;],&quot;default&quot;:&quot;Cool grey&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+// Single-page shell so the exported file can move between login, registration
+// and the dashboard without loading separate documents.
+const ROUTES = [
+  { match: 'gpl otp', screen: 'otp' },
+  // Report an Issue and Help Chat are mounted inside the dashboard, never as pages.
+  { match: 'gpl report an issue', screen: 'dashboard' },
+  { match: 'gpl help chat', screen: 'dashboard' },
+  { match: 'gpl dashboard', screen: 'dashboard' },
+  { match: 'gpl registration', screen: 'register' },
+  { match: 'gpl login', screen: 'login' }
+];
+
+const ACCENTS = {
+  'GPL indigo': ['#404293', '#323373', '64,66,147'],
+  'Revenue blue': ['#2563c9', '#1b4a9c', '37,99,201'],
+  'Finance emerald': ['#0f7a52', '#0b5c3e', '15,122,82'],
+  'Housing amber': ['#b45f16', '#8c4910', '180,95,22']
+};
+const INKS = {
+  'Deep teal': ['#08181e', '#0e242c'],
+  'Midnight navy': ['#0d1730', '#16224208'.slice(0, 7)],
+  'Graphite': ['#1b1e24', '#262a31']
+};
+const CANVAS = { 'Cool grey': '#eef2f8', 'Warm paper': '#f5f1ea', 'Bright white': '#ffffff' };
+
+class Component extends DCLogic {
+  state = { screen: 'login' };
+
+  // One injected sheet re-skins every screen at once: the pages carry their own
+  // inline --agency-* blocks, so the tweaks have to out-specify them.
+  paintTheme() {
+    const p = this.props;
+    const acc = ACCENTS[p.accent] || ACCENTS['GPL indigo'];
+    const ink = INKS[p.inkTone] || INKS['Deep teal'];
+    const canvas = CANVAS[p.canvas] || CANVAS['Cool grey'];
+    const css = `
+      #dc-root [style*="--agency-accent"] {
+        --agency-accent: ${acc[0]} !important;
+        --agency-accent-strong: ${acc[1]} !important;
+        --agency-accent-soft: rgba(${acc[2]},0.12) !important;
+        --agency-accent-ring: rgba(${acc[2]},0.30) !important;
+        --agency-tint: ${acc[0]} !important;
+      }
+      #dc-root a { color: ${acc[0]}; }
+      #dc-root a:hover { color: ${acc[1]}; }
+      #dc-root [style*="background: rgb(64, 66, 147)"],
+      #dc-root [style*="background-color: rgb(64, 66, 147)"] { background-color: ${acc[0]} !important; }
+      #dc-root [style*="background: rgb(8, 24, 30)"],
+      #dc-root [style*="background-color: rgb(8, 24, 30)"] { background-color: ${ink[0]} !important; }
+      #dc-root [style*="background: rgb(14, 36, 44)"],
+      #dc-root [style*="background-color: rgb(14, 36, 44)"] { background-color: ${ink[1]} !important; }
+      body,
+      #dc-root [style*="background: rgb(238, 242, 248)"],
+      #dc-root [style*="background-color: rgb(238, 242, 248)"] { background-color: ${canvas} !important; }
+    `;
+    let el = document.getElementById('gpl-tweak-theme');
+    if (!el) {
+      el = document.createElement('style');
+      el.id = 'gpl-tweak-theme';
+      document.head.appendChild(el);
+    }
+    el.textContent = css;
+  }
+
+  componentDidUpdate() { this.paintTheme(); }
+
+  componentDidMount() {
+    this.paintTheme();
+    this.onClick = (e) => {
+      const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      const href = decodeURIComponent(a.getAttribute('href') || '').toLowerCase();
+      if (!href || href.charAt(0) === '#' || href.indexOf('tel:') === 0 || href.indexOf('mailto:') === 0) return;
+      const hit = ROUTES.find(r => href.indexOf(r.match) !== -1);
+      if (!hit) return;
+      e.preventDefault();
+      e.stopPropagation();
+      window.scrollTo(0, 0);
+      this.setState({ screen: hit.screen });
+    };
+    document.addEventListener('click', this.onClick, true);
+  }
+
+  componentWillUnmount() { document.removeEventListener('click', this.onClick, true); }
+
+  renderVals() {
+    const s = this.state.screen;
+    return { isLogin: s === 'login', isRegister: s === 'register', isOtp: s === 'otp', isDashboard: s === 'dashboard' };
+  }
+}
+</script>
+</body>
+</html>

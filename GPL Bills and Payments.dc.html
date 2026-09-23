@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @keyframes gpl-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { [style*="gpl-spin"] { animation: none !important; } }
+  body { background: #eef2f8; font-family: Inter, system-ui, sans-serif; }
+  a { color: #404293; text-decoration: none; }
+  a:hover { color: #323373; }
+  /* The wrapper's overflow has to stay open so the table can scroll inside the
+     card, which stops it clipping its own corners — so drop its frame and let
+     the table's own corner cells carry the rounding. */
+  .gpl-bills-table .sc-host-x > div { box-shadow: none !important; overflow: visible !important; border: none !important; border-radius: 0 !important; background: transparent !important; }
+  .gpl-bills-table table { border: 1px solid rgba(19,28,46,0.12); border-radius: 14px; border-collapse: separate !important; border-spacing: 0; }
+  .gpl-bills-table table { min-width: 720px; }
+  .gpl-mobile-scroll { scrollbar-width: thin; scrollbar-color: rgba(8,24,30,0.22) transparent; }
+  .gpl-mobile-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+  .gpl-mobile-scroll::-webkit-scrollbar-thumb { background: rgba(8,24,30,0.18); border-radius: 999px; }
+  .gpl-mobile-scroll .sc-host-x > div { overflow: visible !important; }
+  /* Sticky header needs separated borders, an opaque fill and room, or scrolling
+     rows show through it and the row rules cut across the cell text. */
+  .gpl-mobile-scroll table { border-collapse: separate; border-spacing: 0; }
+  .gpl-mobile-scroll thead th { position: sticky; top: 0; z-index: 3; background: #ffffff !important; border-bottom: 1px solid rgba(8,24,30,0.12); box-shadow: 0 1px 0 #ffffff; }
+  .gpl-mobile-scroll tbody td { padding-top: 14px !important; padding-bottom: 14px !important; background: #ffffff; }
+  .gpl-bills-table td, .gpl-bills-table th { white-space: nowrap; vertical-align: middle; }
+  /* The wrapper's overflow is opened up so the table can scroll, which stops it
+     clipping its own rounded corners — round the corner cells instead. */
+  .gpl-bills-table thead th:first-child { border-top-left-radius: 13px; }
+  .gpl-bills-table thead th:last-child { border-top-right-radius: 13px; }
+  .gpl-bills-table tbody tr:last-child td { border-bottom: none !important; }
+  .gpl-bills-table tbody tr:last-child td:first-child { border-bottom-left-radius: 13px; }
+  .gpl-bills-table tbody tr:last-child td:last-child { border-bottom-right-radius: 13px; }
+</style>
+</helmet>
+
+<div data-screen-label="Bills and payments" style="--agency-accent:#404293; --agency-accent-strong:#323373; --agency-accent-soft:rgba(64,66,147,0.12); --agency-accent-ring:rgba(64,66,147,0.30); --agency-contrast:#ffffff; background:#eef2f8; color:var(--fg-1); font-family:var(--font-sans); width:100%; min-width:0;">
+
+  <div style="width:100%; min-width:0; background:#ffffff; border-bottom:1px solid rgba(19,28,46,0.10); padding:0 16px;">
+    <div style="display:{{ tabRowDisplay }}; gap:24px; flex-wrap:wrap;">
+      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="3">
+        <span onClick="{{ tab.onSelect }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; padding:14px 2px 12px; font-size:14.5px; font-weight:600; color:{{ tab.fg }}; border-bottom:2.5px solid {{ tab.border }}; transition:var(--tr-control);">{{ tab.label }}</span>
+      </sc-for>
+    </div>
+    <sc-if value="{{ mobile }}">
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 0 12px;">
+        <span onClick="{{ prevTab }}" role="button" tabIndex="{{ zero }}" aria-label="Previous tab" style="flex:none; cursor:pointer; width:44px; height:44px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); background:#ffffff; display:inline-flex; align-items:center; justify-content:center; color:{{ prevTabFg }};" style-hover="background:var(--surface-2);"><i data-lucide="chevron-left" style="width:20px;height:20px"></i></span>
+        <span style="flex:1; min-width:0; height:44px; border-radius:999px; background:var(--agency-accent-soft); display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:0 14px;">
+          <span style="font-size:14.5px; font-weight:700; color:var(--agency-accent); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ activeTabLabel }}</span>
+          <span style="flex:none; font-size:12px; font-weight:600; color:var(--agency-accent); opacity:0.7;">{{ tabPosition }}</span>
+        </span>
+        <span onClick="{{ nextTab }}" role="button" tabIndex="{{ zero }}" aria-label="Next tab" style="flex:none; cursor:pointer; width:44px; height:44px; border-radius:999px; border:1px solid rgba(19,28,46,0.14); background:#ffffff; display:inline-flex; align-items:center; justify-content:center; color:{{ nextTabFg }};" style-hover="background:var(--surface-2);"><i data-lucide="chevron-right" style="width:20px;height:20px"></i></span>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="width:100%; min-width:0; padding:clamp(20px,3vw,28px) 16px 72px;">
+
+    <sc-if value="{{ isCurrent }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start; min-width:0;">
+
+      <div style="flex:999 1 min(480px, 100%); min-width:0; display:flex; flex-direction:column; gap:20px;">
+
+        <section data-screen-label="Current bill" style="border-radius:clamp(16px,3vw,20px); box-shadow:0 12px 30px rgba(19,28,46,0.16); overflow:hidden;">
+        <div style="background:rgb(8,24,30); padding:clamp(18px,2.4vw,22px) clamp(18px,2.4vw,24px); display:flex; flex-wrap:wrap; gap:16px 28px; align-items:center; justify-content:space-between;">
+          <div style="flex:1 1 260px; min-width:0; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;">
+              <span style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.72);">Current bill</span>
+              <span style="font-size:12.5px; color:rgba(255,255,255,0.55);">{{ monthLine }}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+              <span style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; color: #ffffff; line-height: 1">{{ balanceLabel }}</span>
+              <span style="display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:999px; background:rgba(196,125,18,0.20); color:#f0b866; font-size:13px; font-weight:600;"><i data-lucide="clock" style="width:14px;height:14px"></i> {{ dueChip }}</span>
+            </div>
+            <p style="font-size:13px; color:rgba(255,255,255,0.62);">{{ billRef }}</p>
+          </div>
+          <div style="flex:{{ btnRowFlex }}; min-width:0; display:flex; flex-direction:row; flex-wrap:wrap; gap:10px; align-items:center; justify-content:{{ btnRowJustify }};">
+            <span style="flex:{{ dlBtnFlex }}; min-width:0; display:flex;"><x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" size="lg" icon="download" aria-label="Download PDF" dc-props="{{ dlBtnProps }}" hint-size="100%,48px">{{ downloadLabel }}</x-import></span>
+          </div>
+        </div>
+
+        <div style="background:#ffffff; border-top:1px solid rgba(19,28,46,0.10);">
+          <div onClick="{{ toggleBreakdown }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; padding:16px clamp(16px,4vw,22px); display:flex; align-items:center; justify-content:space-between; gap:16px;">
+            <div style="min-width:0;">
+              <h2 style="font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">View breakdown</h2>
+              <p style="font-size:13px; color:var(--fg-3); margin-top:2px;">How this month's {{ balanceLabel }} is made up</p>
+            </div>
+            <span style="flex:none; width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; color:var(--fg-3); transform:{{ breakdownChevron }}; transition:transform 180ms cubic-bezier(0.2,0.8,0.3,1);"><i data-lucide="chevron-down" style="width:18px;height:18px"></i></span>
+          </div>
+          <sc-if value="{{ breakdownOpen }}">
+            <div style="border-top:1px solid rgba(19,28,46,0.08); padding:6px clamp(16px,4vw,22px) 18px;">
+              <sc-for list="{{ breakdownLines }}" as="line" hint-placeholder-count="4">
+                <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid rgba(19,28,46,0.06);">
+                  <span style="min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ line.label }}</span>
+                    <span style="font-size:12.5px; color:var(--fg-3);">{{ line.detail }}</span>
+                  </span>
+                  <span style="flex:none; font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ line.amount }}</span>
+                </div>
+              </sc-for>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:14px;">
+                <span style="font-size:15px; font-weight:700; color:var(--fg-1);">Total due</span>
+                <span style="font-size:18px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">{{ balanceLabel }}</span>
+              </div>
+              <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(19,28,46,0.08); display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+                <p style="flex:1 1 220px; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fg-3);">Reading taken {{ readingBasis }}. If a line here does not look right, raise it and GPL checks the reading, the tariff and the payments received before answering.</p>
+                <span onClick="{{ disputeBill }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 16px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:13.5px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="message-square-warning" style="width:16px;height:16px"></i> This bill looks wrong</span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        </section>
+
+        <sc-if value="{{ showPrediction }}" hint-placeholder-val="{{ true }}">
+          
+        </sc-if>
+
+        <section data-screen-label="Payment history" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); overflow:hidden;">
+          <div style="padding:14px clamp(16px,4vw,22px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+            <h2 style="font-size:15px; font-weight:600; letter-spacing:-0.01em; color:var(--fg-2);">Payment history</h2>
+            <span onClick="{{ goHistory }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; font-size:13.5px; font-weight:600; color:var(--agency-accent);">View all payments</span>
+          </div>
+          <div class="gpl-bills-table {{ tableScrollClass }}" style="padding:{{ tablePadTop }} clamp(16px,4vw,22px) clamp(14px,3vw,18px); max-height:{{ tableMaxH }}; overflow:auto;">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.DataTable" columns="{{ historyColumns }}" rows="{{ historyRows }}" hint-size="100%,220px"></x-import>
+          </div>
+        </section>
+      </div>
+
+      <div style="flex:1 1 min(320px, 100%); min-width:0; max-width:100%; display:flex; flex-direction:column; gap:20px;">
+
+        <sc-if value="{{ hasQuotation }}">
+          <section data-screen-label="Quotation awaiting payment" style="background:#ffffff; border:1px solid rgba(180,95,22,0.34); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); overflow:hidden;">
+            <div style="padding:14px clamp(16px,3vw,20px); background:var(--status-warning-bg); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; gap:12px;">
+              <span style="flex:none; width:36px; height:36px; border-radius:11px; background:#ffffff; color:var(--status-warning); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="receipt" style="width:18px;height:18px"></i></span>
+              <div style="flex:1; min-width:0;">
+                <h2 style="font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Quotation awaiting payment</h2>
+                <p style="font-size:12.5px; color:var(--fg-3); margin-top:2px;">Case {{ quoteRef }} · {{ quoteType }}</p>
+              </div>
+            </div>
+            <div style="padding:16px clamp(16px,3vw,20px); display:flex; flex-direction:column; gap:14px;">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+                <span style="font-size:26px; font-weight:800; letter-spacing:-0.02em; color:var(--fg-1);">{{ quoteAmount }}</span>
+                <span style="font-size:12.5px; font-weight:600; color:var(--status-warning);">Holds until {{ quoteExpiry }}</span>
+              </div>
+              <p style="font-size:13px; line-height:1.55; color:var(--fg-2);">{{ quoteNote }}</p>
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <span onClick="{{ openQuoteCase }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; border-radius:999px; background:#ffffff; border:1px solid var(--surface-border); color:var(--fg-2); font-size:14px; font-weight:600;" style-hover="border-color:var(--agency-accent); color:var(--agency-accent);"><i data-lucide="file-text" style="width:16px;height:16px"></i> See the request</span>
+              </div>
+            </div>
+          </section>
+        </sc-if>
+
+        <section data-screen-label="Billing preferences" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); overflow:hidden;">
+          <div style="padding:16px clamp(16px,3vw,20px); border-bottom:1px solid rgba(19,28,46,0.08);">
+            <h2 style="font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Billing preferences</h2>
+          </div>
+          <div style="display:flex; flex-direction:column;">
+            <sc-for list="{{ prefs }}" as="p" hint-placeholder-count="3">
+              <div onClick="{{ p.onToggle }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:flex-start; gap:14px; padding:16px clamp(16px,3vw,20px); border-top:1px solid rgba(19,28,46,0.06);" style-hover="background:var(--surface-2);">
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                  <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ p.title }}</span>
+                  <span style="font-size:13px; line-height:1.5; color:var(--fg-3);">{{ p.hint }}</span>
+                </span>
+                <span style="flex:none; width:44px; height:26px; border-radius:999px; background:{{ p.trackBg }}; padding:3px; display:inline-flex; justify-content:{{ p.knobJustify }}; transition:background 180ms cubic-bezier(0.2,0.8,0.3,1);">
+                  <span style="width:20px; height:20px; border-radius:999px; background:#ffffff; box-shadow:0 1px 3px rgba(19,28,46,0.28);"></span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ false }}">
+            <div style="border-top:1px solid rgba(19,28,46,0.06); padding:14px clamp(16px,3vw,20px) 18px; background:var(--surface-2); display:flex; gap:10px; align-items:flex-start;">
+              <span style="flex:none; color:var(--status-info); display:inline-flex; margin-top:1px;"><i data-lucide="info" style="width:16px;height:16px"></i></span>
+              <p style="font-size:13px; line-height:1.55; color:var(--fg-2);">AutoPay takes the full balance from your MMG wallet three days before the due date. GPL emails you the receipt each time.</p>
+            </div>
+          </sc-if>
+        </section><section data-screen-label="Bill prediction" style="background: #ffffff; border: 1px solid rgba(64,66,147,0.22); border-radius: clamp(16px,3vw,20px); box-shadow: 0 2px 8px rgba(19,28,46,0.06); overflow: hidden; width: 100%">
+            <div style="padding:16px clamp(16px,4vw,22px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--agency-accent-soft);">
+              <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--agency-accent); color:#ffffff; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" style="width:18px;height:18px"></i></span>
+              <h2 style="font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Estimate for August 2026</h2><div style="min-width:0; flex:1 1 auto;">
+                
+                
+              </div>
+              
+            </div>
+            <div style="padding: clamp(16px,3vw,20px) clamp(16px,4vw,22px)">
+              <div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;">
+                <span style="font-size:28px; font-weight:700; letter-spacing:-0.02em; line-height:1; color:var(--fg-1);">G$ 18,400 – 19,200</span>
+                <span style="font-size:13px; font-weight:600; color:var(--fg-3);">by 31 August</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                <span style="display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:999px; background:var(--status-warning-bg); color:var(--status-warning); font-size:12.5px; font-weight:600;"><i data-lucide="trending-up" style="width:13px;height:13px"></i> About G$ 1,100 more than July</span>
+                <span style="font-size:13px; color:var(--fg-3);">Day 17 of 31 · 198 kWh so far</span>
+              </div>
+              <div style="height:8px; border-radius:999px; background:var(--surface-4); margin-top:16px; overflow:hidden;">
+                <div style="width:55%; height:100%; border-radius:999px; background:var(--agency-accent);"></div>
+              </div>
+              <p style="font-size:13px; line-height:1.55; color:var(--fg-2); margin-top:14px;">Your fridge and air conditioning account for most of the rise. Cutting one hour of air conditioning a day would save roughly G$ 900 a month.</p>
+              <p style="font-size:12.5px; color:var(--fg-4); margin-top:10px;">This is an estimate, not a bill. Your actual charge is set when the meter is read.</p>
+            </div>
+          </section><section data-screen-label="Payment methods" style="display:none; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); overflow:hidden;">
+          <div style="padding:16px clamp(16px,3vw,20px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <h2 style="font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Payment methods</h2>
+            <span style="font-size:13px; font-weight:600; color:var(--fg-3);">{{ methodCount }}</span>
+          </div>
+          <div style="padding:8px;">
+            <sc-for list="{{ methods }}" as="m" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; background:{{ m.rowBg }}; margin-bottom:4px;">
+                <span style="flex:none; width:40px; height:40px; border-radius:12px; background:{{ m.chipBg }}; color:{{ m.chipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ m.icon }}" style="width:19px;height:19px"></i></span>
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                  <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ m.title }}</span>
+                  <span style="font-size:13px; color:var(--fg-3);">{{ m.hint }}</span>
+                </span>
+                <sc-if value="{{ m.isDefault }}">
+                  <span style="flex:none; padding:3px 9px; border-radius:999px; background:var(--agency-accent-soft); color:var(--agency-accent); font-size:11.5px; font-weight:700;">Default</span>
+                </sc-if>
+                <sc-if value="{{ m.canMakeDefault }}">
+                  <span onClick="{{ m.makeDefault }}" role="button" tabIndex="{{ zero }}" title="Make this your default payment method" style="flex:none; cursor:pointer; padding:5px 10px; border-radius:999px; font-size:12.5px; font-weight:600; color:var(--agency-accent);" style-hover="background:var(--agency-accent-soft);">Make default</span>
+                </sc-if>
+              </div>
+            </sc-for>
+            <div style="padding:8px 12px 6px;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" size="sm" icon="plus" on-click="{{ addMethod }}" hint-size="auto,38px">Add a payment method</x-import>
+            </div>
+          </div>
+        </section>
+
+        <section data-screen-label="Pay for someone else" style="display:none; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); padding:clamp(16px,3vw,20px); flex-direction:column; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="flex:none; width:36px; height:36px; border-radius:11px; background:var(--agency-accent-soft); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="users" style="width:18px;height:18px"></i></span>
+            <h2 style="flex:1; min-width:0; font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Paying for someone else?</h2>
+          </div>
+          <p style="font-size:13px; line-height:1.55; color:var(--fg-3);">Settle a relative's or tenant's bill with their customer, account and meter number. The receipt comes to you; the payment posts to their account.</p>
+          <span style="align-self:flex-start;">
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" size="sm" icon="search" on-click="{{ goOther }}" hint-size="auto,38px">Find another account</x-import>
+          </span>
+        </section>
+
+        
+
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isHistory }}">
+      <sc-if value="{{ receiptNote }}">
+        <div style="display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:14px; background:var(--status-success-bg); margin-bottom:16px;">
+          <span style="flex:none; color:var(--status-success); display:inline-flex; margin-top:1px;"><i data-lucide="circle-check" style="width:18px;height:18px"></i></span>
+          <p style="flex:1; min-width:0; font-size:13.5px; line-height:1.55; color:var(--fg-2);">{{ receiptNote }}</p>
+          <span onClick="{{ dismissNote }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; color:var(--fg-3); display:inline-flex;"><i data-lucide="x" style="width:16px;height:16px"></i></span>
+        </div>
+      </sc-if>
+      <section data-screen-label="All payments" style="background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); overflow:hidden;">
+        <div style="padding:16px clamp(16px,4vw,22px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="min-width:0;">
+            <h2 style="font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">All payments</h2>
+            <p style="font-size:13px; color:var(--fg-3); margin-top:2px;">{{ paidTotal }} paid in the last 12 months.</p>
+          </div>
+          <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" size="sm" icon="download" hint-size="auto,38px">Download statement</x-import>
+        </div>
+        <div class="gpl-bills-table {{ tableScrollClass }}" style="padding:{{ tablePadTop }} clamp(16px,4vw,22px) clamp(14px,3vw,18px); max-height:{{ allTableMaxH }}; overflow:auto;">
+          <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.DataTable" columns="{{ historyColumns }}" rows="{{ allHistoryRows }}" hint-size="100%,420px"></x-import>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isOther }}">
+      <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start;">
+        <section data-screen-label="Find an account" style="flex:3 1 min(440px, 100%); min-width:0; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 6px 18px rgba(19,28,46,0.09); overflow:hidden;">
+          <div style="padding:18px clamp(16px,4vw,22px); border-bottom:1px solid rgba(19,28,46,0.08);">
+            <h2 style="font-size:17px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">Pay someone else's bill</h2>
+            <p style="font-size:13.5px; color:var(--fg-3); margin-top:3px;">Enter all three numbers from the top of their bill so GPL can confirm the account before you pay.</p>
+          </div>
+          <div style="padding:clamp(18px,3vw,22px); display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Customer number</label>
+              <input placeholder="CU 00 0000" value="{{ lkCustomer }}" onChange="{{ onLkCustomer }}" style="height:46px; padding:0 14px; border-radius:12px; background:#ffffff; border:1px solid rgba(19,28,46,0.14); outline:none; font-family:inherit; font-size:14.5px; color:var(--fg-1);">
+              <span style="font-size:12.5px; color:var(--fg-4);">Printed above the service address on their bill.</span>
+            </div>
+            <div style="display:flex; gap:14px; flex-wrap:wrap;">
+              <div style="flex:1 1 190px; min-width:0; display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Account number</label>
+                <input inputMode="numeric" placeholder="40 0000 0" value="{{ lkAccount }}" onChange="{{ onLkAccount }}" style="height:46px; padding:0 14px; border-radius:12px; background:#ffffff; border:1px solid rgba(19,28,46,0.14); outline:none; font-family:inherit; font-size:14.5px; color:var(--fg-1);">
+              </div>
+              <div style="flex:1 1 190px; min-width:0; display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Meter number</label>
+                <input placeholder="GPL-00 0000" value="{{ lkMeter }}" onChange="{{ onLkMeter }}" style="height:46px; padding:0 14px; border-radius:12px; background:#ffffff; border:1px solid rgba(19,28,46,0.14); outline:none; font-family:inherit; font-size:14.5px; color:var(--fg-1);">
+              </div>
+            </div>
+
+            <sc-if value="{{ lookupError }}">
+              <div style="display:flex; gap:10px; align-items:flex-start; padding:12px 14px; border-radius:12px; background:var(--status-error-bg); color:var(--status-error);">
+                <span style="flex:none; display:inline-flex; margin-top:1px;"><i data-lucide="circle-x" style="width:16px;height:16px"></i></span>
+                <p style="font-size:13px; line-height:1.55;">{{ lookupError }}</p>
+              </div>
+            </sc-if>
+
+            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" icon="search" on-click="{{ findBill }}" hint-size="auto,48px">Find bill</x-import>
+              <span onClick="{{ fillDemo }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; font-size:13.5px; font-weight:600; color:var(--agency-accent);">Use a sample account</span>
+            </div>
+            <p style="font-size:12.5px; line-height:1.55; color:var(--fg-4); display:flex; align-items:flex-start; gap:7px;"><span style="flex:none; display:inline-flex; margin-top:1px;"><i data-lucide="shield-check" style="width:14px;height:14px"></i></span> GPL shows only the amount due and the service address. No personal contact details are revealed.</p>
+          </div>
+        </section>
+
+        <section data-screen-label="Located bill" style="flex:2 1 min(360px, 100%); min-width:0; display:flex; flex-direction:column; gap:16px;">
+          <sc-if value="{{ noBillYet }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#ffffff; border:1px dashed rgba(19,28,46,0.18); border-radius:clamp(16px,3vw,20px); padding:clamp(20px,3vw,26px); display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;">
+              <span style="width:44px; height:44px; border-radius:14px; background:var(--surface-4); color:var(--fg-4); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="file-search" style="width:20px;height:20px"></i></span>
+              <h3 style="font-size:14.5px; font-weight:700; color:var(--fg-2);">No account looked up yet</h3>
+              <p style="font-size:13px; line-height:1.55; color:var(--fg-3);">Once the three numbers match, the outstanding bill appears here for you to review before paying.</p>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ hasBill }}">
+            <div style="border-radius:clamp(16px,3vw,20px); box-shadow:0 12px 30px rgba(19,28,46,0.16); overflow:hidden;">
+              <div style="background:rgb(8,24,30); padding:clamp(18px,2.4vw,22px);">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span style="flex:none; width:40px; height:40px; border-radius:999px; background:var(--agency-accent); color:#ffffff; display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">{{ foundInitials }}</span>
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:15px; font-weight:700; color:#ffffff;">{{ foundName }}</span>
+                    <span style="font-size:12.5px; color:rgba(255,255,255,0.62);">Account {{ foundAccount }} · {{ foundMeter }}</span>
+                  </span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px;">
+                  <span style="font-size:28px; font-weight:700; letter-spacing:-0.02em; color:#ffffff; line-height:1;">{{ foundAmount }}</span>
+                  <span style="display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:999px; background:rgba(196,125,18,0.20); color:#f0b866; font-size:13px; font-weight:600;"><i data-lucide="clock" style="width:14px;height:14px"></i> Due {{ foundDue }}</span>
+                </div>
+                <p style="font-size:13px; color:rgba(255,255,255,0.62); margin-top:8px;">Bill {{ foundBillNo }} · billing month {{ foundMonth }}</p>
+              </div>
+              <div style="background:#ffffff; padding:clamp(16px,3vw,20px); display:flex; flex-direction:column; gap:10px;">
+                <div style="display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--fg-3);"><span>Customer number</span><span style="font-weight:600; color:var(--fg-2);">{{ foundCustomer }}</span></div>
+                <div style="display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--fg-3);"><span>Service address</span><span style="text-align:right; font-weight:600; color:var(--fg-2);">{{ foundAddress }}</span></div>
+                <div style="display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--fg-3);"><span>Consumption</span><span style="font-weight:600; color:var(--fg-2);">{{ foundKwh }}</span></div>
+                <div style="height:1px; background:rgba(19,28,46,0.08); margin:4px 0;"></div>
+                <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" icon="arrow-right" full-width="{{ true }}" on-click="{{ proceedOther }}" hint-size="100%,48px">Proceed to payment</x-import>
+                <span onClick="{{ clearBill }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; align-self:center; font-size:13px; font-weight:600; color:var(--fg-3); padding:4px;">Look up a different account</span>
+              </div>
+            </div>
+          </sc-if>
+        </section>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPay }}">
+      <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start;">
+        <section data-screen-label="Pay bill" style="flex:3 1 min(440px, 100%); min-width:0; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 6px 18px rgba(19,28,46,0.09); overflow:hidden;">
+          <div style="padding:18px clamp(16px,4vw,22px); border-bottom:1px solid rgba(19,28,46,0.08);">
+            <h2 style="font-size:17px; font-weight:700; letter-spacing:-0.015em; color:var(--fg-1);">{{ payTitle }}</h2>
+            <p style="font-size:13.5px; color:var(--fg-3); margin-top:3px;">{{ paySub }}</p>
+            <p style="display:flex; align-items:flex-start; gap:7px; font-size:12.5px; line-height:1.5; color:var(--fg-4); margin-top:8px;"><span style="flex:none; display:inline-flex; margin-top:1px;"><i data-lucide="plug-zap" style="width:14px;height:14px"></i></span> {{ payChargeLine }}</p>
+          </div>
+          <sc-if value="{{ payProcessing }}">
+            <div style="display:flex; align-items:flex-start; gap:10px; padding:13px clamp(16px,4vw,22px); background:var(--agency-accent-soft); border-bottom:1px solid rgba(19,28,46,0.08);">
+              <span style="flex:none; color:var(--agency-accent); display:inline-flex; margin-top:1px;"><i data-lucide="lock" style="width:16px;height:16px"></i></span>
+              <p style="flex:1; min-width:0; font-size:13px; line-height:1.55; color:var(--fg-2);"><strong>Your payment is being processed.</strong> Switching connection is locked until it finishes, so the payment stays on this account. Do not leave this page.</p>
+            </div>
+          </sc-if>
+          <div style="padding:clamp(18px,3vw,22px); display:flex; flex-direction:column; gap:20px;">
+            <sc-if value="{{ payingForOther }}">
+              <div style="display:flex; gap:10px; align-items:flex-start; padding:13px 15px; border-radius:14px; background:var(--agency-accent-soft);">
+                <span style="flex:none; color:var(--agency-accent); display:inline-flex; margin-top:1px;"><i data-lucide="users" style="width:16px;height:16px"></i></span>
+                <p style="flex:1; min-width:0; font-size:13px; line-height:1.55; color:var(--fg-2);">You are paying on behalf of <strong>{{ payeeName }}</strong>. The payment posts to their account; the receipt is emailed to you.</p>
+                <span onClick="{{ goOther }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; font-size:12.5px; font-weight:700; color:var(--agency-accent);">Change</span>
+              </div>
+            </sc-if>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <span style="font-size:14px; font-weight:600; color:var(--fg-2);">How much would you like to pay?</span>
+              <sc-for list="{{ payOptions }}" as="opt" hint-placeholder-count="2">
+                <div onClick="{{ opt.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:14px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }};">
+                  <span style="flex:none; width:20px; height:20px; border-radius:999px; border:2px solid {{ opt.dotBorder }}; display:inline-flex; align-items:center; justify-content:center;">
+                    <span style="width:10px; height:10px; border-radius:999px; background:{{ opt.dotFill }};"></span>
+                  </span>
+                  <span style="flex:1; min-width:0; font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ opt.label }}</span>
+                  <span style="flex:none; font-size:14.5px; font-weight:700; color:var(--fg-1);">{{ opt.amount }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <span style="font-size:14px; font-weight:600; color:var(--fg-2);">Pay with</span>
+              <sc-for list="{{ methods }}" as="m" hint-placeholder-count="3">
+                <div onClick="{{ m.onPick }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:14px; border:1.5px solid {{ m.selBorder }}; background:{{ m.selBg }};">
+                  <span style="flex:none; width:38px; height:38px; border-radius:11px; background:{{ m.chipBg }}; color:{{ m.chipFg }}; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="{{ m.icon }}" style="width:18px;height:18px"></i></span>
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">{{ m.title }}</span>
+                    <span style="font-size:13px; color:var(--fg-3);">{{ m.hint }}</span>
+                  </span>
+                  <sc-if value="{{ m.isDefault }}">
+                    <span style="flex:none; padding:3px 9px; border-radius:999px; background:var(--agency-accent-soft); color:var(--agency-accent); font-size:11.5px; font-weight:700;">Default</span>
+                  </sc-if>
+                  <sc-if value="{{ m.canMakeDefault }}">
+                    <span onClick="{{ m.makeDefault }}" role="button" tabIndex="{{ zero }}" title="Make this your default payment method" style="flex:none; cursor:pointer; padding:5px 10px; border-radius:999px; font-size:12.5px; font-weight:600; color:var(--fg-3);" style-hover="background:var(--agency-accent-soft); color:var(--agency-accent);">Make default</span>
+                  </sc-if>
+                  <sc-if value="{{ m.selected }}">
+                    <span style="flex:none; color:var(--agency-accent); display:inline-flex;"><i data-lucide="circle-check" style="width:20px;height:20px"></i></span>
+                  </sc-if>
+                </div>
+              </sc-for>
+
+              <div onClick="{{ pickNewCard }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:14px; border:1.5px dashed {{ newCardBorder }}; background:{{ newCardBg }};">
+                <span style="flex:none; width:38px; height:38px; border-radius:11px; background:var(--surface-4); color:var(--agency-accent); display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="plus" style="width:18px;height:18px"></i></span>
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                  <span style="font-size:14.5px; font-weight:600; color:var(--fg-1);">Use a new card</span>
+                  <span style="font-size:13px; color:var(--fg-3);">Visa, Mastercard or a local debit card</span>
+                </span>
+                <sc-if value="{{ newCardSelected }}">
+                  <span style="flex:none; color:var(--agency-accent); display:inline-flex;"><i data-lucide="circle-check" style="width:20px;height:20px"></i></span>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{ newCardSelected }}">
+                <div style="border:1px solid rgba(19,28,46,0.12); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:14px; background:var(--surface-2);">
+                  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+                    <span style="min-width:0; font-size:14.5px; font-weight:700; color:var(--fg-1);">New card details</span>
+                    <span onClick="{{ closeNewCard }}" role="button" tabIndex="{{ zero }}" title="Close and use a saved method" style="flex:none; cursor:pointer; width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; color:var(--fg-3);" style-hover="background:rgba(19,28,46,0.07);"><i data-lucide="x" style="width:17px;height:17px"></i></span>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Card number</label>
+                    <div style="display:flex; align-items:center; gap:10px; height:46px; padding:0 14px; border-radius:12px; background:#ffffff; border:1px solid {{ cardNumberBorder }};">
+                      <input inputMode="numeric" autoComplete="cc-number" placeholder="0000 0000 0000 0000" value="{{ cardNumber }}" onChange="{{ onCardNumber }}" style="flex:1; min-width:0; border:none; outline:none; background:transparent; font-family:inherit; font-size:14.5px; letter-spacing:0.04em; color:var(--fg-1);">
+                      <span style="flex:none; color:var(--fg-4); display:inline-flex;"><i data-lucide="{{ cardBrandIcon }}" style="width:18px;height:18px"></i></span>
+                    </div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Name on card</label>
+                    <input autoComplete="cc-name" placeholder="Rennica Barnwell" value="{{ cardName }}" onChange="{{ onCardName }}" style="height:46px; padding:0 14px; border-radius:12px; background:#ffffff; border:1px solid rgba(19,28,46,0.14); outline:none; font-family:inherit; font-size:14.5px; color:var(--fg-1);">
+                  </div>
+                  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <div style="flex:1 1 140px; min-width:0; display:flex; flex-direction:column; gap:6px;">
+                      <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Expiry date</label>
+                      <input inputMode="numeric" autoComplete="cc-exp" placeholder="MM / YY" value="{{ cardExpiry }}" onChange="{{ onCardExpiry }}" style="height:46px; padding:0 14px; border-radius:12px; background:#ffffff; border:1px solid rgba(19,28,46,0.14); outline:none; font-family:inherit; font-size:14.5px; color:var(--fg-1);">
+                    </div>
+                    <div style="flex:1 1 120px; min-width:0; display:flex; flex-direction:column; gap:6px;">
+                      <label style="font-size:13.5px; font-weight:600; color:var(--fg-2);">Security code</label>
+                      <input inputMode="numeric" autoComplete="cc-csc" placeholder="CVV" value="{{ cardCvv }}" onChange="{{ onCardCvv }}" style="height:46px; padding:0 14px; border-radius:12px; background:#ffffff; border:1px solid rgba(19,28,46,0.14); outline:none; font-family:inherit; font-size:14.5px; color:var(--fg-1);">
+                    </div>
+                  </div>
+                  <div onClick="{{ toggleSaveCard }}" role="button" tabIndex="{{ zero }}" style="cursor:pointer; display:flex; align-items:center; gap:10px;">
+                    <span style="flex:none; width:20px; height:20px; border-radius:6px; border:1.5px solid {{ saveCardBorder }}; background:{{ saveCardBg }}; color:#ffffff; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="check" style="width:13px;height:13px; opacity:{{ saveCardTick }}"></i></span>
+                    <span style="font-size:14px; color:var(--fg-2);">Save this card for future payments</span>
+                  </div>
+                  <p style="font-size:12.5px; line-height:1.5; color:var(--fg-4); display:flex; align-items:flex-start; gap:7px;"><span style="flex:none; color:var(--fg-4); display:inline-flex; margin-top:1px;"><i data-lucide="shield-check" style="width:14px;height:14px"></i></span> Card details are handled by GPL's payment provider. GPL never stores your full card number.</p>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </section>
+
+        <section data-screen-label="Payment summary" style="flex:2 1 min(380px, 100%); min-width:0; background:#ffffff; border:1px solid rgba(19,28,46,0.10); border-radius:clamp(16px,3vw,20px); box-shadow:0 2px 8px rgba(19,28,46,0.06); padding:clamp(18px,3vw,22px); display:flex; flex-direction:column; gap:14px;">
+          <h2 style="font-size:15px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Summary</h2>
+
+          <div style="display:flex; gap:12px; align-items:center; padding:12px; border-radius:14px; background:var(--surface-2);">
+            <span style="flex:none; width:40px; height:40px; border-radius:999px; background:var(--agency-accent); color:#ffffff; display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">{{ payeeInitials }}</span>
+            <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+              <span style="font-size:14.5px; font-weight:700; color:var(--fg-1);">{{ payeeName }}</span>
+              <span style="font-size:12.5px; color:var(--fg-3);">Account {{ payeeAccount }}</span>
+            </span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--fg-3);"><span>Service address</span><span style="text-align:right; font-weight:600; color:var(--fg-2);">{{ payeeAddress }}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--fg-3);"><span>Meter</span><span style="font-weight:600; color:var(--fg-2);">{{ payeeMeter }}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--fg-3);"><span>Billing month</span><span style="font-weight:600; color:var(--fg-2);">{{ payeeMonth }}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--fg-3);"><span>Receipt goes to</span><span style="font-weight:600; color:var(--fg-2);">r.barnwell@mail.gy</span></div>
+          </div>
+          <div style="height:1px; background:rgba(19,28,46,0.08);"></div>
+
+          <div style="display:flex; justify-content:space-between; gap:12px; font-size:14px; color:var(--fg-2);"><span>Balance</span><span style="font-weight:600; color:var(--fg-1);">{{ balanceLabel }}</span></div>
+          <div style="display:flex; justify-content:space-between; gap:12px; font-size:14px; color:var(--fg-2);"><span>Paying now</span><span style="font-weight:600; color:var(--fg-1);">{{ payAmount }}</span></div>
+          <div style="display:flex; justify-content:space-between; gap:12px; font-size:14px; color:var(--fg-2);"><span>Processing fee</span><span style="font-weight:600; color:var(--status-success);">None</span></div>
+          <div style="height:1px; background:rgba(19,28,46,0.08);"></div>
+          <div style="display:flex; justify-content:space-between; gap:12px; align-items:baseline;"><span style="font-size:15px; font-weight:700; color:var(--fg-1);">Total</span><span style="font-size:20px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">{{ payAmount }}</span></div>
+          <p style="font-size:12.5px; line-height:1.55; color:var(--fg-4);">Payments post to your account within one hour. Your receipt is emailed and saved under Receipts.</p>
+        </section>
+      </div>
+
+      <div style="height:96px; flex:none;"></div>
+      <div style="position:fixed; left:{{ barLeft }}; right:0; bottom:0; z-index:45; background:#ffffff; border-top:1px solid rgba(19,28,46,0.12); box-shadow:0 -8px 24px rgba(19,28,46,0.10);">
+        <div style="padding:14px clamp(16px,3vw,32px); display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:14px;">
+          <span style="flex:1 1 200px; min-width:0; font-size:13px; line-height:1.5; color:var(--fg-3);">Your receipt is emailed as soon as the payment clears.</span>
+          <span onClick="{{ goCurrent }}" role="button" tabIndex="{{ zero }}" style="flex:none; cursor:pointer; display:inline-flex; align-items:center; gap:7px; height:48px; padding:0 18px; border-radius:999px; font-size:14.5px; font-weight:600; color:var(--fg-2);" style-hover="background:var(--surface-2);"><i data-lucide="arrow-left" style="width:17px;height:17px"></i> Back</span>
+          <span style="flex:none;">
+            <sc-if value="{{ payIdle }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" icon="lock" on-click="{{ confirmPay }}" hint-size="auto,48px">{{ payButtonLabel }}</x-import>
+            </sc-if>
+            <sc-if value="{{ payProcessing }}">
+              <span aria-disabled="{{ true }}" style="display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 22px; border-radius:999px; background:var(--agency-accent); color:#ffffff; font-size:14.5px; font-weight:600; opacity:0.6; cursor:default;"><span style="flex:none; width:15px; height:15px; border-radius:999px; border:2px solid rgba(255,255,255,0.35); border-top-color:#ffffff; animation:gpl-spin 0.7s linear infinite;"></span> {{ payProcessingLabel }}</span>
+            </sc-if>
+          </span>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPrediction&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;historyRowCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:4,&quot;min&quot;:2,&quot;max&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;openTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;current&quot;,&quot;history&quot;,&quot;pay&quot;,&quot;other&quot;],&quot;default&quot;:&quot;current&quot;,&quot;tsType&quot;:&quot;'current' | 'history' | 'pay' | 'other'&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;openNonce&quot;:{&quot;editor&quot;:null,&quot;default&quot;:0,&quot;tsType&quot;:&quot;number&quot;},&quot;railWidth&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;240px&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onPayState&quot;:{&quot;editor&quot;:null,&quot;default&quot;:null,&quot;tsType&quot;:&quot;(s: { locked: boolean; dirty: boolean }) =&gt; void&quot;},&quot;resetPayNonce&quot;:{&quot;editor&quot;:null,&quot;default&quot;:0,&quot;tsType&quot;:&quot;number&quot;}}">
+const TABS = [
+  { id: 'current', label: 'Current bill', icon: 'file-text' },
+  { id: 'history', label: 'Payment history', icon: 'history' }
+];
+
+const ME = { name: 'Rennica Barnwell', account: '40 2938 1', meter: 'GPL-88 4120', address: 'Lot 22 Sheriff Street, Georgetown', month: 'July 2026', due: '27 August 2026', amount: 17728 };
+
+// Stand-in for the GPL account directory: all three numbers must line up.
+const DIRECTORY = [
+  { customer: 'CU 71 9034', account: '40 5512 8', meter: 'GPL-71 9034', name: 'Sharon Persaud', address: 'Lot 8 Vlissengen Road, Georgetown', month: 'July 2026', due: '27 August 2026', amount: 12940, bill: '2026-07-405512', kwh: '248 kWh' },
+  { customer: 'CU 44 2087', account: '40 1877 4', meter: 'GPL-44 2087', name: 'Errol Mohabir', address: 'Lot 143 Corentyne Road, Rose Hall', month: 'July 2026', due: '27 August 2026', amount: 9615, bill: '2026-07-401877', kwh: '181 kWh' }
+];
+
+const money = (n) => 'G$ ' + n.toLocaleString('en-US');
+const norm = (v) => String(v || '').replace(/[^0-9a-z]/gi, '').toLowerCase();
+
+const HISTORY = [
+  { month: 'June 2026', paid: '18 July 2026', amount: 'G$ 19,559', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+  { month: 'May 2026', paid: '20 June 2026', amount: 'G$ 16,204', method: 'Visa •••• 4417', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+  { month: 'April 2026', paid: '17 May 2026', amount: 'G$ 15,880', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+  { month: 'April 2026', paid: '12 May 2026', amount: 'G$ 11,742', method: 'Visa •••• 4417', paidFor: 'Sharon Persaud', payeeAccount: '40 5512 8', self: false },
+  { month: 'March 2026', paid: '19 April 2026', amount: 'G$ 14,930', method: 'Bank transfer', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+  { month: 'February 2026', paid: '16 March 2026', amount: 'G$ 15,412', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+  { month: 'January 2026', paid: '18 February 2026', amount: 'G$ 16,880', method: 'Visa •••• 4417', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+  { month: 'December 2025', paid: '17 January 2026', amount: 'G$ 18,204', method: 'Cash — Kitty office', paidFor: 'My account', payeeAccount: '40 2938 1', self: true },
+  { month: 'November 2025', paid: '19 December 2025', amount: 'G$ 15,097', method: 'MMG wallet', paidFor: 'My account', payeeAccount: '40 2938 1', self: true }
+];
+
+class Component extends DCLogic {
+  state = { tab: 'current', payFor: 'self', lkCustomer: '', lkAccount: '', lkMeter: '', found: null, lookupError: '', payments: [], receiptNote: '', breakdown: true, autoPay: false, paperless: true, reminders: true, payOption: 'full', method: 'mmg', defaultMethod: 'mmg', cardNumber: '', cardName: '', cardExpiry: '', cardCvv: '', saveCard: true, processing: false };
+
+  // Only the Pay bill tab carries a commit action, so the footer — and the
+  // offset the help launcher reads — exists there only.
+  setFooterHeight(v) {
+    try { document.documentElement.style.setProperty('--gpl-footer-h', v); } catch (e) {}
+  }
+  syncFooter() { this.setFooterHeight(this.state.tab === 'pay' ? '78px' : '0px'); }
+
+  componentDidMount() {
+    this.hydrate();
+    this.syncFooter();
+    this.reportPayState();
+    this.onResize = () => {
+      const m = window.innerWidth < 860;
+      if (m !== this.state.mobile) this.setState({ mobile: m });
+    };
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+    // The dashboard hands over which tab the customer meant (Pay now, Download bill).
+    this.applyOpenTab();
+    this.onIntent = (e) => {
+      const tab = e.detail && e.detail.tab;
+      if (tab) this.setState({ tab: tab });
+    };
+    window.addEventListener('gpl-bills-intent', this.onIntent);
+    // DS Buttons mount asynchronously and re-insert a fresh <i> on every render,
+    // so watch for new placeholders instead of polling for a fixed window.
+    if (window.MutationObserver) {
+      this.obs = new MutationObserver(() => {
+        if (!document.querySelector('i[data-lucide]')) return;
+        clearTimeout(this.iconTimer);
+        this.iconTimer = setTimeout(() => this.paintIcons(), 40);
+      });
+      this.obs.observe(document.body, { childList: true, subtree: true });
+    }
+  }
+  componentWillUnmount() {
+    if (this.onResize) window.removeEventListener('resize', this.onResize);
+    if (this.onIntent) window.removeEventListener('gpl-bills-intent', this.onIntent);
+    if (this.obs) this.obs.disconnect();
+    clearTimeout(this.iconTimer);
+    clearTimeout(this.payTimer);
+    this.setFooterHeight('0px');
+  }
+  componentDidUpdate() { this.paintIcons(); this.syncFooter(); this.applyOpenTab(); this.applyPayReset(); this.reportPayState(); }
+
+  // The pay form is "dirty" once the customer has moved away from the safe
+  // defaults — that is the point where a silent connection switch would change
+  // what they are about to pay for.
+  payDirty() {
+    const s = this.state;
+    if (s.tab !== 'pay') return false;
+    return s.payOption !== 'full' || s.method !== s.defaultMethod || s.payFor === 'other'
+      || !!(s.cardNumber || s.cardName || s.cardExpiry || s.cardCvv);
+  }
+  payLocked() { return this.state.tab === 'pay' && !!this.state.processing; }
+
+  // Tell the shell how risky a connection switch is right now: dirty asks for a
+  // confirm, locked refuses outright.
+  reportPayState() {
+    const next = (this.payLocked() ? 'L' : '') + (this.payDirty() ? 'D' : '');
+    if (next === this.lastPayState) return;
+    this.lastPayState = next;
+    if (typeof this.props.onPayState === 'function') {
+      this.props.onPayState({ locked: this.payLocked(), dirty: this.payDirty() });
+    }
+  }
+
+  // The shell bumps this nonce after the customer agrees to switch connection,
+  // so the half-filled payment never carries over to the new account.
+  applyPayReset() {
+    const n = this.props.resetPayNonce ?? 0;
+    if (n === this.seenResetNonce) return;
+    this.seenResetNonce = n;
+    if (n === 0) return;
+    this.setState(p => ({
+      payFor: 'self', found: null, lookupError: '',
+      lkCustomer: '', lkAccount: '', lkMeter: '',
+      payOption: 'full', method: p.defaultMethod,
+      cardNumber: '', cardName: '', cardExpiry: '', cardCvv: '',
+      receiptNote: ''
+    }));
+  }
+
+  // Honour the tab the parent asked for, once per nonce.
+  applyOpenTab() {
+    const tab = this.props.openTab;
+    const nonce = this.props.openNonce ?? 0;
+    if (!tab || nonce === this.seenNonce) return;
+    this.seenNonce = nonce;
+    const target = (tab === 'pay' || tab === 'other') ? 'current' : tab;
+    if (target !== this.state.tab) {
+      this.setState({ tab: target });
+    }
+  }
+  commitPay(row, who, payAmount, methodTitle) {
+    this.setState(p => ({
+      processing: false,
+      payments: [row].concat(p.payments),
+      tab: 'history',
+      payFor: 'self',
+      payOption: 'full',
+      found: null,
+      lkCustomer: '', lkAccount: '', lkMeter: '',
+      cardNumber: '', cardName: '', cardExpiry: '', cardCvv: '',
+      receiptNote: payAmount + ' paid for ' + who + ' with ' + methodTitle + '. The receipt is on its way to r.barnwell@mail.gy.'
+    }));
+  }
+  paintIcons() {
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+  hydrate() {
+    let tries = 0;
+    const go = () => {
+      this.paintIcons();
+      if (++tries < 12) setTimeout(go, 250);
+    };
+    go();
+  }
+
+  // "Paid for" reads at a glance: own account in the accent tint, a third party
+  // in neutral with a person icon, each with the account number underneath.
+  paidForCell(row) {
+    const own = !!row.self;
+    return React.createElement('span', { style: { display: 'inline-flex', flexDirection: 'column', gap: '3px', alignItems: 'flex-start' } },
+      React.createElement('span', {
+        style: {
+          display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '3px 10px 3px 8px', borderRadius: '999px',
+          background: own ? 'var(--agency-accent-soft)' : 'var(--surface-4)',
+          color: own ? 'var(--agency-accent)' : 'var(--fg-2)',
+          fontSize: '12.5px', fontWeight: 700, whiteSpace: 'nowrap'
+        }
+      },
+        React.createElement('svg', { width: 13, height: 13, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+          own
+            ? React.createElement('path', { d: 'M3 10.5 12 3l9 7.5V21H3z' })
+            : React.createElement(React.Fragment, null,
+                React.createElement('path', { d: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2' }),
+                React.createElement('circle', { cx: 12, cy: 7, r: 4 }))
+        ),
+        own ? 'My account' : row.paidFor
+      ),
+      React.createElement('span', { style: { fontSize: '12px', color: 'var(--fg-4)', whiteSpace: 'nowrap', paddingLeft: '2px' } }, 'Account ' + (row.payeeAccount || ''))
+    );
+  }
+
+  receiptCell(row) {
+    const NS = window.GuyanaDesignSystem_c46a8c || {};
+    const props = { variant: 'ghost', size: 'sm', icon: 'download', onClick: (e) => { if (e && e.stopPropagation) e.stopPropagation(); } };
+    return NS.Button
+      ? React.createElement(NS.Button, props, 'Receipt')
+      : React.createElement('button', { onClick: props.onClick }, 'Receipt');
+  }
+
+  methodList() {
+    const s = this.state;
+    const base = [
+      { id: 'mmg', icon: 'smartphone', title: 'MMG wallet', hint: '592 •• 4417 · GTT Mobile Money', chipBg: 'var(--status-success-bg)', chipFg: 'var(--status-success)' },
+      { id: 'visa', icon: 'credit-card', title: 'Visa •••• 4417', hint: 'Expires 09 / 2028', chipBg: 'var(--agency-accent-soft)', chipFg: 'var(--agency-accent)' },
+      { id: 'bank', icon: 'building-2', title: 'Republic Bank transfer', hint: 'Account •••• 8820', chipBg: 'var(--surface-4)', chipFg: 'var(--fg-2)' }
+    ];
+    // Exactly one default at a time — setting a new one clears the old.
+    return base.map(m => Object.assign({}, m, {
+      isDefault: s.defaultMethod === m.id,
+      canMakeDefault: s.defaultMethod !== m.id,
+      makeDefault: (e) => {
+        if (e && e.stopPropagation) e.stopPropagation();
+        this.setState({ defaultMethod: m.id, method: m.id });
+      },
+      rowBg: s.defaultMethod === m.id ? 'var(--agency-accent-soft)' : 'transparent',
+      selected: s.method === m.id,
+      selBorder: s.method === m.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.12)',
+      selBg: s.method === m.id ? 'var(--agency-accent-soft)' : '#ffffff',
+      onPick: () => this.setState({ method: m.id })
+    }));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const histN = this.props.historyRowCount ?? 4;
+    const dlLabel = s.mobile ? '' : 'Download PDF';
+    // The parent shell passes the connection the customer is currently viewing.
+    const mine = Object.assign({}, ME, {
+      account: this.props.connAccount ?? ME.account,
+      meter: this.props.connMeter ?? ME.meter,
+      address: this.props.connAddress ?? ME.address,
+      month: this.props.connMonth ?? ME.month,
+      due: this.props.connDue ?? ME.due,
+      amount: this.props.connAmount ?? ME.amount
+    });
+    const kwh = this.props.connKwh ?? 351;
+    const issued = this.props.connIssued ?? '04 August 2026';
+    const target = s.payFor === 'other' && s.found ? s.found : mine;
+    const balance = target.amount;
+    const payNum = s.payOption === 'full' ? balance : Math.round(balance / 2);
+    const payAmount = money(payNum);
+    // Payments made on this connection only — never merged across connections.
+    const history = this.props.connHistory || HISTORY;
+    const rows = s.payments.concat(history);
+    const paidSum = rows.reduce((t, r) => t + Number(String(r.amount).replace(/[^0-9]/g, '')), 0);
+    const initials = (n) => n.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    return {
+      tabRowDisplay: s.mobile ? 'none' : 'flex',
+      tableScrollClass: s.mobile ? 'gpl-mobile-scroll' : '',
+      tablePadTop: s.mobile ? '0' : 'clamp(10px,2vw,14px)',
+      tableMaxH: s.mobile ? '260px' : 'none',
+      allTableMaxH: s.mobile ? '340px' : 'none',
+      activeTabLabel: (TABS.find(t => t.id === s.tab) || TABS[0]).label,
+      tabPosition: (TABS.findIndex(t => t.id === s.tab) + 1) + ' / ' + TABS.length,
+      prevTabFg: TABS.findIndex(t => t.id === s.tab) === 0 ? 'var(--fg-4)' : 'var(--fg-2)',
+      nextTabFg: TABS.findIndex(t => t.id === s.tab) === TABS.length - 1 ? 'var(--fg-4)' : 'var(--fg-2)',
+      prevTab: () => {
+        const i = TABS.findIndex(t => t.id === this.state.tab);
+        if (i > 0) this.setState({ tab: TABS[i - 1].id });
+      },
+      nextTab: () => {
+        const i = TABS.findIndex(t => t.id === this.state.tab);
+        if (i < TABS.length - 1) this.setState({ tab: TABS[i + 1].id });
+      },
+      isOther: s.tab === 'other',
+      goOther: () => this.setState({ tab: 'other' }),
+      payingForOther: s.payFor === 'other' && !!s.found,
+      monthLine: 'Billing month ' + mine.month + ' · ' + kwh + ' kWh',
+      balanceLabel: money(balance),
+      dueChip: 'Due ' + mine.due,
+      billRef: 'Bill number ' + mine.month.replace(/ /g, '-') + '-' + mine.account.replace(/ /g, '') + ' · issued ' + issued,
+      payTitle: s.payFor === 'other' && s.found ? 'Pay ' + s.found.name + "'s bill" : 'Pay your ' + mine.month + ' bill',
+      paySub: 'Account ' + target.account + ' · due ' + target.due,
+      payeeName: target.name,
+      payeeInitials: initials(target.name),
+      payeeAccount: target.account,
+      payeeAddress: target.address,
+      payeeMeter: target.meter,
+      payeeMonth: target.month,
+      balanceLabel: money(balance),
+
+      lookupError: s.lookupError,
+      lkCustomer: s.lkCustomer,
+      lkAccount: s.lkAccount,
+      lkMeter: s.lkMeter,
+      onLkCustomer: (e) => this.setState({ lkCustomer: e.target.value, lookupError: '' }),
+      onLkAccount: (e) => this.setState({ lkAccount: e.target.value, lookupError: '' }),
+      onLkMeter: (e) => this.setState({ lkMeter: e.target.value, lookupError: '' }),
+      fillDemo: () => this.setState({ lkCustomer: DIRECTORY[0].customer, lkAccount: DIRECTORY[0].account, lkMeter: DIRECTORY[0].meter, lookupError: '', found: null }),
+      findBill: () => {
+        const st = this.state;
+        const c = norm(st.lkCustomer), a = norm(st.lkAccount), m = norm(st.lkMeter);
+        if (!c || !a || !m) return this.setState({ found: null, lookupError: 'Enter the customer number, account number and meter number to continue.' });
+        const hit = DIRECTORY.find(d => norm(d.account) === a);
+        if (!hit) return this.setState({ found: null, lookupError: 'No account matches ' + st.lkAccount + '. Check the account number on their bill and try again.' });
+        if (norm(hit.customer) !== c || norm(hit.meter) !== m) return this.setState({ found: null, lookupError: 'The customer and meter numbers do not match account ' + hit.account + '. All three must match before the bill can be shown.' });
+        this.setState({ found: hit, lookupError: '' });
+      },
+      hasBill: !!s.found,
+      noBillYet: !s.found,
+      clearBill: () => this.setState({ found: null, payFor: 'self', lkCustomer: '', lkAccount: '', lkMeter: '' }),
+      proceedOther: () => this.setState(p => ({ tab: 'pay', payFor: 'other', payOption: 'full', method: p.defaultMethod })),
+      foundName: s.found ? s.found.name : '',
+      foundInitials: s.found ? initials(s.found.name) : '',
+      foundAccount: s.found ? s.found.account : '',
+      foundMeter: s.found ? s.found.meter : '',
+      foundCustomer: s.found ? s.found.customer : '',
+      foundAddress: s.found ? s.found.address : '',
+      foundMonth: s.found ? s.found.month : '',
+      foundDue: s.found ? s.found.due : '',
+      foundBillNo: s.found ? s.found.bill : '',
+      foundKwh: s.found ? s.found.kwh : '',
+      foundAmount: s.found ? money(s.found.amount) : '',
+
+      receiptNote: s.receiptNote,
+      dismissNote: () => this.setState({ receiptNote: '' }),
+      confirmPay: () => {
+        if (this.state.processing) return;
+        const digits = s.cardNumber.replace(/[^0-9]/g, '');
+        const methodTitle = s.method === 'new'
+          ? 'New card •••• ' + (digits.slice(-4) || '0000')
+          : ((this.methodList().find(m => m.id === s.method) || {}).title || 'MMG wallet');
+        const row = {
+          month: target.month,
+          paid: '18 August 2026',
+          paidFor: s.payFor === 'other' ? target.name : 'My account',
+          payeeAccount: target.account,
+          self: s.payFor !== 'other',
+          method: methodTitle,
+          amount: payAmount
+        };
+        const who = s.payFor === 'other' ? target.name + ' (account ' + target.account + ')' : 'your account';
+        // Hold the payment "in flight" for a moment: the connection switcher is
+        // locked for exactly this window, then the receipt lands.
+        this.setState({ processing: true });
+        clearTimeout(this.payTimer);
+        this.payTimer = setTimeout(() => this.commitPay(row, who, payAmount, methodTitle), 1700);
+      },
+
+      downloadLabel: dlLabel,
+      mobile: !!s.mobile,
+      dlBtnFlex: '0 0 auto',
+      payBtnFlex: s.mobile ? '1 1 auto' : '0 0 auto',
+      payBtnMax: s.mobile ? '100%' : 'none',
+      btnRowFlex: s.mobile ? '1 1 100%' : '0 0 auto',
+      btnRowJustify: s.mobile ? 'center' : 'flex-end',
+      dlBtnProps: s.mobile ? { style: { padding: '0', width: '52px', minWidth: '52px', height: '48px', flex: '0 0 auto', gap: '0', justifyContent: 'center' } } : {},
+      zero: 0,
+      barLeft: this.props.railWidth || '240px',
+      tabs: TABS.map(t => ({
+        label: t.label,
+        fg: s.tab === t.id ? 'var(--agency-accent)' : 'var(--fg-3)',
+        border: s.tab === t.id ? 'var(--agency-accent)' : 'transparent',
+        onSelect: () => this.setState({ tab: t.id })
+      })),
+      isCurrent: s.tab === 'current',
+      isHistory: s.tab === 'history',
+      isPay: s.tab === 'pay',
+      goHistory: () => this.setState({ tab: 'history' }),
+      goCurrent: () => this.setState({ tab: 'current' }),
+      // Paying always starts on the default method.
+      openPay: () => this.setState(p => ({ tab: 'pay', method: p.defaultMethod })),
+
+      breakdownOpen: s.breakdown,
+      breakdownChevron: s.breakdown ? 'rotate(180deg)' : 'rotate(0deg)',
+      toggleBreakdown: () => this.setState(p => ({ breakdown: !p.breakdown })),
+      // Derived from this connection's balance so the lines always add up to it.
+      breakdownLines: (() => {
+        const fixed = 844;
+        const net = Math.round((balance - fixed) / 1.14);
+        const vat = balance - fixed - net;
+        return [
+          { label: 'Energy charge', detail: kwh + ' kWh at G$ ' + (net / kwh).toFixed(2) + ' per kWh', amount: money(net) },
+          { label: 'Fixed monthly charge', detail: 'Residential single-phase service', amount: money(fixed) },
+          { label: 'VAT', detail: '14% on ' + money(net + fixed), amount: money(vat) },
+          { label: 'Outage credit', detail: 'Case 3402 · supply off 8h 36m on 28 August', amount: '− G$ 1,240' },
+          { label: 'Previous balance', detail: 'Paid in full last month', amount: 'G$ 0' }
+        ];
+      })(),
+
+      readingBasis: 'from an actual meter reading on 26 August 2026',
+      disputeBill: () => window.dispatchEvent(new CustomEvent('gpl-open-service-request', { detail: { type: 'billing-query' } })),
+
+      hasQuotation: true,
+      quoteRef: '3455',
+      quoteType: 'New commercial connection — Lot 8 Regent Street',
+      quoteAmount: 'G$ 486,000',
+      quoteExpiry: '23 September 2026',
+      quoteNote: 'The engineer assessed the site and a two-span network extension is required. Nothing is scheduled until this clears — the request waits at Awaiting payment.',
+      openQuoteCase: () => window.dispatchEvent(new CustomEvent('gpl-open-my-requests', { detail: { ref: '3455' } })),
+
+      showPrediction: this.props.showPrediction ?? true,
+
+      historyColumns: [
+        { key: 'month', label: 'Billing month' },
+        { key: 'paid', label: 'Paid on' },
+        { key: 'paidFor', label: 'Paid for', render: (row) => this.paidForCell(row) },
+        { key: 'method', label: 'Method' },
+        { key: 'amount', label: 'Amount', align: 'right' },
+        { key: 'receipt', label: 'Receipt', align: 'center', render: (row) => this.receiptCell(row) }
+      ],
+      historyRows: rows.slice(0, histN),
+      allHistoryRows: rows,
+      paidTotal: money(paidSum),
+
+      methods: this.methodList(),
+      methodCount: this.methodList().length + ' saved',
+
+      prefs: [
+        { id: 'paperless', title: 'Paperless billing', hint: 'Get your bill by email instead of a printed copy.', on: s.paperless },
+        { id: 'reminders', title: 'Payment reminders', hint: 'A text five days before your bill is due.', on: s.reminders },
+        { id: 'billWhats', title: 'Bill by WhatsApp', hint: 'The same bill on WhatsApp. Turn off the channels you do not want — GPL sends the bill once per channel you leave on.', on: s.billWhats }
+      ].map(p => ({
+        title: p.title, hint: p.hint,
+        trackBg: p.on ? 'var(--agency-accent)' : 'rgba(19,28,46,0.18)',
+        knobJustify: p.on ? 'flex-end' : 'flex-start',
+        onToggle: () => this.setState(prev => ({ [p.id]: !prev[p.id] }))
+      })),
+      autoPayOn: s.autoPay,
+
+      payOptions: [
+        { id: 'full', label: 'Full balance', amount: money(balance) },
+        { id: 'half', label: 'Part payment', amount: money(Math.round(balance / 2)) }
+      ].map(o => ({
+        label: o.label, amount: o.amount,
+        border: s.payOption === o.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.12)',
+        bg: s.payOption === o.id ? 'var(--agency-accent-soft)' : '#ffffff',
+        dotBorder: s.payOption === o.id ? 'var(--agency-accent)' : 'rgba(19,28,46,0.28)',
+        dotFill: s.payOption === o.id ? 'var(--agency-accent)' : 'transparent',
+        onPick: () => this.setState({ payOption: o.id })
+      })),
+      newCardSelected: s.method === 'new',
+      pickNewCard: () => this.setState({ method: 'new' }),
+      // Closing drops back to the default saved method and clears what was typed.
+      closeNewCard: (e) => {
+        if (e && e.stopPropagation) e.stopPropagation();
+        this.setState({ method: 'mmg', cardNumber: '', cardName: '', cardExpiry: '', cardCvv: '' });
+      },
+      newCardBorder: s.method === 'new' ? 'var(--agency-accent)' : 'rgba(19,28,46,0.22)',
+      newCardBg: s.method === 'new' ? 'var(--agency-accent-soft)' : '#ffffff',
+      cardNumber: s.cardNumber,
+      onCardNumber: (e) => {
+        const digits = e.target.value.replace(/\D/g, '').slice(0, 16);
+        this.setState({ cardNumber: digits.replace(/(.{4})/g, '$1 ').trim() });
+      },
+      cardNumberBorder: 'rgba(19,28,46,0.14)',
+      cardBrandIcon: 'credit-card',
+      addMethod: () => this.setState({ tab: 'pay', method: 'new' }),
+      cardName: s.cardName,
+      onCardName: (e) => this.setState({ cardName: e.target.value }),
+      cardExpiry: s.cardExpiry,
+      onCardExpiry: (e) => {
+        const d = e.target.value.replace(/\D/g, '').slice(0, 4);
+        this.setState({ cardExpiry: d.length > 2 ? d.slice(0, 2) + ' / ' + d.slice(2) : d });
+      },
+      cardCvv: s.cardCvv,
+      onCardCvv: (e) => this.setState({ cardCvv: e.target.value.replace(/\D/g, '').slice(0, 4) }),
+      toggleSaveCard: () => this.setState(p => ({ saveCard: !p.saveCard })),
+      saveCardBg: s.saveCard ? 'var(--agency-accent)' : '#ffffff',
+      saveCardBorder: s.saveCard ? 'var(--agency-accent)' : 'rgba(19,28,46,0.24)',
+      saveCardTick: s.saveCard ? 1 : 0,
+      payAmount: payAmount,
+      payButtonLabel: 'Pay ' + payAmount,
+      payProcessing: !!s.processing,
+      payIdle: !s.processing,
+      payProcessingLabel: 'Paying ' + payAmount + '…',
+      payChargeLine: 'Charged to account ' + target.account + ' · meter ' + target.meter + ' · ' + target.address
+    };
+  }
+}
+
+</script>
+</body>
+</html>

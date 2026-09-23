@@ -1,0 +1,21 @@
+/* ==========================================================================
+   GUYANA GOVERNMENT PORTAL — Design System
+   styles.css  —  ROOT ENTRY POINT
+
+   The single stylesheet a consuming project should link. It pulls in the
+   token source of truth (colors_and_type.css): the type scale, neutral
+   palette, glass system, elevation, radii, spacing, motion, status colors,
+   the per-agency theme hooks, and the ready-to-use .ds-* text roles +
+   .glass utility.
+
+       <link rel="stylesheet" href="styles.css">
+
+   Then set a theme on any scope:  <div data-agency="health"> … </div>
+
+   The other CSS files in this repo are local scaffolding, NOT for consumers:
+     • preview/_preview.css                — specimen-card backdrop only
+     • ui_kits/launcher-dashboard/portal.css — the demo UI-kit prototype
+     • figma/board.css                     — Figma-export board styling
+   ========================================================================== */
+
+@import url('colors_and_type.css');

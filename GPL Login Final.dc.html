@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/colors_and_type.css">
+<link rel="stylesheet" href="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/styles.css">
+<script src="_ds/guyana-design-system-c46a8c74-8f2b-4863-94a3-6f22ebb3d937/_ds_bundle.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #ffffff; font-family: Inter, system-ui, sans-serif; }
+  a { color: #2d2e67; text-decoration: none; }
+  a:hover { color: #1d1e42; }
+</style>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#2d2e67"></rect><text x="50" y="62" font-family="Inter, sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">GPL</text></svg></template>
+</helmet>
+
+<div style="--agency-accent:#2d2e67; --agency-accent-strong:#1d1e42; --agency-accent-soft:rgba(45,46,103,0.10); --agency-accent-ring:rgba(45,46,103,0.30); --agency-tint:#2d2e67; --agency-contrast:#ffffff; height:100vh; display:flex; flex-wrap:wrap; font-family:var(--font-sans);">
+
+  <div style="flex:0 1 60%; min-width:320px; height:100%; overflow:hidden; position:relative; background:linear-gradient(180deg, rgb(29,30,66) 0%, rgb(45,46,103) 100%); display:flex; flex-direction:column; justify-content:space-between; padding:clamp(32px,6vw,64px);">
+    <img src="uploads/coat-of-arms-watermark.png" alt="" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:80%; max-width:520px; opacity:0.5; pointer-events:none; user-select:none;">
+    <div style="position:relative; display:flex; flex-direction:column; gap:32px;">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <span style="font-size:48px; font-weight:700; letter-spacing:-0.02em; line-height:1.12; color:#ffffff;">GPL</span>
+        <span style="font-size:17px; font-weight:400; color:rgba(255,255,255,0.72);">Guyana Power and Light</span>
+        <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(212,175,55);">One people · One nation · One destiny</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <div style="width:80px; height:3px; border-radius:2px; background:rgb(212,175,55);"></div>
+        <span style="font-size:clamp(19px,2.2vw,23px); font-weight:400; line-height:1.4; color:#ffffff; max-width:34ch;">Manage your electricity account, bills and services online.</span>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <span style="flex:none; width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.10); display:inline-flex; align-items:center; justify-content:center; overflow:hidden;">
+        <img src="assets/gpl-logo.jpg" alt="GPL logo" style="width:100%; height:100%; object-fit:cover;">
+      </span>
+      <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(165,181,193);">Guyana Power and Light</span>
+    </div>
+  </div>
+
+  <div style="flex:1 1 auto; min-width:0; height:100%; overflow-y:auto; background:#ffffff; border-left:1px solid rgb(229,231,235); display:flex; flex-direction:column; justify-content:space-between; align-items:center; padding:clamp(32px,6vw,64px);">
+    <div style="width:100%; flex:1 1 auto; display:flex; flex-direction:column; justify-content:center;">
+    <div style="width:100%; display:flex; flex-direction:column; gap:32px;">
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <span style="font-size:28px; font-weight:600; letter-spacing:-0.01em; line-height:1.3; color:rgb(11,29,58);">Welcome back</span>
+          <span style="font-size:14px; font-weight:500; line-height:1.55; color:rgb(107,114,128);">Sign in to your MyGPL account.</span>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(55,65,81);">Email ID</span>
+            <input type="email" value="{{ eid }}" onChange="{{ onEid }}" placeholder="you@example.com" style="height:48px; border-radius:12px; background:rgb(249,250,251); box-shadow:inset 0 0 0 1px rgb(209,213,219); padding:0 16px; font-size:14px; font-weight:500; color:rgb(11,29,58); border:none; outline:none; font-family:inherit;">
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgb(55,65,81);">Password</span>
+            <div style="height:48px; border-radius:12px; background:rgb(249,250,251); box-shadow:inset 0 0 0 1px rgb(209,213,219); padding:0 16px; display:flex; align-items:center; gap:10px;">
+              <input type="{{ pwType }}" value="{{ pw }}" onChange="{{ onPw }}" placeholder="Enter your password" style="flex:1; min-width:0; font-size:14px; font-weight:500; color:rgb(11,29,58); border:none; outline:none; background:transparent; font-family:inherit;">
+              <span onClick="{{ togglePw }}" role="button" style="flex:none; cursor:pointer; color:rgb(107,114,128); display:inline-flex;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end;">
+            <a href="#" onClick="{{ openReset }}" style="font-size:14px; font-weight:600; color:rgb(45,46,103);">Forgot password?</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <a href="GPL Dashboard.dc.html" style="display:block;">
+          <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" full-width="{{ true }}" icon-right="arrow-right" hint-size="100%,48px">Sign in</x-import>
+        </a>
+        <div style="display:flex; justify-content:center; align-items:center; gap:32px;">
+          <span style="font-size:14px; font-weight:500; color:rgb(107,114,128);">New to MyGPL?</span>
+          <a href="GPL Registration Final.dc.html" style="font-size:14px; font-weight:600; color:rgb(45,46,103);">Create account</a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <span style="opacity:0.8; font-size:14px; font-weight:500; text-align:center; color:rgb(156,163,175);">Having trouble signing in? Get help</span>
+  </div>
+
+  <sc-if value="{{ resetOpen }}">
+    <div onClick="{{ closeReset }}" style="position:fixed; inset:0; z-index:200; background:rgba(12,13,32,0.55); display:flex; align-items:center; justify-content:center; padding:clamp(12px,4vw,32px);">
+      <div onClick="{{ stopPropagation }}" style="background:#ffffff; border-radius:24px; box-shadow:0 12px 30px rgba(19,28,46,0.20); max-width:460px; width:100%; overflow:hidden;">
+        <div style="padding:18px clamp(18px,4vw,26px); border-bottom:1px solid rgba(19,28,46,0.08); display:flex; align-items:center; justify-content:space-between; gap:16px;">
+          <h3 style="font-size:19px; font-weight:700; letter-spacing:-0.01em; color:var(--fg-1);">Reset your password</h3>
+          <span onClick="{{ closeReset }}" role="button" style="cursor:pointer; color:var(--fg-4); display:inline-flex;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span>
+        </div>
+
+        <sc-if value="{{ resetForm }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:clamp(18px,4vw,24px) clamp(18px,4vw,26px); display:flex; flex-direction:column; gap:16px;">
+            <p style="font-size:14.5px; line-height:1.6; color:var(--fg-2);">Enter your National e-ID number or the mobile number on your GPL account. A reset code will be sent so you can set a new password.</p>
+            <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.FieldLabel" label="National e-ID number or mobile number" required="{{ true }}" error="{{ resetError }}" hint-size="100%,66px">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Input" icon="at-sign" placeholder="GY-0000-0000 or +592 000 0000" value="{{ resetValue }}" on-change="{{ onResetValue }}" error="{{ resetError }}" hint-size="100%,44px"></x-import>
+            </x-import>
+            <span onClick="{{ sendReset }}" style="display:block; cursor:pointer;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" size="lg" full-width="{{ true }}" icon-right="arrow-right" hint-size="100%,50px">Send reset code</x-import>
+            </span>
+            <p style="font-size:13px; line-height:1.55; color:var(--fg-4);">Still locked out? Visit any GPL office with a recent bill and photo identification.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ resetSent }}">
+          <div style="padding:clamp(18px,4vw,24px) clamp(18px,4vw,26px); display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; gap:12px; align-items:flex-start;">
+              <span style="flex:none; width:38px; height:38px; border-radius:12px; background:var(--status-success-bg); color:var(--status-success); display:inline-flex; align-items:center; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;"><path d="m5 12 5 5L20 7"></path></svg></span>
+              <div style="min-width:0;">
+                <div style="font-size:16px; font-weight:700; color:var(--fg-1);">Reset code sent</div>
+                <p style="font-size:14px; line-height:1.6; color:var(--fg-2); margin-top:4px;">Check {{ resetTarget }} for a six-digit code. It is valid for 10 minutes and lets you set a new password.</p>
+              </div>
+            </div>
+            <span onClick="{{ closeReset }}" style="display:block; cursor:pointer;">
+              <x-import component-from-global-scope="GuyanaDesignSystem_c46a8c.Button" variant="secondary" full-width="{{ true }}" hint-size="100%,46px">Back to sign in</x-import>
+            </span>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { eid: '', pw: '', pwVisible: false, reset: null, resetValue: '', resetError: '' };
+
+  sendReset() {
+    const v = (this.state.resetValue || '').trim();
+    const isEid = /^GY-?\d{3,4}-?\d{3,4}$/i.test(v);
+    const isPhone = v.replace(/\D/g, '').length >= 7;
+    if (!isEid && !isPhone) {
+      this.setState({ resetError: 'Enter the National e-ID number or mobile number on your account.' });
+      return;
+    }
+    this.setState({ reset: 'sent', resetError: '' });
+  }
+
+  renderVals() {
+    const s = this.state;
+    return {
+      eid: s.eid,
+      onEid: (e) => this.setState({ eid: e.target.value }),
+      pw: s.pw,
+      onPw: (e) => this.setState({ pw: e.target.value }),
+      pwType: s.pwVisible ? 'text' : 'password',
+      togglePw: () => this.setState({ pwVisible: !s.pwVisible }),
+      resetOpen: !!s.reset,
+      resetForm: s.reset === 'form',
+      resetSent: s.reset === 'sent',
+      resetValue: s.resetValue,
+      resetError: s.resetError,
+      resetTarget: (s.resetValue || '').trim(),
+      onResetValue: (e) => this.setState({ resetValue: e.target.value, resetError: '' }),
+      openReset: (e) => { e.preventDefault(); this.setState({ reset: 'form' }); },
+      closeReset: () => this.setState({ reset: null, resetValue: '', resetError: '' }),
+      sendReset: () => this.sendReset(),
+      stopPropagation: (e) => e.stopPropagation()
+    };
+  }
+}
+
+</script>
+</body>
+</html>
